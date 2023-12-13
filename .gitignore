@@ -48,3 +48,7 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+
+# Development Docker
+Dockerfile.dev
+docker-compose.yml
