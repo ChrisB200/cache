@@ -10,13 +10,14 @@ class User(db.Model):
     settings_id = db.Column(db.Integer, db.ForeignKey('settings.settings_id'))
     
     # Define the relationship to the Settings model
-    settings = db.relationship('Settings', back_populates='user')
-    shifts = db.relationship('Shift', back_populates='user')
+    settings = db.relationship('Settings', back_populates='user', cascade='all, delete')
+    shifts = db.relationship('Shift', back_populates='user', cascade='all, delete')
 
 class Settings(db.Model):
     settings_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     date_format = db.Column(db.String(25), nullable=True)
     pay_frequency = db.Column(db.Integer, nullable=True)
+    pay = db.Column(db.Float, nullable=True)
     
     # Define the relationship to the User model
     user = db.relationship('User', back_populates='settings')

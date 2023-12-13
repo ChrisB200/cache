@@ -131,11 +131,13 @@ def register():
 def login(): 
     if "email" not in request.form:
         return jsonify({"error": "No email provided"}), 400
+    else:
+        email = request.form["email"]
+        
     if "password" not in request.form:
         return jsonify({"error": "No password provided"}), 400
-    
-    email = request.form["email"]
-    password = request.form["password"]
+    else:
+        password = request.form["password"]
     
     user = User.query.filter_by(email=email).first()
     
@@ -147,7 +149,20 @@ def login():
             return jsonify({'message': 'Invalid credentials'}), 401
     else:
         return jsonify({'message': 'Invalid credentials'}), 401
-
+    
+@app.route("/api/remove_user", methods=["DELETE"])
+@token_required
+def remove_user():
+    if "password" not in request.form:
+        return jsonify({"error": "No password provided"}), 400
+    else:
+        password = request.form["password"]
+    
+    user = g.user
+    if user:
+        if argon2.verify(password, user.password):
+            db.session.delete(user)
+            db.session.commit()
 
 # @app.route("/api/recent_shifts", methods=["GET"])
 # def recent_shifts():
