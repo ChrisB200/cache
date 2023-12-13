@@ -13,13 +13,6 @@ COPY . .
 # Copy Pipfile and Pipfile.lock
 COPY Pipfile* /app/
 
-# Set environment variables
-ENV SECRET_KEY=1Trlm7D_7oyiFtzm4ZxjWg
-ENV DB_HOST=finance-manager.clmfl65gc5ei.eu-west-2.rds.amazonaws.com
-ENV DB_USERNAME=dev
-ENV DB_PASSWORD=Chr08-16th
-ENV DB_NAME=financeManager
-
 # Install Pipenv
 RUN pip install pipenv
 RUN pip install gunicorn
