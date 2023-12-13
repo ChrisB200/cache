@@ -1,0 +1,186 @@
+import os
+import json
+import jwt
+from datetime import datetime, timedelta
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from scripts.processer import read_payslip
+from scripts.utils import *
+from scripts.operations import *
+from dotenv import load_dotenv
+from passlib.hash import argon2
+from functools import wraps
+from flask import g
+from scripts.models import db, User, Settings, Shift
+
+# Environment Variables
+DB_USERNAME = os.environ.get('DB_USERNAME')
+DB_PASSWORD = os.environ.get('DB_PASSWORD')
+DB_HOST = os.environ.get('DB_HOST')
+DB_NAME = os.environ.get('DB_NAME')
+
+# Create a Flask app
+app = Flask(__name__)
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
+db.init_app(app)
+CORS(app)
+
+#with app.app_context():
+#    db.drop_all()
+#    db.create_all()
+
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.headers.get('Authorization')
+        if not token:
+            return jsonify({'message': 'Token is missing'}), 401
+        try:
+            data = jwt.decode(token.split(" ")[1], app.config['SECRET_KEY'], algorithms=['HS256'])
+            user_id = data['user_id']
+            g.user = db.session.get(User, user_id)
+        except jwt.ExpiredSignatureError:
+            return jsonify({'message': 'Token has expired'}), 401
+        except jwt.InvalidTokenError:
+            return jsonify({'message': 'Invalid token'}), 401
+
+        return f(*args, **kwargs)
+
+    return decorated
+
+@app.route("/", methods=["GET"])
+def test():
+    return {"Hi": "HI"}
+
+@app.route("/api/recent_shifts", methods=["GET"])
+@token_required
+def recent_shifts():
+    if "start_date"not in request.form:
+        return jsonify({"error": "No start date provided"}), 400
+    if "end_date"not in request.form:
+        return jsonify({"error": "No end date provided"}), 400
+
+
+@app.route("/api/upload_payslip", methods=["POST"])
+@token_required
+def upload_payslip():
+    # Error Checking
+    if "image" not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+    
+    if "pay" not in request.form:
+        pay = 10.85
+    else:
+        pay = float(request.form["pay"])
+
+    # Image formatting
+    image = format_image(request.files["image"])
+    
+    # Shift Formatting
+    shift = read_payslip(image, pay)
+    return jsonify(shift), 200
+
+
+@app.route("/api/confirm_shift", methods=["POST"])
+@token_required
+def confirm_shift():
+    # Error Checking
+    if "shift" not in request.form:
+        return jsonify({"error": "No shift provided"}, 400)
+    
+    # Formatting Data
+    shift = json.loads(request.form["shift"])
+    date = datetime.strptime(shift["date"], "%d/%m/%Y").date()
+    start = shift["start"]
+    finish = shift["finish"]
+    rate = shift["rate"]
+    new_shift = Shift(date=date, start=start, finish=finish, rate=rate)
+    
+    user = g.user
+    user.shifts.append(new_shift)
+    db.session.commit()
+    
+    return jsonify({"message": "Successfully updated database"}), 200
+    
+
+@app.route("/api/register", methods=["POST"])
+def register():
+    if "name" not in request.form:
+        return jsonify({"error": "No email provided"}), 400
+    if "email" not in request.form:
+        return jsonify({"error": "No email provided"}), 400
+    if "password" not in request.form:
+        return jsonify({"error": "No password provided"}), 400
+    
+    name = request.form["name"]
+    email = request.form["email"]
+    raw_password = request.form["password"]
+    hashed_password = argon2.using(salt_size=16).hash(raw_password)
+    
+    new_user = User(name=name, password=hashed_password ,email=email)
+    new_settings = Settings()
+    new_user.settings = new_settings
+    
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({"message": "Successfully created a new user"}), 200
+
+@app.route("/api/login", methods=["POST"])
+def login(): 
+    if "email" not in request.form:
+        return jsonify({"error": "No email provided"}), 400
+    if "password" not in request.form:
+        return jsonify({"error": "No password provided"}), 400
+    
+    email = request.form["email"]
+    password = request.form["password"]
+    
+    user = User.query.filter_by(email=email).first()
+    
+    if user:
+        if argon2.verify(password, user.password):
+            token = jwt.encode({"user_id": user.user_id, 'exp': datetime.utcnow() + timedelta(hours=1)}, app.config["SECRET_KEY"], algorithm="HS256")
+            return jsonify({'token': token})
+        else:
+            return jsonify({'message': 'Invalid credentials'}), 401
+    else:
+        return jsonify({'message': 'Invalid credentials'}), 401
+
+
+# @app.route("/api/recent_shifts", methods=["GET"])
+# def recent_shifts():
+#     # Connection
+#     connection, cursor = db_connection(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME)
+
+#     try:
+#         # Constructs query to get all shifts between a period
+#         query = f"""
+#             SELECT *
+#             FROM {TABLE}
+#             WHERE {SHIFTDATE} >= %s AND {SHIFTDATE} <= %s
+#         """
+
+#         # returns shifts between date range
+#         start_date, end_date = return_period_shifts(current=datetime(2023, 9, 1))
+#         cursor.execute(query, (start_date, end_date))
+#         shifts_within_date_range = cursor.fetchall()
+
+#         # Constructs shift dictionary
+#         result = []
+#         for shift_details in shifts_within_date_range:
+#             shift = Shift(
+#                 shift_details[0], shift_details[1], shift_details[2], shift_details[3]
+#             ).json()
+#             result.append(shift)
+
+#         response = {
+#             "shifts": result,
+#             "next_payslip": get_next_pay(start_date, end_date),
+#         }
+#         return jsonify(response)
+
+#     except Exception as e:
+#         print(traceback.format_exc())
+#         connection.rollback()

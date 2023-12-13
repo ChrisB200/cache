@@ -1,0 +1,36 @@
+FROM python:3.9-slim-buster
+
+# Install Tesseract dependencies
+RUN apt-get update && \
+    apt-get -qq -y install tesseract-ocr && \
+    apt-get -qq -y install libtesseract-dev
+
+WORKDIR /app
+
+# Copy backend files
+COPY . .
+
+# Copy Pipfile and Pipfile.lock
+COPY Pipfile* /app/
+
+# Set environment variables
+ENV SECRET_KEY=1Trlm7D_7oyiFtzm4ZxjWg
+ENV DB_HOST=finance-manager.clmfl65gc5ei.eu-west-2.rds.amazonaws.com
+ENV DB_USERNAME=dev
+ENV DB_PASSWORD=Chr08-16th
+ENV DB_NAME=financeManager
+
+# Install Pipenv
+RUN pip install pipenv
+RUN pip install gunicorn
+
+ENV PIPENV_VENV_IN_PROJECT=1
+
+# Install backend dependencies
+RUN pipenv install --system
+
+# Expose only flask port
+EXPOSE 8000
+
+# Start gunicorn
+CMD ["pipenv", "run", "gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app:app"]
