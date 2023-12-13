@@ -9,7 +9,13 @@
       "UnauthRoleName": "amplify-cache-dev-172456-unauthRole",
       "StackName": "amplify-cache-dev-172456",
       "StackId": "arn:aws:cloudformation:eu-west-2:884283268810:stack/amplify-cache-dev-172456/894cf140-99dc-11ee-8f0a-021d0e417f54",
-      "AmplifyAppId": "d3ricqykzbvhho"
+      "AmplifyAppId": "d3ricqykzbvhho",
+      "NetworkStackS3Url": "https://s3.amazonaws.com/amplify-cache-dev-172456-deployment/amplify-cfn-templates/networkingStackTemplate.json"
+    },
+    "categories": {
+      "api": {
+        "cachebackend": {}
+      }
     }
   }
 }
