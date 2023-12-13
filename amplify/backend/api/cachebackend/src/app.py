@@ -30,7 +30,7 @@ CORS(app)
 #    db.drop_all()
 #    db.create_all()
 
-def token_required(f):
+def login_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         token = request.headers.get('Authorization')
@@ -40,6 +40,7 @@ def token_required(f):
             data = jwt.decode(token.split(" ")[1], app.config['SECRET_KEY'], algorithms=['HS256'])
             user_id = data['user_id']
             g.user = db.session.get(User, user_id)
+            g.token = token  # pass the token to the route
         except jwt.ExpiredSignatureError:
             return jsonify({'message': 'Token has expired'}), 401
         except jwt.InvalidTokenError:
@@ -54,7 +55,7 @@ def test():
     return {"Hi": "HI"}
 
 @app.route("/api/recent_shifts", methods=["GET"])
-@token_required
+@login_required
 def recent_shifts():
     if "start_date"not in request.form:
         return jsonify({"error": "No start date provided"}), 400
@@ -63,14 +64,15 @@ def recent_shifts():
 
 
 @app.route("/api/upload_payslip", methods=["POST"])
-@token_required
+@login_required
 def upload_payslip():
+    user = g.user
     # Error Checking
     if "image" not in request.files:
         return jsonify({"error": "No image provided"}), 400
     
     if "pay" not in request.form:
-        pay = 10.85
+        pay = user.settings.pay
     else:
         pay = float(request.form["pay"])
 
@@ -83,7 +85,7 @@ def upload_payslip():
 
 
 @app.route("/api/confirm_shift", methods=["POST"])
-@token_required
+@login_required
 def confirm_shift():
     # Error Checking
     if "shift" not in request.form:
@@ -151,7 +153,7 @@ def login():
         return jsonify({'message': 'Invalid credentials'}), 401
     
 @app.route("/api/remove_user", methods=["DELETE"])
-@token_required
+@login_required
 def remove_user():
     if "password" not in request.form:
         return jsonify({"error": "No password provided"}), 400
