@@ -1,21 +1,15 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-cache-dev-172456-authRole",
-      "UnauthRoleArn": "arn:aws:iam::884283268810:role/amplify-cache-dev-172456-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::884283268810:role/amplify-cache-dev-172456-authRole",
+      "AuthRoleName": "amplify-cache-dev-223119-authRole",
+      "UnauthRoleArn": "arn:aws:iam::083695210768:role/amplify-cache-dev-223119-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::083695210768:role/amplify-cache-dev-223119-authRole",
       "Region": "eu-west-2",
-      "DeploymentBucketName": "amplify-cache-dev-172456-deployment",
-      "UnauthRoleName": "amplify-cache-dev-172456-unauthRole",
-      "StackName": "amplify-cache-dev-172456",
-      "StackId": "arn:aws:cloudformation:eu-west-2:884283268810:stack/amplify-cache-dev-172456/894cf140-99dc-11ee-8f0a-021d0e417f54",
-      "AmplifyAppId": "d3ricqykzbvhho",
-      "NetworkStackS3Url": "https://s3.amazonaws.com/amplify-cache-dev-172456-deployment/amplify-cfn-templates/networkingStackTemplate.json"
-    },
-    "categories": {
-      "api": {
-        "cachebackend": {}
-      }
+      "DeploymentBucketName": "amplify-cache-dev-223119-deployment",
+      "UnauthRoleName": "amplify-cache-dev-223119-unauthRole",
+      "StackName": "amplify-cache-dev-223119",
+      "StackId": "arn:aws:cloudformation:eu-west-2:083695210768:stack/amplify-cache-dev-223119/0111ce10-9d2c-11ee-b1d5-02af3ea03b4e",
+      "AmplifyAppId": "d29e1hvwtreukm"
     }
   }
 }
