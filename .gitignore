@@ -52,3 +52,5 @@ amplifytools.xcconfig
 # Development Docker
 Dockerfile.dev
 docker-compose.yml
+
+.vscode
