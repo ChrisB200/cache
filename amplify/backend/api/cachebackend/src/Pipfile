@@ -15,6 +15,7 @@ python-dotenv = "*"
 pyjwt = "*"
 passlib = "*"
 argon2-cffi = "*"
+plaid-python = "*"
 
 [dev-packages]
 
