@@ -13,6 +13,10 @@ from functools import wraps
 from flask import g
 from scripts.models import db, User, Settings, Shift
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # Environment Variables
 DB_USERNAME = os.environ.get('DB_USERNAME')
 DB_PASSWORD = os.environ.get('DB_PASSWORD')
@@ -20,7 +24,7 @@ DB_HOST = os.environ.get('DB_HOST')
 DB_NAME = os.environ.get('DB_NAME')
 
 # Create a Flask app
-app = Flask(__name__)
+app= Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
 db.init_app(app)
@@ -166,38 +170,5 @@ def remove_user():
             db.session.delete(user)
             db.session.commit()
 
-# @app.route("/api/recent_shifts", methods=["GET"])
-# def recent_shifts():
-#     # Connection
-#     connection, cursor = db_connection(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME)
-
-#     try:
-#         # Constructs query to get all shifts between a period
-#         query = f"""
-#             SELECT *
-#             FROM {TABLE}
-#             WHERE {SHIFTDATE} >= %s AND {SHIFTDATE} <= %s
-#         """
-
-#         # returns shifts between date range
-#         start_date, end_date = return_period_shifts(current=datetime(2023, 9, 1))
-#         cursor.execute(query, (start_date, end_date))
-#         shifts_within_date_range = cursor.fetchall()
-
-#         # Constructs shift dictionary
-#         result = []
-#         for shift_details in shifts_within_date_range:
-#             shift = Shift(
-#                 shift_details[0], shift_details[1], shift_details[2], shift_details[3]
-#             ).json()
-#             result.append(shift)
-
-#         response = {
-#             "shifts": result,
-#             "next_payslip": get_next_pay(start_date, end_date),
-#         }
-#         return jsonify(response)
-
-#     except Exception as e:
-#         print(traceback.format_exc())
-#         connection.rollback()
+if __name__ == "__main__":
+    app.run(debug=True, port=8000)

@@ -1,4 +1,4 @@
-FROM python:3.9-slim-buster
+FROM python:3.12.1-slim-buster
 
 # Install Tesseract dependencies
 RUN apt-get update && \
