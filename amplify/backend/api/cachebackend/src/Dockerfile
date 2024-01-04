@@ -1,4 +1,4 @@
-FROM python:3.12.1-slim-buster
+FROM continuumio/miniconda3:latest
 
 # Install Tesseract dependencies
 RUN apt-get update && \
@@ -10,20 +10,16 @@ WORKDIR /app
 # Copy backend files
 COPY . .
 
-# Copy Pipfile and Pipfile.lock
-COPY Pipfile* /app/
+# Copy environment.yml file
+COPY environment.yml /app/
 
-# Install Pipenv
-RUN pip install pipenv
-RUN pip install gunicorn
+# Create and activate Conda environment
+RUN conda env create -f environment.yml
+RUN echo "conda activate $(head -1 environment.yml | cut -d' ' -f2)" >> ~/.bashrc
 
-ENV PIPENV_VENV_IN_PROJECT=1
-
-# Install backend dependencies
-RUN pipenv install --system
-
-# Expose only flask port
+# Expose only Flask port
 EXPOSE 8000
 
 # Start gunicorn
-CMD ["pipenv", "run", "gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app:app"]
+CMD ["bash", "-c", "source ~/.bashrc && gunicorn -w 4 -b 0.0.0.0:8000 app:app"]
+
