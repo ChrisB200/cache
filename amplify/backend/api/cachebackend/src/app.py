@@ -7,9 +7,9 @@ from flask_cors import CORS
 from scripts.processer import read_payslip
 from scripts.utils import *
 from scripts.operations import *
+from routes import *
 from dotenv import load_dotenv
 from passlib.hash import argon2
-from functools import wraps
 from flask import g
 from scripts.models import db, User, Settings, Shift
 
@@ -27,6 +27,7 @@ DB_NAME = os.environ.get('DB_NAME')
 app= Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
+app.register_blueprint(routes)
 db.init_app(app)
 CORS(app)
 
@@ -34,30 +35,12 @@ CORS(app)
 #    db.drop_all()
 #    db.create_all()
 
-def login_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        token = request.headers.get('Authorization')
-        if not token:
-            return jsonify({'message': 'Token is missing'}), 401
-        try:
-            data = jwt.decode(token.split(" ")[1], app.config['SECRET_KEY'], algorithms=['HS256'])
-            user_id = data['user_id']
-            g.user = db.session.get(User, user_id)
-            g.token = token  # pass the token to the route
-        except jwt.ExpiredSignatureError:
-            return jsonify({'message': 'Token has expired'}), 401
-        except jwt.InvalidTokenError:
-            return jsonify({'message': 'Invalid token'}), 401
-
-        return f(*args, **kwargs)
-
-    return decorated
-
+# Test route to see if the code is working
 @app.route("/", methods=["GET"])
 def test():
     return {"Hi": "HI"}
 
+# Route to return the most recent shifts for a user in the database 
 @app.route("/api/recent_shifts", methods=["GET"])
 @login_required
 def recent_shifts():
@@ -66,7 +49,7 @@ def recent_shifts():
     if "end_date"not in request.form:
         return jsonify({"error": "No end date provided"}), 400
 
-
+# Route to upload a payslip image (NEEDS TO WORK FOR MULTIPLE PAYSLIPS NOT JUST ONE TYPE)
 @app.route("/api/upload_payslip", methods=["POST"])
 @login_required
 def upload_payslip():
@@ -134,7 +117,7 @@ def register():
     return jsonify({"message": "Successfully created a new user"}), 200
 
 @app.route("/api/login", methods=["POST"])
-def login(): 
+def auth(): 
     if "email" not in request.form:
         return jsonify({"error": "No email provided"}), 400
     else:
