@@ -7,9 +7,9 @@ from flask_login import login_user, logout_user, login_required, current_user
 
 from ..models import db, User, Settings
 
-auth = Blueprint('auth', __name__)
+auth_routes = Blueprint('auth', __name__)
 
-@auth.route("/api/auth/register", methods=["POST"])
+@auth_routes.route("/api/auth/register", methods=["POST"])
 def register():
     if "name" not in request.form:
         return jsonify({"error": "No name provided"}), 400
@@ -32,7 +32,7 @@ def register():
 
     return jsonify({"message": "Successfully created a new user"}), 200
 
-@auth.route("/api/auth/login", methods=["POST"])
+@auth_routes.route("/api/auth/login", methods=["POST"])
 def login(): 
     if "email" not in request.form:
         return jsonify({"error": "No email provided"}), 400
@@ -56,7 +56,7 @@ def login():
     else:
         return jsonify({'message': 'Invalid credentials'}), 401
     
-@auth.route("/api/auth/remove", methods=["DELETE"])
+@auth_routes.route("/api/auth/remove", methods=["DELETE"])
 @login_required
 def remove_user():
     if "password" not in request.form:

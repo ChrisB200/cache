@@ -7,17 +7,17 @@ from ..models import db, Shift
 from ..scripts.utils import format_image
 from ..scripts.processer import read_payslip
 
-shift = Blueprint("shift", __name__)
+shift_routes = Blueprint("shift", __name__)
 
 # Route to return the most recent shifts for a user in the database 
-@shift.route("/api/shift/get_shifts", methods=["GET"])
+@shift_routes.route("/api/shift/get_shifts", methods=["GET"])
 @login_required
 def get_shifts():
     start_date = request.args.get("start_date")
     end_date = request.args.get("end_date")
 
 # Route to upload a payslip image (NEEDS TO WORK FOR MULTIPLE PAYSLIPS NOT JUST ONE TYPE)
-@shift.route("/api/shift/image_recognition", methods=["POST"])
+@shift_routes.route("/api/shift/image_recognition", methods=["POST"])
 @login_required
 def image_recognition():
     # Error Checking
@@ -37,7 +37,7 @@ def image_recognition():
     return jsonify(shift), 200
 
 
-@shift.route("/api/shift/confirm", methods=["POST"])
+@shift_routes.route("/api/shift/confirm", methods=["POST"])
 @login_required
 def confirm_shift():
     # Error Checking

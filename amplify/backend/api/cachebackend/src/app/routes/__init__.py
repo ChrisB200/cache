@@ -1,6 +1,5 @@
 from flask import Blueprint
 
-auth = Blueprint('auth', __name__)
-
-from .auth import *
-from .shift import *
+from .auth import auth_routes
+from .shift import shift_routes
+from .plaid_client import plaid_routes
