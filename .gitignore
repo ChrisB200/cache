@@ -57,4 +57,4 @@ docker-compose.yml
 quickstart
 
 # Flask App
-amplify/backend/api/cachebackend/src/scripts/__pycache__
+__pycache__*

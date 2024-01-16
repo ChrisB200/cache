@@ -91,67 +91,6 @@ def confirm_shift():
     db.session.commit()
     
     return jsonify({"message": "Successfully updated database"}), 200
-    
-
-@app.route("/api/register", methods=["POST"])
-def register():
-    if "name" not in request.form:
-        return jsonify({"error": "No email provided"}), 400
-    if "email" not in request.form:
-        return jsonify({"error": "No email provided"}), 400
-    if "password" not in request.form:
-        return jsonify({"error": "No password provided"}), 400
-    
-    name = request.form["name"]
-    email = request.form["email"]
-    raw_password = request.form["password"]
-    hashed_password = argon2.using(salt_size=16).hash(raw_password)
-    
-    new_user = User(name=name, password=hashed_password ,email=email)
-    new_settings = Settings()
-    new_user.settings = new_settings
-    
-    db.session.add(new_user)
-    db.session.commit()
-
-    return jsonify({"message": "Successfully created a new user"}), 200
-
-@app.route("/api/login", methods=["POST"])
-def auth(): 
-    if "email" not in request.form:
-        return jsonify({"error": "No email provided"}), 400
-    else:
-        email = request.form["email"]
-        
-    if "password" not in request.form:
-        return jsonify({"error": "No password provided"}), 400
-    else:
-        password = request.form["password"]
-    
-    user = User.query.filter_by(email=email).first()
-    
-    if user:
-        if argon2.verify(password, user.password):
-            token = jwt.encode({"user_id": user.user_id, 'exp': datetime.utcnow() + timedelta(hours=1)}, app.config["SECRET_KEY"], algorithm="HS256")
-            return jsonify({'token': token})
-        else:
-            return jsonify({'message': 'Invalid credentials'}), 401
-    else:
-        return jsonify({'message': 'Invalid credentials'}), 401
-    
-@app.route("/api/remove_user", methods=["DELETE"])
-@login_required
-def remove_user():
-    if "password" not in request.form:
-        return jsonify({"error": "No password provided"}), 400
-    else:
-        password = request.form["password"]
-    
-    user = g.user
-    if user:
-        if argon2.verify(password, user.password):
-            db.session.delete(user)
-            db.session.commit()
 
 if __name__ == "__main__":
     app.run(debug=True, port=8000)

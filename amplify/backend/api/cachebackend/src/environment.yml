@@ -20,6 +20,7 @@ dependencies:
   - dnspython=2.4.2=py39h06a4308_0
   - flask=3.0.0=pyhd8ed1ab_0
   - flask-cors=4.0.0=pyhd8ed1ab_0
+  - flask-login=0.6.3=pyhd8ed1ab_1
   - flask-sqlalchemy=3.0.3=pyhd8ed1ab_0
   - freetype=2.12.1=h267a509_2
   - greenlet=3.0.3=py39h3d6467e_0

@@ -1,8 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 
 db = SQLAlchemy()
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
@@ -12,6 +13,10 @@ class User(db.Model):
     # Define the relationship to the Settings model
     settings = db.relationship('Settings', back_populates='user', cascade='all, delete')
     shifts = db.relationship('Shift', back_populates='user', cascade='all, delete')
+
+    # Implement the get_id method
+    def get_id(self):
+        return str(self.user_id)
 
 class Settings(db.Model):
     settings_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
