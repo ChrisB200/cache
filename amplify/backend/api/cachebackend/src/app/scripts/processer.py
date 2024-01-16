@@ -3,7 +3,7 @@ import cv2
 import re
 import datetime
 import pytesseract
-from scripts.utils import Shift, DATE_PATTERN
+from .utils import Shift, DATE_PATTERN
 
 
 class PreProcesser:

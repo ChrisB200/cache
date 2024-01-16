@@ -2,8 +2,8 @@
 import os
 from flask import Flask
 from flask_cors import CORS
-from app.routes import auth
-from app.models import db
+from app.routes import auth, shift
+from app.models import db, User
 from flask_login import LoginManager
 
 from dotenv import load_dotenv
@@ -27,6 +27,11 @@ CORS(app)
 
 # Register Blueprints
 app.register_blueprint(auth)
+app.register_blueprint(shift)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 @app.route("/")
 def index():
