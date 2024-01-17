@@ -8,7 +8,7 @@ from plaid.model.country_code import CountryCode
 from plaid.model.item_public_token_exchange_request import ItemPublicTokenExchangeRequest
 
 
-from ..models import db, User, Settings
+from ..models import db, Users
 from ..plaid_config import client, products, PLAID_REDIRECT_URI, PLAID_COUNTRY_CODES
 
 plaid_routes = Blueprint("plaid", __name__)

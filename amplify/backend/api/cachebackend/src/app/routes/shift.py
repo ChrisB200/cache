@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 
-from ..models import db, Shift
+from ..models import db, Shifts
 from ..scripts.utils import format_image
 from ..scripts.processer import read_payslip
 
@@ -50,7 +50,7 @@ def confirm_shift():
     start = shift["start"]
     finish = shift["finish"]
     rate = shift["rate"]
-    new_shift = Shift(date=date, start=start, finish=finish, rate=rate)
+    new_shift = Shifts(date=date, start=start, finish=finish, rate=rate)
     
     current_user.shifts.append(new_shift)
     db.session.commit()

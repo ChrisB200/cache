@@ -5,7 +5,7 @@ from passlib.hash import argon2
 from flask import request, jsonify, Blueprint, current_app
 from flask_login import login_user, logout_user, login_required, current_user
 
-from ..models import db, User, Settings
+from ..models import db, Users
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -23,9 +23,7 @@ def register():
     raw_password = request.form["password"]
     hashed_password = argon2.using(salt_size=16).hash(raw_password)
     
-    new_user = User(name=name, password=hashed_password, email=email)
-    new_settings = Settings()  # Assuming Settings is a model in your models.py
-    new_user.settings = new_settings
+    new_user = Users(name=name, password=hashed_password, email=email)
     
     db.session.add(new_user)
     db.session.commit()
@@ -44,7 +42,7 @@ def login():
     else:
         password = request.form["password"]
     
-    user = User.query.filter_by(email=email).first()
+    user = Users.query.filter_by(email=email).first()
     
     if user:
         if argon2.verify(password, user.password):
