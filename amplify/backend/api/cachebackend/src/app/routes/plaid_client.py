@@ -1,6 +1,7 @@
 import json, time, plaid
 
 from flask import Flask, request, Blueprint, jsonify
+from flask_login import current_user, login_required 
 
 from plaid.model.link_token_create_request import LinkTokenCreateRequest
 from plaid.model.link_token_create_request_user import LinkTokenCreateRequestUser
@@ -18,7 +19,7 @@ def create_link_token():
     try:
         request = LinkTokenCreateRequest(
             products=products,
-            client_name="Plaid Quickstart",
+            client_name="Cache",
             country_codes=[CountryCode(PLAID_COUNTRY_CODES)],
             language='en',
             user=LinkTokenCreateRequestUser(

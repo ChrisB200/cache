@@ -2,7 +2,7 @@
 import os
 from flask import Flask
 from flask_cors import CORS
-from app.routes import *
+from app.routes import routes
 from app.models import db, Users, Payslips, Shifts, Jobs, Accounts
 from flask_login import LoginManager
 from datetime import datetime
@@ -26,11 +26,7 @@ login_manager = LoginManager(app)
 CORS(app)
 
 # Register Blueprints
-app.register_blueprint(auth_routes)
-app.register_blueprint(shift_routes)
-app.register_blueprint(plaid_routes)
-
-
+app.register_blueprint(routes)
 
 @login_manager.user_loader
 def load_user(user_id):
