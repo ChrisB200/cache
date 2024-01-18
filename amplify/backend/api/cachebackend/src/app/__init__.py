@@ -3,7 +3,7 @@ import os
 from flask import Flask
 from flask_cors import CORS
 from app.routes import routes
-from app.models import db, Users, Payslips, Shifts, Jobs, Accounts
+from app.models import db, Users, Payslips, Shifts, Jobs, Accounts, Institutions
 from flask_login import LoginManager
 from datetime import datetime
 from dotenv import load_dotenv
@@ -34,87 +34,31 @@ def load_user(user_id):
 
 @app.route("/")
 def index():
-    # Create test data
-    user1 = Users(name="John Doe", email="john@example.com", password="password123")
-    user2 = Users(name="Jane Doe", email="jane@example.com", password="password456")
+    from datetime import date, time
 
-    account1 = Accounts(
-        plaid_item_id="plaid_item_1",
-        plaid_access_token="access_token_1",
-        iso_currency_code="USD",
-        available_balance=1000.00,
-        current_balance=1500.00,
-        type="Checking",
-        limit=2000.00,
-        user=user1,
-    )
+    # Sample Users
+    user1 = Users(name='John Doe', email='john@example.com', password='password123')
+    user2 = Users(name='Jane Smith', email='jane@example.com', password='securepass')
 
-    account2 = Accounts(
-        plaid_item_id="plaid_item_2",
-        plaid_access_token="access_token_2",
-        iso_currency_code="EUR",
-        available_balance=800.00,
-        current_balance=1000.00,
-        type="Savings",
-        limit=1200.00,
-        user=user2,
-    )
+    # Sample Institutions
+    institution1 = Institutions(user=user1, name='Bank A', plaid_item_id='item_1', plaid_access_token='token_1')
+    institution2 = Institutions(user=user2, name='Bank B', plaid_item_id='item_2', plaid_access_token='token_2')
 
-    job1 = Jobs(
-        role="Developer",
-        entity="XYZ Corp",
-        default_hourly_rate=25.00,
-        pay_frequency=2,
-        last_pay=datetime(2023, 1, 1),
-        last_pay_offset=0,
-        account=account1,
-    )
+    # Sample Accounts
+    account1 = Accounts(institution=institution1, plaid_account_id='acc_1', iso_currency_code='USD', available_balance=1000.00, current_balance=1200.00, type='Checking', limit=None)
+    account2 = Accounts(institution=institution2, plaid_account_id='acc_2', iso_currency_code='EUR', available_balance=800.00, current_balance=800.00, type='Savings', limit=None)
 
-    job2 = Jobs(
-        role="Designer",
-        entity="ABC Inc",
-        default_hourly_rate=30.00,
-        pay_frequency=1,
-        last_pay=datetime(2023, 1, 15),
-        last_pay_offset=1,
-        account=account2,
-    )
+    # Sample Jobs
+    job1 = Jobs(account=account1, role='Software Developer', entity='Company A', default_hourly_rate=30.00, pay_frequency=2, last_pay=date(2023, 1, 1), last_pay_offset=None)
+    job2 = Jobs(account=account2, role='Marketing Manager', entity='Company B', default_hourly_rate=35.00, pay_frequency=1, last_pay=date(2023, 2, 15), last_pay_offset=None)
 
-    payslip1 = Payslips(
-        amount=500.00,
-        start_period=datetime(2023, 1, 1),
-        end_period=datetime(2023, 1, 15),
-        hourly_rate=25.00,
-        tax_code="Single",
-        job=job1,
-    )
+    # Sample Payslips
+    payslip1 = Payslips(job=job1, amount=1200.00, start_period=date(2023, 1, 1), end_period=date(2023, 1, 15), hourly_rate=30.00, tax_code='S1')
+    payslip2 = Payslips(job=job2, amount=1400.00, start_period=date(2023, 2, 1), end_period=date(2023, 2, 15), hourly_rate=35.00, tax_code='S2')
 
-    payslip2 = Payslips(
-        amount=600.00,
-        start_period=datetime(2023, 1, 16),
-        end_period=datetime(2023, 1, 31),
-        hourly_rate=30.00,
-        tax_code="Married",
-        job=job2,
-    )
+    # Sample Shifts
+    shift1 = Shifts(job=job1, payslip=payslip1, date=date(2023, 1, 10), start=time(9, 0), finish=time(17, 0))
+    shift2 = Shifts(job=job2, payslip=payslip2, date=date(2023, 2, 5), start=time(10, 0), finish=time(18, 0))
 
-    shift1 = Shifts(
-        date=datetime(2023, 1, 5),
-        start=datetime.strptime("08:00", "%H:%M").time(),
-        finish=datetime.strptime("16:00", "%H:%M").time(),
-        job=job1,
-        payslip=payslip1,
-    )
-
-    shift2 = Shifts(
-        date=datetime(2023, 1, 20),
-        start=datetime.strptime("10:00", "%H:%M").time(),
-        finish=datetime.strptime("18:00", "%H:%M").time(),
-        job=job2,
-        payslip=payslip2,
-    )
-
-    # Add data to the database
-    db.session.add_all([user1, user2, account1, account2, job1, job2, payslip1, payslip2, shift1, shift2])
-    db.session.commit()
-
+    # Commit the sample data to the database
+    db.session.add_all([user1, user2, institution1, institution2, account1, account2, job1, job2, payslip1])
