@@ -10,12 +10,8 @@ class Users(db.Model, UserMixin):
     email = db.Column(db.String(255))
     password = db.Column(db.String(255))
 
-<<<<<<< HEAD
-    institution = db.relationship("Institutions", back_populates="users", cascade="all, delete")
-
-=======
-    institutions = db.relationship("Institutions", back_populates="user", cascade="all, delete")
->>>>>>> 196be5a (test)
+    institution = db.relationship("Institutions", back_populates="user", cascade="all, delete")
+    
     def get_id(self):
         return str(self.user_id)
 
@@ -27,13 +23,8 @@ class Institutions(db.Model):
     plaid_item_id = db.Column(db.String(255), nullable=False)
     plaid_access_token = db.Column(db.String(255), nullable=False)
 
-<<<<<<< HEAD
-    user = db.relationship("Users", back_populates="institutions", cascade="all, delete")
-    account = db.relationship("Accounts", back_populates="institutions", cascade="all, delete")
-=======
-    users = db.relationship("Users", back_populates="institutions", cascade="all, delete")
-    accounts = db.relationship("Accounts", back_populates="institutions", cascade="all, delete")
->>>>>>> 196be5a (test)
+    user = db.relationship("Users", back_populates="institution", cascade="all, delete")
+    account = db.relationship("Accounts", back_populates="institution", cascade="all, delete")
 
 class Accounts(db.Model):
     __tablename__ = "accounts"
@@ -47,8 +38,8 @@ class Accounts(db.Model):
     type = db.Column(db.String(45), nullable=False)
     limit = db.Column(db.DECIMAL(15, 2, asdecimal=False), nullable=True)
 
-    job = db.relationship("Jobs", back_populates="accounts", cascade="all, delete")
-    institution = db.relationship("Institutions", back_populates="accounts", cascade="all, delete")
+    job = db.relationship("Jobs", back_populates="account", cascade="all, delete")
+    institution = db.relationship("Institutions", back_populates="account", cascade="all, delete")
 
 class Jobs(db.Model):
     __tablename__ = "jobs"
@@ -61,9 +52,9 @@ class Jobs(db.Model):
     last_pay = db.Column(db.Date, nullable=False)
     last_pay_offset = db.Column(db.Integer, nullable=True)
 
-    account = db.relationship("Accounts", back_populates="jobs", cascade="all, delete")
-    payslip = db.relationship("Payslips", back_populates="jobs", cascade="all, delete")
-    shift = db.relationship("Shifts", back_populates="jobs", cascade="all, delete")
+    account = db.relationship("Accounts", back_populates="job", cascade="all, delete")
+    payslip = db.relationship("Payslips", back_populates="job", cascade="all, delete")
+    shift = db.relationship("Shifts", back_populates="job", cascade="all, delete")
 
 class Payslips(db.Model):
     __tablename__ = "payslips"
@@ -75,8 +66,8 @@ class Payslips(db.Model):
     hourly_rate = db.Column(db.DECIMAL(15, 2, asdecimal=False), nullable=False)
     tax_code = db.Column(db.String(45))
 
-    job = db.relationship("Jobs", back_populates="payslips", cascade="all, delete")
-    shift = db.relationship("Shifts", back_populates="payslips", cascade="all, delete")
+    job = db.relationship("Jobs", back_populates="payslip", cascade="all, delete")
+    shift = db.relationship("Shifts", back_populates="payslip", cascade="all, delete")
 
 class Shifts(db.Model):
     __tablename__ = "shifts"
@@ -87,6 +78,6 @@ class Shifts(db.Model):
     start = db.Column(db.Time, nullable=False)
     finish = db.Column(db.Time, nullable=False)
 
-    job = db.relationship("Jobs", back_populates="shifts", cascade="all, delete")
-    payslip = db.relationship("Payslips", back_populates="shifts", cascade="all, delete")
+    job = db.relationship("Jobs", back_populates="shift", cascade="all, delete")
+    payslip = db.relationship("Payslips", back_populates="shift", cascade="all, delete")
 
