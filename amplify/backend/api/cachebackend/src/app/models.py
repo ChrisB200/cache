@@ -10,8 +10,12 @@ class Users(db.Model, UserMixin):
     email = db.Column(db.String(255))
     password = db.Column(db.String(255))
 
+<<<<<<< HEAD
     institution = db.relationship("Institutions", back_populates="users", cascade="all, delete")
 
+=======
+    institutions = db.relationship("Institutions", back_populates="user", cascade="all, delete")
+>>>>>>> 196be5a (test)
     def get_id(self):
         return str(self.user_id)
 
@@ -23,8 +27,13 @@ class Institutions(db.Model):
     plaid_item_id = db.Column(db.String(255), nullable=False)
     plaid_access_token = db.Column(db.String(255), nullable=False)
 
+<<<<<<< HEAD
     user = db.relationship("Users", back_populates="institutions", cascade="all, delete")
     account = db.relationship("Accounts", back_populates="institutions", cascade="all, delete")
+=======
+    users = db.relationship("Users", back_populates="institutions", cascade="all, delete")
+    accounts = db.relationship("Accounts", back_populates="institutions", cascade="all, delete")
+>>>>>>> 196be5a (test)
 
 class Accounts(db.Model):
     __tablename__ = "accounts"
