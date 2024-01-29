@@ -19,9 +19,7 @@ Some tools that you will need are:
 
 ## Installation
 ### GitHub CLI
-Note
-
-make sure you install Git before installing the GitHub CLI tool. You can do this at the url https://git-scm.com/downloads.
+__Note:__ make sure you install Git before installing the GitHub CLI tool. You can do this at the url https://git-scm.com/downloads.
 
 I would use the GitHub CLI tool to be able to pull the repository. go to the url https://cli.github.com ![GitHub web page](images/ghcli-web.png)
 This will allow for you to authenticate your credentials with your local git installation. To download the repository using the github cli run this command.
@@ -30,6 +28,7 @@ Then in powershell run the command:
 ```git
 gh auth login
 ```
+
 This should show allow you to use git with your github login.
 ![GitHub ClI authentication](images/ghcli-authentication.png)
 Now in the directory of your choice run this command:
@@ -40,6 +39,8 @@ git clone https://github.com/ChrisB200/cache.git -b development
 
 ![Cloning Git Repository](images/git-clone.png)
 This will download the repository from github so that you can start to make changes.
+
+
 ### Miniconda
 To install Miniconda you need to go to the url https://docs.conda.io/projects/miniconda/en/latest/index.html ![Miniconda Log in page](images/miniconda-download.png)
 Press the __Miniconda3 Windows 64-bit__ link to download the application.
@@ -55,6 +56,16 @@ cd cache\amplify\backend\api\cachebackend\src
 ![Using CD to find directory](images/cd-into-directory.png)
 
 Now you have to create a virtual environment. This means that you have an isolated python environment with the exact same python version and external libraries as me. This is done by using the environment.yml file in the src folder. The command that you will need to run is this:
+```powershell
+conda env create -f environment.yml
+```
+ensure that you run this command in the src directory.
+
+Now open Visual Studio Code and open the project's location's folder. Then install the Python Extension and open a random python file (it can be any file).
+
+![Selecting Python interpreter](images/python-interpreter.png)
+Then press the python version in the bottom right, in my case it is 3.11.5. Then after this their should be a dropdown at the top of the screen. Press the python version which has __cache__ in brackets. This now means that the python version and python libraries will be only used for this project. Now you can program as usual.
+
 ### Docker
 ### MySQL Workbench
 ### Postman
