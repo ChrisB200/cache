@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# CACHE - Digital Skills Project
+**CACHE** is a simple website that will allow users to track and manage their finances. To manage their finances, they will link their bank account with the application. They can then access their transactions, create savings goals, and calculate their expected pay. The solution will use third party APIs such as Plaid, for bank account linking, and ChatGPT for chatbot functionality. The main goal is to help shopping addiction.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Contents
 
-## Available Scripts
+- [Overview](#overview)
+- [Installation](#installation)
+- [Usage](#usage)
 
-In the project directory, you can run:
+## Overview
+This website will be a full stack application. The frontend will be created using React JS (JavaScript web framework). The backend will use Python 3.9.18 and will use the Flask libary to handle web requests. The third party APIs will be ChatGPT, for chatbot functionality, and Plaid, for banking functionality. These APIs will communicate with the Python app. Both the frontend and backend will be hosted on AWS amplify and the database will be hosted on AWS RDS.
 
-### `npm start`
+Some tools that you will need are:
+- Anaconda to manage Python libraries and environments.
+- Docker to containerise the Python app so that it will run the same on different machines.
+- MySQL Workbench to be able to create a database that will work with the Python App.
+- Postman to test all the Python App endpoints during development.
+- Node so that you can run the frontend locally.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation
+### Anaconda
+### Docker
+### MySQL Workbench
+### Postman
+### Node
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Usage
+### Pulling the Project
+There are 2 branches. There is the main branch which is used by AWS Amplify to update the changes in the cloud. NEVER EDIT THIS BRANCH UNTIL THE APP IS COMPLETE. This is because it will push the changes in the cloud, and if the app is not tested corrcetly it can cause downtime. The development branch is the branch that you should edit and is the branch that will run locally on your machine. To pull this branch you use this command.
 
-### `npm test`
+```git
+git clone https://github.com/ChrisB200/cache.git -b development
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Python
+#### Project Structure
+![Image of the directory structure](images/directory-structure.png)
 
-### `npm run build`
+Here is the structure of the backend. The main.py file is there to run the program. The environment.yml file stores all the external libraries so that it is easy to download. The dockerfile tells docker how to build the application. The buildspec.yml file is something to do with amplify, just don't change it. The .env file stores all the environment variables, this is only for development. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Then there is an app folder. This app folder contains 2 other folders and some additional files. The routes folder categorises endpoints by their function. For instance, the auth.py file will be the code for all endpoints relating to authentication. The scripts folder stores all the external python files that I have created. for instance utils.py stores all functions that are used a lot. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+You might see in each folder there is a __init__.py file. This file turns the whole folder into like a python module. there is one in app which will combine everything and there is one in routes and scripts. This just makes it easier to run it. The models.py file stores all the database tables. The plaid_config.py sets up plaid for external use.
+#### Flask
+#### Plaid
