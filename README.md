@@ -67,6 +67,7 @@ Now open Visual Studio Code and open the project's location's folder. Then insta
 Then press the python version in the bottom right, in my case it is 3.11.5. Then after this their should be a dropdown at the top of the screen. Press the python version which has __cache__ in brackets. This now means that the python version and python libraries will be only used for this project. Now you can program as usual.
 
 ### Docker
+Visit the url https://docs.docker.com/desktop/install/windows-install/ and install docker desktop. ![Docker Desktop Web](images/docker-web.png) And thats all you have to do.
 ### MySQL Workbench
 ### Postman
 ### Node
