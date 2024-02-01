@@ -30,7 +30,7 @@ gh auth login
 ```
 
 This should show allow you to use git with your github login.
-![GitHub ClI authentication](images/ghcli-authentication.png)
+![GitHub CLI authentication](images/ghcli-authentication.png)
 Now in the directory of your choice run this command:
 
 ```git

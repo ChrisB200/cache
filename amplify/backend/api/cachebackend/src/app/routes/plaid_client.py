@@ -15,7 +15,6 @@ from ..plaid_config import client, products, PLAID_REDIRECT_URI, PLAID_COUNTRY_C
 plaid_routes = Blueprint("plaid", __name__)
 
 @plaid_routes.route('/api/plaid/create_link_token', methods=['POST'])
-@login_required
 def create_link_token():
     try:
         request = LinkTokenCreateRequest(
@@ -24,7 +23,7 @@ def create_link_token():
             country_codes=[CountryCode(PLAID_COUNTRY_CODES)],
             language='en',
             user=LinkTokenCreateRequestUser(
-                client_user_id=str(current_user.user_id)
+                client_user_id=str(time.time())
             )
         )
         if PLAID_REDIRECT_URI!=None:
