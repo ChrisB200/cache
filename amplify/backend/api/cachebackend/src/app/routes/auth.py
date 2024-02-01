@@ -11,16 +11,12 @@ auth_routes = Blueprint('auth', __name__)
 
 @auth_routes.route("/api/auth/register", methods=["POST"])
 def register():
-    if "name" not in request.form:
-        return jsonify({"error": "No name provided"}), 400
-    if "email" not in request.form:
-        return jsonify({"error": "No email provided"}), 400
-    if "password" not in request.form:
-        return jsonify({"error": "No password provided"}), 400
     
-    name = request.form["name"]
-    email = request.form["email"]
-    raw_password = request.form["password"]
+    data = request.get_json()
+    print(data)
+    name = data["username"]
+    email = data["email"]
+    raw_password = data["password"]
     hashed_password = argon2.using(salt_size=16).hash(raw_password)
     
     new_user = Users(name=name, password=hashed_password, email=email)
