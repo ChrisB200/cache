@@ -69,8 +69,28 @@ Then press the python version in the bottom right, in my case it is 3.11.5. Then
 ### Docker
 Visit the url https://docs.docker.com/desktop/install/windows-install/ and install docker desktop. ![Docker Desktop Web](images/docker-web.png) And thats all you have to do.
 ### MySQL Workbench
+Visit this url https://dev.mysql.com/downloads/workbench/ and install mysql workbench. ![alt text](images/sql-download.png)
+
+To connect to the database you have to enter the details. So look into the .env file which is in the backend folder. and take a look at the details. ![alt text](images/sql-home.png)
+Press the plus to add a new connection.
+![alt text](images/sql-connecting.png)
+When this screen show up enter the details from the .env file into here. All you need to enter:
+- The DB_HOST into the Hostname.
+- The DB_USERNAME into Username.
+- Change the connection name at the top to anything you want (I used Cache).
+- Then press test connection and it should show a screen to enter the password. You can get this from the .env file.
+
+If you have followed these steps correctly you have successfully connected to the database.
+
+Then once you are in you press in the top right file -> open model then navigate to this directory and in the sqlmodels folder open it. ![alt text](images/sql-model.png)
+Then once it opens you should see this screen. ![alt text](images/sql-modelview.png)
+
+select dbCache and then press EER diagram. This will take you to this screen. ![alt text](images/sql-eer.png)
 ### Postman
+Visit the url https://www.postman.com/downloads/ and install postman. This will allow for you to run code at specific api endpoints.![Postman](images/postman-download.png)
+After you have downloaded this message me and i can invite you to the workspace which will allow for us to collaborate.
 ### Node
+Node lets you run the frontend. This is not needed but it will help when writing the backend. visit this url https://nodejs.org/dist/v20.11.0/node-v20.11.0-x64.msi This will download the correct version.
 
 ## Usage
 ### Pulling the Project
@@ -90,4 +110,55 @@ Then there is an app folder. This app folder contains 2 other folders and some a
 
 You might see in each folder there is a __init__.py file. This file turns the whole folder into like a python module. there is one in app which will combine everything and there is one in routes and scripts. This just makes it easier to run it. The models.py file stores all the database tables. The plaid_config.py sets up plaid for external use.
 #### Flask
+To run the project you need to run it via the main.py file. This should start the development server.
+
+Flask works by using a lot of functions. So if you want to create a new endpoint then you have to create a function. I will show you a live example of this.
+
+In the auth.py file in the routes folder i have created a new endpoint. ![alt text](images/auth-example.png)
+
+The first line creates the route. This means that when you run the app and visit the url http://localhost:8000/api/auth/remove it will run this function. The methods part is specifying the type of request that it is. here it is a delete request because we want to remove the user. The @login_required means that to connect to this route you must be logged in.
+
+Then we check if the request has a password. if it does we store the password. we then use the argon2 library (encryption library) to see if the password given is the same as the current_user's password. if it is then you have to delete the current user from the database, commit these changes so that the database gets updated, logout the user and return a message with a 200 status code (meaning it was successful). That is how you create new routes.
+
+to create your own route you must do (routename).route(endpoint, methods). ![alt text](images/auth_routes.png) 
+
+At the beginning of the file i had created a auth_routes blueprint. This is the same in all files where it has a blueprint at the beginning. This means that you __MUST__ use that at the beginning. so here i have done
+```python
+@auth_routes.route("/api/auth/remove", methods=["DELETE"])
+```
+If this was in the shift file then it would be
+```python
+@shift_routes.route("/api/shift/remove", methods=["DELETE"])
+```
 #### Plaid
+So how plaid works is very weird so bear with me.for more information visit this site https://plaid.com/docs/link/.
+
+So plaid lets you link this app we are building to a customers bank account. This process is called linking. We then store a link token for each banking institution. a banking institution is just a banking company, as an example Barclays is one. This gives us access to all the accounts that a user has with the institution. So if i signed up right now it would tell me to link my bank account. If this is successful then this program will have access to all my accounts that i have with barclays which would be my current account and my savings account. ![alt text](images/mysql-tables.png)
+So here we have all the tables so far.
+
+This is how the relationships work:
+- A user can have many institutions (so they can be banking with both barclays and santander).
+- An institution can have many accounts (this is like if you had a barclays savings account and a barclays current account).
+- an account can have many jobs (So if you get paid you have to link what job has entered the money).
+- A job can have many shifts (These are like work shifts).
+- A job can have many payslips (This is a compilation of all your shifts. so if you got paid monthly it would show all your shifts for the month).
+- A job can have many shifts.
+
+We now need more tables for our savings pockets features, transactions tracking, budgeting etc.
+![alt text](images/plaid-flow.png)
+
+This is a visual diagram on how our app will work with plaid. after you have linked your institutions and accounts, these are known as items, you can then start automatically getting data from these accounts.
+
+### Tasks
+
+#### Task 1
+I want you to get all the shifts between 2 dates. So i would start in the shift.py file and where it says this:
+```python
+# Route to return the most recent shifts for a user in the database 
+@shift_routes.route("/api/shift/get_shifts", methods=["GET"])
+@login_required
+def get_shifts():
+    start_date = request.args.get("start_date")
+    end_date = request.args.get("end_date")
+```
+I want you to finish it off. So what you would do is get all the shifts related to the user that is between a given start date and end date. If you get stuck ask chatgpt and dont forget you can ask me at any time. I have given you so much to understand in such a short time frame so let me know what you are confused about even if you think its a stupid question.
