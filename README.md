@@ -89,6 +89,28 @@ select dbCache and then press EER diagram. This will take you to this screen. ![
 ### Postman
 Visit the url https://www.postman.com/downloads/ and install postman. This will allow for you to run code at specific api endpoints.![Postman](images/postman-download.png)
 After you have downloaded this message me and i can invite you to the workspace which will allow for us to collaborate.
+
+When you have joined the email it should show this screen ![alt text](images/postman-overview.png).
+
+On the left is all tge testing points. So for every function you have written you add it into postman (if it is not already added) and then you can test it.
+
+Here is an example.
+![alt text](images/postman-get-shifts.png)
+This is how i tested the get shifts function. in the params section i added the start_date and end_date and gave it dates. This basically acts as if we were on the completed website. parans are everything after the ?
+
+However there is an issue. you need to be logged into the application to run this path. To log into cache via postman you have to get a token. There is currently a test account in the login User area. 
+![alt text](images/postman-login-user.png)
+So to log in just enter these details into the BODY section (it should already be there). once you have done that at the bottom there should be a token that has showed up. Copy this.
+![alt text](images/postman-logging-in.png)
+Now for any endpoints that need a login you have to go to the authorization tab. select type to Bearer Token. And then paste the token in. Now you are using the test account to run features.
+
+
+When creating new endpoints you have to choose the type of request. These types are GET, DELETE, POST, etc.
+![alt text](images/endpoint-methods.png)
+
+There are also error codes that will be shown. You may have heard 401 error and stuff like that.
+![alt text](images/statuscode.png)
+
 ### Node
 Node lets you run the frontend. This is not needed but it will help when writing the backend. visit this url https://nodejs.org/dist/v20.11.0/node-v20.11.0-x64.msi This will download the correct version.
 
@@ -151,7 +173,7 @@ This is a visual diagram on how our app will work with plaid. after you have lin
 
 ### Tasks
 
-#### Task 1
+#### Task 1 (COMPLETE)
 I want you to get all the shifts between 2 dates. So i would start in the shift.py file and where it says this:
 ```python
 # Route to return the most recent shifts for a user in the database 
