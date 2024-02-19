@@ -42,13 +42,16 @@ def index():
     user1 = Users(name="Christopher", email="cbonner.dev@outlook.com", password=argon2.using(salt_size=16).hash("test"))
     institution1 = Institutions(user=user1, name="Barclays", plaid_item_id="test_item_id", plaid_access_token="test_access_token")
     account1 = Accounts(institution=institution1, plaid_account_id="test_account_id", iso_currency_code="GBR", available_balance=500, current_balance=900, type="banking", limit=200)
+    account2 = Accounts(institution=institution1, plaid_account_id="test_account_id2", iso_currency_code="GBR", available_balance=500, current_balance=900, type="saving", limit=200)
+    institution2 = Institutions(user=user1, name="Santander", plaid_item_id="test_item_id", plaid_access_token="test_access_token")
+    account3 = Accounts(institution=institution2, plaid_account_id="test_account_id3", iso_currency_code="GBR", available_balance=500, current_balance=900, type="banking", limit=200)
     job1 = Jobs(account=account1, role="Software", entity="Five Guys", default_hourly_rate=500, pay_frequency=2, last_pay=datetime(2020, 8, 9).date(), last_pay_offset=2)
     shift1 = Shifts(job=job1, date=datetime(2023, 8, 18).date(), start=time.time(), finish=time.time())
     shift2 = Shifts(job=job1, date=datetime(2023, 8, 17).date(), start=time.time(), finish=time.time())
     shift3 = Shifts(job=job1, date=datetime(2023, 8, 19).date(), start=time.time(), finish=time.time())
 
     # Commit all data in one go
-    db.session.add_all([user1, institution1, account1, job1, shift1, shift2, shift3])
+    db.session.add_all([user1, institution1, institution2, account1, account2, account3, job1, shift1, shift2, shift3])
     db.session.commit()
 
     # Close the session when done

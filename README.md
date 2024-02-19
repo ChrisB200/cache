@@ -184,3 +184,13 @@ def get_shifts():
     end_date = request.args.get("end_date")
 ```
 I want you to finish it off. So what you would do is get all the shifts related to the user that is between a given start date and end date. If you get stuck ask chatgpt and dont forget you can ask me at any time. I have given you so much to understand in such a short time frame so let me know what you are confused about even if you think its a stupid question.
+
+
+#### Task 2
+I want you to get all the bank accounts that a user has available to them. I would start in the accounts.py file where it says this:
+```python
+@account_routes.route("/api/accounts/get_accounts", methods=["GET"])
+def get_accounts():
+    pass
+```
+Get all the accounts that a user has selected and return them as JSON data. Just like the get_shifts you will need to use the return_json function. However this is not written for accounts so you will need to go into the models.py file and add a return_json function to the accounts class. __ASSUME THAT THE USER IS ALREADY LOGGED. TO GET THE CURRENT USER USE THE current_user VARIABLE.__
