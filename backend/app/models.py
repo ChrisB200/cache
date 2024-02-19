@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -81,3 +82,12 @@ class Shifts(db.Model):
     job = db.relationship("Jobs", back_populates="shift", cascade="all, delete")
     payslip = db.relationship("Payslips", back_populates="shift", cascade="all, delete")
 
+    def return_json(self):
+        return {
+            "shift_id": self.shift_id,
+            "job_id": self.job_id,
+            "payslip_id": self.payslip_id,
+            "date": self.date.strftime('%Y-%m-%d'),
+            "start": self.start.strftime('%H:%M:%S'),  
+            "finish": self.finish.strftime('%H:%M:%S') 
+        }

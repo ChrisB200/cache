@@ -48,8 +48,6 @@ def exchange_public_token():
 
     # associated with the currently signed-in user
 
-    variable = "gew
-
     access_token = response["access_token"]
     item_id = response["item_id"]
 
