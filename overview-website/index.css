@@ -1,9 +1,20 @@
-html {
+:root {
+  --primary: #FCF9F1;
+  --primary2: #FFEEC9;
+  --secondary: #9B2948;
+  --accent: #FF7251;
+  --font-size-400: 18px;
+  --font-size-800: 36px;
+}
+
+* {
   font-family: "Nunito", sans-serif;
 }
+
 body {
   margin-left: 10vw;
   margin-right: 10vw;
+  background-color: var(--primary);
 }
 
 ul {
@@ -21,15 +32,92 @@ nav {
 nav ul {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   gap: 5rem;
 }
 
 .nav-logo {
   text-align: center;
-  background: red;
+  background: var(--secondary);
   width: 100px;
   height: 50px;
   line-height: 50px;
+}
+
+.nav-items a {
+  color: var(--secondary);
+  font-size: var(--font-size-400);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.nav-items a:hover {
+  text-decoration: underline;
+}
+
+.nav-button button {
+  padding: 0.4rem 1rem 0.4rem 1rem;
+  font-size: var(--font-size-400);
+  font-weight: bold;
+  color: var(--primary);
+  border-width: 2px;
+  border-color: var(--secondary);
+  background-color: var(--secondary);
+  border-radius: 10px;
+  border-style: solid;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.nav-button button:hover {
+  background-color: var(--primary);
+  color: var(--secondary);
+  cursor: pointer;
+}
+
+section {
+  margin-top: 10rem;
+}
+
+.overview-section-content {
+  display: flex;
+  justify-content: center;
+}
+
+.overview-left h1 {
+  font-size: var(--font-size-800);
+}
+
+.overview-right {
+  position: relative;
+  width: 40vw;
+  height: 300px;
+}
+
+.overview-block {
+  width: 300px;
+  height: 300px;
+}
+
+.red {
+  position: absolute;
+  background: var(--secondary);
+  z-index: 2;
+  left: -180px;
+  top: 30px;
+}
+
+.orange {
+  position: absolute;
+  background: var(--accent);
+  z-index: 3;
+}
+
+.lightorange {
+  position: absolute;
+  background: var(--primary2);
+  left: -100px;
+  top: -40px;
+  z-index: 1;
 }
 
 
