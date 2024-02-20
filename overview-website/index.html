@@ -1,58 +1,62 @@
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cache - Organise your banking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
 </head>
-
 <body>
-  <button id="link-button">Link Account</button>
+  <nav>
+    <div class="nav-logo">
+      <a href="#">
+        <img src="#" alt="Logo">
+      </a>
+    </div>
+    <ul>
+      <li class="nav-items">
+        <a href="#">About</a>
+      </li>
+      <li class="nav-items">
+        <a href="#">Features</a>
+      </li>
+      <li class="nav-items">
+        <a href="#">Log In</a>
+      </li>
+      <li class="nav-items nav-button">
+        <button>Sign Up - Its Free!!!</button>
+      </li>
+    </ul>
+  </nav>
+  <main>
+    <section class="overview-section">
+      <div class="overview-section-content">
+        <div class="overview-left">
+          <h1><span>Cache</span> organises your banking and saving together</h1>
+          <h2>Sign up to <span>Cache</span> today to stop impulsive spending and plan better, for the future.</h2>
+          <input type="text" placeholder="Email">
+          <button>Sign Up</button>
+        </div>
+        <div class="overview-right">
+          <div class="overview-block red"></div>
+          <div class="overview-block orange"></div>
+          <div class="overview-block lightorange"></div>
+        </div>
+      </div>
+    </section>
+    <section class="mission-section">
+      <h1>Our Mission</h1>
+      <h2>Build your <span>wealth</span>, your <span>independence</span>, and <span>good habits</span> so you can <span class="mission-bold">"Cache Up"</span></h2>
+    </section>
+    <section class="features-section">
+      <h1>Cache 101</h1>
+      <div class="features-carousel"></div>
+    </section>
+    <section class="security-section">
+    </section>
+  </main>
 </body>
-
-
-
-<script type="text/javascript">
-  (async function ($) {
-    var handler = Plaid.create({
-      // Create a new link_token to initialize Link
-      token: (await $.post('http://localhost:8000/api/plaid/create_link_token')).link_token,
-      onLoad: function () {
-        // Optional, called when Link loads
-      },
-      onSuccess: function (public_token, metadata) {
-        // Send the public_token to your app server.
-        // The metadata object contains info about the institution the
-        // user selected and the account ID or IDs, if the
-        // Account Select view is enabled.
-        $.post('http://localhost:8000/api/plaid/exchange_public_token', {
-          public_token: public_token,
-        });
-      },
-      onExit: function (err, metadata) {
-        // The user exited the Link flow.
-        if (err != null) {
-          // The user encountered a Plaid API error prior to exiting.
-        }
-        // metadata contains information about the institution
-        // that the user selected and the most recent API request IDs.
-        // Storing this information can be helpful for support.
-      },
-      onEvent: function (eventName, metadata) {
-        // Optionally capture Link flow events, streamed through
-        // this callback as your users connect an Item to Plaid.
-        // For example:
-        // eventName = "TRANSITION_VIEW"
-        // metadata  = {
-        //   link_session_id: "123-abc",
-        //   mfa_type:        "questions",
-        //   timestamp:       "2017-09-14T14:42:19.350Z",
-        //   view_name:       "MFA",
-        // }
-      }
-    });
-
-    $('#link-button').on('click', function (e) {
-      handler.open();
-    });
-  })(jQuery);
-</script>
+</html>
