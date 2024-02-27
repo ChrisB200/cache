@@ -1,60 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cache - Organise your banking</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cache - Organise your banking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
   <nav>
-    <div class="nav-logo">
-      <a href="#">
-        <img src="#" alt="Logo">
-      </a>
-    </div>
     <ul>
-      <li class="nav-items">
-        <a href="#">About</a>
+      <li class="nav-logo">
+        <a href="index.html">
+          <img src="static/logo.png" alt="Logo">
+        </a>
       </li>
       <li class="nav-items">
-        <a href="#">Features</a>
+        <a href="#our-mission">About</a>
+      </li>
+      <li class="nav-items">
+        <a href="#why-cache">Features</a>
       </li>
       <li class="nav-items">
         <a href="#">Log In</a>
       </li>
-      <li class="nav-items nav-button">
-        <button>Sign Up - Its Free!!!</button>
+      <li>
+        <a href="#">
+          <button>Sign Up</button>
+        </a>
       </li>
     </ul>
   </nav>
   <main>
-    <section class="overview-section">
-      <div class="overview-section-content">
-        <div class="overview-left">
-          <h1><span>Cache</span> organises your banking and saving together</h1>
-          <h2>Sign up to <span>Cache</span> today to stop impulsive spending and to plan better, for the future.</h2>
-          <input type="text" placeholder="Email">
-          <button>Sign Up</button>
+    <section id="overview">
+      <div class="overview-first-half">
+        <h1>
+          Organise Your <span class="overview-spending">Spendings</span> & <span class="overview-savings">Savings</span>
+          Using Cache
+        </h1>
+        <h3>
+          Sign up to Cache today to put an end to impulsive spending and to plan better, for the future.
+        </h3>
+        <div class="overview-buttons">
+          <a href="#how-work">
+            <button class="btn-overview-how">How does it work?</button>
+          </a>
+          <button class="btn-overview-started">Get Started</button>
         </div>
-        <div class="overview-right">
-          <img src="static/overview-placeholder.png" alt="Overview Image">
+      </div>
+      <div class="overview-second-half">
+        <div>
+          <img src="static/blocky-thing.svg" alt="Blocky diagram art">
         </div>
       </div>
     </section>
-    <section class="mission-section">
+    <section id="our-mission">
       <h1>Our Mission</h1>
-      <h2>Build your <span>wealth</span>, your <span>independence</span>, and <span>good habits</span> so you can <span class="mission-bold">"Cache Up"</span></h2>
+      <h3>
+        Build your <span class="mission-highlight">wealth</span>, your <span
+          class="mission-highlight">independence</span>, and <span class="mission-highlight">good
+          habits</span> so you can
+        <span class="mission-highlight-accent">"Cache Up"</span>
+      </h3>
     </section>
-    <section class="features-section">
-      <h1>Cache 101</h1>
-      <div class="features-carousel"></div>
+    <section id="why-cache">
+      <h1>Why Cache?</h1>
+      <div class="why-cache-blocks">
+        <div class="why-cache-block">
+          <div class="why-cache-icon">
+            <img src="static/time-icon.svg" alt="Time Icon">
+          </div>
+          <h2>Saves time</h2>
+          <p>No more pen and paper. No more multiple apps. No more maths. Manage your banking right away!</p>
+        </div>
+        <div class="why-cache-block">
+          <div class="why-cache-icon">
+            <img src="static/build-new-habits.svg" alt="Block Icon">
+          </div>
+          <h2>Build new habits</h2>
+          <p>Habits make the the banking process easier. Cache teaches you discipline with your money.</p>
+        </div>
+        <div class="why-cache-block">
+          <div class="why-cache-icon">
+            <img src="static/control-icon.svg" alt="Steering Wheel Icon">
+          </div>
+          <h2>More control</h2>
+          <p>Cache shows you when you can and can’t spend. This allows you to see the consequences of your actions.
+          </p>
+        </div>
+      </div>
     </section>
-    <section class="security-section">
+    <section id="how-work">
+      <div class="first-half">
+        <h1>How Does it Work?</h1>
+        <p>Connect your accounts and start saving within 6 steps</p>
+      </div>
+      <div class="second-half">
+        <div class="how-step">
+          <h3>1</h3>
+          <p>Link all your bank accounts through your mobile banking app.</p>
+        </div>
+        <div class="how-step">
+          <h3>2</h3>
+          <p>Then add savings goals “pockets” and allocate a percentage of your income.</p>
+        </div>
+        <div class="how-step">
+          <h3>3</h3>
+          <p>Allocate a percentage of your income into budgets based on spending categories.</p>
+        </div>
+        <div class="how-step">
+          <h3>4</h3>
+          <p>Add your periodical expenses into the dashboard.</p>
+        </div>
+        <div class="how-step">
+          <h3>5</h3>
+          <p>Add your job and expected hours, now enter your work shifts.</p>
+        </div>
+        <div class="how-step">
+          <h3>6</h3>
+          <p>Now you have a dashboard that estimates how much you should make.</p>
+        </div>
+      </div>
+    </section>
+    <section id="social-media">
+      <h1>Your <span>Journey</span> Shouldn't End Here</h1>
+      <p>Follow us on social media to stay tuned for regular updates.</p>
+      <button>Stay Tuned</button>
     </section>
   </main>
+  <footer id="footer">
+    <div class="footer-left">
+      <a class="logo-anchor" href="index.html">
+        <img src="static/logo.png" alt="Logo">
+      </a>
+      <p>Organise your spending</p>
+      <p>Made for the Digital Skills Project 2024 by the Cache team.</p>
+      <p>Copyright © 2023 All Rights Reserved</p>
+    </div>
+    <div class="footer-right">
+      <div>
+        <p class="category-title">EXPLORE</p>
+        <a class="category-label" href="#our-mission">About</a>
+        <a class="category-label" href="#how-work">Features</a>
+        <a class="category-label" href="#">Get Started</a>
+        <a class="category-label" href="#">Log In</a>
+      </div>
+      <div>
+        <p class="category-title">LETS CONNECT</p>
+        <a class="category-label" href="#">YouTube</a>
+        <a class="category-label" href="#">TikTok</a>
+        <a class="category-label" href="#">Instagram</a>
+        <a class="category-label" href="#">GitHub</a>
+      </div>
+    </div>
+  </footer>
 </body>
+
 </html>

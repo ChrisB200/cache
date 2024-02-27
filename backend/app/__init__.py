@@ -3,7 +3,7 @@ import os, time
 from flask import Flask
 from flask_cors import CORS
 from app.routes import routes
-from app.models import db, Users, Payslips, Shifts, Jobs, Accounts, Institutions
+from app.models import db, Users, Payslips, Shifts, Jobs, Accounts, Institutions, Pockets, Budgets
 from flask_login import LoginManager
 from datetime import datetime
 from passlib.hash import argon2
@@ -49,9 +49,11 @@ def index():
     shift1 = Shifts(job=job1, date=datetime(2023, 8, 18).date(), start=time.time(), finish=time.time())
     shift2 = Shifts(job=job1, date=datetime(2023, 8, 17).date(), start=time.time(), finish=time.time())
     shift3 = Shifts(job=job1, date=datetime(2023, 8, 19).date(), start=time.time(), finish=time.time())
+    pocket = Pockets(user=user1, goal="Tenerife Holiday", balance=200.10, desired_balance=220.10, percent_allocated=0.4, status="Not completed")
+    budget = Budgets(user=user1, name="Shopping", percent_allocated=0.4)
 
     # Commit all data in one go
-    db.session.add_all([user1, institution1, institution2, account1, account2, account3, job1, shift1, shift2, shift3])
+    db.session.add_all([user1, institution1, institution2, account1, account2, account3, job1, shift1, shift2, shift3, pocket, budget])
     db.session.commit()
 
     # Close the session when done
