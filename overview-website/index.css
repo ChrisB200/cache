@@ -129,7 +129,7 @@ nav button:hover {
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10rem;
+  gap: 6vw;
 }
 
 .overview-spending {
@@ -263,14 +263,26 @@ nav button:hover {
   border-radius: 20px;
   padding: 2rem;
   flex-wrap: wrap;
+  gap: 5vw;
+}
+
+.first-half {
+  flex: 1;
+  min-width: 200px;
 }
 
 .second-half {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  /* Adjusted column definition */
   grid-template-rows: 1fr 1fr 1fr;
-  column-gap: 5vw;
+  gap: 5vw;
+  /* Adjusted gap */
+  grid-auto-flow: dense;
+  /* Allow items to wrap */
+  flex: 2;
 }
+
 
 .how-step {
   display: flex;
@@ -351,12 +363,64 @@ footer {
   color: var(--accent-400);
 }
 
-@media (max-width: 576px) {}
+.logo-anchor {
+  max-width: 250px;
+  height: auto;
+}
 
-@media (min-width: 576px) and (max-width: 768px) {}
+.logo-anchor img {
+  width: 100%;
 
-@media (min-width: 768px) and (max-width: 992px) {}
+}
 
-@media (min-width: 992px) and (max-width: 1200px) {}
+@media (max-width: 576px) {
+  .footer-right {
+    justify-content: center;
+  }
 
-@media (min-width: 1200px) {}
+  :root {
+    /* Text Sizes */
+    --font-350: 0.3rem;
+    /* 16 */
+    --font-400: 0.825rem;
+    /* 18 */
+    --font-500: 1.25rem;
+    /* 24 */
+    --font-700: 2rem;
+    /* 36 */
+    --font-800: 2.75rem;
+    /* 48 */
+  }
+}
+
+@media (max-width: 768px) {}
+
+@media (max-width: 992px) {
+  .footer-left {
+    margin-top: 5rem;
+    justify-content: center;
+    order: 2;
+  }
+
+  footer {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .overview-second-half div {
+    display: none;
+  }
+
+  #overview {
+    justify-content: center;
+  }
+}
+
+
+@media (max-width: 1200px) {
+  .overview-second-half div {
+    min-width: 100px;
+    max-width: 300px;
+  }
+}
