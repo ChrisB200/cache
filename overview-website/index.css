@@ -54,7 +54,7 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
+.container {
   margin-left: 11vw;
   margin-right: 11vw;
 }
@@ -79,6 +79,25 @@ nav {
   margin-bottom: 10rem;
 }
 
+/* Initially hide mobile menu */
+.mobile-menu {
+  display: none;
+}
+
+/* Style for the mobile menu button */
+.mobile-menu-btn {
+  display: none;
+}
+
+.mobile-layout {
+  display: none;
+  margin: 1rem;
+}
+
+.mobile-menu-btn img {
+  transform: scale(1.2);
+}
+
 nav ul {
   display: flex;
   justify-content: space-around;
@@ -94,7 +113,7 @@ nav ul {
   width: 100%;
 }
 
-nav button {
+.nav-items button {
   background-color: var(--accent-400);
   color: var(--text-light);
   font-weight: bold;
@@ -162,7 +181,7 @@ nav button:hover {
   border: none;
   border-radius: 5px;
   font-size: var(--font-400);
-  min-width: 200px;
+  min-width: 50%;
   transition: transform 0.2s;
 }
 
@@ -177,7 +196,7 @@ nav button:hover {
   border: none;
   border-radius: 5px;
   font-size: var(--font-400);
-  min-width: 200px;
+  min-width: 40%;
   transition: transform 0.2s;
 }
 
@@ -231,6 +250,7 @@ nav button:hover {
 .why-cache-blocks {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   flex-wrap: wrap;
   gap: 2rem;
   margin-top: 7rem;
@@ -342,6 +362,12 @@ footer {
   gap: 2rem;
 }
 
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .footer-right div {
   display: flex;
   flex-direction: column;
@@ -365,7 +391,7 @@ footer {
 }
 
 .logo-anchor {
-  max-width: 250px;
+  max-width: 200px;
   height: auto;
 }
 
@@ -383,13 +409,13 @@ footer {
     /* Text Sizes */
     --font-350: 0.3rem;
     /* 16 */
-    --font-400: 0.825rem;
+    --font-400: 1rem;
     /* 18 */
     --font-500: 1.25rem;
     /* 24 */
     --font-700: 2rem;
     /* 36 */
-    --font-800: 2.75rem;
+    --font-800: 2.5rem;
     /* 48 */
   }
 }
@@ -397,6 +423,47 @@ footer {
 @media (max-width: 768px) {}
 
 @media (max-width: 992px) {
+  .nav-list {
+    display: none;
+    /* Hide the original nav list */
+  }
+
+  .mobile-menu-btn {
+    display: block;
+    background-color: transparent;
+    border: none;
+  }
+
+  /* Show the mobile menu */
+  .mobile-menu.active {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 4rem;
+    /* Adjust as needed */
+    right: 1rem;
+    /* Adjust as needed */
+    background-color: var(--accent-200);
+    padding: 1rem;
+    border-radius: 5px;
+    z-index: 1000;
+    margin-right: 8vw;
+    text-align: center;
+
+
+    /* Ensure it's above other content */
+  }
+
+  .mobile-menu li {
+    padding: 20px;
+  }
+
+  .mobile-layout {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
   .footer-left {
     margin-top: 5rem;
     justify-content: center;
@@ -419,6 +486,21 @@ footer {
 
   #overview {
     justify-content: center;
+    text-align: center;
+    gap: 0;
+  }
+
+  nav {
+    margin-bottom: 5rem;
+  }
+
+  .overview-buttons {
+    justify-content: center;
+  }
+
+  .logo-anchor {
+    max-width: 150px;
+    height: auto;
   }
 }
 
