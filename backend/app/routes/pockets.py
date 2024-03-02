@@ -4,7 +4,7 @@ from ..models import db, Shifts
 
 pocket_routes = Blueprint("pockets", __name__)
 
-@account_routes.route("/api/pockets/get_pockets", methods=["GET"])
+@pocket_routes.route("/api/pockets/get_pockets", methods=["GET"])
 @login_required
 def get_accounts():
     pass

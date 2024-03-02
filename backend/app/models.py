@@ -99,9 +99,9 @@ class Pockets(db.Model):
     pocket_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), index=True)
     goal = db.Column(db.String(80), nullable=False)
-    balance = db.Column(db.DECIMAL(15, 2, asdecimal=False), nullable=False)
-    desired_balance = db.Column(db.DECIMAL(15, 2, asdecimal=False))
-    percent_allocated = db.Column(db.DECIMAL(1, 2), asdecimal=False)
+    balance = db.Column(db.DECIMAL(15, 2), nullable=False)
+    desired_balance = db.Column(db.DECIMAL(15, 2))
+    percent_allocated = db.Column(db.DECIMAL(1, 2))
     status = db.Column(db.String(45))
 
     user = db.relationship("Users", back_populates="pocket", cascade="all, delete")
@@ -111,6 +111,6 @@ class Budgets(db.Model):
     budget_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), index=True)
     name = db.Column(db.String(45), nullable=False)
-    percent_allocated = db.Column(db.DECIMAL(1, 2), asdecimal=False)
+    percent_allocated = db.Column(db.DECIMAL(1, 2))
 
     user = db.relationship("Users", back_populates="budget", cascade="all, delete")
