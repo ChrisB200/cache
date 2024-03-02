@@ -12,9 +12,8 @@ auth_routes = Blueprint("auth", __name__)
 
 @auth_routes.route("/api/auth/register", methods=["POST"])
 def register():
-
     data = request.get_json()
-    print(data)
+
     name = data["username"]
     email = data["email"]
     raw_password = data["password"]
@@ -30,15 +29,9 @@ def register():
 
 @auth_routes.route("/api/auth/login", methods=["POST"])
 def login():
-    if "email" not in request.form:
-        return jsonify({"error": "No email provided"}), 400
-    else:
-        email = request.form["email"]
-
-    if "password" not in request.form:
-        return jsonify({"error": "No password provided"}), 400
-    else:
-        password = request.form["password"]
+    data = request.get_json()
+    email = data["email"]
+    password = data["password"]
 
     user = Users.query.filter_by(email=email).first()
 

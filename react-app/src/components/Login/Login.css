@@ -1,0 +1,52 @@
+.login-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--text-dark);
+}
+
+.login-form input {
+  /* Adjust padding here */
+  padding: 0.6rem 1rem;
+  /* Example: Horizontal padding of 1rem */
+  margin-bottom: 2rem;
+  font-size: var(--font-400);
+  color: var(--text-dark);
+  background-color: var(--background-400);
+  border: 2px solid var(--accent-400);
+  border-radius: 10px;
+  text-align: left;
+  width: calc(100% - 2rem);
+  /* Adjusted width */
+}
+
+.login-form input::placeholder {
+  color: var(--text-grey-2);
+}
+
+form button {
+  width: 100%;
+  height: 22%;
+  font-weight: bold;
+  font-size: var(--font-400);
+  color: var(--text-light);
+  border: 2px solid var(--accent-400);
+  background-color: var(--accent-400);
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  transition: all 0.2s;
+}
+
+form button:hover {
+  background-color: var(--background-400);
+  color: var(--accent-400);
+  cursor: pointer;
+}
+
+a {
+  font-size: var(--font-400);
+}
