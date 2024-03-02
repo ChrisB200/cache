@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import '../Register.css'
+import '../index.css'
+import logo from '../assets/logo.png'
 
 export function Register() {
   const [values, setValues] = useState({ username: "", email: "", password: "" });
@@ -32,44 +35,53 @@ export function Register() {
   }
   return (
     <>
+      <img alt='Logo Position' src={logo} />
+      <div className='content'>
 
-      <img alt='Logo Position' src="#" />
-      <h1>Create an account</h1>
-      <form onSubmit={handleSubmit} className="sign-up-form">
-        <div className="form-row">
-          <label htmlFor="name">name</label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            value={values.username}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-row">
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            value={values.email}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-row">
-          <label htmlFor="password">Password</label>
-          <input
-            type="text"
-            name="password"
-            id="password"
-            value={values.password}
-            onChange={handleChange}
-          />
-        </div>
-        <button className="sign-up-btn" type="submit">
-          Sign up
-        </button>
-      </form>
+        <h2>Sign up to Cache</h2>
+        <form onSubmit={handleSubmit} className="sign-up-form">
+          <div className="form-row">
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder='name'
+              value={values.username}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-row">
+            <input
+              placeholder='email'
+              type="email"
+              name="email"
+              id="email"
+              value={values.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-row">
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={values.password}
+              onChange={handleChange}
+              placeholder='password'
+            />
+          </div>
+          <button className="sign-up-btn" type="submit">
+            Sign up
+          </button>
+
+        </form>
+        <a href="#">
+          Reset password
+        </a>
+        <p>Already have an account? <a href='#'>log in</a></p>
+
+
+      </div>
     </>
   );
 };

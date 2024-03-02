@@ -10,6 +10,12 @@ function App() {
       <Routes>
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
+        <Route path="overview" element={<Login />} />
+        <Route path="banking" element={<Login />} />
+        <Route path="budget" element={<Login />} />
+        <Route path="pockets" element={<Login />} />
+        <Route path="work" element={<Login />} />
+        <Route path="preferences" element={<Login />} />
       </Routes>
     </Router>
   );
