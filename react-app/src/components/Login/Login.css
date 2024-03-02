@@ -1,3 +1,9 @@
+img {
+  width: 200px;
+  margin-left: 10rem;
+  margin-top: 2rem;
+}
+
 .login-content {
   position: absolute;
   display: flex;

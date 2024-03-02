@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import AuthService from '../AuthService';
 import "./Register.css"
@@ -78,7 +78,7 @@ function Register() {
       <a className="reset-password" href="#">
         Reset password
       </a>
-      <p>Already have an account? <a href='#'>log in</a></p>
+      <p>Already have an account? <Link to={"/login"}>log in</Link></p>
     </div>
   </>
   );

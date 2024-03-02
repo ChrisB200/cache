@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import AuthService from '../AuthService';
 import "./Login.css"
@@ -61,10 +61,10 @@ function Login() {
             Register
           </button>
         </form>
-        <a href="#">
+        <Link href="#">
           Reset password
-        </a>
-        <p>Don't have an account? <a href='#'>create one</a></p>
+        </Link>
+        <p>Don't have an account? <Link to={"/register"}>create one</Link></p>
       </div>
     </>
   );
