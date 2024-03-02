@@ -46,14 +46,14 @@ function Register() {
           type="text"
           name="username"
           id="username"
-          placeholder='name'
+          placeholder='Name'
           value={values.username}
           onChange={handleChange}
         />
 
 
         <input
-          placeholder='email'
+          placeholder='Email'
           type="email"
           name="email"
           id="email"
@@ -68,7 +68,7 @@ function Register() {
           id="password"
           value={values.password}
           onChange={handleChange}
-          placeholder='password'
+          placeholder='Password'
         />
 
         <button className="sign-up-btn" type="submit">
