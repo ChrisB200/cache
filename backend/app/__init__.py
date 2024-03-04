@@ -19,15 +19,16 @@ DB_NAME = os.environ.get('DB_NAME')
 
 # Create a Flask app
 app = Flask(__name__)
+CORS(app)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Add this line to suppress a warning
 db.init_app(app)
 login_manager = LoginManager(app)
-CORS(app)
 
 # Register Blueprints
 app.register_blueprint(routes)
+
 
 #with app.app_context():
 #    db.drop_all()

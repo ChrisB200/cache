@@ -4,19 +4,20 @@ const API_URL = "http://localhost:8000/api/auth/";
 
 class AuthService {
   login(email, password) {
-    return axios
-      .post(API_URL + "login", {
-        email,
-        password,
-      })
+    return axios.post(API_URL + "login", {
+      email,
+      password,
+    })
       .then((response) => {
         if (response.data.token) {
-          localStorage.setItem("user", JSON.stringify(response.data));
+          const token = response.data.token;
+          localStorage.setItem("user", token); // Store the token as a string
         }
 
         return response.data;
       });
   }
+
 
   logout() {
     localStorage.removeItem("user");

@@ -5,7 +5,7 @@ import AuthService from '../AuthService';
 import "./Login.css"
 
 function Login() {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [values, setValues] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {
@@ -24,7 +24,7 @@ function Login() {
 
     AuthService.login(values.email, values.password)
       .then(() => {
-        history.push("/overview");
+        navigate("/");
       })
       .catch(error => {
         console.error('Login error:', error);
@@ -58,7 +58,7 @@ function Login() {
           />
 
           <button className="login-btn" type="submit">
-            Register
+            Log in
           </button>
         </form>
         <Link href="#">

@@ -13,7 +13,7 @@ function App() {
       <Route path="/login" element={<Login />} />
 
       <Route element={<ProtectedRoutes />}>
-        <Route path="/overview" element={<Overview />} />
+        <Route path="/" element={<Overview />} />
         <Route path="/banking" element={<Overview />} />
         <Route path="/budget" element={<Overview />} />
         <Route path="/pockets" element={<Overview />} />
