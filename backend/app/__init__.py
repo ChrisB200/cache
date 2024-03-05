@@ -42,6 +42,14 @@ def get_current_user():
         "email": g.current_user.email
     })
 
+@app.route("/api/auth/isauthenticated", methods=["GET"])
+@load_current_user
+def is_authenticated():
+    if not g.current_user:
+        return jsonify({"error": "Unauthorised"}), 401
+    
+    return jsonify({"message": "Authorised"}), 200
+
 @app.route("/api/auth/register", methods=["POST"])
 def register():
     # Get data

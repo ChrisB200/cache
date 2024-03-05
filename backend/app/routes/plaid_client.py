@@ -51,10 +51,26 @@ def exchange_public_token():
     new_request = ItemPublicTokenExchangeRequest(public_token=public_token)
     response = client.item_public_token_exchange(new_request)
 
-    print(response)
+    access_token = response["access_token"]
+    item_id = response["item_id"]
 
-    account = Account(user=g.current_user, plaid_access_token=response["access_token"], plaid_item_id=response["item_id"])
-    db.session.add(account)
+    accounts = AccountsGetRequest(access_token=access_token)
+    response = client.accounts_get(accounts)
+    db_accounts = []
+    for account in response["accounts"]:
+        db_accounts.append(Account(
+            user=g.current_user,
+            name=account["name"],
+            plaid_account_id=account["account_id"],
+            plaid_institution_id=response["item"]["institution_id"],
+            plaid_item_id=item_id,
+            plaid_access_token=access_token,
+            iso_currency_code=account["balances"]["iso_currency_code"],
+            current_balance=account["balances"]["current"]
+        ))
+        print(account["type"])
+
+    db.session.add_all(db_accounts)
     db.session.commit()
 
     return jsonify({"public_token_exchange": "complete"})

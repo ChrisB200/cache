@@ -23,6 +23,7 @@ class User(db.Model):
 class Account(db.Model):
     __tablename__ = "accounts"
     id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
+    name = db.Column(db.String(300))
     user_id = db.Column(db.String(32), db.ForeignKey('users.id'))
     plaid_account_id = db.Column(db.String(255))
     plaid_institution_id = db.Column(db.String(255))

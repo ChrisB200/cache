@@ -26,7 +26,7 @@ function Register() {
       .then(() => {
         AuthService.login(values.email, values.password)
           .then(() => {
-            navigate("/");
+            navigate("/overview");
           })
           .catch(error => {
             console.error('Login error:', error);

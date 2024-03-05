@@ -11,18 +11,12 @@ class AuthService {
     })
   }
 
-
   logout() {
     localStorage.removeItem("user");
   }
 
   isAuthenticated() {
-    const token = localStorage.getItem("user");
-    // Check if token exists and is not expired
-    if (token) {
-      return true;
-    }
-    return false;
+    return httpClient.get(API_URL + "isauthenticated")
   }
 
   register(username, email, password) {
