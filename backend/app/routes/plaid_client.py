@@ -1,6 +1,6 @@
 import json, time, plaid
 
-from flask import Flask, request, Blueprint, jsonify
+from flask import Flask, request, Blueprint, jsonify, g
 
 from plaid.model.link_token_create_request import LinkTokenCreateRequest
 from plaid.model.link_token_create_request_user import LinkTokenCreateRequestUser
@@ -8,23 +8,28 @@ from plaid.model.country_code import CountryCode
 from plaid.model.item_public_token_exchange_request import (
     ItemPublicTokenExchangeRequest,
 )
+from plaid.model.accounts_get_request import AccountsGetRequest
 
 
-from ..models import db
+from ..models import db, User, Account
+from ..auth import load_current_user
 from ..plaid_config import client, products, PLAID_REDIRECT_URI, PLAID_COUNTRY_CODES
 
 plaid_routes = Blueprint("plaid", __name__)
 
 
 @plaid_routes.route("/api/plaid/create_link_token", methods=["POST"])
+@load_current_user
 def create_link_token():
+    if not g.current_user:
+        return jsonify({"error": "Unauthorised"}), 401
     try:
         request = LinkTokenCreateRequest(
             products=products,
             client_name="Cache",
             country_codes=[CountryCode(PLAID_COUNTRY_CODES)],
             language="en",
-            user=LinkTokenCreateRequestUser(client_user_id=str("FILL IN THIS GAP")),
+            user=LinkTokenCreateRequestUser(client_user_id=str(g.current_user.id)),
         )
         if PLAID_REDIRECT_URI != None:
             request["redirect_uri"] = PLAID_REDIRECT_URI
@@ -36,17 +41,36 @@ def create_link_token():
 
 
 @plaid_routes.route("/api/plaid/exchange_public_token", methods=["POST"])
+@load_current_user
 def exchange_public_token():
-    public_token = request.form["public_token"]
+    if not g.current_user:
+        return jsonify({"error": "Unauthorised"}), 401
+    
+    public_token = request.json["public_token"]
 
     new_request = ItemPublicTokenExchangeRequest(public_token=public_token)
     response = client.item_public_token_exchange(new_request)
 
-    # These values should be saved to a persistent database and
+    print(response)
 
-    # associated with the currently signed-in user
-
-    access_token = response["access_token"]
-    item_id = response["item_id"]
+    account = Account(user=g.current_user, plaid_access_token=response["access_token"], plaid_item_id=response["item_id"])
+    db.session.add(account)
+    db.session.commit()
 
     return jsonify({"public_token_exchange": "complete"})
+
+@plaid_routes.route("/api/plaid/get_accounts_test", methods=["GET"])
+@load_current_user
+def get_all():
+    if not g.current_user:
+        return jsonify({"error": "Unauthorised"}), 401
+    
+    user_accounts = Account.query.filter_by(user=g.current_user).all()
+
+    responses = []
+    for account in user_accounts:
+        request = AccountsGetRequest(access_token=account.plaid_access_token)
+        response = client.accounts_get(request)
+        responses.append(response["accounts"])
+    
+    print(responses)

@@ -13,38 +13,30 @@ class User(db.Model):
     email = db.Column(db.String(345), unique=True)
     password = db.Column(db.Text, nullable=False)
 
-    institution = db.relationship("Institution", back_populates="user", cascade="all, delete")
+    account = db.relationship("Account", back_populates="user", cascade="all, delete")
     pocket = db.relationship("Pocket", back_populates="user", cascade="all, delete")
     budget = db.relationship("Budget", back_populates="user", cascade="all, delete")
     
     def get_id(self):
         return str(self.user_id)
 
-class Institution(db.Model):
-    __tablename__ = "institutions"
-    id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
-    user_id = db.Column(db.String(32), db.ForeignKey('users.id'))
-    name = db.Column(db.String(255))
-    plaid_item_id = db.Column(db.String(255), nullable=False)
-    plaid_access_token = db.Column(db.String(255), nullable=False)
-
-    user = db.relationship("User", back_populates="institution", cascade="all, delete")
-    account = db.relationship("Account", back_populates="institution", cascade="all, delete")
-
 class Account(db.Model):
     __tablename__ = "accounts"
     id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
-    institution_id = db.Column(db.String(32), db.ForeignKey('institutions.id'))
-    plaid_account_id = db.Column(db.String(255), nullable=False)
+    user_id = db.Column(db.String(32), db.ForeignKey('users.id'))
+    plaid_account_id = db.Column(db.String(255))
+    plaid_institution_id = db.Column(db.String(255))
+    plaid_item_id = db.Column(db.String(255))
+    plaid_access_token = db.Column(db.String(255))
 
-    iso_currency_code = db.Column(db.String(3), nullable=False)
-    available_balance = db.Column(db.DECIMAL(15, 2, asdecimal=False), nullable=True)
-    current_balance = db.Column(db.DECIMAL(15, 2, asdecimal=False), nullable=True)
-    type = db.Column(db.String(45), nullable=False)
-    limit = db.Column(db.DECIMAL(15, 2, asdecimal=False), nullable=True)
+    iso_currency_code = db.Column(db.String(3))
+    available_balance = db.Column(db.DECIMAL(15, 2, asdecimal=False))
+    current_balance = db.Column(db.DECIMAL(15, 2, asdecimal=False))
+    type = db.Column(db.String(45))
+    limit = db.Column(db.DECIMAL(15, 2, asdecimal=False))
 
     job = db.relationship("Job", back_populates="account", cascade="all, delete")
-    institution = db.relationship("Institution", back_populates="account", cascade="all, delete")
+    user = db.relationship("User", back_populates="account", cascade="all, delete")
 
 class Job(db.Model):
     __tablename__ = "jobs"

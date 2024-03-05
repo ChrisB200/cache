@@ -13,7 +13,7 @@ class ApplicationConfig:
     DB_NAME = os.environ.get('DB_NAME')
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = False
     SQLALCHEMY_DATABASE_URI = f'mysql+mysqlconnector://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
 
     SESSION_TYPE = "redis"

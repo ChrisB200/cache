@@ -7,7 +7,7 @@ from flask_session import Session
 from flask_bcrypt import Bcrypt
 from app.config import ApplicationConfig
 from app.routes import routes
-from app.models import db, User, Payslip, Shift, Job, Account, Institution, Pocket, Budget
+from app.models import db, User, Payslip, Shift, Job, Account, Pocket, Budget
 from app.auth import load_current_user
 
 # Create a Flask app
@@ -101,7 +101,7 @@ def remove_user():
 
     return jsonify({"message": "Successfully deleted all user details"}), 200
 
-@app.route("/")
+""" @app.route("/")
 def index():
     user1 = User(name="Christopher", email="cbonner.dev@outlook.com", password=bcrypt.generate_password_hash("test"))
     institution1 = Institution(user=user1, name="Barclays", plaid_item_id="test_item_id", plaid_access_token="test_access_token")
@@ -124,3 +124,4 @@ def index():
     db.session.close()
 
     return "Successfully Created Test data"
+ """
