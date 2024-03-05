@@ -1,10 +1,11 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, g
 from ..models import db, Shift
+from ..auth import load_current_user
 
 user_routes = Blueprint("user", __name__)
 
-""" @user_routes.route("/api/user/data", methods=["GET"])
-@login_required
+@user_routes.route("/api/user/data", methods=["GET"])
+@load_current_user
 def get_data():
     # Print out request details
     print("Request Method:", request.method)
@@ -15,8 +16,8 @@ def get_data():
 
     # Ensure the user is logged in before accessing their data
     user_data = {
-        "name": current_user.name,
-        "email": current_user.email
+        "name": g.current_user.username,
+        "email": g.current_user.email
     }
 
-    return jsonify(user_data) """
+    return jsonify(user_data)

@@ -1,18 +1,19 @@
 # app/__init__.py
 import time
 from datetime import datetime
-from flask import Flask, request, jsonify, session
+from flask import Flask, request, jsonify, session, g
 from flask_cors import CORS
 from flask_session import Session
 from flask_bcrypt import Bcrypt
 from app.config import ApplicationConfig
 from app.routes import routes
 from app.models import db, User, Payslip, Shift, Job, Account, Institution, Pocket, Budget
+from app.auth import load_current_user
 
 # Create a Flask app
 app = Flask(__name__)
 app.config.from_object(ApplicationConfig)
-CORS(app)
+CORS(app, supports_credentials=True)
 
 # Initialisation
 bcrypt = Bcrypt(app)
@@ -28,6 +29,19 @@ app.register_blueprint(routes)
 #    db.create_all()
 
 # Authentication routes
+
+@app.route("/@me")
+@load_current_user
+def get_current_user():
+    if not g.current_user:
+        return jsonify({"error": "Unauthorised"}), 401
+
+    return jsonify({
+        "id": g.current_user.id,
+        "name": g.current_user.username,
+        "email": g.current_user.email
+    })
+
 @app.route("/api/auth/register", methods=["POST"])
 def register():
     # Get data
@@ -66,11 +80,26 @@ def login():
     if not bcrypt.check_password_hash(user.password, password):
         return jsonify({"error": "Unauthorised"}), 401
     
+    # Creates a session using the id of the user
     session["user_id"] = user.id
 
     return jsonify({"message": "Successfully logged in"})
 
+@app.route("/api/auth/logout", methods=["POST"])
+def logout_user():
+    session.pop("user_id")
+    return jsonify({"message: Successfully logged out user"}), 200
 
+@app.route("/api/auth/remove_user", methods=["DELETE"])
+@load_current_user
+def remove_user():
+    if not g.current_user:
+        return jsonify({"error": "Unauthorised"}), 401
+    
+    db.session.delete(g.current_user)
+    db.session.commit()
+
+    return jsonify({"message": "Successfully deleted all user details"}), 200
 
 @app.route("/")
 def index():
