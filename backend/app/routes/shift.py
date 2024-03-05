@@ -1,8 +1,7 @@
 import json
 from datetime import datetime
 from flask import Blueprint, request, jsonify
-from flask_login import login_required, current_user
-from ..models import db, Shifts
+from ..models import db, Shift
 from ..scripts.utils import format_image
 from ..scripts.processer import read_payslip
 
@@ -11,7 +10,6 @@ shift_routes = Blueprint("shift", __name__)
 
 # Route to return the most recent shifts for a user in the database 
 @shift_routes.route("/api/shift/get_shifts", methods=["GET"])
-@login_required
 def get_shifts():
     start_date_str = request.args.get("start_date") #:3
     end_date_str = request.args.get("end_date")# :3
@@ -32,7 +30,7 @@ def get_shifts():
     # .query(Shifts) is saying that you want to do a query on the database where the table is the Shifts table
     # .filter(Shifts.date.between(start_date, end_date)) Is getting shifts between the start and end date
     # .all is getting all the shifts that meet the filter criteria
-    shifts = db.session.query(Shifts).filter(Shifts.date.between(start_date, end_date)).all()
+    shifts = db.session.query(Shift).filter(Shift.date.between(start_date, end_date)).all()
 
     # Then for all the shifts that we have we have to convert it into JSON format as this is what websites understand.
     # In the Shifts class in the models.py file there is a function return_json()
@@ -49,14 +47,14 @@ def get_shifts():
 
 # Route to upload a payslip image (NEEDS TO WORK FOR MULTIPLE PAYSLIPS NOT JUST ONE TYPE)
 @shift_routes.route("/api/shift/image_recognition", methods=["POST"])
-@login_required
 def image_recognition():
     # Error Checking
     if "image" not in request.files:
         return jsonify({"error": "No image provided"}), 400
     
     if "pay" not in request.form:
-        pay = current_user.settings.pay
+        #pay = current_user.settings.pay
+        pass
     else:
         pay = float(request.form["pay"])
 
@@ -69,7 +67,7 @@ def image_recognition():
 
 
 @shift_routes.route("/api/shift/confirm", methods=["POST"])
-@login_required
+
 def confirm_shift():
     # Error Checking
     if "shift" not in request.form:
@@ -81,9 +79,9 @@ def confirm_shift():
     start = shift["start"]
     finish = shift["finish"]
     rate = shift["rate"]
-    new_shift = Shifts(date=date, start=start, finish=finish, rate=rate)
+    new_shift = Shift(date=date, start=start, finish=finish, rate=rate)
     
-    current_user.shifts.append(new_shift)
+    #current_user.shifts.append(new_shift)
     db.session.commit()
     
     return jsonify({"message": "Successfully updated database"}), 200

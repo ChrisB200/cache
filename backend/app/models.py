@@ -1,38 +1,40 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
-from datetime import datetime
+from uuid import uuid4
 
 db = SQLAlchemy()
 
-class Users(db.Model, UserMixin):
-    __tablename__ = "users"
-    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(80), nullable=False)
-    email = db.Column(db.String(255))
-    password = db.Column(db.String(255))
+def get_uuid():
+    return uuid4().hex
 
-    institution = db.relationship("Institutions", back_populates="user", cascade="all, delete")
-    pocket = db.relationship("Pockets", back_populates="user", cascade="all, delete")
-    budget = db.relationship("Budgets", back_populates="user", cascade="all, delete")
+class User(db.Model):
+    __tablename__ = "users"
+    id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
+    username = db.Column(db.String(300), nullable=False)
+    email = db.Column(db.String(345), unique=True)
+    password = db.Column(db.Text, nullable=False)
+
+    institution = db.relationship("Institution", back_populates="user", cascade="all, delete")
+    pocket = db.relationship("Pocket", back_populates="user", cascade="all, delete")
+    budget = db.relationship("Budget", back_populates="user", cascade="all, delete")
     
     def get_id(self):
         return str(self.user_id)
 
-class Institutions(db.Model):
+class Institution(db.Model):
     __tablename__ = "institutions"
-    institution_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
+    user_id = db.Column(db.String(32), db.ForeignKey('users.id'))
     name = db.Column(db.String(255))
     plaid_item_id = db.Column(db.String(255), nullable=False)
     plaid_access_token = db.Column(db.String(255), nullable=False)
 
-    user = db.relationship("Users", back_populates="institution", cascade="all, delete")
-    account = db.relationship("Accounts", back_populates="institution", cascade="all, delete")
+    user = db.relationship("User", back_populates="institution", cascade="all, delete")
+    account = db.relationship("Account", back_populates="institution", cascade="all, delete")
 
-class Accounts(db.Model):
+class Account(db.Model):
     __tablename__ = "accounts"
-    account_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    institution_id = db.Column(db.Integer, db.ForeignKey('institutions.institution_id'))
+    id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
+    institution_id = db.Column(db.String(32), db.ForeignKey('institutions.id'))
     plaid_account_id = db.Column(db.String(255), nullable=False)
 
     iso_currency_code = db.Column(db.String(3), nullable=False)
@@ -41,13 +43,13 @@ class Accounts(db.Model):
     type = db.Column(db.String(45), nullable=False)
     limit = db.Column(db.DECIMAL(15, 2, asdecimal=False), nullable=True)
 
-    job = db.relationship("Jobs", back_populates="account", cascade="all, delete")
-    institution = db.relationship("Institutions", back_populates="account", cascade="all, delete")
+    job = db.relationship("Job", back_populates="account", cascade="all, delete")
+    institution = db.relationship("Institution", back_populates="account", cascade="all, delete")
 
-class Jobs(db.Model):
+class Job(db.Model):
     __tablename__ = "jobs"
-    job_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    account_id = db.Column(db.Integer, db.ForeignKey('accounts.account_id'), index=True)
+    id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
+    account_id = db.Column(db.String(32), db.ForeignKey('accounts.id'), index=True)
     role = db.Column(db.String(45), nullable=False)
     entity = db.Column(db.String(45), nullable=False)
     default_hourly_rate = db.Column(db.DECIMAL(15, 2, asdecimal=False), nullable=False)
@@ -55,34 +57,34 @@ class Jobs(db.Model):
     last_pay = db.Column(db.Date, nullable=False)
     last_pay_offset = db.Column(db.Integer, nullable=True)
 
-    account = db.relationship("Accounts", back_populates="job", cascade="all, delete")
-    payslip = db.relationship("Payslips", back_populates="job", cascade="all, delete")
-    shift = db.relationship("Shifts", back_populates="job", cascade="all, delete")
+    account = db.relationship("Account", back_populates="job", cascade="all, delete")
+    payslip = db.relationship("Payslip", back_populates="job", cascade="all, delete")
+    shift = db.relationship("Shift", back_populates="job", cascade="all, delete")
 
-class Payslips(db.Model):
+class Payslip(db.Model):
     __tablename__ = "payslips"
-    payslip_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    job_id = db.Column(db.Integer, db.ForeignKey('jobs.job_id'), index=True)
+    id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
+    job_id = db.Column(db.String(32), db.ForeignKey('jobs.id'), index=True)
     amount = db.Column(db.DECIMAL(15, 2, asdecimal=False), nullable=False)
     start_period = db.Column(db.Date, nullable=False)
     end_period = db.Column(db.Date, nullable=False)
     hourly_rate = db.Column(db.DECIMAL(15, 2, asdecimal=False), nullable=False)
     tax_code = db.Column(db.String(45))
 
-    job = db.relationship("Jobs", back_populates="payslip", cascade="all, delete")
-    shift = db.relationship("Shifts", back_populates="payslip", cascade="all, delete")
+    job = db.relationship("Job", back_populates="payslip", cascade="all, delete")
+    shift = db.relationship("Shift", back_populates="payslip", cascade="all, delete")
 
-class Shifts(db.Model):
+class Shift(db.Model):
     __tablename__ = "shifts"
-    shift_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    job_id = db.Column(db.Integer, db.ForeignKey('jobs.job_id'), index=True)
-    payslip_id = db.Column(db.Integer, db.ForeignKey('payslips.payslip_id'), index=True, nullable=True)
+    id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
+    job_id = db.Column(db.String(32), db.ForeignKey('jobs.id'), index=True)
+    payslip_id = db.Column(db.String(32), db.ForeignKey('payslips.id'), index=True, nullable=True)
     date = db.Column(db.Date, nullable=False)
     start = db.Column(db.Time, nullable=False)
     finish = db.Column(db.Time, nullable=False)
 
-    job = db.relationship("Jobs", back_populates="shift", cascade="all, delete")
-    payslip = db.relationship("Payslips", back_populates="shift", cascade="all, delete")
+    job = db.relationship("Job", back_populates="shift", cascade="all, delete")
+    payslip = db.relationship("Payslip", back_populates="shift", cascade="all, delete")
 
     def return_json(self):
         return {
@@ -94,23 +96,23 @@ class Shifts(db.Model):
             "finish": self.finish.strftime('%H:%M:%S') 
         }
 
-class Pockets(db.Model):
+class Pocket(db.Model):
     __tablename__ = "pockets"
-    pocket_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), index=True)
+    id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
+    user_id = db.Column(db.String(32), db.ForeignKey('users.id'), index=True)
     goal = db.Column(db.String(80), nullable=False)
     balance = db.Column(db.DECIMAL(15, 2), nullable=False)
     desired_balance = db.Column(db.DECIMAL(15, 2))
-    percent_allocated = db.Column(db.DECIMAL(1, 2))
+    percent_allocated = db.Column(db.DECIMAL(15, 2))
     status = db.Column(db.String(45))
 
-    user = db.relationship("Users", back_populates="pocket", cascade="all, delete")
+    user = db.relationship("User", back_populates="pocket", cascade="all, delete")
 
-class Budgets(db.Model):
+class Budget(db.Model):
     __tablename__ = "budgets"
-    budget_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), index=True)
+    id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
+    user_id = db.Column(db.String(32), db.ForeignKey('users.id'), index=True)
     name = db.Column(db.String(45), nullable=False)
-    percent_allocated = db.Column(db.DECIMAL(1, 2))
+    percent_allocated = db.Column(db.DECIMAL(15, 2))
 
-    user = db.relationship("Users", back_populates="budget", cascade="all, delete")
+    user = db.relationship("User", back_populates="budget", cascade="all, delete")

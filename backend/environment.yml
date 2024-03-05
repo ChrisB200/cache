@@ -6,18 +6,18 @@ channels:
   - r
   - bioconda
 dependencies:
-  - python=3.9.18
-  - pip=23.3.2
-  - flask
-  - flask-cors
-  - flask-login
-  - flask-sqlalchemy
-  - opencv-python-headless
-  - passlib
-  - mysql-connector-python
-  - python-dotenv
-  - pyjwt
-  - pytesseract
+  - python=3.12.2
+  - pip
   - pip:
     - plaid-python
     - gunicorn
+    - redis
+    - flask
+    - flask-cors
+    - flask-sqlalchemy
+    - flask-session
+    - flask-bcrypt
+    - opencv-python-headless
+    - mysql-connector-python
+    - python-dotenv
+    - pytesseract

@@ -1,7 +1,6 @@
 import json, time, plaid
 
 from flask import Flask, request, Blueprint, jsonify
-from flask_login import current_user, login_required
 
 from plaid.model.link_token_create_request import LinkTokenCreateRequest
 from plaid.model.link_token_create_request_user import LinkTokenCreateRequestUser
@@ -18,7 +17,6 @@ plaid_routes = Blueprint("plaid", __name__)
 
 
 @plaid_routes.route("/api/plaid/create_link_token", methods=["POST"])
-@login_required
 def create_link_token():
     try:
         request = LinkTokenCreateRequest(
@@ -26,7 +24,7 @@ def create_link_token():
             client_name="Cache",
             country_codes=[CountryCode(PLAID_COUNTRY_CODES)],
             language="en",
-            user=LinkTokenCreateRequestUser(client_user_id=str(current_user.user_id)),
+            user=LinkTokenCreateRequestUser(client_user_id=str("FILL IN THIS GAP")),
         )
         if PLAID_REDIRECT_URI != None:
             request["redirect_uri"] = PLAID_REDIRECT_URI
