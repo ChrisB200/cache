@@ -1,0 +1,27 @@
+.banking-widget {
+  max-width: 400px;
+  min-width: 200px;
+  padding: 1rem 2vw 1rem 2vw;
+}
+
+.widget-accent {
+  background-color: var(--accent-400);
+}
+
+.widget-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.widget-header div {
+  width: 30px;
+}
+
+.widget-header div img {
+  width: 100%;
+  height: auto;
+  margin: 0;
+}

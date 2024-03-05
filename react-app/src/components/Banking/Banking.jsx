@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Link from './Link';
 import httpClient from '../../httpClient';
 import '../../index.css';
-import './Link.css';
+import './Banking.css';
+import logo from '../../assets/logo.png';
+import widgetSettingsLight from '../../assets/widget-settings-light.svg';
 
 // Custom hook for fetching data
 function useFetchData(url) {
@@ -30,6 +32,18 @@ function useFetchData(url) {
   return { data, loading, error };
 }
 
+function getDataByID(id, data) {
+  let found = data.find(data => data.id === id);
+  if (found === undefined) {
+    return ""
+  } else {
+    console.log(found)
+    return found
+  }
+}
+
+
+
 // InstitutionsWidget component
 function InstitutionsDropdown({ institutions, selectedInstitution, setSelectedInstitution }) {
   const handleInstitutionChange = (event) => {
@@ -38,7 +52,6 @@ function InstitutionsDropdown({ institutions, selectedInstitution, setSelectedIn
 
   return (
     <div>
-      <h3>Institutions</h3>
       <select value={selectedInstitution} onChange={handleInstitutionChange}>
         <option value="">Select an institution</option>
         {institutions.map(institution => (
@@ -57,7 +70,6 @@ function AccountsDropdown({ accounts, selectedAccount, setSelectedAccount }) {
 
   return (
     <div>
-      <h3>Accounts</h3>
       <select value={selectedAccount} onChange={handleAccountChange}>
         <option value="">Select an account</option>
         {accounts.map(account => (
@@ -78,22 +90,29 @@ function AccountsWidget({ data, loading, error, selectedAccount, setSelectedAcco
   // Filter accounts based on the selected institution
   const filteredAccounts = accounts.filter(account => account.plaid_institution_id === selectedInstitution);
 
-  console.log(accounts)
-  console.log(selectedInstitution)
-  console.log(filteredAccounts)
-
   return (
     <>
-      <InstitutionsDropdown
-        institutions={institutions}
-        selectedInstitution={selectedInstitution}
-        setSelectedInstitution={setSelectedInstitution}
-      />
-      <AccountsDropdown
-        accounts={filteredAccounts}
-        selectedAccount={selectedAccount}
-        setSelectedAccount={setSelectedAccount}
-      />
+      <div className="banking-widget widget-accent">
+        <div className="widget-header">
+          <h3>Accounts</h3>
+          <div>
+            <img src={widgetSettingsLight} />
+          </div>
+        </div>
+        <div className="widget-content">
+          <InstitutionsDropdown className="widget-dropdown"
+            institutions={institutions}
+            selectedInstitution={selectedInstitution}
+            setSelectedInstitution={setSelectedInstitution}
+          />
+          <AccountsDropdown className="widget-dropdown"
+            accounts={filteredAccounts}
+            selectedAccount={selectedAccount}
+            setSelectedAccount={setSelectedAccount}
+          />
+          <p>Balance: £{getDataByID(selectedAccount, accounts).current_balance}</p>
+        </div>
+      </div>
     </>
   );
 }
