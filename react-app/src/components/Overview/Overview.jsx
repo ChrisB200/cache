@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import httpClient from '../../httpClient';
 
 function Overview() {
   const [userData, setUserData] = useState(null);
@@ -10,10 +10,9 @@ function Overview() {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('user');
-        const response = await axios.get('http://localhost:8000/api/user/data', {
+        const response = await httpClient.get('http://localhost:8000/api/user/data', {
           headers: {
             "Content-Type": 'application/json',
-            "Authorization": `Bearer ${token}`
           }
         });
         setUserData(response.data);

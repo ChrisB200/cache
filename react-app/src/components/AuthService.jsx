@@ -1,21 +1,14 @@
 import axios from "axios";
+import httpClient from "../httpClient";
 
 const API_URL = "http://localhost:8000/api/auth/";
 
 class AuthService {
   login(email, password) {
-    return axios.post(API_URL + "login", {
+    return httpClient.post(API_URL + "login", {
       email,
       password,
     })
-      .then((response) => {
-        if (response.data.token) {
-          const token = response.data.token;
-          localStorage.setItem("user", token); // Store the token as a string
-        }
-
-        return response.data;
-      });
   }
 
 
