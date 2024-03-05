@@ -4,6 +4,7 @@ from flask import Flask, request, Blueprint, jsonify, g
 
 from plaid.model.link_token_create_request import LinkTokenCreateRequest
 from plaid.model.link_token_create_request_user import LinkTokenCreateRequestUser
+from plaid.model.institutions_get_by_id_request import InstitutionsGetByIdRequest
 from plaid.model.country_code import CountryCode
 from plaid.model.item_public_token_exchange_request import (
     ItemPublicTokenExchangeRequest,
@@ -57,10 +58,18 @@ def exchange_public_token():
     accounts = AccountsGetRequest(access_token=access_token)
     response = client.accounts_get(accounts)
     db_accounts = []
+
+    insRequest = InstitutionsGetByIdRequest(
+        institution_id=response["item"]["institution_id"],
+        country_codes=[CountryCode("GB")]
+        )
+    insResponse = client.institutions_get_by_id(insRequest)
+
     for account in response["accounts"]:
         db_accounts.append(Account(
             user=g.current_user,
             name=account["name"],
+            institution_name=insResponse["institution"]["name"],
             plaid_account_id=account["account_id"],
             plaid_institution_id=response["item"]["institution_id"],
             plaid_item_id=item_id,

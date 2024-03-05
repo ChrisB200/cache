@@ -8,3 +8,20 @@
   text-align: center;
   background-color: var(--background-300);
 }
+
+.success-message {
+  background-color: var(--success-400);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+
+.success-message.fade-out {
+  opacity: 0;
+}

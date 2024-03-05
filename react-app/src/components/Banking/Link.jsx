@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { usePlaidLink } from 'react-plaid-link';
 import httpClient from '../../httpClient'; // Assuming your httpClient module is in the same directory
-import './Link.css'
+import './Link.css';
 
 const Link = ({ onClose }) => {
   const [linkToken, setLinkToken] = useState(null);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   useEffect(() => {
     const generateToken = async () => {
@@ -24,7 +25,11 @@ const Link = ({ onClose }) => {
       .post('http://localhost:8000/api/plaid/exchange_public_token', { public_token })
       .then(response => {
         // Handle response ...
-        onClose(); // Close the modal after success
+        setShowSuccessMessage(true); // Show success message
+        setTimeout(() => {
+          setShowSuccessMessage(false); // Hide success message after timeout
+          onClose(); // Close the modal after success
+        }, 2000); // Adjust timeout as needed
       })
       .catch(error => {
         console.error('Error setting access token:', error);
@@ -47,6 +52,7 @@ const Link = ({ onClose }) => {
         <button className="link-btn" onClick={open} disabled={!ready}>
           Link account
         </button>
+        {showSuccessMessage && <div className="success-message">Success!</div>}
       </div>
     </div>
   );

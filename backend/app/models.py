@@ -30,6 +30,7 @@ class Account(db.Model):
     plaid_item_id = db.Column(db.String(255))
     plaid_access_token = db.Column(db.String(255))
 
+    institution_name = db.Column(db.String(300))
     iso_currency_code = db.Column(db.String(3))
     available_balance = db.Column(db.DECIMAL(15, 2, asdecimal=False))
     current_balance = db.Column(db.DECIMAL(15, 2, asdecimal=False))
@@ -38,6 +39,17 @@ class Account(db.Model):
 
     job = db.relationship("Job", back_populates="account", cascade="all, delete")
     user = db.relationship("User", back_populates="account", cascade="all, delete")
+
+    def return_json(self):
+        return {
+            "id": self.id,
+            "plaid_institution_id": self.plaid_institution_id,
+            "name": self.name,
+            "current_balance": self.current_balance,
+            "available_balance": self.available_balance,
+            "type": self.type,
+            "limit": self.limit,
+        }
 
 class Job(db.Model):
     __tablename__ = "jobs"
