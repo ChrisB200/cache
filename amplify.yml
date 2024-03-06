@@ -10,9 +10,9 @@ frontend:
       commands:
         - npm run build
   artifacts:
-    baseDirectory: build
+    baseDirectory: cache-dashboard/build  # Assuming the build artifacts are in this directory
     files:
       - '**/*'
   cache:
     paths:
-      - node_modules/**/*
+      - cache-dashboard/node_modules/**/*
