@@ -5,6 +5,7 @@ import '../../index.css';
 import './Banking.css';
 import logo from '../../assets/logo.png';
 import widgetSettingsLight from '../../assets/widget-settings-light.svg';
+import Sidebar from '../Sidebar';
 
 // Custom hook for fetching data
 function useFetchData(url) {
@@ -137,22 +138,25 @@ function Banking() {
   };
 
   return (
-    <div>
-      <h1>Banking Route</h1>
-      <p>This is your banking route content.</p>
+    <div className='page'>
+      <Sidebar />
+      <div className='content'>
+        <h1>Banking Route</h1>
+        <p>This is your banking route content.</p>
 
-      <button onClick={openModal}>Add Account</button>
-      {isModalOpen && <Link onClose={closeModal} />}
+        <button onClick={openModal}>Add Account</button>
+        {isModalOpen && <Link onClose={closeModal} />}
 
-      <AccountsWidget
-        data={{ institutions: institutionsFetchData.data, accounts: accountsFetchData.data }}
-        loading={institutionsFetchData.loading || accountsFetchData.loading}
-        error={institutionsFetchData.error || accountsFetchData.error}
-        selectedAccount={selectedAccount}
-        setSelectedAccount={setSelectedAccount}
-        selectedInstitution={selectedInstitution}
-        setSelectedInstitution={setSelectedInstitution}
-      />
+        <AccountsWidget
+          data={{ institutions: institutionsFetchData.data, accounts: accountsFetchData.data }}
+          loading={institutionsFetchData.loading || accountsFetchData.loading}
+          error={institutionsFetchData.error || accountsFetchData.error}
+          selectedAccount={selectedAccount}
+          setSelectedAccount={setSelectedAccount}
+          selectedInstitution={selectedInstitution}
+          setSelectedInstitution={setSelectedInstitution}
+        />
+      </div>
     </div>
   );
 }

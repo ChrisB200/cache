@@ -57,3 +57,14 @@ p {
 body {
   background-color: var(--background-400);
 }
+
+.page {
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.content {
+  width: 100%;
+  margin-top: 5vh;
+}
