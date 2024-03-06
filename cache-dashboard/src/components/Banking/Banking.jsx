@@ -6,6 +6,7 @@ import './Banking.css';
 import logo from '../../assets/logo.png';
 import widgetSettingsLight from '../../assets/widget-settings-light.svg';
 import Sidebar from '../Sidebar';
+import API_URL from "../../constants";
 
 // Custom hook for fetching data
 function useFetchData(url) {
@@ -137,8 +138,8 @@ function Banking() {
   const [selectedInstitution, setSelectedInstitution] = useState('');
 
   // Fetch institutions and accounts data
-  const institutionsFetchData = useFetchData('http://localhost:8000/api/accounts/get_institutions');
-  const accountsFetchData = useFetchData('http://localhost:8000/api/accounts/get_accounts');
+  const institutionsFetchData = useFetchData(API_URL + 'accounts/get_institutions');
+  const accountsFetchData = useFetchData(API_URL + 'accounts/get_accounts');
 
   useEffect(() => {
     document.title = "Banking | Cache";
