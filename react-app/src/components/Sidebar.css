@@ -7,12 +7,12 @@
   margin-left: 5vw;
   height: 80vh;
   background-color: var(--background-300);
-  padding: 2.5rem;
+  padding: 1.5rem;
   border-radius: 25px;
 }
 
 .sidebar-logo {
-  width: 100%;
+  max-width: 85%;
 }
 
 .sidebar-logo img {
@@ -24,10 +24,10 @@ img {
 }
 
 .sidebar-anchors {
-  margin-top: 40%;
+  margin-top: 10%;
   display: grid;
   grid-template-rows: 1fr;
-  gap: 15%;
+  gap: 1vh;
 }
 
 .sidebar-anchor {
@@ -48,11 +48,11 @@ img {
 }
 
 .sidebar-anchor p {
-  font-size: var(--font-500);
+  font-size: var(--font-400);
 }
 
 .sidebar-anchor-img-container {
-  width: 35px;
+  width: 30px;
 }
 
 .sidebar-anchor-img-container img {
