@@ -9,7 +9,13 @@
       "UnauthRoleName": "amplify-cachedashboard-dev-122607-unauthRole",
       "StackName": "amplify-cachedashboard-dev-122607",
       "StackId": "arn:aws:cloudformation:eu-west-2:083695210768:stack/amplify-cachedashboard-dev-122607/b7c28980-dbb4-11ee-9b0e-0ad8788ad6b7",
-      "AmplifyAppId": "d1g0pnrocq05bb"
+      "AmplifyAppId": "d1g0pnrocq05bb",
+      "NetworkStackS3Url": "https://s3.amazonaws.com/amplify-cachedashboard-dev-122607-deployment/amplify-cfn-templates/networkingStackTemplate.json"
+    },
+    "categories": {
+      "api": {
+        "cachedashboardbackend": {}
+      }
     }
   }
 }
