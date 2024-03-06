@@ -7,8 +7,10 @@
   margin-left: 5vw;
   height: 80vh;
   background-color: var(--background-300);
-  padding: 1.5rem;
+  padding: 1.5rem 2rem;
   border-radius: 25px;
+  justify-content: space-between;
+  gap: 10%;
 }
 
 .sidebar-logo {
@@ -24,21 +26,25 @@ img {
 }
 
 .sidebar-anchors {
-  margin-top: 10%;
   display: grid;
-  grid-template-rows: 1fr;
-  gap: 1vh;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
 }
 
 .sidebar-anchor {
   display: grid;
   grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr;
+  width: 100%;
   gap: 2rem;
+  height: 40%;
   align-items: center;
   text-decoration: none;
   color: var(--text-dark);
   border-radius: 30px;
-  padding: 1rem 1rem;
+  padding-left: 1rem;
   transition: background-color 0.2s;
 }
 
