@@ -1,0 +1,16 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - cd cache-dashboard && npm ci
+    build:
+      commands:
+        - cd cache-dashboard npm run build
+  artifacts:
+    baseDirectory: cache-dashboard/build
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - cache-dashboard/node_modules/**/*
