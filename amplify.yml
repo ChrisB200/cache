@@ -6,7 +6,7 @@ frontend:
         - cd cache-dashboard && npm ci
     build:
       commands:
-        - cd cache-dashboard npm run build
+        - cd cache-dashboard && npm run build
   artifacts:
     baseDirectory: cache-dashboard/build
     files:
