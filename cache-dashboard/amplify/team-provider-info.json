@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-cachedashboard-dev-122607-authRole",
+      "UnauthRoleArn": "arn:aws:iam::083695210768:role/amplify-cachedashboard-dev-122607-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::083695210768:role/amplify-cachedashboard-dev-122607-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-cachedashboard-dev-122607-deployment",
+      "UnauthRoleName": "amplify-cachedashboard-dev-122607-unauthRole",
+      "StackName": "amplify-cachedashboard-dev-122607",
+      "StackId": "arn:aws:cloudformation:eu-west-2:083695210768:stack/amplify-cachedashboard-dev-122607/b7c28980-dbb4-11ee-9b0e-0ad8788ad6b7",
+      "AmplifyAppId": "d1g0pnrocq05bb"
+    }
+  }
+}
