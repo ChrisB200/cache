@@ -83,6 +83,16 @@ function AccountsDropdown({ accounts, selectedAccount, setSelectedAccount }) {
 
 // AccountsWidget component
 function AccountsWidget({ data, loading, error, selectedAccount, setSelectedAccount, selectedInstitution, setSelectedInstitution }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
@@ -112,6 +122,8 @@ function AccountsWidget({ data, loading, error, selectedAccount, setSelectedAcco
             setSelectedAccount={setSelectedAccount}
           />
           <p>Balance: £{getDataByID(selectedAccount, accounts).current_balance}</p>
+          <button className="btn-add-account" onClick={openModal}>Add Another Account</button>
+          {isModalOpen && <Link onClose={closeModal} />}
         </div>
       </div>
     </>
@@ -121,7 +133,6 @@ function AccountsWidget({ data, loading, error, selectedAccount, setSelectedAcco
 
 // Banking component
 function Banking() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState('');
   const [selectedInstitution, setSelectedInstitution] = useState('');
 
@@ -129,23 +140,11 @@ function Banking() {
   const institutionsFetchData = useFetchData('http://localhost:8000/api/accounts/get_institutions');
   const accountsFetchData = useFetchData('http://localhost:8000/api/accounts/get_accounts');
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   return (
     <div className='page'>
       <Sidebar />
       <div className='content'>
-        <h1>Banking Route</h1>
-        <p>This is your banking route content.</p>
-
-        <button onClick={openModal}>Add Account</button>
-        {isModalOpen && <Link onClose={closeModal} />}
+        <h1>Banking</h1>
 
         <AccountsWidget
           data={{ institutions: institutionsFetchData.data, accounts: accountsFetchData.data }}

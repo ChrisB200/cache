@@ -1,7 +1,8 @@
 .banking-widget {
   max-width: 400px;
   min-width: 200px;
-  padding: 1rem 2vw 1rem 2vw;
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
 }
 
 .widget-accent {
@@ -24,4 +25,34 @@
   width: 100%;
   height: auto;
   margin: 0;
+}
+
+select {
+  font-size: var(--font-400);
+  padding: 0.2rem 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn-add-account {
+  width: 100%;
+  padding: 1rem 0;
+  font-size: var(--font-400);
+  background-color: var(--primary-300);
+  border: none;
+  border-radius: 15px;
+}
+
+.btn-add-account:hover {
+  cursor: pointer;
+}
+
+.widget-content p {
+  font-size: var(--font-500);
+  color: var(--text-light);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+h3 {
+  font-weight: 400;
 }
