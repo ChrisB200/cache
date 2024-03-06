@@ -140,6 +140,10 @@ function Banking() {
   const institutionsFetchData = useFetchData('http://localhost:8000/api/accounts/get_institutions');
   const accountsFetchData = useFetchData('http://localhost:8000/api/accounts/get_accounts');
 
+  useEffect(() => {
+    document.title = "Banking | Cache";
+  }, [])
+
   return (
     <div className='page'>
       <Sidebar />
