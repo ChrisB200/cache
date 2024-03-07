@@ -1,1 +1,1 @@
-const API_URL = "localhost:8000/api/"
+const API_URL = "https://9ayhn071qg.execute-api.eu-west-2.amazonaws.com"
