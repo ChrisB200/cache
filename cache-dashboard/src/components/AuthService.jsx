@@ -4,7 +4,7 @@ import API_URL from "../constants"
 
 class AuthService {
   login(email, password) {
-    return httpClient.post(API_URL + "auth/login", {
+    return httpClient.post(API_URL + "/auth/login", {
       email,
       password,
     })
@@ -15,11 +15,11 @@ class AuthService {
   }
 
   isAuthenticated() {
-    return httpClient.get(API_URL + "auth/isauthenticated")
+    return httpClient.get(API_URL + "/auth/isauthenticated")
   }
 
   register(username, email, password) {
-    return axios.post(API_URL + "auth/register", {
+    return axios.post(API_URL + "/auth/register", {
       username,
       email,
       password,

@@ -138,8 +138,8 @@ function Banking() {
   const [selectedInstitution, setSelectedInstitution] = useState('');
 
   // Fetch institutions and accounts data
-  const institutionsFetchData = useFetchData(API_URL + 'accounts/get_institutions');
-  const accountsFetchData = useFetchData(API_URL + 'accounts/get_accounts');
+  const institutionsFetchData = useFetchData(API_URL + '/accounts/get_institutions');
+  const accountsFetchData = useFetchData(API_URL + '/accounts/get_accounts');
 
   useEffect(() => {
     document.title = "Banking | Cache";
