@@ -66,26 +66,6 @@ Now open Visual Studio Code and open the project's location's folder. Then insta
 ![Selecting Python interpreter](images/python-interpreter.png)
 Then press the python version in the bottom right, in my case it is 3.11.5. Then after this their should be a dropdown at the top of the screen. Press the python version which has __cache__ in brackets. This now means that the python version and python libraries will be only used for this project. Now you can program as usual.
 
-### Docker
-Visit the url https://docs.docker.com/desktop/install/windows-install/ and install docker desktop. ![Docker Desktop Web](images/docker-web.png) And thats all you have to do.
-### MySQL Workbench
-Visit this url https://dev.mysql.com/downloads/workbench/ and install mysql workbench. ![alt text](images/sql-download.png)
-
-To connect to the database you have to enter the details. So look into the .env file which is in the backend folder. and take a look at the details. ![alt text](images/sql-home.png)
-Press the plus to add a new connection.
-![alt text](images/sql-connecting.png)
-When this screen show up enter the details from the .env file into here. All you need to enter:
-- The DB_HOST into the Hostname.
-- The DB_USERNAME into Username.
-- Change the connection name at the top to anything you want (I used Cache).
-- Then press test connection and it should show a screen to enter the password. You can get this from the .env file.
-
-If you have followed these steps correctly you have successfully connected to the database.
-
-Then once you are in you press in the top right file -> open model then navigate to this directory and in the sqlmodels folder open it. ![alt text](images/sql-model.png)
-Then once it opens you should see this screen. ![alt text](images/sql-modelview.png)
-
-select dbCache and then press EER diagram. This will take you to this screen. ![alt text](images/sql-eer.png)
 ### Postman
 Visit the url https://www.postman.com/downloads/ and install postman. This will allow for you to run code at specific api endpoints.![Postman](images/postman-download.png)
 After you have downloaded this message me and i can invite you to the workspace which will allow for us to collaborate.
