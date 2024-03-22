@@ -1,7 +1,11 @@
-img {
+.logo-position {
   width: 200px;
   margin-left: 10rem;
   margin-top: 2rem;
+}
+
+.logo-position img {
+  width: 100%;
 }
 
 .signup-content {

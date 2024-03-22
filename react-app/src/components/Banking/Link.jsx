@@ -21,6 +21,7 @@ const Link = ({ onClose }) => {
   }, []);
 
   const onSuccess = (public_token, metadata) => {
+    console.log("hi")
     httpClient
       .post('http://localhost:8000/api/plaid/exchange_public_token', { public_token })
       .then(response => {

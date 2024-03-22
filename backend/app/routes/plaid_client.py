@@ -1,6 +1,7 @@
 import json, time, plaid
 
 from flask import Flask, request, Blueprint, jsonify, g
+from datetime import datetime, time
 
 from plaid.model.link_token_create_request import LinkTokenCreateRequest
 from plaid.model.link_token_create_request_user import LinkTokenCreateRequestUser
@@ -12,7 +13,7 @@ from plaid.model.item_public_token_exchange_request import (
 from plaid.model.accounts_get_request import AccountsGetRequest
 
 
-from ..models import db, User, Account
+from ..models import db, User, Account, BalanceHistories
 from ..auth import load_current_user
 from ..plaid_config import client, products, PLAID_REDIRECT_URI, PLAID_COUNTRY_CODES
 
@@ -40,7 +41,6 @@ def create_link_token():
     except plaid.ApiException as e:
         return json.loads(e.body)
 
-
 @plaid_routes.route("/api/plaid/exchange_public_token", methods=["POST"])
 @load_current_user
 def exchange_public_token():
@@ -58,6 +58,7 @@ def exchange_public_token():
     accounts = AccountsGetRequest(access_token=access_token)
     response = client.accounts_get(accounts)
     db_accounts = []
+    db_balances = []
 
     insRequest = InstitutionsGetByIdRequest(
         institution_id=response["item"]["institution_id"],
@@ -66,7 +67,7 @@ def exchange_public_token():
     insResponse = client.institutions_get_by_id(insRequest)
 
     for account in response["accounts"]:
-        db_accounts.append(Account(
+        current_account = Account(
             user=g.current_user,
             name=account["name"],
             institution_name=insResponse["institution"]["name"],
@@ -74,12 +75,21 @@ def exchange_public_token():
             plaid_institution_id=response["item"]["institution_id"],
             plaid_item_id=item_id,
             plaid_access_token=access_token,
-            iso_currency_code=account["balances"]["iso_currency_code"],
-            current_balance=account["balances"]["current"]
-        ))
-        print(account["type"])
+        )
+
+        current_balance = BalanceHistories(
+            account=current_account,
+            current_balance=account["balances"]["current"],
+            date = datetime.today(),
+            time = datetime.now().time()
+        )
+
+        db_accounts.append(current_account)
+        db_balances.append(current_balance)
 
     db.session.add_all(db_accounts)
+    db.session.add_all(db_balances)
+
     db.session.commit()
 
     return jsonify({"public_token_exchange": "complete"})

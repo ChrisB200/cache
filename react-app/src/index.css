@@ -32,6 +32,7 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: "Nunito";
 }
 
 h1 {
@@ -46,12 +47,8 @@ h3 {
   font-size: var(--font-500);
 }
 
-p {
+p, select, button, div {
   font-size: var(--font-400);
-}
-
-* {
-  font-family: "Nunito";
 }
 
 body {
@@ -67,4 +64,77 @@ body {
 .content {
   width: 100%;
   margin-top: 5vh;
+}
+
+/* Widget Styles*/
+.widgets {
+  display: flex;
+  gap: 2rem;
+}
+
+.widget {
+  padding: 1.5rem;
+  font-size: var(--font-400);
+}
+
+.widget-content {
+  padding: 0;
+}
+
+.widget-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.widget-header h3 {
+  font-size: var(--font-400);
+}
+
+.widget-header div {
+  width: 30px;
+}
+
+.widget-header div img {
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+.widget-primary {
+  background-color: var(--primary-400);
+  color: var(--text-dark);
+}
+
+.widget-accent {
+  background-color: var(--accent-400);
+  color: var(--text-light);
+}
+
+/* Info Widget Styles*/
+.info-widget.widget-primary {
+  width: 12rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  color: var(--text-dark);
+  border-radius: 15px;
+}
+
+
+
+
+
+.info-widget.widget-content p {
+  font-weight: bold;
+  font-size: var(--font-700);
+}
+
+.info-widget.widget-footer p {
+  color: var(--accent-400);
+}
+
+.info-widget.widget-footer {
+  display: flex;
+  justify-content: space-between;
 }

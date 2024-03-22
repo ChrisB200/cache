@@ -5,7 +5,10 @@ import '../../index.css';
 import './Banking.css';
 import logo from '../../assets/logo.png';
 import widgetSettingsLight from '../../assets/widget-settings-light.svg';
+import widgetSettingsDark from '../../assets/widget-settings-dark.svg';
 import Sidebar from '../Sidebar';
+import up_arrow from '../../assets/uparrow.svg'
+import down_arrow from '../../assets/downarrow.svg'
 
 // Custom hook for fetching data
 function useFetchData(url) {
@@ -38,11 +41,17 @@ function getDataByID(id, data) {
   if (found === undefined) {
     return ""
   } else {
-    console.log(found)
     return found
   }
 }
 
+function getBalance(account) {
+  if (account && account.most_recent_balance && account.most_recent_balance.current_balance !== undefined) {
+    return account.most_recent_balance.current_balance;
+  } else {
+    return 0;
+  }
+}
 
 
 // InstitutionsWidget component
@@ -97,32 +106,31 @@ function AccountsWidget({ data, loading, error, selectedAccount, setSelectedAcco
   if (error) return <p>Error: {error.message}</p>;
 
   const { institutions, accounts } = data;
-
+  console.log(accounts)
   // Filter accounts based on the selected institution
   const filteredAccounts = accounts.filter(account => account.plaid_institution_id === selectedInstitution);
 
   return (
     <>
-      <div className="banking-widget widget-accent">
+      <div className="widget banking-widget widget-accent">
         <div className="widget-header">
           <h3>Accounts</h3>
           <div>
             <img src={widgetSettingsLight} />
           </div>
         </div>
-        <div className="widget-content">
-          <InstitutionsDropdown className="widget-dropdown"
+        <div className="banking-widget widget-content">
+          <InstitutionsDropdown className="banking-widget widget-dropdown"
             institutions={institutions}
             selectedInstitution={selectedInstitution}
             setSelectedInstitution={setSelectedInstitution}
           />
-          <AccountsDropdown className="widget-dropdown"
+          <AccountsDropdown className="banking-widget widget-dropdown"
             accounts={filteredAccounts}
             selectedAccount={selectedAccount}
             setSelectedAccount={setSelectedAccount}
           />
-          <p>Balance: £{getDataByID(selectedAccount, accounts).current_balance}</p>
-          <button className="btn-add-account" onClick={openModal}>Add Another Account</button>
+          <button className="banking-widget btn-add-account" onClick={openModal}>Add Another Account</button>
           {isModalOpen && <Link onClose={closeModal} />}
         </div>
       </div>
@@ -130,8 +138,35 @@ function AccountsWidget({ data, loading, error, selectedAccount, setSelectedAcco
   );
 }
 
+function ImprovementWidget({title, data, percentage, typeOfIncrease}) {
+  let arrow = up_arrow;
+  let prefix = "+";
+  if (!typeOfIncrease) {
+    arrow = down_arrow;
+    prefix = "-";
+  }
 
-// Banking component
+  return (
+    <>
+      <div className='widget info-widget widget-primary'>
+        <div className='info-widget widget-header'>
+          <h3>{title}</h3>
+          <div>
+            <img src={widgetSettingsDark}/>
+          </div>
+        </div>
+        <div className='info-widget widget-content'>
+          <p>£{data}</p>
+        </div>
+        <div className='info-widget widget-footer'>
+          <img className="info-widget widget-arrow" src={arrow}/>
+          <p>{prefix}{percentage}%</p>
+        </div>
+      </div>
+    </>
+  );
+}
+
 function Banking() {
   const [selectedAccount, setSelectedAccount] = useState('');
   const [selectedInstitution, setSelectedInstitution] = useState('');
@@ -142,14 +177,14 @@ function Banking() {
 
   useEffect(() => {
     document.title = "Banking | Cache";
-  }, [])
+  }, []);
 
   return (
     <div className='page'>
       <Sidebar />
       <div className='content'>
         <h1>Banking</h1>
-
+        <div className="widgets">
         <AccountsWidget
           data={{ institutions: institutionsFetchData.data, accounts: accountsFetchData.data }}
           loading={institutionsFetchData.loading || accountsFetchData.loading}
@@ -159,9 +194,18 @@ function Banking() {
           selectedInstitution={selectedInstitution}
           setSelectedInstitution={setSelectedInstitution}
         />
+
+        <ImprovementWidget
+          title="Balance"
+          data={getBalance(getDataByID(selectedAccount, accountsFetchData.data))}
+          percentage={20}
+          typeOfIncrease={true}
+        />
+        </div>
       </div>
     </div>
   );
 }
+
 
 export default Banking;

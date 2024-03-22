@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import AuthService from '../AuthService';
-import "./Login.css"
+import { FaSpinner } from 'react-icons/fa'; // Import spinner component
+import "./Login.css";
 
 function Login() {
   const navigate = useNavigate();
   const [values, setValues] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -14,11 +17,14 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(""); // Reset error state
+    setLoading(true); // Show loading indicator
 
     // Validation
     const isValidEmail = /\S+@\S+\.\S+/.test(values.email);
     if (!isValidEmail) {
-      console.error('Invalid email address');
+      setError("Invalid Email Address");
+      setLoading(false); // Hide loading indicator
       return;
     }
 
@@ -27,14 +33,16 @@ function Login() {
         navigate("/overview");
       })
       .catch(error => {
-        console.error('Login error:', error);
+        setError("Invalid Credentials");
+        setLoading(false); // Hide loading indicator
       });
-
   };
 
   return (
     <>
-      <img alt='Logo Position' src={logo} />
+      <div className="logo-position">
+        <img alt='Logo Position' src={logo} />
+      </div>
       <div className='login-content'>
         <h2>Welcome back</h2>
         <form onSubmit={handleSubmit} className="login-form">
@@ -46,8 +54,6 @@ function Login() {
             value={values.email}
             onChange={handleChange}
           />
-
-
           <input
             type="password"
             name="password"
@@ -57,14 +63,15 @@ function Login() {
             placeholder='Password'
           />
 
-          <button className="login-btn" type="submit">
-            Log in
+          <button className="login-btn" type="submit" disabled={loading}>
+            {loading ? <FaSpinner className="spinner" /> : "Log in"} {/* Replace text with spinner */}
           </button>
+          {error && <p className="error-message">{error}</p>}
         </form>
         <Link href="#">
           Reset password
         </Link>
-        <p>Don't have an account? <Link to={"/register"}>create one</Link></p>
+        <p className='redirect-signup'>Don't have an account? <Link to={"/register"}>create one</Link></p>
       </div>
     </>
   );

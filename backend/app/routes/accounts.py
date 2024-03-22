@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, g
 import plaid
 from plaid.model.institutions_get_by_id_request import InstitutionsGetByIdRequest
-from ..models import db, Shift, Account
+from ..models import db, Shift, Account, BalanceHistories
 from ..auth import load_current_user
 from ..plaid_config import client, PLAID_COUNTRY_CODES
 from plaid.model.country_code import CountryCode
@@ -16,13 +16,34 @@ def get_accounts():
     
     accounts = Account.query.filter_by(user=g.current_user).all()
 
-    accountData = []
+    account_data = []
     for account in accounts:
-        accountData.append(account.return_json())
+        # Get the most recent balance entry for the account
+        recent_balance = (
+            BalanceHistories.query.filter_by(account_id=account.id)
+            .order_by(BalanceHistories.date.desc(), BalanceHistories.time.desc())
+            .first()
+        )
+        
+        # Construct dictionary containing account name and most recent balance data
+        if recent_balance:
+            balance_data = {
+                "current_balance": float(recent_balance.current_balance),
+                "date": recent_balance.date.strftime("%Y-%m-%d"),
+                "time": recent_balance.time.strftime("%H:%M:%S")
+            }
+        else:
+            balance_data = None
+        
+        account_data.append({
+            "name": account.name,
+            "id": account.id,
+            "plaid_institution_id": account.plaid_institution_id,
+            "most_recent_balance": balance_data
+        })
 
-    print(accountData)
+    return jsonify(account_data), 200
 
-    return jsonify(accountData), 200
 
 
 @account_routes.route("/api/accounts/get_institutions", methods=["GET"])

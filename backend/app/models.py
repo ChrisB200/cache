@@ -29,27 +29,27 @@ class Account(db.Model):
     plaid_institution_id = db.Column(db.String(255))
     plaid_item_id = db.Column(db.String(255))
     plaid_access_token = db.Column(db.String(255))
-
     institution_name = db.Column(db.String(300))
-    iso_currency_code = db.Column(db.String(3))
-    available_balance = db.Column(db.DECIMAL(15, 2, asdecimal=False))
-    current_balance = db.Column(db.DECIMAL(15, 2, asdecimal=False))
+
     type = db.Column(db.String(45))
     limit = db.Column(db.DECIMAL(15, 2, asdecimal=False))
 
     job = db.relationship("Job", back_populates="account", cascade="all, delete")
     user = db.relationship("User", back_populates="account", cascade="all, delete")
+    balance_histories = db.relationship("BalanceHistories", back_populates="account", cascade="all, delete")
 
-    def return_json(self):
-        return {
-            "id": self.id,
-            "plaid_institution_id": self.plaid_institution_id,
-            "name": self.name,
-            "current_balance": self.current_balance,
-            "available_balance": self.available_balance,
-            "type": self.type,
-            "limit": self.limit,
-        }
+class BalanceHistories(db.Model):
+    __tablename__ = "balance_histories"
+    id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
+    account_id = db.Column(db.String(32), db.ForeignKey('accounts.id'))
+    
+    iso_currency_code = db.Column(db.String(3))
+    available_balance = db.Column(db.DECIMAL(15, 2, asdecimal=False))
+    current_balance = db.Column(db.DECIMAL(15, 2, asdecimal=False))
+    date = db.Column(db.Date, nullable=False)
+    time = db.Column(db.Time, nullable=False)
+
+    account = db.relationship("Account", back_populates="balance_histories", cascade="all, delete")
 
 class Job(db.Model):
     __tablename__ = "jobs"

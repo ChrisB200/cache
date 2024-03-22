@@ -58,3 +58,4 @@ quickstart
 
 # Flask App
 __pycache__*
+.env
