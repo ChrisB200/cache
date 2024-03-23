@@ -151,7 +151,7 @@ def get_transactions():
             "name": transaction.name,
             "id": transaction.id,
             "date": transaction.date.isoformat(),  # Convert date to string
-            "amount": transaction.amount,
+            "amount": -transaction.amount,
             "account_id": transaction.account_id
         })
 

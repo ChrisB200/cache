@@ -178,7 +178,7 @@ function TransactionsWidget({ transactions, loading, error }) {
   return (
     <div className='widget transactions-widget'>
       <div className='widget-header'>
-        <h3>Transactions</h3>
+        <h3>Transactions History</h3>
         <div>
           <img src={widgetSettingsDark} />
         </div>
@@ -192,7 +192,7 @@ function TransactionsWidget({ transactions, loading, error }) {
               <p className='transaction-date'>{transaction.date}</p>
               </div>
               <div>
-                <p className='transaction-amount'>£{transaction.amount*-1}</p>
+                <p className='transaction-amount'>£{transaction.amount}</p>
               </div>
             </li>
           ))}
@@ -201,7 +201,6 @@ function TransactionsWidget({ transactions, loading, error }) {
     </div>
   );
 }
-
 
 // Banking component
 function Banking() {
@@ -222,7 +221,7 @@ function Banking() {
       try {
         const accountData = getDataByID(selectedAccount, accountsFetchData.data);
         if (accountData) {
-          const response = await httpClient.get(`http://localhost:8000/api/accounts/get_transactions?account_id=${accountData.id}&startingAmount=0&amount=10`);
+          const response = await httpClient.get(`http://localhost:8000/api/accounts/get_transactions?account_id=${accountData.id}&startingAmount=0&amount=25`);
           setTransactions(response.data);
         }
         setTransactionsLoading(false);
@@ -281,14 +280,11 @@ function Banking() {
             loading={transactionsLoading}
             error={transactionsError}
           />
+          
         </div>
       </div>
     </div>
   );
 }
-
-
-
-
 
 export default Banking;
