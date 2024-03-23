@@ -24,9 +24,9 @@ db.init_app(app)
 app.register_blueprint(routes)
 
 # Recreates databases with these models
-with app.app_context():
-    db.drop_all()
-    db.create_all()
+#with app.app_context():
+#    db.drop_all()
+#    db.create_all()
 
 # Authentication routes
 

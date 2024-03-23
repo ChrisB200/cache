@@ -108,7 +108,9 @@ def sync_transactions():
                     account=account,
                     date=transaction["date"],
                     name=transaction["name"],
-                    amount=transaction["amount"]
+                    amount=transaction["amount"],
+                    #category=transaction["category"][0] if transaction["category"][0] != None else "other",
+                    #logo_url=transaction["counterparties"][0]["logo_url"]
                 ))
 
             #modified.extend(response['modified'])
@@ -119,7 +121,38 @@ def sync_transactions():
 
             cursor = response['next_cursor']
 
+        account.transactions_cursor = cursor
+
         db.session.add_all(added)
+        db.session.add(account)
         db.session.commit()
 
     return "success"
+
+@account_routes.route("/api/accounts/get_transactions", methods=["GET"])
+@load_current_user
+def get_transactions():
+    if not g.current_user:
+        return jsonify({"error": "Unauthorised"}), 401
+    
+    account_id = request.args.get("account_id")
+    amount = request.args.get("amount")
+    startingAmount = request.args.get("startingAmount")
+
+    transactions = Transactions.query.filter_by(account_id=account_id)\
+                    .order_by(Transactions.date.desc())\
+                    .offset(startingAmount)\
+                    .limit(amount)\
+                    .all()
+    
+    transactions_list = []
+    for transaction in transactions:
+        transactions_list.append({
+            "name": transaction.name,
+            "id": transaction.id,
+            "date": transaction.date.isoformat(),  # Convert date to string
+            "amount": transaction.amount,
+            "account_id": transaction.account_id
+        })
+
+    return jsonify(transactions_list), 200

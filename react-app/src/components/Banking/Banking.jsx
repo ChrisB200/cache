@@ -142,7 +142,7 @@ function AccountsWidget({ data, loading, error, selectedAccount, setSelectedAcco
   );
 }
 
-function ImprovementWidget({title, data, percentage, typeOfIncrease}) {
+function InfoWidget({title, data, percentage, typeOfIncrease}) {
   let arrow = up_arrow;
   let prefix = "+";
   if (!typeOfIncrease) {
@@ -171,15 +171,71 @@ function ImprovementWidget({title, data, percentage, typeOfIncrease}) {
   );
 }
 
+function TransactionsWidget({ transactions, loading, error }) {
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return (
+    <div className='widget transactions-widget'>
+      <div className='widget-header'>
+        <h3>Transactions</h3>
+        <div>
+          <img src={widgetSettingsDark} />
+        </div>
+      </div>
+      <div className='widget-content'>
+        <ul className='transactions'>
+          {transactions.map(transaction => (
+            <li className="transaction" key={transaction.id}>
+              <div>
+              <p className='transaction-name'>{transaction.name}</p>
+              <p className='transaction-date'>{transaction.date}</p>
+              </div>
+              <div>
+                <p className='transaction-amount'>£{transaction.amount*-1}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+
 // Banking component
 function Banking() {
   const [selectedAccount, setSelectedAccount] = useState('');
   const [selectedInstitution, setSelectedInstitution] = useState('');
-  const [linkSuccess, setLinkSuccess] = useState(false); // New state variable
+  const [linkSuccess, setLinkSuccess] = useState(false);
+  const [transactions, setTransactions] = useState([]);
+  const [transactionsLoading, setTransactionsLoading] = useState(true);
+  const [transactionsError, setTransactionsError] = useState(null);
 
   // Fetch institutions and accounts data
   let institutionsFetchData = useFetchData('http://localhost:8000/api/accounts/get_institutions');
   let accountsFetchData = useFetchData('http://localhost:8000/api/accounts/get_accounts');
+
+   // Fetch transactions data
+   useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        const accountData = getDataByID(selectedAccount, accountsFetchData.data);
+        if (accountData) {
+          const response = await httpClient.get(`http://localhost:8000/api/accounts/get_transactions?account_id=${accountData.id}&startingAmount=0&amount=10`);
+          setTransactions(response.data);
+        }
+        setTransactionsLoading(false);
+      } catch (error) {
+        setTransactionsError(error);
+        setTransactionsLoading(false);
+      }
+    };
+
+    if (selectedAccount) {
+      fetchTransactions();
+    }
+  }, [selectedAccount]);
   
   useEffect(() => {
     document.title = "Banking | Cache";
@@ -214,11 +270,16 @@ function Banking() {
             setSelectedInstitution={setSelectedInstitution}
             onSuccessLink={onSuccessLink} // Pass the callback function
           />
-          <ImprovementWidget
+          <InfoWidget
             title="Balance"
             data={getBalance(getDataByID(selectedAccount, accountsFetchData.data))}
             percentage={20}
             typeOfIncrease={true}
+          />
+           <TransactionsWidget
+            transactions={transactions}
+            loading={transactionsLoading}
+            error={transactionsError}
           />
         </div>
       </div>

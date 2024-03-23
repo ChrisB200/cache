@@ -48,6 +48,7 @@ class Transactions(db.Model):
     date = db.Column(db.Date)
     name = db.Column(db.String(200))
     amount = db.Column(db.DECIMAL(15, 2, asdecimal=False))
+    logo_url = db.Column(db.String(300))
 
     account = db.relationship("Account", back_populates="transactions", cascade="all, delete")
 

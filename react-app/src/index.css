@@ -27,6 +27,9 @@
   /* 36 */
   --font-800: 3rem;
   /* 48 */
+
+  --widget-width: 200px;
+  --widget-height: 250px;
 }
 
 * {
@@ -45,6 +48,7 @@ h2 {
 
 h3 {
   font-size: var(--font-500);
+  font-weight: 400;
 }
 
 p, select, button, div {
@@ -68,14 +72,21 @@ body {
 
 /* Widget Styles*/
 .widgets {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--widget-width), 1fr)); /* Automatically create columns with a minimum width of 200px */
+  grid-auto-rows: minmax(var(--widget-height), auto); /* Automatically size rows with a minimum height of 100px */
   gap: 2rem;
 }
 
 .widget {
   padding: 1.5rem;
+  width: auto;
+  height: auto;
   font-size: var(--font-400);
   border-radius: 12px;
+  max-height: var(--widget-height);
+  justify-content: space-between;
+  align-items: stretch;
 }
 
 .widget-content {
@@ -115,7 +126,6 @@ body {
 
 /* Info Widget Styles*/
 .info-widget.widget-primary {
-  width: 12rem;
   display: flex;
   flex-direction: column;
   gap: 3rem;
