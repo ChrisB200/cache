@@ -75,6 +75,7 @@ body {
 .widget {
   padding: 1.5rem;
   font-size: var(--font-400);
+  border-radius: 12px;
 }
 
 .widget-content {
@@ -101,8 +102,9 @@ body {
   height: auto;
   margin: 0;
 }
+
 .widget-primary {
-  background-color: var(--primary-400);
+  background-color: var(--primary-300);
   color: var(--text-dark);
 }
 
@@ -118,12 +120,7 @@ body {
   flex-direction: column;
   gap: 3rem;
   color: var(--text-dark);
-  border-radius: 15px;
 }
-
-
-
-
 
 .info-widget.widget-content p {
   font-weight: bold;

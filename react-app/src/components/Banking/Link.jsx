@@ -3,7 +3,7 @@ import { usePlaidLink } from 'react-plaid-link';
 import httpClient from '../../httpClient'; // Assuming your httpClient module is in the same directory
 import './Link.css';
 
-const Link = ({ onClose }) => {
+const Link = ({ onClose, onSuccessLink }) => {
   const [linkToken, setLinkToken] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
@@ -21,14 +21,20 @@ const Link = ({ onClose }) => {
   }, []);
 
   const onSuccess = (public_token, metadata) => {
-    console.log("hi")
     httpClient
       .post('http://localhost:8000/api/plaid/exchange_public_token', { public_token })
       .then(response => {
         // Handle response ...
+        console.log(response.data)
+        let data = response.data.accounts
+        httpClient.post('http://localhost:8000/api/accounts/sync_transactions', { data })
+        .then(response => {
+          console.log(response)
+        })
         setShowSuccessMessage(true); // Show success message
         setTimeout(() => {
           setShowSuccessMessage(false); // Hide success message after timeout
+          onSuccessLink(); // Call the onSuccessLink callback
           onClose(); // Close the modal after success
         }, 2000); // Adjust timeout as needed
       })

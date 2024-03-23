@@ -30,6 +30,7 @@ class Account(db.Model):
     plaid_item_id = db.Column(db.String(255))
     plaid_access_token = db.Column(db.String(255))
     institution_name = db.Column(db.String(300))
+    transactions_cursor = db.Column(db.String(300))
 
     type = db.Column(db.String(45))
     limit = db.Column(db.DECIMAL(15, 2, asdecimal=False))
@@ -37,6 +38,18 @@ class Account(db.Model):
     job = db.relationship("Job", back_populates="account", cascade="all, delete")
     user = db.relationship("User", back_populates="account", cascade="all, delete")
     balance_histories = db.relationship("BalanceHistories", back_populates="account", cascade="all, delete")
+    transactions = db.relationship("Transactions", back_populates="account", cascade="all, delete")
+
+class Transactions(db.Model):
+    __tablename__ = "transactions"
+    id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
+    account_id = db.Column(db.String(32), db.ForeignKey('accounts.id'))
+    category = db.Column(db.String(200))
+    date = db.Column(db.Date)
+    name = db.Column(db.String(200))
+    amount = db.Column(db.DECIMAL(15, 2, asdecimal=False))
+
+    account = db.relationship("Account", back_populates="transactions", cascade="all, delete")
 
 class BalanceHistories(db.Model):
     __tablename__ = "balance_histories"

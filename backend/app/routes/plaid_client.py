@@ -57,13 +57,14 @@ def exchange_public_token():
 
     accounts = AccountsGetRequest(access_token=access_token)
     response = client.accounts_get(accounts)
+
     db_accounts = []
     db_balances = []
 
     insRequest = InstitutionsGetByIdRequest(
         institution_id=response["item"]["institution_id"],
         country_codes=[CountryCode("GB")]
-        )
+    )
     insResponse = client.institutions_get_by_id(insRequest)
 
     for account in response["accounts"]:
@@ -80,8 +81,8 @@ def exchange_public_token():
         current_balance = BalanceHistories(
             account=current_account,
             current_balance=account["balances"]["current"],
-            date = datetime.today(),
-            time = datetime.now().time()
+            date=datetime.today(),
+            time=datetime.now().time()
         )
 
         db_accounts.append(current_account)
@@ -92,7 +93,13 @@ def exchange_public_token():
 
     db.session.commit()
 
-    return jsonify({"public_token_exchange": "complete"})
+    # Get the account IDs by plaid_account_id
+    db_account_ids = []
+    for account_id in response["accounts"]:
+        account = Account.query.filter_by(plaid_account_id=account_id["account_id"]).one()
+        db_account_ids.append(account.id)
+
+    return jsonify({"public_token_exchange": "complete", "accounts": db_account_ids})
 
 @plaid_routes.route("/api/plaid/get_accounts_test", methods=["GET"])
 @load_current_user

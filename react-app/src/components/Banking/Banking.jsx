@@ -16,25 +16,29 @@ function useFetchData(url) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const response = await httpClient.get(url);
+      setData(response.data);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await httpClient.get(url);
-        setData(response.data);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchData();
-
-    return () => { }; // Cleanup function if needed
   }, [url]);
 
-  return { data, loading, error };
+  const refetch = () => {
+    fetchData();
+  };
+
+  return { data, loading, error, refetch };
 }
+
 
 function getDataByID(id, data) {
   let found = data.find(data => data.id === id);
@@ -91,7 +95,7 @@ function AccountsDropdown({ accounts, selectedAccount, setSelectedAccount }) {
 }
 
 // AccountsWidget component
-function AccountsWidget({ data, loading, error, selectedAccount, setSelectedAccount, selectedInstitution, setSelectedInstitution }) {
+function AccountsWidget({ data, loading, error, selectedAccount, setSelectedAccount, selectedInstitution, setSelectedInstitution, onSuccessLink }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -131,7 +135,7 @@ function AccountsWidget({ data, loading, error, selectedAccount, setSelectedAcco
             setSelectedAccount={setSelectedAccount}
           />
           <button className="banking-widget btn-add-account" onClick={openModal}>Add Another Account</button>
-          {isModalOpen && <Link onClose={closeModal} />}
+          {isModalOpen && <Link onClose={closeModal} onSuccessLink={onSuccessLink} />}
         </div>
       </div>
     </>
@@ -167,17 +171,32 @@ function ImprovementWidget({title, data, percentage, typeOfIncrease}) {
   );
 }
 
+// Banking component
 function Banking() {
   const [selectedAccount, setSelectedAccount] = useState('');
   const [selectedInstitution, setSelectedInstitution] = useState('');
+  const [linkSuccess, setLinkSuccess] = useState(false); // New state variable
 
   // Fetch institutions and accounts data
-  const institutionsFetchData = useFetchData('http://localhost:8000/api/accounts/get_institutions');
-  const accountsFetchData = useFetchData('http://localhost:8000/api/accounts/get_accounts');
-
+  let institutionsFetchData = useFetchData('http://localhost:8000/api/accounts/get_institutions');
+  let accountsFetchData = useFetchData('http://localhost:8000/api/accounts/get_accounts');
+  
   useEffect(() => {
     document.title = "Banking | Cache";
   }, []);
+
+  // Function to trigger re-fetch after successful link
+  const onSuccessLink = () => {
+    setLinkSuccess(true);
+  };
+
+  useEffect(() => {
+    if (linkSuccess) {
+      // Refetch institutions and accounts data
+      institutionsFetchData.refetch();
+      accountsFetchData.refetch();
+    }
+  }, [linkSuccess]);
 
   return (
     <div className='page'>
@@ -185,27 +204,30 @@ function Banking() {
       <div className='content'>
         <h1>Banking</h1>
         <div className="widgets">
-        <AccountsWidget
-          data={{ institutions: institutionsFetchData.data, accounts: accountsFetchData.data }}
-          loading={institutionsFetchData.loading || accountsFetchData.loading}
-          error={institutionsFetchData.error || accountsFetchData.error}
-          selectedAccount={selectedAccount}
-          setSelectedAccount={setSelectedAccount}
-          selectedInstitution={selectedInstitution}
-          setSelectedInstitution={setSelectedInstitution}
-        />
-
-        <ImprovementWidget
-          title="Balance"
-          data={getBalance(getDataByID(selectedAccount, accountsFetchData.data))}
-          percentage={20}
-          typeOfIncrease={true}
-        />
+          <AccountsWidget
+            data={{ institutions: institutionsFetchData.data, accounts: accountsFetchData.data }}
+            loading={institutionsFetchData.loading || accountsFetchData.loading}
+            error={institutionsFetchData.error || accountsFetchData.error}
+            selectedAccount={selectedAccount}
+            setSelectedAccount={setSelectedAccount}
+            selectedInstitution={selectedInstitution}
+            setSelectedInstitution={setSelectedInstitution}
+            onSuccessLink={onSuccessLink} // Pass the callback function
+          />
+          <ImprovementWidget
+            title="Balance"
+            data={getBalance(getDataByID(selectedAccount, accountsFetchData.data))}
+            percentage={20}
+            typeOfIncrease={true}
+          />
         </div>
       </div>
     </div>
   );
 }
+
+
+
 
 
 export default Banking;

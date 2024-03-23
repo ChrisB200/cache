@@ -4,6 +4,7 @@ import httpClient from "../httpClient";
 const API_URL = "http://localhost:8000/api/auth/";
 
 class AuthService {
+  
   login(email, password) {
     return httpClient.post(API_URL + "login", {
       email,
