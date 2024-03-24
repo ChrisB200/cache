@@ -6,6 +6,7 @@ from datetime import datetime, time
 from plaid.model.link_token_create_request import LinkTokenCreateRequest
 from plaid.model.link_token_create_request_user import LinkTokenCreateRequestUser
 from plaid.model.institutions_get_by_id_request import InstitutionsGetByIdRequest
+from plaid.model.sandbox_item_fire_webhook_request import SandboxItemFireWebhookRequest
 from plaid.model.country_code import CountryCode
 from plaid.model.item_public_token_exchange_request import (
     ItemPublicTokenExchangeRequest,
@@ -32,6 +33,7 @@ def create_link_token():
             country_codes=[CountryCode(PLAID_COUNTRY_CODES)],
             language="en",
             user=LinkTokenCreateRequestUser(client_user_id=str(g.current_user.id)),
+            webhook='https://webhook.example.com'
         )
         if PLAID_REDIRECT_URI != None:
             request["redirect_uri"] = PLAID_REDIRECT_URI
@@ -101,18 +103,16 @@ def exchange_public_token():
 
     return jsonify({"public_token_exchange": "complete", "accounts": db_account_ids})
 
-@plaid_routes.route("/api/plaid/get_accounts_test", methods=["GET"])
+@plaid_routes.route("/api/plaid/test_webhook", methods=["POST"])
 @load_current_user
-def get_all():
-    if not g.current_user:
-        return jsonify({"error": "Unauthorised"}), 401
-    
-    user_accounts = Account.query.filter_by(user=g.current_user).all()
+def test_webhook():
+    account = Account.query.filter_by(user=g.current_user).one()
 
-    responses = []
-    for account in user_accounts:
-        request = AccountsGetRequest(access_token=account.plaid_access_token)
-        response = client.accounts_get(request)
-        responses.append(response["accounts"])
-    
-    print(responses)
+    request = SandboxItemFireWebhookRequest(
+        access_token=account.plaid_access_token,
+        webhook_code='DEFAULT_UPDATE'
+        )
+
+    response = client.sandbox_item_fire_webhook(request)
+
+    return jsonify(response)
