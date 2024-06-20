@@ -18,6 +18,6 @@ dependencies:
     - flask-session
     - flask-bcrypt
     - opencv-python-headless
-    - mysql-connector-python
+    - pymysql
     - python-dotenv
     - pytesseract

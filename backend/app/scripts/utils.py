@@ -1,6 +1,5 @@
 import numpy as np
 import os
-import mysql.connector
 import re
 from datetime import datetime, timedelta, time
 from PIL import Image
@@ -106,16 +105,6 @@ class Shift:
 def format_image(image) -> np.ndarray:
     pil_image = Image.open(image)
     return np.array(pil_image)
-
-
-# Returns a database connection
-def db_connection(host: str, username: str, password: str, db: str) -> tuple:
-    connection = mysql.connector.connect(
-        host=host, user=username, password=password, database=db
-    )
-    cursor = connection.cursor()
-    return connection, cursor
-
 
 # Returns all shifts within a time period
 def return_period_shifts(initial, current=datetime.now(), interval=2) -> tuple:
