@@ -1,12 +1,12 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
-from flask_login import LoginManager
+from flask_login import LoginManager, login_required, current_user
 
 from app.config import ApplicationConfig
 from app.routes import routes
-from app.models import db
+from app.models import db, User
 
 
 app = Flask(__name__)
@@ -25,6 +25,11 @@ with app.app_context():
     db.create_all()
 
 
-@app.route("/", methods=["GET"])
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+
+
+@app.route("/profile", methods=["GET"])
 def index():
-    return "hello"
+    return current_user.email

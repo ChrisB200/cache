@@ -11,6 +11,7 @@ class ApplicationConfig:
     DB_PASSWORD = os.environ.get("DB_PASSWORD")
     DB_HOST = os.environ.get("DB_HOST")
     DB_NAME = os.environ.get("DB_NAME")
+    ENCRYPT_KEY = os.environ.get("ENCRYPT_KEY")
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
