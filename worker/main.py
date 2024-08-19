@@ -19,6 +19,7 @@ username = os.getenv("FGUUSER")
 password = os.getenv("FGUPASS")
 dbname = os.getenv("DBNAME")
 
+
 def connect_mysql():
     connection = sqlite3.connect(dbname)
     cursor = connection.cursor()
@@ -66,9 +67,6 @@ def create_user(username, password, fgUser, fgPass):
     cursor.execute(query, (username, password, fgUser, fgPass, "08/07/2024"))
     connection.commit()
     connection.close()
-
-create_tables()
-create_user("chris", "Chr08-16th", 30500, "Chr08-16th")
 
 
 def time_difference(time1, time2):
