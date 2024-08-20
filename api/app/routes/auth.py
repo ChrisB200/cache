@@ -57,3 +57,16 @@ def logout():
         return jsonify({"message": "Successfully logged out user"}), 200
 
     return jsonify({"error": "Not currently logged in"}), 404
+
+
+@auth.route("/api/auth/delete", methods=["DELETE"])
+@login_required
+def delete():
+    if current_user:
+        id = current_user.id
+        logout_user()
+        User.query.filter_by(id=id).delete()
+        db.session.commit()
+        return jsonify({"message": "Successfully deleted user"}), 200
+    else:
+        return jsonify({"error": "Not currently logged ub"}), 404
