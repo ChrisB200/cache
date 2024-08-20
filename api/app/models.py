@@ -46,7 +46,7 @@ class User(UserMixin, db.Model):
 
 
 class Shift(db.Model):
-    id = db.Column(db.String(32), primary_key=True, unique=True, default=get_uuid)
+    id = db.Column(db.Integer, primary_key=True, unique=True)
     date = db.Column(db.Date)
     start = db.Column(db.Time)
     end = db.Column(db.Time)

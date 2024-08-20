@@ -30,25 +30,24 @@ def time_difference(time1, time2):
 
 def connect_sql():
     connection = pymysql.connect(
-        host="92.236.134.121",
-        user="remote",
-        password="Chr08-16th",
-        db="dbfinance"
+        host=os.environ.get("DB_HOST"),
+        user=os.environ.get("DB_USERNAME"),
+        password=os.environ.get("DB_PASSWORD"),
+        db=os.environ.get("DB_NAME"),
     )
 
     cursor = connection.cursor()
-
     return connection, cursor
 
 
-
 class Shift:
-    def __init__(self, date: date, start: time, end: time, rate=11.85):
+    def __init__(self, date: date, start: time, end: time, type, rate=11.85):
         self.date: date = date
         self.start: time = start
         self.end: date = end
         self.hours = time_difference(self.start, self.end)
         self.rate = rate
+        self.type = type
 
     def to_json(self):
         return {
