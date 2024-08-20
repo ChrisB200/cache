@@ -24,7 +24,7 @@ class User(UserMixin, db.Model):
     last_pay = db.Column(db.Float)
     cutoff_index = db.Column(db.Integer)
 
-    shift = db.relationship("Shift", back_populates="user", cascade="all, delete")
+    shifts = db.relationship("Shift", back_populates="user", cascade="all, delete")
 
     def get_id(self):
         return str(self.id)
@@ -52,6 +52,7 @@ class Shift(db.Model):
     end = db.Column(db.Time)
     hours = db.Column(db.Float)
     rate = db.Column(db.Float)
-    user_id = db.Column(db.String(32))
+    type = db.Column(db.String(32))
+    user_id = db.Column(db.String(32), db.ForeignKey("user.id"), nullable=False)
 
-    user = db.relationship("User", back_populates="shift", cascade="all, delete")
+    user = db.relationship("User", back_populates="shifts", cascade="all, delete")

@@ -6,68 +6,18 @@ from datetime import date
 from datetime import time
 from datetime import timedelta
 from dotenv import load_dotenv
+from cryptography.fernet import Fernet
 
 import os
 import json
 import bs4
-import sqlite3
+import time as t
+import pymysql
+
 
 load_dotenv()
 BASE_URL = "https://fgp.fiveguys.co.uk/portal.php"
-
-username = os.getenv("FGUUSER")
-password = os.getenv("FGUPASS")
-dbname = os.getenv("DBNAME")
-
-
-def connect_mysql():
-    connection = sqlite3.connect(dbname)
-    cursor = connection.cursor()
-    return connection, cursor
-
-
-def create_tables():
-    connection, cursor = connect_mysql()
-    connection.execute("PRAGMA foreign_keys = ON")
-    user_table = """
-        CREATE TABLE IF NOT EXISTS users (
-            user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT NOT NULL,
-            password TEXT NOT NULL,
-            fgUser TEXT NOT NULL,
-            fgPassword TEXT NOT NULL,
-            pointer DATE NOT NULL
-        )
-    """
-
-    shift_table = """
-        CREATE TABLE IF NOT EXISTS shifts (
-            shift_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
-            date DATE NOT NULL,
-            start TIME NOT NULL,
-            end TIME NOT NULL,
-            rate FLOAT,
-            FOREIGN KEY (user_id) REFERENCES users(user_id)
-        )
-    """
-
-    cursor.execute(user_table)
-    cursor.execute(shift_table)
-    connection.commit()
-    connection.close()
-
-
-def create_user(username, password, fgUser, fgPass):
-    connection, cursor = connect_mysql()
-    query = """
-        INSERT INTO users (username, password, fgUser, fgPassword, pointer)
-        VALUES (?, ?, ?, ?, ?)
-    """
-    cursor.execute(query, (username, password, fgUser, fgPass, "08/07/2024"))
-    connection.commit()
-    connection.close()
-
+fernet = Fernet(os.environ.get("ENCRYPT_KEY"))
 
 def time_difference(time1, time2):
     dummy_date = datetime(1900, 1, 1)
@@ -76,6 +26,20 @@ def time_difference(time1, time2):
     time_diff = dt2 - dt1
     hours = time_diff.total_seconds() / 3600
     return hours
+
+
+def connect_sql():
+    connection = pymysql.connect(
+        host="92.236.134.121",
+        user="remote",
+        password="Chr08-16th",
+        db="dbfinance"
+    )
+
+    cursor = connection.cursor()
+
+    return connection, cursor
+
 
 
 class Shift:
@@ -97,12 +61,12 @@ class Shift:
 
 
 def login_required(func):
-    def wrapper(browser, *args, **kwargs):
+    def wrapper(browser, user, password, *args, **kwargs):
         page = browser.new_page()
         page.goto(f"{BASE_URL}?site=login&page=login")
 
         # enter user details
-        page.get_by_label("Username").fill(username)
+        page.get_by_label("Username").fill(user)
         page.get_by_label("Password").fill(password)
         page.get_by_role("button", name="Submit").click()
 
@@ -194,19 +158,26 @@ def get_shifts(context: BrowserContext, page, button):
         if current_date >= week_after:
             break
 
+    return shifts
+
     with open(f"{button}.json", "w") as file:
         json.dump([shift.to_json() for shift in shifts], file)
+
+
+def get_data(browser):
+    connection, cursor = connect_sql()
+    cursor.execute("SELECT * FROM user")
+    users = cursor.fetchall()
+    for user in users:
+        print(user)
+        print(get_shifts(browser, user[3], fernet.decrypt(user[4]).decode(), "Schedule"))
 
 
 def main(headless=True):
 
     with sync_playwright() as p:
         browser = p.firefox.launch(headless=headless)
-
-        create_tables()
-        get_shifts(browser, "Schedule")
-        get_shifts(browser, "Timecard")
+        get_data(browser)
         browser.close()
-
 
 main(False)
