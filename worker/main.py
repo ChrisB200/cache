@@ -11,13 +11,26 @@ from cryptography.fernet import Fernet
 import os
 import json
 import bs4
-import time as t
 import pymysql
+import logging
+import logging.config
 
+logger = logging.getLogger(__name__)
+
+
+def setup_logging():
+    config_path = "log_config.json"
+    with open(config_path, "r") as conf_file:
+        config = json.load(conf_file)
+    logging.config.dictConfig(config=config)
+
+
+setup_logging()
 
 load_dotenv()
 BASE_URL = "https://fgp.fiveguys.co.uk/portal.php"
 fernet = Fernet(os.environ.get("ENCRYPT_KEY"))
+
 
 def time_difference(time1, time2):
     dummy_date = datetime(1900, 1, 1)
