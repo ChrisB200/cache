@@ -113,7 +113,7 @@ def start_of_week(date: datetime):
 
 
 @login_required
-def get_shifts(context: BrowserContext, page, button):
+def scrape_shifts(context: BrowserContext, page, pointer, button):
     page.locator("a").filter(has_text="My Rota").click()
     page.locator("a").filter(has_text=button).click()
 
@@ -122,10 +122,8 @@ def get_shifts(context: BrowserContext, page, button):
         html = parse_page(page)
 
     # initialising the details
-    details = read_details("details.json")
-    pointer = details.get("pointer")
     week_after = start_of_week(datetime.today()) + timedelta(weeks=2)
-    current_date = datetime.strptime(pointer, "%d/%m/%Y")
+    current_date = pointer
     date_element = page.get_by_placeholder("dd/mm/yy")
     shifts = []
 
@@ -158,38 +156,76 @@ def get_shifts(context: BrowserContext, page, button):
                 shift = day.find_next("p")
                 shift_line = shift.find_next("span").find_next("span").text
                 hours = shift_line.split(" ")
-                print(hours)
 
                 if len(hours) > 7 and hours[0] != "-":
                     start = datetime.strptime(hours[0], "%H:%M").time()
                     end = datetime.strptime(hours[2], "%H:%M").time()
                     date = (week_start + timedelta(days=count)).date()
-                    shifts.append(Shift(date, start, end))
+                    shifts.append(Shift(date, start, end, button))
 
         current_date = current_date + timedelta(weeks=1)
-        if current_date >= week_after:
+        if current_date >= week_after.date():
             break
 
     return shifts
 
-    with open(f"{button}.json", "w") as file:
-        json.dump([shift.to_json() for shift in shifts], file)
 
-
-def get_data(browser):
+def get_users():
     connection, cursor = connect_sql()
     cursor.execute("SELECT * FROM user")
     users = cursor.fetchall()
-    for user in users:
-        print(user)
-        print(get_shifts(browser, user[3], fernet.decrypt(user[4]).decode(), "Schedule"))
+    connection.close()
+    return users
+
+
+def get_data(browser, user):
+    connection, cursor = connect_sql()
+    name = user[3]
+    password = fernet.decrypt(user[4]).decode()
+    pointer = user[5]
+    schedule = scrape_shifts(browser, name, password, pointer, "Schedule")
+    timecard = scrape_shifts(browser, name, password, pointer, "Timecard")
+
+    for shift in schedule + timecard:
+        check_query = """
+            SELECT COUNT(*) FROM shift
+            WHERE date = %s AND start = %s AND end = %s AND type = %s AND user_id = %s
+        """
+        check_values = (shift.date, shift.start,
+                        shift.end, "Schedule", user[0])
+        cursor.execute(check_query, check_values)
+        (count,) = cursor.fetchone()
+
+        if count == 0:
+            query = """
+            INSERT INTO shift (date, start, end, hours, rate, type, user_id)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """
+            values = (
+                shift.date,
+                shift.start,
+                shift.end,
+                shift.hours,
+                shift.rate,
+                shift.type,
+                user[0],
+            )
+            cursor.execute(query, values)
+
+    connection.commit()
+    connection.close()
+
+
+def scrape_user(user, playwright, headless):
+    browser = playwright.firefox.launch(headless=headless)
+    get_data(browser, user)
+    browser.close()
 
 
 def main(headless=True):
-
+    users = get_users()
     with sync_playwright() as p:
-        browser = p.firefox.launch(headless=headless)
-        get_data(browser)
-        browser.close()
+        [scrape_user(user, p, headless) for user in users]
+
 
 main(False)
