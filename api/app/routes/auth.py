@@ -29,6 +29,8 @@ def signup():
     password = request.json.get("password")
     fg_user = request.json.get("fg_user")
     fg_pass = request.json.get("fg_pass")
+    sd_user = request.json.get("sd_user")
+    sd_pass = request.json.get("sd_pass")
     pointer = datetime(2024, 7, 8).date()
 
     user_exists = User.query.filter_by(email=email).first() is not None
@@ -38,10 +40,12 @@ def signup():
     new_user = User(
         email=email,
         fg_user=fg_user,
+        sd_user=sd_user,
         pointer=pointer,
     )
     new_user.set_password(password)
     new_user.set_fg_pass(fg_pass)
+    new_user.set_sd_pass(sd_pass)
 
     db.session.add(new_user)
     db.session.commit()

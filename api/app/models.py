@@ -20,11 +20,14 @@ class User(UserMixin, db.Model):
     password = db.Column(db.Text)
     fg_user = db.Column(db.String(200))
     fg_pass = db.Column(db.String(200))
+    sd_user = db.Column(db.String(200))
+    sd_pass = db.Column(db.String(200))
     pointer = db.Column(db.Date)
     last_pay = db.Column(db.Float)
     cutoff_index = db.Column(db.Integer)
 
     shifts = db.relationship("Shift", back_populates="user", cascade="all, delete")
+    payslips = db.relationship("Payslip", back_populates="user", cascade="all, delete")
 
     def get_id(self):
         return str(self.id)
@@ -44,6 +47,12 @@ class User(UserMixin, db.Model):
     def get_fg_pass(self):
         return fernet.decrypt(self.fg_pass).decode()
 
+    def set_sd_pass(self, password: str):
+        self.sd_pass = fernet.encrypt(password.encode())
+
+    def get_sd_pass(self):
+        return fernet.decrypt(self.sd_pass).decode()
+
 
 class Shift(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
@@ -54,5 +63,18 @@ class Shift(db.Model):
     rate = db.Column(db.Float)
     type = db.Column(db.String(32))
     user_id = db.Column(db.String(32), db.ForeignKey("user.id"), nullable=False)
+    payslip_id = db.Column(db.Integer, db.ForeignKey("payslip.id"))
 
     user = db.relationship("User", back_populates="shifts", cascade="all, delete")
+    payslip = db.relationship("Payslip", back_populates="shifts", cascade="all, delete")
+
+
+class Payslip(db.Model):
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+    date = db.Column(db.Date)
+    rate = db.Column(db.Float)
+    net = db.Column(db.Float)
+    user_id = db.Column(db.String(32), db.ForeignKey("user.id"), nullable=False)
+
+    user = db.relationship("User", back_populates="payslips", cascade="all, delete")
+    shifts = db.relationship("Shift", back_populates="payslip", cascade="all, delete")
