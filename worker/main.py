@@ -14,6 +14,8 @@ import bs4
 import pymysql
 import logging
 import logging.config
+import time as t
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -62,14 +64,70 @@ class Shift:
         self.rate = rate
         self.type = type
 
-    def to_json(self):
-        return {
-            "date": self.date.strftime("%d/%m/%Y"),
-            "start": self.start.strftime("%H:%M"),
-            "end": self.end.strftime("%H:%M"),
-            "hours": self.hours,
-            "rate": self.rate,
-        }
+    def exist(self, connection, cursor, user_id):
+        query = """
+            SELECT COUNT(*) FROM shift
+            WHERE date = %s AND start = %s AND end = %s AND type = %s AND user_id = %s
+        """
+
+        values = (self.date, self.start, self.end, "Schedule", user_id)
+        cursor.execute(query, values)
+        (count,) = cursor.fetchone()
+
+        return count != 0
+
+    def commit(self, connection, cursor, user_id):
+        if self.exist(connection, cursor, user_id):
+            return "Shift already exists"
+
+        query = """
+            INSERT INTO shift (date, start, end, hours, rate, type, user_id)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+        """
+
+        values = (
+            self.date,
+            self.start,
+            self.end,
+            self.hours,
+            self.rate,
+            self.type,
+            user_id,
+        )
+
+        cursor.execute(query, values)
+
+
+class Payslip:
+    def __init__(self, date, net, rate):
+        self.date = date
+        self.net = net
+        self.rate = rate
+
+    def exist(self, connection, cursor, user_id):
+        query = """
+            SELECT COUNT(*) FROM payslip
+            WHERE date = %s AND net = %s AND rate = %s AND user_id = %s
+        """
+
+        values = (self.date, self.net, self.rate, user_id)
+        cursor.execute(query, values)
+        (count,) = cursor.fetchone()
+
+        return count != 0
+
+    def commit(self, connection, cursor, user_id):
+        if self.exist(connection, cursor, user_id):
+            return "Shift already exists"
+
+        query = """
+            INSERT INTO payslip (date, rate, net, user_id)
+            VALUES (%s, %s, %s, %s)
+        """
+
+        values = (self.date, self.rate, self.net, user_id)
+
+        cursor.execute(query, values)
 
 
 def login_required(func):
@@ -178,39 +236,102 @@ def get_users():
     return users
 
 
+def scrape_payslips(browser, username, password):
+    context = browser.new_context()
+    page = context.new_page()
+    page.goto("https://my.sdworx.co.uk/portal/login.aspx?organisation=76231")
+
+    # enter log in details
+    page.get_by_placeholder("Username").fill(username)
+    page.get_by_placeholder("Password").fill(password)
+    page.get_by_role("button", name="Sign In").click()
+
+    # presses payslips
+    with page.expect_popup() as popup_info:
+        page.frame_locator('iframe[name="ContainerFrame"]').frame_locator(
+            'iframe[name="iframeCommunityContainer"]'
+        ).get_by_role("link", name="My Payslip").click()
+
+    # highlights popup page
+    current = popup_info.value
+    current.bring_to_front()
+
+    # locates payslip history
+    current.wait_for_timeout(5000)
+    date_div = current.locator(".divPaymentHistory").first
+    anchors = date_div.locator("a").all()
+
+    # match all years and click them
+    year_elements = []
+    for element in anchors:
+        text_content = element.inner_text()
+        # find all year patterns in the text
+        matches = re.findall(r"\b\d{4}\b", text_content)
+        # append the matches if they represent a year
+        for match in matches:
+            year = int(match)
+            if 1900 <= year <= 2100:  # valid year range
+                year_elements.append(element)
+
+    # press all date dropdowns
+    for count, element in enumerate(year_elements):
+        if count != 0:
+            element.click()
+
+    # get all anchors
+    payslips = []
+    currentYear = datetime.today().year
+    for element in anchors:
+        text_content = element.inner_text()
+        if len(text_content) == 4:
+            currentYear = int(text_content)
+
+        elif len(text_content) == 6:
+            # get date
+            date_str = element.inner_text()
+            day, month = date_str.split(" ")
+            date_obj = datetime.strptime(month, "%b")
+            date = date_obj.replace(year=currentYear, day=int(day))
+
+            element.click()
+            current.wait_for_timeout(400)
+
+            rate_lbls = current.locator(".TDData").all()
+            rate = None
+            for lbl in rate_lbls:
+                if "£" in lbl.inner_text():
+                    rate = float(lbl.inner_text().split("£")[1])
+
+            net_pay_lbl = current.locator("#baseNetPayBackground")
+            net_pay = net_pay_lbl.locator("xpath=following-sibling::*[1]")
+            net_pay = net_pay.inner_text().split("£")[1]
+
+            payslip = Payslip(date.date(), net_pay, rate)
+            payslips.append(payslip)
+
+    return payslips
+
+
 def get_data(browser, user):
     connection, cursor = connect_sql()
-    name = user[3]
-    password = fernet.decrypt(user[4]).decode()
-    pointer = user[5]
-    schedule = scrape_shifts(browser, name, password, pointer, "Schedule")
-    timecard = scrape_shifts(browser, name, password, pointer, "Timecard")
+    user_id = user[0]
+    fg_user = user[3]
+    fg_pass = fernet.decrypt(user[4]).decode()
+    sd_user = user[5]
+    sd_pass = fernet.decrypt(user[6]).decode()
+    pointer = user[7]
+
+    # payslips (sdworkx)
+    payslips = scrape_payslips(browser, sd_user, sd_pass)
+    for payslip in payslips:
+        payslip.commit(connection, cursor, user_id)
+
+    # shifts and schedule (fgp)
+    schedule = scrape_shifts(browser, fg_user, fg_pass, pointer, "Schedule")
+    timecard = scrape_shifts(browser, fg_user, fg_pass, pointer, "Timecard")
 
     for shift in schedule + timecard:
-        check_query = """
-            SELECT COUNT(*) FROM shift
-            WHERE date = %s AND start = %s AND end = %s AND type = %s AND user_id = %s
-        """
-        check_values = (shift.date, shift.start,
-                        shift.end, "Schedule", user[0])
-        cursor.execute(check_query, check_values)
-        (count,) = cursor.fetchone()
-
-        if count == 0:
-            query = """
-            INSERT INTO shift (date, start, end, hours, rate, type, user_id)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
-            """
-            values = (
-                shift.date,
-                shift.start,
-                shift.end,
-                shift.hours,
-                shift.rate,
-                shift.type,
-                user[0],
-            )
-            cursor.execute(query, values)
+        shift.commit(connection, cursor, user_id)
 
     connection.commit()
     connection.close()
