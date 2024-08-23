@@ -55,6 +55,26 @@ def connect_sql():
     return connection, cursor
 
 
+class User:
+    def __init__(self, details):
+        self.id = details[0]
+        self.email = details[1]
+        self.pass_hash = details[2]
+        self.fg_user = details[3]
+        self.fg_pass = fernet.decrypt(details[4]).decode()
+        self.sd_user = details[5]
+        self.sd_pass = fernet.decrypt(details[6]).decode()
+        self.pointer = details[7]
+
+    def get_payslips(self, connection, cursor):
+        query = """
+            SELECT * FROM payslip
+            WHERE user_id = %s
+        """
+        values = (self.id)
+        cursor.execute(query, values)
+
+
 class Shift:
     def __init__(self, date: date, start: time, end: time, type, rate=11.85):
         self.date: date = date
@@ -63,6 +83,25 @@ class Shift:
         self.hours = time_difference(self.start, self.end)
         self.rate = rate
         self.type = type
+        self.user_id = None
+        self.payslip_id = None
+    
+    @staticmethod
+    def create_from_details(self, details):
+        date = details[0]
+        start = details[1]
+        end = details[2]
+        hours = details[3]
+        rate = details[4]
+        type = details[5]
+        user_id = details[6]
+        payslip_id = details[7]
+
+        shift = Shift(date, start, end, type, rate)
+        shift.hours = hours
+        shift.user_id = user_id
+        shift.payslip_id = payslip_id
+        return shift
 
     def exist(self, connection, cursor, user_id):
         query = """
@@ -335,6 +374,13 @@ def get_data(browser, user):
 
     connection.commit()
     connection.close()
+
+def assign_shifts(user):
+    user_id = user[0]
+    payslip_qry = """
+        SELECT * FROM payslip WHERE user_id == %s 
+    """
+    payslip_
 
 
 def scrape_user(user, playwright, headless):
