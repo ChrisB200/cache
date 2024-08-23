@@ -85,7 +85,7 @@ class Shift:
         self.type = type
         self.user_id = None
         self.payslip_id = None
-    
+
     @staticmethod
     def create_from_details(self, details):
         date = details[0]
@@ -145,26 +145,32 @@ class Payslip:
 
     def exist(self, connection, cursor, user_id):
         query = """
-            SELECT COUNT(*) FROM payslip
-            WHERE date = %s AND net = %s AND rate = %s AND user_id = %s
+            SELECT * FROM payslip
+            WHERE date = %s AND user_id = %s
         """
 
-        values = (self.date, self.net, self.rate, user_id)
+        values = (self.date, user_id)
         cursor.execute(query, values)
-        (count,) = cursor.fetchone()
+        payslip = cursor.fetchone()
 
-        return count != 0
+        return payslip
 
     def commit(self, connection, cursor, user_id):
-        if self.exist(connection, cursor, user_id):
-            return "Shift already exists"
+        existing_payslip = self.exist(connection, cursor, user_id)
+        if existing_payslip:
+            query = """
+                UPDATE payslip
+                SET rate = %s, net = %s
+                WHERE id = %s
+            """
+            values = (self.rate, self.net, existing_payslip[0])
+        else:
+            query = """
+                INSERT INTO payslip (date, rate, net, user_id)
+                VALUES (%s, %s, %s, %s)
+            """
 
-        query = """
-            INSERT INTO payslip (date, rate, net, user_id)
-            VALUES (%s, %s, %s, %s)
-        """
-
-        values = (self.date, self.rate, self.net, user_id)
+            values = (self.date, self.rate, self.net, user_id)
 
         cursor.execute(query, values)
 
