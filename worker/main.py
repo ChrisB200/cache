@@ -71,7 +71,7 @@ class User:
             SELECT * FROM payslip
             WHERE user_id = %s
         """
-        values = (self.id)
+        values = self.id
         cursor.execute(query, values)
 
 
@@ -85,54 +85,74 @@ class Shift:
         self.type = type
         self.user_id = None
         self.payslip_id = None
+        self.id = None
 
     @staticmethod
-    def create_from_details(self, details):
-        date = details[0]
-        start = details[1]
-        end = details[2]
-        hours = details[3]
-        rate = details[4]
-        type = details[5]
-        user_id = details[6]
-        payslip_id = details[7]
+    def convert_to_time(delta):
+        # Extract the hours, minutes, and seconds from the timedelta
+        hours, remainder = divmod(delta.seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
 
-        shift = Shift(date, start, end, type, rate)
+        # Create a time object using the extracted values
+        time_obj = datetime(1900, 1, 1, hours, minutes, seconds)
+        return time_obj.time()
+
+    @staticmethod
+    def create_from_details(details):
+        id = details[0]
+        date = details[1]
+        start = Shift.convert_to_time(details[2])
+        end = Shift.convert_to_time(details[3])
+        hours = details[4]
+        rate = details[5]
+        shift_type = details[6]
+        user_id = details[7]
+        payslip_id = details[8]
+
+        shift = Shift(date, start, end, shift_type, rate)
         shift.hours = hours
         shift.user_id = user_id
         shift.payslip_id = payslip_id
+        shift.id = id
         return shift
 
     def exist(self, connection, cursor, user_id):
         query = """
-            SELECT COUNT(*) FROM shift
-            WHERE date = %s AND start = %s AND end = %s AND type = %s AND user_id = %s
+            SELECT * FROM shift
+            WHERE date = %s AND type = %s AND user_id = %s
         """
 
-        values = (self.date, self.start, self.end, "Schedule", user_id)
+        values = (self.date, self.type, user_id)
         cursor.execute(query, values)
-        (count,) = cursor.fetchone()
+        shift = cursor.fetchone()
 
-        return count != 0
+        return shift
 
     def commit(self, connection, cursor, user_id):
-        if self.exist(connection, cursor, user_id):
-            return "Shift already exists"
+        existing_shift = self.exist(connection, cursor, user_id)
+        if existing_shift:
+            query = """
+                UPDATE shift
+                SET start = %s, end = %s, hours = %s, rate = %s
+                WHERE date = %s and user_id = %s
+            """
 
-        query = """
-            INSERT INTO shift (date, start, end, hours, rate, type, user_id)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """
+            values = (self.start, self.end, self.hours, self.rate, self.date, user_id)
+        else:
+            query = """
+                INSERT INTO shift (date, start, end, hours, rate, type, user_id)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """
 
-        values = (
-            self.date,
-            self.start,
-            self.end,
-            self.hours,
-            self.rate,
-            self.type,
-            user_id,
-        )
+            values = (
+                self.date,
+                self.start,
+                self.end,
+                self.hours,
+                self.rate,
+                self.type,
+                user_id,
+            )
 
         cursor.execute(query, values)
 
@@ -142,6 +162,22 @@ class Payslip:
         self.date = date
         self.net = net
         self.rate = rate
+        self.id = None
+        self.user_id = None
+
+    @staticmethod
+    def create_from_details(details):
+        id = details[0]
+        date = details[1]
+        rate = details[2]
+        net = details[3]
+        user_id = details[4]
+
+        payslip = Payslip(date, net, rate)
+        payslip.id = id
+        payslip.user_id = user_id
+
+        return payslip
 
     def exist(self, connection, cursor, user_id):
         query = """
@@ -359,46 +395,75 @@ def scrape_payslips(browser, username, password):
 
 def get_data(browser, user):
     connection, cursor = connect_sql()
-    user_id = user[0]
-    fg_user = user[3]
-    fg_pass = fernet.decrypt(user[4]).decode()
-    sd_user = user[5]
-    sd_pass = fernet.decrypt(user[6]).decode()
-    pointer = user[7]
 
     # payslips (sdworkx)
-    payslips = scrape_payslips(browser, sd_user, sd_pass)
+    payslips = scrape_payslips(browser, user.sd_user, user.sd_pass)
     for payslip in payslips:
-        payslip.commit(connection, cursor, user_id)
+        payslip.commit(connection, cursor, user.id)
 
     # shifts and schedule (fgp)
-    schedule = scrape_shifts(browser, fg_user, fg_pass, pointer, "Schedule")
-    timecard = scrape_shifts(browser, fg_user, fg_pass, pointer, "Timecard")
+    schedule = scrape_shifts(
+        browser, user.fg_user, user.fg_pass, user.pointer, "Schedule"
+    )
+    timecard = scrape_shifts(
+        browser, user.fg_user, user.fg_pass, user.pointer, "Timecard"
+    )
 
     for shift in schedule + timecard:
-        shift.commit(connection, cursor, user_id)
+        shift.commit(connection, cursor, user.id)
 
     connection.commit()
     connection.close()
 
+
 def assign_shifts(user):
-    user_id = user[0]
+    connection, cursor = connect_sql()
     payslip_qry = """
-        SELECT * FROM payslip WHERE user_id == %s 
+        SELECT * FROM payslip
+        WHERE user_id = %s
     """
-    payslip_
+    payslip_values = user.id
+    cursor.execute(payslip_qry, payslip_values)
+    payslips = [Payslip.create_from_details(payslip) for payslip in cursor.fetchall()]
+
+    shift_qry = """
+        SELECT * FROM shift
+        WHERE user_id = %s and payslip_id IS NULL
+    """
+    shift_values = user.id
+    cursor.execute(shift_qry, shift_values)
+    shifts = [Shift.create_from_details(shift) for shift in cursor.fetchall()]
+
+    for payslip in payslips:
+        # Calculate date range for shifts that should be linked to this payslip
+        date_end = payslip.date - timedelta(days=2)  # Wednesday of the payslip week
+        date_start = date_end - timedelta(weeks=2) + timedelta(days=1)  # Saturday, 2 weeks before payslip
+        print(type(date_end))
+        for shift in shifts:
+            if shift.date > date_start and shift.date < date_end:
+                qry = """
+                    UPDATE shift
+                    SET payslip_id = %s
+                    WHERE id = %s and type = %s
+                """
+                values = (payslip.id, shift.id, "Timecard")
+                cursor.execute(qry, values)
+
+    connection.commit()
+
 
 
 def scrape_user(user, playwright, headless):
     browser = playwright.firefox.launch(headless=headless)
     get_data(browser, user)
+    assign_shifts(user)
     browser.close()
 
 
 def main(headless=True):
     users = get_users()
     with sync_playwright() as p:
-        [scrape_user(user, p, headless) for user in users]
+        [scrape_user(User(user), p, headless) for user in users]
 
 
 main(False)
