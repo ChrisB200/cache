@@ -68,6 +68,17 @@ class Shift(db.Model):
     user = db.relationship("User", back_populates="shifts", cascade="all, delete")
     payslip = db.relationship("Payslip", back_populates="shifts", cascade="all, delete")
 
+    def to_json(self):
+        return {
+            "id": self.id,
+            "date": self.date,
+            "start": self.start.strftime("%H:%M"),
+            "end": self.end.strftime("%H:%M"),
+            "hours": self.hours,
+            "rate": self.rate,
+            "type": self.type,
+        }
+
 
 class Payslip(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
@@ -78,3 +89,13 @@ class Payslip(db.Model):
 
     user = db.relationship("User", back_populates="payslips", cascade="all, delete")
     shifts = db.relationship("Shift", back_populates="payslip", cascade="all, delete")
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "date": self.date,
+            "rate": self.rate,
+            "net": self.net,
+            "user_id": self.user_id,
+            "shifts": [shift.to_json() for shift in self.shifts]
+        }
