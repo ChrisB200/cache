@@ -375,7 +375,7 @@ def scrape_payslips(browser, username, password):
             date = date_obj.replace(year=currentYear, day=int(day))
 
             element.click()
-            current.wait_for_timeout(400)
+            current.wait_for_timeout(1000)
 
             rate_lbls = current.locator(".TDData").all()
             rate = None
@@ -435,10 +435,8 @@ def assign_shifts(user):
     shifts = [Shift.create_from_details(shift) for shift in cursor.fetchall()]
 
     for payslip in payslips:
-        # Calculate date range for shifts that should be linked to this payslip
-        date_end = payslip.date - timedelta(days=2)  # Wednesday of the payslip week
-        date_start = date_end - timedelta(weeks=2) + timedelta(days=1)  # Saturday, 2 weeks before payslip
-        print(type(date_end))
+        date_end = payslip.date - timedelta(days=2)
+        date_start = date_end - timedelta(weeks=2) + timedelta(days=1)
         for shift in shifts:
             if shift.date > date_start and shift.date < date_end:
                 qry = """
@@ -452,10 +450,9 @@ def assign_shifts(user):
     connection.commit()
 
 
-
 def scrape_user(user, playwright, headless):
     browser = playwright.firefox.launch(headless=headless)
-    get_data(browser, user)
+    #get_data(browser, user)
     assign_shifts(user)
     browser.close()
 

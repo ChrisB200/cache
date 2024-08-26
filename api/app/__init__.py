@@ -11,7 +11,9 @@ from app.models import db, User
 
 app = Flask(__name__)
 app.config.from_object(ApplicationConfig)
-CORS(app, supports_credentials=True)
+CORS(app, supports_credentials=True, resources= {
+    r"/*": {"origins": "http://localhost:3000"}
+})
 
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
@@ -30,6 +32,6 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 
-@app.route("/profile", methods=["GET"])
+@app.route("/api/profile", methods=["GET"])
 def index():
     return current_user.email

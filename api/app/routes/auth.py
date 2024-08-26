@@ -27,10 +27,10 @@ def login():
 def signup():
     email = request.json.get("email")
     password = request.json.get("password")
-    fg_user = request.json.get("fg_user")
-    fg_pass = request.json.get("fg_pass")
-    sd_user = request.json.get("sd_user")
-    sd_pass = request.json.get("sd_pass")
+    fg_user = request.json.get("fguser")
+    fg_pass = request.json.get("fgpass")
+    sd_user = request.json.get("sduser")
+    sd_pass = request.json.get("sdpass")
     pointer = datetime(2024, 7, 8).date()
 
     user_exists = User.query.filter_by(email=email).first() is not None
@@ -56,21 +56,33 @@ def signup():
 @auth.route("/api/auth/logout", methods=["POST"])
 @login_required
 def logout():
-    if current_user:
-        logout_user()
-        return jsonify({"message": "Successfully logged out user"}), 200
-
-    return jsonify({"error": "Not currently logged in"}), 404
+    logout_user()
+    return jsonify({"message": "Successfully logged out user"}), 200
 
 
 @auth.route("/api/auth/delete", methods=["DELETE"])
 @login_required
 def delete():
-    if current_user:
-        id = current_user.id
-        logout_user()
-        User.query.filter_by(id=id).delete()
-        db.session.commit()
-        return jsonify({"message": "Successfully deleted user"}), 200
+    id = current_user.id
+    logout_user()
+    User.query.filter_by(id=id).delete()
+    db.session.commit()
+    return jsonify({"message": "Successfully deleted user"}), 200
+
+
+@auth.route("/api/auth/is_authenticated", methods=["GET"])
+@login_required
+def is_authenticated():
+    return jsonify({"message": "You are authenticated"}), 200
+
+
+@auth.route("/api/auth/is_user", methods=["POST"])
+def is_user():
+    email = request.json.get("email")
+
+    existing = User.query.filter_by(email=email).first()
+
+    if existing:
+        return jsonify({"message": "User already exists"}), 409
     else:
-        return jsonify({"error": "Not currently logged ub"}), 404
+        return jsonify({"message": "User does not exist"}), 200
