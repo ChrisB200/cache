@@ -1,58 +1,31 @@
-from playwright.sync_api import sync_playwright
-from playwright.sync_api import BrowserContext
-from bs4 import BeautifulSoup
-from datetime import datetime
+import os
+import pymysql
+import bs4
+import re
+import contextlib
+import logging
+
 from datetime import date
 from datetime import time
+from datetime import datetime
 from datetime import timedelta
-from dotenv import load_dotenv
 from cryptography.fernet import Fernet
-
-import os
-import json
-import bs4
-import pymysql
-import logging
-import logging.config
-import time as t
-import re
+from bs4 import BeautifulSoup
+from playwright.sync_api import BrowserContext
+from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
 
-
-def setup_logging():
-    config_path = "log_config.json"
-    with open(config_path, "r") as conf_file:
-        config = json.load(conf_file)
-    logging.config.dictConfig(config=config)
-
-
-setup_logging()
-
 load_dotenv()
-BASE_URL = "https://fgp.fiveguys.co.uk/portal.php"
 fernet = Fernet(os.environ.get("ENCRYPT_KEY"))
+DB_NAME = os.environ.get("DB_NAME")
+DB_HOST = os.environ.get("DB_HOST")
+DB_USERNAME = os.environ.get("DB_USERNAME")
+DB_PASSWORD = os.environ.get("DB_PASSWORD")
 
 
-def time_difference(time1, time2):
-    dummy_date = datetime(1900, 1, 1)
-    dt1 = datetime.combine(dummy_date, time1)
-    dt2 = datetime.combine(dummy_date, time2)
-    time_diff = dt2 - dt1
-    hours = time_diff.total_seconds() / 3600
-    return hours
-
-
-def connect_sql():
-    connection = pymysql.connect(
-        host=os.environ.get("DB_HOST"),
-        user=os.environ.get("DB_USERNAME"),
-        password=os.environ.get("DB_PASSWORD"),
-        db=os.environ.get("DB_NAME"),
-    )
-
-    cursor = connection.cursor()
-    return connection, cursor
+FGP_BASE_URL = "https://fgp.fiveguys.co.uk/portal.php"
+SD_BASE_URL = "https://my.sdworx.co.uk/portal/login.aspx?organisation=76231"
 
 
 class User:
@@ -87,13 +60,14 @@ class Shift:
         self.payslip_id = None
         self.id = None
 
+    def __str__(self):
+        return f"Date: {self.date}, Start: {self.start}, End: {self.end}, Type: {self.type}"
+
     @staticmethod
     def convert_to_time(delta):
-        # Extract the hours, minutes, and seconds from the timedelta
         hours, remainder = divmod(delta.seconds, 3600)
         minutes, seconds = divmod(remainder, 60)
 
-        # Create a time object using the extracted values
         time_obj = datetime(1900, 1, 1, hours, minutes, seconds)
         return time_obj.time()
 
@@ -116,7 +90,7 @@ class Shift:
         shift.id = id
         return shift
 
-    def exist(self, connection, cursor, user_id):
+    def exist(self, cursor, user_id):
         query = """
             SELECT * FROM shift
             WHERE date = %s AND type = %s AND user_id = %s
@@ -128,8 +102,8 @@ class Shift:
 
         return shift
 
-    def commit(self, connection, cursor, user_id):
-        existing_shift = self.exist(connection, cursor, user_id)
+    def commit(self, cursor, user_id):
+        existing_shift = self.exist(cursor, user_id)
         if existing_shift:
             query = """
                 UPDATE shift
@@ -137,7 +111,8 @@ class Shift:
                 WHERE date = %s and user_id = %s
             """
 
-            values = (self.start, self.end, self.hours, self.rate, self.date, user_id)
+            values = (self.start, self.end, self.hours,
+                      self.rate, self.date, user_id)
         else:
             query = """
                 INSERT INTO shift (date, start, end, hours, rate, type, user_id)
@@ -179,7 +154,7 @@ class Payslip:
 
         return payslip
 
-    def exist(self, connection, cursor, user_id):
+    def exist(self, cursor, user_id):
         query = """
             SELECT * FROM payslip
             WHERE date = %s AND user_id = %s
@@ -191,8 +166,8 @@ class Payslip:
 
         return payslip
 
-    def commit(self, connection, cursor, user_id):
-        existing_payslip = self.exist(connection, cursor, user_id)
+    def commit(self, cursor, user_id):
+        existing_payslip = self.exist(cursor, user_id)
         if existing_payslip:
             query = """
                 UPDATE payslip
@@ -211,10 +186,64 @@ class Payslip:
         cursor.execute(query, values)
 
 
+def time_difference(time1, time2):
+    dummy_date = datetime(1900, 1, 1)
+    dt1 = datetime.combine(dummy_date, time1)
+    dt2 = datetime.combine(dummy_date, time2)
+    time_diff = dt2 - dt1
+    hours = time_diff.total_seconds() / 3600
+    return hours
+
+
+@contextlib.contextmanager
+def connect_sql():
+    connection = pymysql.connect(
+        host=DB_HOST,
+        user=DB_USERNAME,
+        password=DB_PASSWORD,
+        db=DB_NAME,
+    )
+    cursor = connection.cursor()
+    logger.debug(f"Connection made to database {DB_NAME}")
+    try:
+        yield cursor
+    except Exception as e:
+        connection.rollback()
+        raise e
+    finally:
+        connection.commit()
+        connection.close()
+        logger.debug(f"Connection closed to database {DB_NAME}")
+
+
+def get_user(user_id):
+    with connect_sql() as cursor:
+        qry = """
+            SELECT * FROM user
+            WHERE id = %s
+        """
+        values = user_id
+        cursor.execute(qry, values)
+        user_details = cursor.fetchone()
+        if user_details:
+            user = User(user_details)
+        else:
+            user = None
+    return user
+
+
+def get_users():
+    with connect_sql() as cursor:
+        qry = "SELECT * FROM user"
+        cursor.execute(qry)
+        users_details = cursor.fetchall()
+        return list(map(lambda user: User(user), users_details))
+
+
 def login_required(func):
     def wrapper(browser, user, password, *args, **kwargs):
         page = browser.new_page()
-        page.goto(f"{BASE_URL}?site=login&page=login")
+        page.goto(f"{FGP_BASE_URL}?site=login&page=login")
 
         # enter user details
         page.get_by_label("Username").fill(user)
@@ -228,18 +257,6 @@ def login_required(func):
     return wrapper
 
 
-def read_details(filename):
-    with open(filename, "r") as file:
-        contents = json.load(file)
-
-    return contents
-
-
-def write_details(filename, contents):
-    with open(filename, "w") as file:
-        json.dump(contents, file)
-
-
 def parse_page(page) -> BeautifulSoup:
     html = page.content()
     soup = BeautifulSoup(html, "html.parser")
@@ -251,11 +268,19 @@ def start_of_week(date: datetime):
     return date - timedelta(days=weekday_index)
 
 
-@login_required
-def scrape_shifts(context: BrowserContext, page, pointer, button):
+def scrape_shifts(context: BrowserContext, pointer, button, user):
+    # log in to fgp
+    page = context.new_page()
+    page.goto(f"{FGP_BASE_URL}?site=login&page=login")
+
+    page.get_by_label("Username").fill(user.fg_user)
+    page.get_by_label("Password").fill(user.fg_pass)
+    page.get_by_role("button", name="Submit").click()
+
     page.locator("a").filter(has_text="My Rota").click()
     page.locator("a").filter(has_text=button).click()
 
+    # check what type of shifts
     if button != "Timecard":
         page.get_by_role("button", name="Week View").click()
         html = parse_page(page)
@@ -300,31 +325,27 @@ def scrape_shifts(context: BrowserContext, page, pointer, button):
                     start = datetime.strptime(hours[0], "%H:%M").time()
                     end = datetime.strptime(hours[2], "%H:%M").time()
                     date = (week_start + timedelta(days=count)).date()
-                    shifts.append(Shift(date, start, end, button))
+                    shift = Shift(date, start, end, button)
+                    logger.debug(f"Scraped shift: {shift} for user {user.id}")
+                    shifts.append(shift)
 
         current_date = current_date + timedelta(weeks=1)
         if current_date >= week_after.date():
             break
 
+    logger.info(f"Scraped {len(shifts)} shifts for user {user.id}")
+
     return shifts
 
 
-def get_users():
-    connection, cursor = connect_sql()
-    cursor.execute("SELECT * FROM user")
-    users = cursor.fetchall()
-    connection.close()
-    return users
-
-
-def scrape_payslips(browser, username, password):
+def scrape_payslips(browser, user):
     context = browser.new_context()
     page = context.new_page()
-    page.goto("https://my.sdworx.co.uk/portal/login.aspx?organisation=76231")
+    page.goto(SD_BASE_URL)
 
     # enter log in details
-    page.get_by_placeholder("Username").fill(username)
-    page.get_by_placeholder("Password").fill(password)
+    page.get_by_placeholder("Username").fill(user.sd_user)
+    page.get_by_placeholder("Password").fill(user.sd_pass)
     page.get_by_role("button", name="Sign In").click()
 
     # presses payslips
@@ -388,43 +409,22 @@ def scrape_payslips(browser, username, password):
             net_pay = net_pay.inner_text().split("£")[1]
 
             payslip = Payslip(date.date(), net_pay, rate)
+            logger.debug(f"Scraped payslip at date {payslip.date} for user {user.id}")
             payslips.append(payslip)
 
+    logger.info(f"Scraped {len(payslips)} payslips for user {user.id}")
     return payslips
 
 
-def get_data(browser, user):
-    connection, cursor = connect_sql()
-
-    # payslips (sdworkx)
-    payslips = scrape_payslips(browser, user.sd_user, user.sd_pass)
-    for payslip in payslips:
-        payslip.commit(connection, cursor, user.id)
-
-    # shifts and schedule (fgp)
-    schedule = scrape_shifts(
-        browser, user.fg_user, user.fg_pass, user.pointer, "Schedule"
-    )
-    timecard = scrape_shifts(
-        browser, user.fg_user, user.fg_pass, user.pointer, "Timecard"
-    )
-
-    for shift in schedule + timecard:
-        shift.commit(connection, cursor, user.id)
-
-    connection.commit()
-    connection.close()
-
-
-def assign_shifts(user):
-    connection, cursor = connect_sql()
+def assign_shifts(user, cursor):
     payslip_qry = """
         SELECT * FROM payslip
         WHERE user_id = %s
     """
     payslip_values = user.id
     cursor.execute(payslip_qry, payslip_values)
-    payslips = [Payslip.create_from_details(payslip) for payslip in cursor.fetchall()]
+    payslips = [Payslip.create_from_details(
+        payslip) for payslip in cursor.fetchall()]
 
     shift_qry = """
         SELECT * FROM shift
@@ -447,20 +447,42 @@ def assign_shifts(user):
                 values = (payslip.id, shift.id, "Timecard")
                 cursor.execute(qry, values)
 
-    connection.commit()
+
+def get_payslips(browser, user):
+    with connect_sql() as cursor:
+        payslips = scrape_payslips(browser, user.sd_user, user.sd_pass)
+        for payslip in payslips:
+            payslip.commit(cursor, user.id)
 
 
-def scrape_user(user, playwright, headless):
+def get_shifts(browser, user):
+    with connect_sql() as cursor:
+        # shifts and schedule (fgp)
+        schedule = scrape_shifts(browser, user.pointer, "Schedule", user)
+        timecard = scrape_shifts(browser, user.pointer, "Timecard", user)
+
+        for shift in schedule + timecard:
+            shift.commit(cursor, user.id)
+
+        assign_shifts(user, cursor)
+
+
+def scrape_user(user, playwright, headless, command):
     browser = playwright.firefox.launch(headless=headless)
-    #get_data(browser, user)
-    assign_shifts(user)
+    logger.debug(f"Browser opened for user {user.id}")
+    if command == "all":
+        get_payslips(browser, user)
+        get_shifts(browser, user)
+    if command == "shifts":
+        get_shifts(browser, user)
+    if command == "payslips":
+        get_payslips(browser, user)
     browser.close()
+    logger.debug(f"Browser closed for user {user.id}")
+    logger.info(f"Finished scraping {command} for user {user.id}")
 
 
-def main(headless=True):
+def scrape_all(playwright, headless, command):
     users = get_users()
-    with sync_playwright() as p:
-        [scrape_user(User(user), p, headless) for user in users]
-
-
-main(False)
+    for user in users:
+        scrape_user(user, playwright, headless, command)
