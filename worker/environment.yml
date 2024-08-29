@@ -26,11 +26,19 @@ dependencies:
   - xz=5.4.6=h5eee18b_1
   - zlib=1.2.13=h5eee18b_1
   - pip:
+      - aiomysql==0.2.0
       - bcrypt==4.2.0
       - beautifulsoup4==4.12.3
+      - blinker==1.8.2
       - cffi==1.17.0
+      - click==8.1.7
       - cryptography==43.0.0
+      - flask==3.0.3
+      - flask-cors==4.0.1
       - greenlet==3.0.3
+      - itsdangerous==2.2.0
+      - jinja2==3.1.4
+      - markupsafe==2.1.5
       - playwright==1.45.1
       - pycparser==2.22
       - pyee==11.1.0
@@ -38,4 +46,5 @@ dependencies:
       - python-dotenv==1.0.1
       - soupsieve==2.5
       - typing-extensions==4.12.2
+      - werkzeug==3.0.4
 prefix: /home/chris/miniconda3/envs/personal-finance-worker

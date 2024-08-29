@@ -34,10 +34,7 @@ def handle_args(args):
     return action, user, all_users
 
 
-async def main(headless=True):
-    args = parser.parse_args()
-    action, user, all_users = handle_args(args)
-
+async def main(action, user, all_users, headless=True):
     async with async_playwright() as p:
         if all_users:
             logger.info(f"Scraping {action} for all users")
@@ -50,4 +47,7 @@ async def main(headless=True):
 
 
 if __name__ == "__main__":
-    asyncio.run(main(False))
+    args = parser.parse_args()
+    action, user, all_users = handle_args(args)
+
+    asyncio.run(main(action, user, all_users, False))
