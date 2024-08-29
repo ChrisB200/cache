@@ -4,6 +4,7 @@ import bs4
 import re
 import contextlib
 import logging
+import asyncio
 
 from datetime import date
 from datetime import time
@@ -240,25 +241,8 @@ def get_users():
         return list(map(lambda user: User(user), users_details))
 
 
-def login_required(func):
-    def wrapper(browser, user, password, *args, **kwargs):
-        page = browser.new_page()
-        page.goto(f"{FGP_BASE_URL}?site=login&page=login")
-
-        # enter user details
-        page.get_by_label("Username").fill(user)
-        page.get_by_label("Password").fill(password)
-        page.get_by_role("button", name="Submit").click()
-
-        result = func(browser, page, *args)
-
-        return result
-
-    return wrapper
-
-
-def parse_page(page) -> BeautifulSoup:
-    html = page.content()
+async def parse_page(page) -> BeautifulSoup:
+    html = await page.content()
     soup = BeautifulSoup(html, "html.parser")
     return soup
 
@@ -268,22 +252,22 @@ def start_of_week(date: datetime):
     return date - timedelta(days=weekday_index)
 
 
-def scrape_shifts(context: BrowserContext, pointer, button, user):
+async def scrape_shifts(context: BrowserContext, pointer, button, user):
     # log in to fgp
-    page = context.new_page()
-    page.goto(f"{FGP_BASE_URL}?site=login&page=login")
+    page = await context.new_page()
+    await page.goto(f"{FGP_BASE_URL}?site=login&page=login")
 
-    page.get_by_label("Username").fill(user.fg_user)
-    page.get_by_label("Password").fill(user.fg_pass)
-    page.get_by_role("button", name="Submit").click()
+    await page.get_by_label("Username").fill(user.fg_user)
+    await page.get_by_label("Password").fill(user.fg_pass)
+    await page.get_by_role("button", name="Submit").click()
 
-    page.locator("a").filter(has_text="My Rota").click()
-    page.locator("a").filter(has_text=button).click()
+    await page.locator("a").filter(has_text="My Rota").click()
+    await page.locator("a").filter(has_text=button).click()
 
     # check what type of shifts
     if button != "Timecard":
-        page.get_by_role("button", name="Week View").click()
-        html = parse_page(page)
+        await page.get_by_role("button", name="Week View").click()
+        html = await parse_page(page)
 
     # initialising the details
     week_after = start_of_week(datetime.today()) + timedelta(weeks=2)
@@ -294,23 +278,24 @@ def scrape_shifts(context: BrowserContext, pointer, button, user):
     while True:
         # choose the current week
         current_date_str = current_date.strftime("%d/%m/%Y")
-        date_element.fill(str(current_date_str))
-        date_element.press("Enter")
-        date_element.press("Enter")
+        await date_element.fill(str(current_date_str))
+        await date_element.press("Enter")
+        await date_element.press("Enter")
 
         # wait for it to load and then parse the page
-        page.wait_for_selector("text=Total")
-        html = parse_page(page)
+        await page.wait_for_selector("text=Total")
+        html = await parse_page(page)
         days = html.find_all(class_="day-heading")
 
         # get the date
-        date_content = date_element.input_value()
+        date_content = await date_element.input_value()
         selected_date = datetime.strptime(date_content, "%d/%m/%Y")
         week_start = start_of_week(selected_date)
 
         # get the total number of hours for week
         total_element = page.locator("h3").filter(has_text="Total ")
-        total_split = total_element.text_content().split(" ")
+        total_text = await total_element.text_content()
+        total_split = total_text.split(" ")
         numHours = float(total_split[1].split("hrs")[0])
 
         if numHours != 0:
@@ -338,35 +323,35 @@ def scrape_shifts(context: BrowserContext, pointer, button, user):
     return shifts
 
 
-def scrape_payslips(browser, user):
-    context = browser.new_context()
-    page = context.new_page()
-    page.goto(SD_BASE_URL)
+async def scrape_payslips(browser, user):
+    context = await browser.new_context()
+    page = await context.new_page()
+    await page.goto(SD_BASE_URL)
 
     # enter log in details
-    page.get_by_placeholder("Username").fill(user.sd_user)
-    page.get_by_placeholder("Password").fill(user.sd_pass)
-    page.get_by_role("button", name="Sign In").click()
+    await page.get_by_placeholder("Username").fill(user.sd_user)
+    await page.get_by_placeholder("Password").fill(user.sd_pass)
+    await page.get_by_role("button", name="Sign In").click()
 
     # presses payslips
-    with page.expect_popup() as popup_info:
-        page.frame_locator('iframe[name="ContainerFrame"]').frame_locator(
+    async with page.expect_popup() as popup_info:
+        await page.frame_locator('iframe[name="ContainerFrame"]').frame_locator(
             'iframe[name="iframeCommunityContainer"]'
         ).get_by_role("link", name="My Payslip").click()
 
     # highlights popup page
-    current = popup_info.value
-    current.bring_to_front()
+    current = await popup_info.value
+    await current.bring_to_front()
 
     # locates payslip history
-    current.wait_for_timeout(5000)
+    await current.wait_for_timeout(5000)
     date_div = current.locator(".divPaymentHistory").first
-    anchors = date_div.locator("a").all()
+    anchors = await date_div.locator("a").all()
 
     # match all years and click them
     year_elements = []
     for element in anchors:
-        text_content = element.inner_text()
+        text_content = await element.inner_text()
         # find all year patterns in the text
         matches = re.findall(r"\b\d{4}\b", text_content)
         # append the matches if they represent a year
@@ -378,35 +363,39 @@ def scrape_payslips(browser, user):
     # press all date dropdowns
     for count, element in enumerate(year_elements):
         if count != 0:
-            element.click()
+            await element.click()
 
     # get all anchors
     payslips = []
     currentYear = datetime.today().year
     for element in anchors:
-        text_content = element.inner_text()
+        text_content = await element.inner_text()
         if len(text_content) == 4:
             currentYear = int(text_content)
 
         elif len(text_content) == 6:
             # get date
-            date_str = element.inner_text()
+            date_str = await element.inner_text()
             day, month = date_str.split(" ")
             date_obj = datetime.strptime(month, "%b")
             date = date_obj.replace(year=currentYear, day=int(day))
 
-            element.click()
+            await element.click()
+
+            # NEED TO CHANGE THIS TO NOT HAVE TO WAIT FOR A SECOND
             current.wait_for_timeout(1000)
 
-            rate_lbls = current.locator(".TDData").all()
+            rate_lbls = await current.locator(".TDData").all()
             rate = None
             for lbl in rate_lbls:
-                if "£" in lbl.inner_text():
-                    rate = float(lbl.inner_text().split("£")[1])
+                lbl_inner_text = await lbl.inner_text()
+                if "£" in lbl_inner_text:
+                    rate = float(lbl_inner_text.split("£")[1])
 
             net_pay_lbl = current.locator("#baseNetPayBackground")
             net_pay = net_pay_lbl.locator("xpath=following-sibling::*[1]")
-            net_pay = net_pay.inner_text().split("£")[1]
+            net_pay = await net_pay.inner_text()
+            net_pay = net_pay.split("£")[1]
 
             payslip = Payslip(date.date(), net_pay, rate)
             logger.debug(f"Scraped payslip at date {payslip.date} for user {user.id}")
@@ -448,18 +437,18 @@ def assign_shifts(user, cursor):
                 cursor.execute(qry, values)
 
 
-def get_payslips(browser, user):
+async def get_payslips(browser, user):
     with connect_sql() as cursor:
-        payslips = scrape_payslips(browser, user.sd_user, user.sd_pass)
+        payslips = await scrape_payslips(browser, user)
         for payslip in payslips:
             payslip.commit(cursor, user.id)
 
 
-def get_shifts(browser, user):
+async def get_shifts(browser, user):
     with connect_sql() as cursor:
         # shifts and schedule (fgp)
-        schedule = scrape_shifts(browser, user.pointer, "Schedule", user)
-        timecard = scrape_shifts(browser, user.pointer, "Timecard", user)
+        schedule = await scrape_shifts(browser, user.pointer, "Schedule", user)
+        timecard = await scrape_shifts(browser, user.pointer, "Timecard", user)
 
         for shift in schedule + timecard:
             shift.commit(cursor, user.id)
@@ -467,22 +456,25 @@ def get_shifts(browser, user):
         assign_shifts(user, cursor)
 
 
-def scrape_user(user, playwright, headless, command):
-    browser = playwright.firefox.launch(headless=headless)
+async def scrape_user(user, playwright, headless, command):
+    browser = await playwright.firefox.launch(headless=headless)
     logger.debug(f"Browser opened for user {user.id}")
-    if command == "all":
-        get_payslips(browser, user)
-        get_shifts(browser, user)
-    if command == "shifts":
-        get_shifts(browser, user)
-    if command == "payslips":
-        get_payslips(browser, user)
-    browser.close()
-    logger.debug(f"Browser closed for user {user.id}")
-    logger.info(f"Finished scraping {command} for user {user.id}")
+
+    try:
+        if command == "all":
+            await get_payslips(browser, user)
+            await get_shifts(browser, user)
+        if command == "shifts":
+            await get_shifts(browser, user)
+        if command == "payslips":
+            await get_payslips(browser, user)
+    finally:
+        await browser.close()
+        logger.debug(f"Browser closed for user {user.id}")
+        logger.info(f"Finished scraping {command} for user {user.id}")
 
 
-def scrape_all(playwright, headless, command):
+async def scrape_all(playwright, headless, command):
     users = get_users()
-    for user in users:
-        scrape_user(user, playwright, headless, command)
+    tasks = [scrape_user(user, playwright, headless, command) for user in users]
+    await asyncio.gather(*tasks)

@@ -1,6 +1,7 @@
 import logging
+import asyncio
 
-from playwright.sync_api import sync_playwright
+from playwright.async_api import async_playwright
 
 from scripts.parser import parser
 
@@ -9,7 +10,7 @@ from scripts.scraper import scrape_user
 from scripts.scraper import scrape_all
 
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
         # logging.FileHandler("game.log")
@@ -22,25 +23,31 @@ logger = logging.getLogger(__name__)
 
 def handle_args(args):
     action = args.action
-    user = args.user_id
-    all_users = args.all_users
+
+    if not args.action:
+        user = None
+        all_users = None
+    else:
+        user = args.user_id
+        all_users = args.all_users
+
     return action, user, all_users
 
 
-def main(headless=True):
+async def main(headless=True):
     args = parser.parse_args()
     action, user, all_users = handle_args(args)
 
-    with sync_playwright() as p:
+    async with async_playwright() as p:
         if all_users:
             logger.info(f"Scraping {action} for all users")
-            scrape_all(p, headless, action)
+            await scrape_all(p, headless, action)
         elif user:
             logger.info(f"Scraping {action} for user {user}")
-            scrape_user(get_user(user), p, headless, action)
+            await scrape_user(get_user(user), p, headless, action)
         else:
-            print("No valid user specified. Use -u or -a.")
+            logger.error("No valid user specified. Use -u or -a.")
 
 
 if __name__ == "__main__":
-    main(False)
+    asyncio.run(main(False))
