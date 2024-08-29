@@ -5,6 +5,7 @@ import re
 import contextlib
 import logging
 import asyncio
+import time as t
 
 from datetime import date
 from datetime import time
@@ -12,7 +13,10 @@ from datetime import datetime
 from datetime import timedelta
 from cryptography.fernet import Fernet
 from bs4 import BeautifulSoup
-from playwright.sync_api import BrowserContext
+from playwright.async_api import BrowserContext, expect
+from playwright._impl._errors import TargetClosedError
+from pymysql.err import OperationalError
+
 from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
@@ -112,8 +116,7 @@ class Shift:
                 WHERE date = %s and user_id = %s
             """
 
-            values = (self.start, self.end, self.hours,
-                      self.rate, self.date, user_id)
+            values = (self.start, self.end, self.hours, self.rate, self.date, user_id)
         else:
             query = """
                 INSERT INTO shift (date, start, end, hours, rate, type, user_id)
@@ -208,6 +211,9 @@ def connect_sql():
     logger.debug(f"Connection made to database {DB_NAME}")
     try:
         yield cursor
+    except OperationalError as e:
+        logger.error("Login credentials for database is invalid")
+        raise e
     except Exception as e:
         connection.rollback()
         raise e
@@ -323,6 +329,21 @@ async def scrape_shifts(context: BrowserContext, pointer, button, user):
     return shifts
 
 
+async def match_years(anchors):
+    # match all years and click them
+    year_elements = []
+    for element in anchors:
+        text_content = await element.inner_text()
+        # find all year patterns in the text
+        matches = re.findall(r"\b\d{4}\b", text_content)
+        # append the matches if they represent a year
+        for match in matches:
+            year = int(match)
+            if 1900 <= year <= 2100:  # valid year range
+                year_elements.append(element)
+    return year_elements
+
+
 async def scrape_payslips(browser, user):
     context = await browser.new_context()
     page = await context.new_page()
@@ -344,21 +365,11 @@ async def scrape_payslips(browser, user):
     await current.bring_to_front()
 
     # locates payslip history
-    await current.wait_for_timeout(5000)
+    await current.wait_for_timeout(1000)
     date_div = current.locator(".divPaymentHistory").first
     anchors = await date_div.locator("a").all()
 
-    # match all years and click them
-    year_elements = []
-    for element in anchors:
-        text_content = await element.inner_text()
-        # find all year patterns in the text
-        matches = re.findall(r"\b\d{4}\b", text_content)
-        # append the matches if they represent a year
-        for match in matches:
-            year = int(match)
-            if 1900 <= year <= 2100:  # valid year range
-                year_elements.append(element)
+    year_elements = await match_years(anchors)
 
     # press all date dropdowns
     for count, element in enumerate(year_elements):
@@ -373,33 +384,54 @@ async def scrape_payslips(browser, user):
         if len(text_content) == 4:
             currentYear = int(text_content)
 
-        elif len(text_content) == 6:
-            # get date
-            date_str = await element.inner_text()
-            day, month = date_str.split(" ")
-            date_obj = datetime.strptime(month, "%b")
-            date = date_obj.replace(year=currentYear, day=int(day))
+        if len(text_content) != 6:
+            continue
 
+        # convert the date
+        date_str = await element.inner_text()
+        day, month = date_str.split(" ")
+        date_obj = datetime.strptime(month, "%b")
+        date = date_obj.replace(year=currentYear, day=int(day))
+        new_date_str = date.strftime("%d/%m/%Y")
+
+        # look for the date in the details section
+        details = current.locator("#ctl00_MCPH_PayslipCtrl_udpEmployeeDetails")
+        tableCells = await details.locator(".TDData").all()
+        pattern = r"^\d{2}/\d{2}/\d{4}$"
+        locator = None
+
+        # Iterate over tableCells asynchronously and find the matching cell
+        for cell in tableCells:
+            inner_text = await cell.inner_text()
+            if re.match(pattern, inner_text):
+                locator = cell
+                break
+
+        # wait for page to reload by expected date
+        try:
             await element.click()
+            await expect(locator).to_have_text(new_date_str, timeout=10000)
+        except AssertionError as e:
+            logger.error(e)
 
-            # NEED TO CHANGE THIS TO NOT HAVE TO WAIT FOR A SECOND
-            current.wait_for_timeout(1000)
+        # Get the rate for payslip
+        rate_lbls = await current.locator(".TDData").all()
+        rate = None
+        for lbl in rate_lbls:
+            lbl_inner_text = await lbl.inner_text()
+            if "£" in lbl_inner_text:
+                rate = float(lbl_inner_text.split("£")[1])
 
-            rate_lbls = await current.locator(".TDData").all()
-            rate = None
-            for lbl in rate_lbls:
-                lbl_inner_text = await lbl.inner_text()
-                if "£" in lbl_inner_text:
-                    rate = float(lbl_inner_text.split("£")[1])
+        # get the net for payslip
+        net_pay_lbl = current.locator("#baseNetPayBackground")
+        net_pay = net_pay_lbl.locator("xpath=following-sibling::*[1]")
+        net_pay = await net_pay.inner_text()
+        net_pay = net_pay.split("£")[1]
 
-            net_pay_lbl = current.locator("#baseNetPayBackground")
-            net_pay = net_pay_lbl.locator("xpath=following-sibling::*[1]")
-            net_pay = await net_pay.inner_text()
-            net_pay = net_pay.split("£")[1]
-
-            payslip = Payslip(date.date(), net_pay, rate)
-            logger.debug(f"Scraped payslip at date {payslip.date} for user {user.id}")
-            payslips.append(payslip)
+        # create payslip object
+        payslip = Payslip(date.date(), net_pay, rate)
+        logger.debug(f"Scraped payslip at date {payslip.date} for user {user.id}")
+        payslips.append(payslip)
 
     logger.info(f"Scraped {len(payslips)} payslips for user {user.id}")
     return payslips
@@ -412,8 +444,7 @@ def assign_shifts(user, cursor):
     """
     payslip_values = user.id
     cursor.execute(payslip_qry, payslip_values)
-    payslips = [Payslip.create_from_details(
-        payslip) for payslip in cursor.fetchall()]
+    payslips = [Payslip.create_from_details(payslip) for payslip in cursor.fetchall()]
 
     shift_qry = """
         SELECT * FROM shift
@@ -468,6 +499,8 @@ async def scrape_user(user, playwright, headless, command):
             await get_shifts(browser, user)
         if command == "payslips":
             await get_payslips(browser, user)
+    except TargetClosedError as e:
+        logger.exception(e)
     finally:
         await browser.close()
         logger.debug(f"Browser closed for user {user.id}")
