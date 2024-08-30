@@ -1,10 +1,26 @@
-import subprocess
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, BackgroundTasks
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from worker import main
 
+import httpx
+
 app = FastAPI()
+
+origins = [
+    "http://localhost",           # For local testing
+    "http://127.0.0.1:8888", # Localhost with port
+    "http://127.0.0.1:3000"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class UserRequest(BaseModel):
@@ -17,32 +33,35 @@ async def test():
 
 
 @app.post("/worker/shifts")
-async def get_shifts(user_request: UserRequest):
+async def get_shifts(user_request: UserRequest, background_tasks: BackgroundTasks):
     user_id = user_request.user_id
-    await main("shifts", user_id, False, False)
+    background_tasks.add_task(main, "shifts", user_id, False, False)
     return JSONResponse(
-        content={"message": f"Scraped shifts for {user_id}"}, status_code=200
+        content={"message": f"Started scraping shifts for {user_id}"},
+        status_code=200,
     )
 
 
 @app.post("/worker/payslips")
-async def get_payslips(user_request: UserRequest):
+async def get_payslips(user_request: UserRequest, background_tasks: BackgroundTasks):
     user_id = user_request.user_id
-    await main("payslips", user_id, False, False)
+    background_tasks.add_task(main, "payslips", user_id, False, False)
     return JSONResponse(
-        content={"message": f"Successfully scraped payslips for {user_id}"},
+        content={"message": f"Started scraping payslips for {user_id}"},
         status_code=200,
     )
 
 
 @app.post("/worker/all")
-async def get_all(user_request: UserRequest):
+async def get_all(user_request: UserRequest, background_tasks: BackgroundTasks):
     user_id = user_request.user_id
-    await main("all", user_id, False, False)
+    background_tasks.add_task(main, "all", user_id, False, False)
     return JSONResponse(
-        content={"message": f"Successfully scraped all for {user_id}"}, status_code=200
+        content={"message": f"Started scraping all for {user_id}"},
+        status_code=200,
     )
 
+# NEED TO ADD CALLBACK ROUTE
 
 if __name__ == "__main__":
     import uvicorn
