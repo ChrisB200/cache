@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Register.css";
 import "../../index.css";
 import AuthService from "../../utilities/authService";
+import httpClient from "../../utilities/httpClient";
 
 function Register() {
   const navigate = useNavigate();
@@ -67,6 +68,7 @@ function Register() {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
+
   const handlePrev = async (form) => {
     if (form == forms.fiveguys.current) {
       form.classList.remove("show", "left");
@@ -85,12 +87,17 @@ function Register() {
     e.preventDefault();
 
     const form = e.target;
+    const isValid = form.checkValidity()
     const buttonName = e.nativeEvent.submitter.name;
+
     if (buttonName === "prev") {
       handlePrev(form);
     } else {
-      nextForm(form);
+      if (isValid) {
+        nextForm(form);
+      }
     }
+
   };
 
   return (
@@ -120,20 +127,24 @@ function Register() {
       >
         <h1>Sign Up to Cache</h1>
         <input
+          className="email"
           type="email"
           name="email"
           id="email"
           value={values.username}
           placeholder="Email"
           onChange={handleChange}
+          required
         />
         <input
+          className="password"
           type="password"
           name="password"
           id="password"
           value={values.password}
           placeholder="Password"
           onChange={handleChange}
+          required
         />
         <div>
           <button className="continue-btn" type="submit">

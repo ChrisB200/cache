@@ -10,12 +10,19 @@
   /* 36 */
   --font-800: 3rem;
   /* 48 */
+
+  --primary: #181A23;
+  --secondary: #111118;
+  --accent-orange: #F09581;
+  --accent-green: #76D27E;
+  --text-primary: #FFFFFF;
+  --text-accent: #808080;
 }
 
 * {
   margin: 0;
   padding: 0;
-  font-family: "Nunito";
+  font-family: "Josefin Sans", sans-serif;
 }
 
 h1 {
@@ -35,6 +42,10 @@ p, select, button, div {
   font-size: var(--font-400);
 }
 
+h1, h2, h3, h4, h5, p {
+  color: var(--text-primary);
+}
+
 body {
-  background-color: var(--background-400);
+  background-color: var(--primary);
 }

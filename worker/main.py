@@ -35,7 +35,7 @@ async def test():
 @app.post("/worker/shifts")
 async def get_shifts(user_request: UserRequest, background_tasks: BackgroundTasks):
     user_id = user_request.user_id
-    background_tasks.add_task(main, "shifts", user_id, False, False)
+    background_tasks.add_task(main, "shifts", user_id, False)
     return JSONResponse(
         content={"message": f"Started scraping shifts for {user_id}"},
         status_code=200,
@@ -45,7 +45,7 @@ async def get_shifts(user_request: UserRequest, background_tasks: BackgroundTask
 @app.post("/worker/payslips")
 async def get_payslips(user_request: UserRequest, background_tasks: BackgroundTasks):
     user_id = user_request.user_id
-    background_tasks.add_task(main, "payslips", user_id, False, False)
+    background_tasks.add_task(main, "payslips", user_id, False)
     return JSONResponse(
         content={"message": f"Started scraping payslips for {user_id}"},
         status_code=200,
@@ -55,7 +55,7 @@ async def get_payslips(user_request: UserRequest, background_tasks: BackgroundTa
 @app.post("/worker/all")
 async def get_all(user_request: UserRequest, background_tasks: BackgroundTasks):
     user_id = user_request.user_id
-    background_tasks.add_task(main, "all", user_id, False, False)
+    background_tasks.add_task(main, "all", user_id, False)
     return JSONResponse(
         content={"message": f"Started scraping all for {user_id}"},
         status_code=200,

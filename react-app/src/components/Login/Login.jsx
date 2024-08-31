@@ -21,10 +21,10 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     AuthService.login(values.email, values.password)
-      .then((response) => {
-        navigate("/")
+      .then(() => {
+        navigate("/home")
       })
-      .catch((response) => {
+      .catch(() => {
         form.current.classList.add("error-input");
       })
   }
