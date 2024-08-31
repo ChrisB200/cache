@@ -62,6 +62,7 @@ class Shift(db.Model):
     hours = db.Column(db.Float)
     rate = db.Column(db.Float)
     type = db.Column(db.String(32))
+    has_scraped = db.Column(db.Boolean, default=True)
     user_id = db.Column(db.String(32), db.ForeignKey("user.id"), nullable=False)
     payslip_id = db.Column(db.Integer, db.ForeignKey("payslip.id"))
 
