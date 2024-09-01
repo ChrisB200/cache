@@ -258,7 +258,7 @@ def start_of_week(date: datetime):
     return date - timedelta(days=weekday_index)
 
 
-async def scrape_shifts(context: BrowserContext, pointer, button, user):
+async def scrape_shifts(context: BrowserContext, button, user):
     # log in to fgp
     page = await context.new_page()
     await page.goto(f"{FGP_BASE_URL}?site=login&page=login")
@@ -277,7 +277,7 @@ async def scrape_shifts(context: BrowserContext, pointer, button, user):
 
     # initialising the details
     week_after = start_of_week(datetime.today()) + timedelta(weeks=2)
-    current_date = pointer
+    current_date = user.pointer
     date_element = page.get_by_placeholder("dd/mm/yy")
     shifts = []
 
@@ -478,8 +478,8 @@ async def get_payslips(browser, user):
 async def get_shifts(browser, user):
     with connect_sql() as cursor:
         # shifts and schedule (fgp)
-        schedule = await scrape_shifts(browser, user.pointer, "Schedule", user)
-        timecard = await scrape_shifts(browser, user.pointer, "Timecard", user)
+        schedule = await scrape_shifts(browser, "Schedule", user)
+        timecard = await scrape_shifts(browser, "Timecard", user)
 
         for shift in schedule + timecard:
             shift.commit(cursor, user.id)
