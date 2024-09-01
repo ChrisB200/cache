@@ -11,12 +11,15 @@
   top: 0;
   background-color: var(--secondary);
   padding: 0 4rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
 }
 
 .calendar-header {
-  display: flex;
-  align-items:flex-end;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  text-align: center;
   margin-top: 2rem;
   margin-bottom: 2rem;
   gap: 2rem;
@@ -42,10 +45,146 @@
   text-align: center;
   grid-template-rows: repeat(6, auto);
   grid-template-columns: repeat(7, auto);
-  row-gap: 2.5rem;
+  row-gap: 2rem;
   column-gap: 1.5rem;
 }
 
-.grayed {
+.outside-month {
   color: var(--text-accent);
+}
+
+.calendar-day {
+  position: relative; 
+  display: inline-block; 
+  width: 40px;
+  height: 40px; 
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%; 
+  z-index: 2;
+}
+
+.calendar-day::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  width: 100%; 
+  height: 100%; 
+  transition: background-color 0.1s;
+  z-index: -1;
+}
+
+/* Hover effect */
+.calendar-day:hover::before {
+  background-color: var(--primary); /* Darker or different color on hover */
+}
+
+.calendar-day:hover {
+  cursor: pointer;
+}
+
+.payslip::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  top: 100%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  width: 20%; 
+  height: 20%; 
+  z-index: -1;
+  background-color: var(--accent-green);
+
+}
+
+.shift-on::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  top: 100%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  width: 20%; 
+  height: 20%; 
+  z-index: -1;
+  background-color: var(--accent-orange);
+}
+
+.today {
+  color: var(--secondary);
+}
+
+.today::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  width: 100%; 
+  height: 100%; 
+  background-color: var(--text-primary);
+  z-index: -1;
+}
+
+.shifts-container {
+  margin-top: 3rem;
+  overflow-y: auto;
+}
+
+.shifts {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100%;
+  margin-right: 1.2rem;
+  margin-left: 1.2rem;
+}
+
+.shift-container {
+  display: flex;
+  align-items: center;
+  background-color: var(--primary);
+  padding: 1rem 1rem;
+  border-radius: 10px;
+}
+
+.shift-info {
+  flex: 2;
+  display: flex;
+  justify-content: left;
+  align-items:center;
+  gap: 2rem;
+}
+
+.shift-date {
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--secondary);
+  border-radius: 10px;
+}
+
+.shift-day {
+  color: var(--accent-orange);
+  font-weight: bold;
+}
+
+.shift-short {
+  color: var(--text-accent);
+  font-size: var(--font-350);
+}
+
+.shift-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.shift-hours {
+  flex: 1;
+  text-align: right;
 }
