@@ -49,7 +49,7 @@
   column-gap: 1.5rem;
 }
 
-.outside-month {
+.outside-month, .grayed {
   color: var(--text-accent);
 }
 
@@ -165,6 +165,7 @@
   padding: 1rem;
   background-color: var(--secondary);
   border-radius: 10px;
+
 }
 
 .shift-day {
@@ -187,4 +188,12 @@
 .shift-hours {
   flex: 1;
   text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cash {
+  font-weight: bold;
+  color: var(--accent-green);
 }

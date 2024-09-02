@@ -29,12 +29,12 @@ function Shift(props) {
               {props.shift.start} - {props.shift.end}
             </p>
           </strong>
-
           <p>{props.shift.type}</p>
         </div>
       </div>
       <div className="shift-hours">
-        <p>{props.shift.hours.toFixed(2)}hrs</p>
+        <p className="cash">£{(props.shift.hours * props.shift.rate).toFixed(2)}</p>
+        <p className="grayed">{props.shift.hours.toFixed(2)}</p>
       </div>
     </div>
   );
@@ -192,7 +192,7 @@ function Calendar(props) {
               {combineShifts().map((shift, index) => {
                 const shiftDate = new Date(shift.date);
 
-                if (shiftDate.getMonth() === currentDate.getMonth()) {
+                if (shiftDate.getMonth() === currentDate.getMonth() && shiftDate.getFullYear() == currentDate.getFullYear()) {
                   return <Shift key={index} shift={shift} />;
                 }
 

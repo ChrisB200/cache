@@ -13,7 +13,7 @@ logging.basicConfig(
     level=logging.DEBUG,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        # logging.FileHandler("game.log")
+        logging.FileHandler("worker.log"),
         logging.StreamHandler()
     ]
 )
