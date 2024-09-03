@@ -1,0 +1,12 @@
+.nav-container {
+    position: relative;
+}
+
+nav {
+    position: absolute;
+    height: 100vh;
+    width: 300px;
+    background-color: var(--secondary);
+    top: 0;
+    left: 0;
+}

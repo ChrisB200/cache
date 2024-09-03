@@ -6,8 +6,9 @@ import { PayslipProvider } from "../../contexts/PayslipContext";
 import { ShiftProvider } from "../../contexts/ShiftContext";
 import { usePayslips, useShifts } from "../../hooks/contexts";
 import { combineShifts } from "../../utils/shift";
+import Navbar from "../Reusable/Navbar/Navbar";
 
-function Shift({ shift, isSelected }) {
+function Shift({ shift, isSelected, onClick }) {
   const shiftRef = useRef(null);
   const shiftDate = new Date(shift.date);
   const formattedDate = shiftDate.toLocaleDateString("en-GB", {
@@ -33,7 +34,7 @@ function Shift({ shift, isSelected }) {
   }, [isSelected]);
 
   return (
-    <div className="shift-container" ref={shiftRef}>
+    <div className="shift-container" ref={shiftRef} onClick={onClick}>
       <div className="shift-info">
         <div className="shift-date">
           <p className="shift-day">
@@ -103,6 +104,9 @@ function Sidebar({ currentDate, setCurrentDate }) {
                       key={index}
                       shift={shift}
                       isSelected={isSelected(shiftDate)}
+                      onClick={() => {
+                        handleDateSelect(shiftDate);
+                      }}
                     />
                   );
                 }
@@ -123,6 +127,7 @@ function Work() {
   return (
     <PayslipProvider>
       <ShiftProvider>
+        <Navbar></Navbar>
         <Sidebar currentDate={currentDate} setCurrentDate={setCurrentDate} />
       </ShiftProvider>
     </PayslipProvider>

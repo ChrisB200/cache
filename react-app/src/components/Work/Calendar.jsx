@@ -77,6 +77,7 @@ function Calendar({ currentDate, setCurrentDate, onDateSelect }) {
     );
 
   }
+  
 
   useEffect(() => {
     const generateCalendar = (year, month) => {

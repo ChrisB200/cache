@@ -169,6 +169,12 @@
   background-color: var(--primary);
   padding: 1rem 1rem;
   border-radius: 10px;
+  transition: opacity 0.2s;
+}
+
+.shift-container:hover {
+  cursor: pointer;
+  opacity: 0.7;
 }
 
 .shift-info {
