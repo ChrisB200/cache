@@ -1,31 +1,26 @@
-.sidebar-container {
-  position: relative;
-}
-
 .sidebar {
-  position: absolute;
-  max-width: 700px;
-  min-width: 300px;
   height: 100vh;
-  right: 0;
-  top: 0;
   background-color: var(--secondary);
-  padding: 0 4rem;
+  padding: 0 2rem;
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
+  min-width: 400px;
 }
 
+/* Make the calendar width flexible and responsive */
 .calendar {
   margin-top: 2rem;
+  width: 100%;
 }
 
+/* Responsive header adjustments */
 .calendar-header {
   display: grid;
   grid-template-columns: auto 1fr auto;
   text-align: center;
-  margin-bottom: 2rem;
-  gap: 2rem;
+  margin-bottom: 1.5rem;
+  gap: 1.5rem;
 }
 
 .year {
@@ -45,30 +40,28 @@
   cursor: pointer;
 }
 
+/* Adjust calendar days grid for better responsiveness */
 .calendar-dates {
   display: grid;
   text-align: center;
   grid-template-rows: repeat(6, auto);
-  grid-template-columns: repeat(7, auto);
-  row-gap: 2rem;
-  column-gap: 1.5rem;
+  grid-template-columns: repeat(7, 1fr); /* Use flex values for better responsiveness */
+  row-gap: 1.5rem;
+  column-gap: clamp(0.5rem, 1vw, 1rem); /* Dynamically adjust gaps */
 }
 
-.outside-month,
-.grayed {
-  color: var(--text-accent);
-}
-
+/* Individual calendar day adjustments */
 .calendar-day {
   position: relative;
   display: inline-block;
-  width: 40px;
+  max-width: 40px;
   height: 40px;
   text-align: center;
   line-height: 40px;
   border-radius: 50%;
   z-index: 2;
 }
+
 
 .calendar-day::before {
   content: "";
@@ -81,8 +74,13 @@
   height: 100%;
   transition: background-color 0.1s;
   z-index: -1;
+  aspect-ratio: 1/1;
 }
 
+.outside-month,
+.grayed {
+  color: var(--text-accent);
+}
 .selected-day::before {
   content: "";
   position: absolute;
@@ -134,6 +132,7 @@
 
 .today {
   color: var(--secondary);
+  aspect-ratio: 1/1;
 }
 
 .today::before {
@@ -143,9 +142,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
   background-color: var(--text-primary);
+  aspect-ratio: 1/1;
   z-index: -1;
 }
 

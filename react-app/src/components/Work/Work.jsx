@@ -80,41 +80,39 @@ function Sidebar({ currentDate, setCurrentDate }) {
   };
 
   return (
-    <div className="sidebar-container">
-      <div className="sidebar">
-        <Calendar
-          currentDate={currentDate}
-          setCurrentDate={setCurrentDate}
-          onDateSelect={handleDateSelect}
-        />
-        <div className="shifts-container">
-          <div className="shifts">
-            {error != null ? (
-              <p className="shifts-error">{error}</p>
-            ) : (
-              combineShifts(shifts).map((shift, index) => {
-                const shiftDate = new Date(shift.date);
+    <div className="sidebar">
+      <Calendar
+        currentDate={currentDate}
+        setCurrentDate={setCurrentDate}
+        onDateSelect={handleDateSelect}
+      />
+      <div className="shifts-container">
+        <div className="shifts">
+          {error != null ? (
+            <p className="shifts-error">{error}</p>
+          ) : (
+            combineShifts(shifts).map((shift, index) => {
+              const shiftDate = new Date(shift.date);
 
-                if (
-                  shiftDate.getMonth() === currentDate.getMonth() &&
-                  shiftDate.getFullYear() === currentDate.getFullYear()
-                ) {
-                  return (
-                    <Shift
-                      key={index}
-                      shift={shift}
-                      isSelected={isSelected(shiftDate)}
-                      onClick={() => {
-                        handleDateSelect(shiftDate);
-                      }}
-                    />
-                  );
-                }
+              if (
+                shiftDate.getMonth() === currentDate.getMonth() &&
+                shiftDate.getFullYear() === currentDate.getFullYear()
+              ) {
+                return (
+                  <Shift
+                    key={index}
+                    shift={shift}
+                    isSelected={isSelected(shiftDate)}
+                    onClick={() => {
+                      handleDateSelect(shiftDate);
+                    }}
+                  />
+                );
+              }
 
-                return null;
-              })
-            )}
-          </div>
+              return null;
+            })
+          )}
         </div>
       </div>
     </div>
@@ -127,8 +125,16 @@ function Work() {
   return (
     <PayslipProvider>
       <ShiftProvider>
-        <Navbar></Navbar>
-        <Sidebar currentDate={currentDate} setCurrentDate={setCurrentDate} />
+        <div className="content">
+          <Navbar></Navbar>
+          <div>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
+            nisi tenetur tempore dolorem odit, ea, unde maxime perspiciatis
+            minima et error sunt perferendis placeat sint architecto quae.
+            Eveniet, dolore quibusdam.
+          </div>
+          <Sidebar currentDate={currentDate} setCurrentDate={setCurrentDate} />
+        </div>
       </ShiftProvider>
     </PayslipProvider>
   );

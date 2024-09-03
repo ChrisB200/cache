@@ -1,12 +1,36 @@
-.nav-container {
-    position: relative;
+nav {
+    height: 100vh;
+    max-width: 300px;
+    min-width: 200px;
+    background-color: var(--secondary);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
 
-nav {
-    position: absolute;
-    height: 100vh;
-    width: 300px;
-    background-color: var(--secondary);
-    top: 0;
-    left: 0;
+.nav-logo {
+    height: 25vh;
+}
+
+.nav-anchors {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    width: 100%;
+    height: 100%;
+}
+
+.nav-anchor {
+    all: unset;
+}
+
+.nav-anchor > p {
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-anchor > p:hover {
+    color: var(--accent-orange);
+    text-decoration: underline;
+    cursor: pointer;
 }

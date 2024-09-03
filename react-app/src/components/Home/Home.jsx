@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import httpClient from '../../utils/httpClient';
 import { BASE_API_URL } from '../../utils/constants';
+import Navbar from '../Reusable/Navbar/Navbar';
 
 function useFetchData(url) {
   const [data, setData] = useState([]);
@@ -33,9 +34,12 @@ function useFetchData(url) {
 function Home() {
   const data = useFetchData(`${BASE_API_URL}/shift/all`);
   return (
-    <div>
-      <h1>Profile Data</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre> {/* Render the data as JSON */}
+    <div className="content">
+      <Navbar></Navbar>
+      <div>
+        <h1>Profile Data</h1>
+        <pre>{JSON.stringify(data, null, 2)}</pre> {/* Render the data as JSON */}
+      </div>
     </div>
   );
 }
