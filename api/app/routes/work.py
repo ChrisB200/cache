@@ -5,15 +5,15 @@ from app.models import db, User, Shift
 work = Blueprint("work", __name__)
 
 
-@work.route("/api/work/shifts", methods=["GET"])
+@work.route("/api/work/all_shifts", methods=["GET"])
 @login_required
-def shifts():
+def all_shifts():
     return jsonify([shift.to_json() for shift in current_user.shifts])
 
 
 @work.route("/api/work/all_payslips", methods=["GET"])
 @login_required
-def payslips():
+def all_payslips():
     return jsonify([payslip.to_json() for payslip in current_user.payslips])
 
 @work.route("/api/work/get_payslip", methods=["GET"])

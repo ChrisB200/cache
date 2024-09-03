@@ -200,3 +200,11 @@
   font-weight: bold;
   color: var(--accent-green);
 }
+
+.shifts-error {
+  text-align: center;
+  height: 100%;
+  font-weight: bold;
+  font-size: var(--font-500);
+  color: var(--accent-red);
+}

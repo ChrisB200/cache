@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 import { fetchAllPayslips } from "../api/work";
 
 export const PayslipContext = createContext(null);
@@ -20,16 +20,17 @@ export const PayslipProvider = ({ children }) => {
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     loadPayslips();
-  }, [])
+  }, []);
 
   return (
-    <PayslipContext.Provider value={{ payslips, isLoading, error, loadPayslips }}>
+    <PayslipContext.Provider
+      value={{ payslips, isLoading, error, loadPayslips, setPayslips }}
+    >
       {children}
     </PayslipContext.Provider>
   );
-}
-
+};

@@ -1,7 +1,8 @@
 // src/hooks/usePayslips.js
 
-import { useContext } from 'react';
-import {PayslipContext} from '../contexts/PayslipContext'; // Adjust import path as necessary
+import { useContext } from "react";
+import { PayslipContext } from "../contexts/PayslipContext"; // Adjust import path as necessary
+import { ShiftContext } from "../contexts/ShiftContext";
 
 export const usePayslips = () => {
   const context = useContext(PayslipContext);
@@ -11,3 +12,10 @@ export const usePayslips = () => {
   return context;
 };
 
+export const useShifts = () => {
+  const context = useContext(ShiftContext);
+  if (!context) {
+    throw new Error("useShifts must be used within a ShiftProvider");
+  }
+  return context;
+};

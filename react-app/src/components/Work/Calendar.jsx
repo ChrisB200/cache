@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { usePayslips } from "../../hooks/contexts";
+import { usePayslips, useShifts } from "../../hooks/contexts";
 import "../../index.css";
 import "./Work.css";
 
@@ -7,10 +7,10 @@ function daysInMonth(year, month) {
   return new Date(year, month + 1, 0).getDate();
 }
 
-function Calendar({ shifts, currentDate, setCurrentDate }) {
+function Calendar({ currentDate, setCurrentDate }) {
   const [days, setDays] = useState([]);
-  const {payslips, isLoading, error} = usePayslips();
-  console.log(payslips)
+  const { payslips, isLoading, error, setPayslips } = usePayslips();
+  const { shifts, shiftIsLoading, shiftError, setShifts } = useShifts();
   const today = new Date();
 
   const handlePrev = () => {
