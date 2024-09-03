@@ -1,5 +1,5 @@
 import { Outlet, Navigate } from "react-router-dom";
-import AuthService from "./authService";
+import AuthService from "../api/authService";
 import { useEffect, useState } from "react";
 
 const ProtectedRoutes = () => {

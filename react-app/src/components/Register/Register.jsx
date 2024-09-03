@@ -2,8 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Register.css";
 import "../../index.css";
-import AuthService from "../../utilities/authService";
-import httpClient from "../../utilities/httpClient";
+import AuthService from "../../api/authService";
 
 function Register() {
   const navigate = useNavigate();

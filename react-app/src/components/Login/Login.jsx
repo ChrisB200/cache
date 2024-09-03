@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef} from "react";
 import { useNavigate } from "react-router-dom"
-import AuthService from "../../utilities/authService"
+import AuthService from "../../api/authService"
 
 import "../../index.css"
 import "./Login.css"

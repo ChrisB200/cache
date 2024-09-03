@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import httpClient, { BASE_API_URL } from '../../utilities/httpClient';
+import httpClient from '../../utils/httpClient';
+import { BASE_API_URL } from '../../utils/constants';
 
 function useFetchData(url) {
   const [data, setData] = useState([]);

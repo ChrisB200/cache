@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import Calendar from "./Calendar";
 import "../../index.css";
 import "./Work.css";
-import httpClient, { BASE_API_URL } from "../../utilities/httpClient";
+import httpClient from "../../utils/httpClient";
+import { BASE_API_URL } from "../../utils/constants";
+import { PayslipProvider } from "../../contexts/PayslipContext";
+import { usePayslips } from "../../hooks/contexts";
+import { combineShifts } from "../../utils/shift";
 
 // Fetch data helper function
 async function fetchData(url, func) {
@@ -10,46 +14,102 @@ async function fetchData(url, func) {
     func(response.data);
   });
 }
+function Shift({ shift }) {
+  const shiftDate = new Date(shift.date);
+  const formattedDate = shiftDate.toLocaleDateString("default", {
+    day: "2-digit",
+    month: "2-digit",
+  });
+
+  return (
+    <div className="shift-container">
+      <div className="shift-info">
+        <div className="shift-date">
+          <p className="shift-day">
+            {shiftDate.toLocaleDateString("default", { weekday: "short" })}
+          </p>
+          <p className="shift-short">{formattedDate}</p>
+        </div>
+        <div className="shift-details">
+          <strong>
+            <p>
+              {shift.start} - {shift.end}
+            </p>
+          </strong>
+          <p>{shift.type}</p>
+        </div>
+      </div>
+      <div className="shift-hours">
+        <p className="cash">£{(shift.hours * shift.rate).toFixed(2)}</p>
+        <p className="grayed">{shift.hours.toFixed(2)}</p>
+      </div>
+    </div>
+  );
+}
+
+function Sidebar({ shifts, currentDate, setCurrentDate }) {
+  const {payslips, isLoading, error} = usePayslips();
+
+  return (
+    <div className="sidebar-container">
+      <div className="sidebar">
+        <Calendar
+          payslips={payslips}
+          shifts={shifts}
+          currentDate={currentDate}
+          setCurrentDate={setCurrentDate}
+        />
+        <div className="shifts-container">
+          <div className="shifts">
+            {combineShifts(shifts).map((shift, index) => {
+              const shiftDate = new Date(shift.date);
+
+              if (
+                shiftDate.getMonth() === currentDate.getMonth() &&
+                shiftDate.getFullYear() === currentDate.getFullYear()
+              ) {
+                return <Shift key={index} shift={shift} />;
+              }
+
+              return null;
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function Work() {
-  const [payslips, setPayslips] = useState([]);
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [shifts, setShifts] = useState({
     timecard: [],
     schedule: [],
   });
 
-  // Function to sort shifts into timecard and schedule
   const sortShifts = (data) => {
-    const timecardShifts = [];
-    const scheduleShifts = [];
+    const timecardShifts = data.filter((shift) => shift.type === "Timecard");
+    const scheduleShifts = data.filter((shift) => shift.type === "Schedule");
 
-    data.forEach((shift) => {
-      if (shift.type === "Timecard") {
-        timecardShifts.push(shift);
-      } else if (shift.type === "Schedule") {
-        scheduleShifts.push(shift);
-      }
+    setShifts({
+      timecard: timecardShifts,
+      schedule: scheduleShifts,
     });
-
-    // Update shifts state correctly
-    setShifts((prevShifts) => ({
-      timecard: [...prevShifts.timecard, ...timecardShifts],
-      schedule: [...prevShifts.schedule, ...scheduleShifts],
-    }));
   };
 
-  // Fetch data when the component mounts
   useEffect(() => {
-    fetchData(`${BASE_API_URL}/work/payslips`, setPayslips);
     fetchData(`${BASE_API_URL}/work/shifts`, sortShifts);
   }, []);
 
   return (
-    <>
-      <Calendar payslips={payslips} shifts={shifts} />
-    </>
+    <PayslipProvider>
+      <Sidebar
+        shifts={shifts}
+        currentDate={currentDate}
+        setCurrentDate={setCurrentDate}
+      />
+    </PayslipProvider>
   );
 }
 
 export default Work;
-

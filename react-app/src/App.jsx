@@ -1,10 +1,9 @@
-import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import Work from "./components/Work/Work";
-import ProtectedRoutes from "./utilities/protectedRoutes"
+import ProtectedRoutes from "./utils/protectedRoutes"
 
 function App() {
   return (

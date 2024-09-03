@@ -1,4 +1,5 @@
-import httpClient, { BASE_API_URL } from "./httpClient";
+import httpClient from "../utils/httpClient";
+import {BASE_API_URL} from "../utils/constants";
 
 class AuthService {
   login(email, password) {
