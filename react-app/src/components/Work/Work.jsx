@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Calendar from "./Calendar";
 import "../../index.css";
 import "./Work.css";
@@ -7,15 +7,33 @@ import { ShiftProvider } from "../../contexts/ShiftContext";
 import { usePayslips, useShifts } from "../../hooks/contexts";
 import { combineShifts } from "../../utils/shift";
 
-function Shift({ shift }) {
+function Shift({ shift, isSelected }) {
+  const shiftRef = useRef(null);
   const shiftDate = new Date(shift.date);
-  const formattedDate = shiftDate.toLocaleDateString("default", {
+  const formattedDate = shiftDate.toLocaleDateString("en-GB", {
     day: "2-digit",
     month: "2-digit",
   });
 
+  useEffect(() => {
+    // Scroll into view if this shift is selected
+    if (isSelected && shiftRef.current) {
+      shiftRef.current.classList.add("selected-shift");
+      // Step 2: Use requestAnimationFrame to ensure the scroll happens after rendering
+      requestAnimationFrame(() => {
+        shiftRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      });
+    }
+    if (!isSelected) {
+      shiftRef.current.classList.remove("selected-shift");
+    }
+  }, [isSelected]);
+
   return (
-    <div className="shift-container">
+    <div className="shift-container" ref={shiftRef}>
       <div className="shift-info">
         <div className="shift-date">
           <p className="shift-day">
@@ -41,9 +59,24 @@ function Shift({ shift }) {
 }
 
 function Sidebar({ currentDate, setCurrentDate }) {
-  const {shifts, isLoading, error, setShifts} = useShifts();
-  console.log(error);
-  
+  const { shifts, isLoading, error, setShifts } = useShifts();
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const handleDateSelect = (date) => {
+    setSelectedDate(date);
+  };
+
+  const isSelected = (date) => {
+    if (
+      date.getMonth() === selectedDate.getMonth() &&
+      date.getFullYear() === selectedDate.getFullYear() &&
+      date.getDate() === selectedDate.getDate()
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   return (
     <div className="sidebar-container">
@@ -51,24 +84,32 @@ function Sidebar({ currentDate, setCurrentDate }) {
         <Calendar
           currentDate={currentDate}
           setCurrentDate={setCurrentDate}
+          onDateSelect={handleDateSelect}
         />
         <div className="shifts-container">
           <div className="shifts">
             {error != null ? (
-              <p className = "shifts-error">{error}</p>
-            ) : 
+              <p className="shifts-error">{error}</p>
+            ) : (
               combineShifts(shifts).map((shift, index) => {
-              const shiftDate = new Date(shift.date);
+                const shiftDate = new Date(shift.date);
 
-              if (
-                shiftDate.getMonth() === currentDate.getMonth() &&
-                shiftDate.getFullYear() === currentDate.getFullYear()
-              ) {
-                return <Shift key={index} shift={shift} />;
-              }
+                if (
+                  shiftDate.getMonth() === currentDate.getMonth() &&
+                  shiftDate.getFullYear() === currentDate.getFullYear()
+                ) {
+                  return (
+                    <Shift
+                      key={index}
+                      shift={shift}
+                      isSelected={isSelected(shiftDate)}
+                    />
+                  );
+                }
 
-              return null;
-            })}
+                return null;
+              })
+            )}
           </div>
         </div>
       </div>
@@ -82,10 +123,7 @@ function Work() {
   return (
     <PayslipProvider>
       <ShiftProvider>
-        <Sidebar
-          currentDate={currentDate}
-          setCurrentDate={setCurrentDate}
-        />
+        <Sidebar currentDate={currentDate} setCurrentDate={setCurrentDate} />
       </ShiftProvider>
     </PayslipProvider>
   );

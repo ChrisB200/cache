@@ -32,14 +32,16 @@
   color: var(--text-accent);
 }
 
-.prev, .next {
+.prev,
+.next {
   background-color: transparent;
   border: none;
   font-size: var(--font-700);
   color: var(--text-accent);
 }
 
-.prev:hover, .next:hover {
+.prev:hover,
+.next:hover {
   cursor: pointer;
 }
 
@@ -52,37 +54,52 @@
   column-gap: 1.5rem;
 }
 
-.outside-month, .grayed {
+.outside-month,
+.grayed {
   color: var(--text-accent);
 }
 
 .calendar-day {
-  position: relative; 
-  display: inline-block; 
+  position: relative;
+  display: inline-block;
   width: 40px;
-  height: 40px; 
+  height: 40px;
   text-align: center;
   line-height: 40px;
-  border-radius: 50%; 
+  border-radius: 50%;
   z-index: 2;
 }
 
 .calendar-day::before {
   content: "";
   position: absolute;
-  border-radius: 50%; 
-  top: 50%; 
-  left: 50%; 
-  transform: translate(-50%, -50%); 
-  width: 100%; 
-  height: 100%; 
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
   transition: background-color 0.1s;
   z-index: -1;
 }
 
+.selected-day::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: var(--primary);
+}
+
 /* Hover effect */
 .calendar-day:hover::before {
-  background-color: var(--primary); /* Darker or different color on hover */
+  background-color: var(--primary);
+  /* Darker or different color on hover */
 }
 
 .calendar-day:hover {
@@ -93,25 +110,24 @@
   content: "";
   position: absolute;
   border-radius: 50%;
-  top: 100%; 
-  left: 50%; 
-  transform: translate(-50%, -50%); 
-  width: 20%; 
-  height: 20%; 
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+  height: 20%;
   z-index: -1;
   background-color: var(--accent-green);
-
 }
 
 .shift-on::after {
   content: "";
   position: absolute;
   border-radius: 50%;
-  top: 100%; 
-  left: 50%; 
-  transform: translate(-50%, -50%); 
-  width: 20%; 
-  height: 20%; 
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+  height: 20%;
   z-index: -1;
   background-color: var(--accent-orange);
 }
@@ -123,12 +139,12 @@
 .today::before {
   content: "";
   position: absolute;
-  border-radius: 50%; 
-  top: 50%; 
-  left: 50%; 
-  transform: translate(-50%, -50%); 
-  width: 100%; 
-  height: 100%; 
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
   background-color: var(--text-primary);
   z-index: -1;
 }
@@ -159,7 +175,7 @@
   flex: 3;
   display: flex;
   justify-content: left;
-  align-items:center;
+  align-items: center;
   gap: 2rem;
 }
 
@@ -168,7 +184,6 @@
   padding: 1rem;
   background-color: var(--secondary);
   border-radius: 10px;
-
 }
 
 .shift-day {
@@ -207,4 +222,8 @@
   font-weight: bold;
   font-size: var(--font-500);
   color: var(--accent-red);
+}
+
+.selected-shift {
+  border: 1px solid var(--accent-orange);
 }

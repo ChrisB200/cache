@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { usePayslips, useShifts } from "../../hooks/contexts";
 import "../../index.css";
 import "./Work.css";
@@ -7,10 +7,11 @@ function daysInMonth(year, month) {
   return new Date(year, month + 1, 0).getDate();
 }
 
-function Calendar({ currentDate, setCurrentDate }) {
+function Calendar({ currentDate, setCurrentDate, onDateSelect }) {
   const [days, setDays] = useState([]);
-  const { payslips, isLoading, error, setPayslips } = usePayslips();
-  const { shifts, shiftIsLoading, shiftError, setShifts } = useShifts();
+  const [selectedDay, setSelectedDay] = useState(null);
+  const { payslips } = usePayslips();
+  const { shifts } = useShifts();
   const today = new Date();
 
   const handlePrev = () => {
@@ -24,6 +25,13 @@ function Calendar({ currentDate, setCurrentDate }) {
     newDate.setMonth(newDate.getMonth() + 1);
     setCurrentDate(newDate);
   };
+
+  const handleDateClick = (day) => {
+    if (day.getMonth() === currentDate.getMonth()) {
+      setSelectedDay(day);
+      onDateSelect(day);
+    }
+  }
 
   const isPayslipDate = (day) => {
     return payslips.some((payslip) => {
@@ -55,6 +63,20 @@ function Calendar({ currentDate, setCurrentDate }) {
       today.getDate() === day.getDate()
     );
   };
+
+
+  const isSelected = (day) => {
+    if (selectedDay == null) {
+      return false;
+    }
+
+    return (
+      selectedDay.getFullYear() === day.getFullYear() &&
+      selectedDay.getMonth() === day.getMonth() &&
+      selectedDay.getDate() === day.getDate()
+    );
+
+  }
 
   useEffect(() => {
     const generateCalendar = (year, month) => {
@@ -120,11 +142,13 @@ function Calendar({ currentDate, setCurrentDate }) {
         {days.map((day, index) => (
           <p
             key={index}
+            onClick={() => {handleDateClick(day)}}
             className={`
                 calendar-day 
                 ${isPayslipDate(day) ? "payslip" : ""}
                 ${isShiftDate(day) ? "shift-on" : ""}
                 ${isToday(day) ? "today" : ""}
+                ${isSelected(day) ? "selected-day" : ""}
                 ${day.getMonth() !== currentDate.getMonth() ? "outside-month" : ""}
                 `}
           >
