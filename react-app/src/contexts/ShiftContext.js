@@ -35,7 +35,7 @@ export const ShiftProvider = ({ children }) => {
     <ShiftContext.Provider
       value={{ shifts, isLoading, error, loadShifts, setShifts }}
     >
-      {children};
+      {children}
     </ShiftContext.Provider>
   );
 };

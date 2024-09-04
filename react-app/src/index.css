@@ -56,5 +56,26 @@ body {
 .content {
   display: flex;
   justify-content: space-between;
-  position: fixed;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--primary);
+  border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 20px;
+  background-color: var(--accent-green);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent-orange);
 }

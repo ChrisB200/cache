@@ -7,6 +7,7 @@ import { ShiftProvider } from "../../contexts/ShiftContext";
 import { usePayslips, useShifts } from "../../hooks/contexts";
 import { combineShifts } from "../../utils/shift";
 import Navbar from "../Reusable/Navbar/Navbar";
+import { ShiftCard } from "./Card";
 
 function Shift({ shift, isSelected, onClick }) {
   const shiftRef = useRef(null);
@@ -119,6 +120,8 @@ function Sidebar({ currentDate, setCurrentDate }) {
   );
 }
 
+
+
 function Work() {
   const [currentDate, setCurrentDate] = useState(new Date());
 
@@ -127,12 +130,8 @@ function Work() {
       <ShiftProvider>
         <div className="content">
           <Navbar></Navbar>
-          <div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
-            nisi tenetur tempore dolorem odit, ea, unde maxime perspiciatis
-            minima et error sunt perferendis placeat sint architecto quae.
-            Eveniet, dolore quibusdam.
-          </div>
+          <ShiftCard></ShiftCard>
+
           <Sidebar currentDate={currentDate} setCurrentDate={setCurrentDate} />
         </div>
       </ShiftProvider>

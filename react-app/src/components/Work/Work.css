@@ -40,17 +40,15 @@
   cursor: pointer;
 }
 
-/* Adjust calendar days grid for better responsiveness */
 .calendar-dates {
   display: grid;
   text-align: center;
   grid-template-rows: repeat(6, auto);
-  grid-template-columns: repeat(7, 1fr); /* Use flex values for better responsiveness */
+  grid-template-columns: repeat(7, 1fr); 
   row-gap: 1.5rem;
-  column-gap: clamp(0.5rem, 1vw, 1rem); /* Dynamically adjust gaps */
+  column-gap: clamp(0.5rem, 1vw, 1rem);
 }
 
-/* Individual calendar day adjustments */
 .calendar-day {
   position: relative;
   display: inline-block;
@@ -94,10 +92,8 @@
   background-color: var(--primary);
 }
 
-/* Hover effect */
 .calendar-day:hover::before {
   background-color: var(--primary);
-  /* Darker or different color on hover */
 }
 
 .calendar-day:hover {
