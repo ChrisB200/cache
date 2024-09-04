@@ -33,3 +33,22 @@ export const fetchAllShifts = async () => {
   }
 };
 
+export const fetchPayslipShifts = async (payslip_id) => {
+  try {
+    const response = await httpClient.get(`${BASE_API_URL}/work/payslip_shifts?payslip_id=${payslip_id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching shifts for payslip");
+    throw new Error("Failed to fetch all shifts for payslip")
+  }
+}
+
+export const fetchForecastedShifts = async () => {
+  try {
+    const response = await httpClient.get(`${BASE_API_URL}/work/recent_payslip`);
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw new Error(error);
+  }
+}

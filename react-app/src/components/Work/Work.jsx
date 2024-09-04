@@ -8,6 +8,7 @@ import { usePayslips, useShifts } from "../../hooks/contexts";
 import { combineShifts } from "../../utils/shift";
 import Navbar from "../Reusable/Navbar/Navbar";
 import { ShiftCard } from "./Card";
+import { fetchForecastedShifts } from "../../api/work";
 
 function Shift({ shift, isSelected, onClick }) {
   const shiftRef = useRef(null);
@@ -124,6 +125,21 @@ function Sidebar({ currentDate, setCurrentDate }) {
 
 function Work() {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [recentShifts, setRecentShifts] = useState(null);
+
+  const loadRecent = async () => {
+    try {
+      const data = await fetchForecastedShifts();
+      setRecentShifts(data)
+    } catch {
+      console.log ("hey");
+    } finally {
+    }
+  }
+
+  useEffect(() => {
+    loadRecent();
+  }, [])
 
   return (
     <PayslipProvider>
