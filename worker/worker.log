@@ -1,0 +1,150 @@
+2024-09-06 18:26:46,943 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-06 18:26:47,540 - __main__ - INFO - Scraping shifts for all users
+2024-09-06 18:26:47,567 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-06 18:26:47,581 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-06 18:26:48,877 - scripts.scraper - DEBUG - Browser opened for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:26:48,900 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-06 18:26:58,715 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-08, Start: 09:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:26:58,715 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-09, Start: 12:30:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:26:58,715 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-14, Start: 09:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:26:59,723 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-15, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:26:59,724 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-21, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:00,740 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-25, Start: 11:00:00, End: 17:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:00,740 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-27, Start: 16:00:00, End: 20:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:01,795 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-29, Start: 12:00:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:01,795 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-02, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:01,795 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-04, Start: 16:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:02,852 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-05, Start: 12:00:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:02,853 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-06, Start: 09:00:00, End: 13:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:02,853 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-10, Start: 08:00:00, End: 14:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:02,853 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-11, Start: 08:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:03,869 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-12, Start: 15:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:03,869 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-15, Start: 10:00:00, End: 17:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:04,902 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-19, Start: 12:30:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:04,903 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-22, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:04,903 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-24, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:05,903 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-27, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:05,904 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-30, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:06,916 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-05, Start: 16:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:06,916 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-08, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:07,922 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-09, Start: 16:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:07,923 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-13, Start: 13:00:00, End: 19:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:07,923 - scripts.scraper - INFO - Scraped 25 shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:14,987 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-08, Start: 09:05:00, End: 14:47:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:14,987 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-09, Start: 12:25:00, End: 17:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:14,988 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-14, Start: 09:02:00, End: 14:58:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:16,012 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-15, Start: 16:55:00, End: 23:21:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:16,013 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-21, Start: 17:36:00, End: 22:58:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:17,020 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-25, Start: 10:59:00, End: 17:09:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:17,020 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-27, Start: 15:47:00, End: 21:06:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:18,049 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-29, Start: 12:41:00, End: 18:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:18,050 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-02, Start: 17:00:00, End: 23:02:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:18,050 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-04, Start: 15:56:00, End: 22:23:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:19,111 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-05, Start: 11:55:00, End: 18:14:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:19,112 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-06, Start: 08:55:00, End: 13:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:19,112 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-10, Start: 07:48:00, End: 14:17:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:19,112 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-11, Start: 07:52:00, End: 15:03:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:20,198 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-12, Start: 14:59:00, End: 22:53:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:20,198 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-15, Start: 09:58:00, End: 18:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:21,271 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-19, Start: 12:17:00, End: 17:55:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:21,271 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-22, Start: 17:56:00, End: 23:38:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:21,271 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-24, Start: 16:52:00, End: 23:01:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:22,300 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-27, Start: 17:04:00, End: 23:14:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:22,300 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-30, Start: 00:00:00, End: 00:00:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:23,383 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-05, Start: 16:01:00, End: 23:56:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:24,404 - scripts.scraper - INFO - Scraped 22 shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:24,964 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-06 18:27:25,557 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:27:25,558 - scripts.scraper - INFO - Finished scraping shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:54:58,176 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-06 18:54:58,795 - __main__ - INFO - Scraping shifts for all users
+2024-09-06 18:54:58,828 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-06 18:54:58,843 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-06 18:55:00,047 - scripts.scraper - DEBUG - Browser opened for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:00,081 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-06 18:55:07,722 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-08, Start: 09:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:07,722 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-09, Start: 12:30:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:07,723 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-14, Start: 09:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:08,808 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-29, Start: 12:00:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:08,808 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-02, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:08,809 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-04, Start: 16:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:09,924 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-19, Start: 12:30:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:09,925 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-22, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:09,925 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-24, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:11,200 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-09, Start: 16:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:11,201 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-13, Start: 13:00:00, End: 19:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:11,201 - scripts.scraper - INFO - Scraped 11 shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:20,040 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-08, Start: 09:05:00, End: 14:47:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:20,040 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-09, Start: 12:25:00, End: 17:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:20,041 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-14, Start: 09:02:00, End: 14:58:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:21,196 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-29, Start: 12:41:00, End: 18:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:21,196 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-02, Start: 17:00:00, End: 23:02:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:21,197 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-04, Start: 15:56:00, End: 22:23:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:22,278 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-19, Start: 12:17:00, End: 17:55:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:22,279 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-22, Start: 17:56:00, End: 23:38:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:22,279 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-24, Start: 16:52:00, End: 23:01:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:23,281 - scripts.scraper - INFO - Scraped 9 shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:23,637 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-06 18:55:24,257 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:55:24,257 - scripts.scraper - INFO - Finished scraping shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:17,358 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-06 18:57:17,897 - __main__ - INFO - Scraping shifts for all users
+2024-09-06 18:57:17,930 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-06 18:57:17,953 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-06 18:57:19,122 - scripts.scraper - DEBUG - Browser opened for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:19,154 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-06 18:57:27,800 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-08, Start: 09:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:27,800 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-09, Start: 12:30:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:27,800 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-14, Start: 09:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:28,885 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-15, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:28,885 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-21, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:29,893 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-25, Start: 11:00:00, End: 17:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:29,893 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-27, Start: 16:00:00, End: 20:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:30,953 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-29, Start: 12:00:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:30,953 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-02, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:30,954 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-04, Start: 16:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:31,972 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-05, Start: 12:00:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:31,972 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-06, Start: 09:00:00, End: 13:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:31,973 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-10, Start: 08:00:00, End: 14:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:31,973 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-11, Start: 08:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:33,022 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-12, Start: 15:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:33,022 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-15, Start: 10:00:00, End: 17:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:34,096 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-19, Start: 12:30:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:34,096 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-22, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:34,096 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-24, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:35,175 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-27, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:35,175 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-30, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:36,245 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-05, Start: 16:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:36,245 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-08, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:37,303 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-09, Start: 16:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:37,304 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-13, Start: 13:00:00, End: 19:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:38,310 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-16, Start: 16:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:38,311 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-18, Start: 18:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:38,311 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-20, Start: 17:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:39,346 - scripts.scraper - INFO - Scraped 28 shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:47,333 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-08, Start: 09:05:00, End: 14:47:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:47,333 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-09, Start: 12:25:00, End: 17:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:47,333 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-14, Start: 09:02:00, End: 14:58:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:48,471 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-15, Start: 16:55:00, End: 23:21:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:48,471 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-21, Start: 17:36:00, End: 22:58:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:49,546 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-25, Start: 10:59:00, End: 17:09:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:49,547 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-27, Start: 15:47:00, End: 21:06:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:50,658 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-29, Start: 12:41:00, End: 18:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:50,658 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-02, Start: 17:00:00, End: 23:02:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:50,658 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-04, Start: 15:56:00, End: 22:23:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:51,779 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-05, Start: 11:55:00, End: 18:14:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:51,779 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-06, Start: 08:55:00, End: 13:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:51,780 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-10, Start: 07:48:00, End: 14:17:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:51,780 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-11, Start: 07:52:00, End: 15:03:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:52,927 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-12, Start: 14:59:00, End: 22:53:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:52,928 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-15, Start: 09:58:00, End: 18:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:54,080 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-19, Start: 12:17:00, End: 17:55:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:54,081 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-22, Start: 17:56:00, End: 23:38:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:54,081 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-24, Start: 16:52:00, End: 23:01:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:55,140 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-27, Start: 17:04:00, End: 23:14:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:55,140 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-30, Start: 00:00:00, End: 00:00:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:56,247 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-05, Start: 16:01:00, End: 23:56:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:57:59,427 - scripts.scraper - INFO - Scraped 22 shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:58:00,030 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-06 18:58:00,651 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-06 18:58:00,652 - scripts.scraper - INFO - Finished scraping shifts for user fd281e9f471c4d5eae319ccf0c730cb9
