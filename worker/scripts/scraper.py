@@ -34,15 +34,15 @@ SD_BASE_URL = "https://my.sdworx.co.uk/portal/login.aspx?organisation=76231"
 
 
 class User:
-    def __init__(self, details):
-        self.id = details[0]
-        self.email = details[1]
-        self.pass_hash = details[2]
-        self.fg_user = details[3]
-        self.fg_pass = fernet.decrypt(details[4]).decode()
-        self.sd_user = details[5]
-        self.sd_pass = fernet.decrypt(details[6]).decode()
-        self.pointer = details[7]
+    def __init__(self, row):
+        self.id = row.get("id")
+        self.email = row.get("email")
+        self.password = row.get("password")
+        self.fg_user = row.get("fg_user")
+        self.fg_pass = fernet.decrypt(row.get("fg_pass")).decode()
+        self.sd_user = row.get("sd_user")
+        self.sd_pass = fernet.decrypt(row.get("sd_pass")).decode()
+        self.pointer = row.get("pointer")
 
     def get_payslips(self, connection, cursor):
         query = """
@@ -54,16 +54,16 @@ class User:
 
 
 class Shift:
-    def __init__(self, date: date, start: time, end: time, type, rate=11.85):
-        self.date: date = date
-        self.start: time = start
-        self.end: date = end
+    def __init__(self, row):
+        self.date: date = row.get("date")
+        self.start: time = row.get("start")
+        self.end: date = row.get("end")
         self.hours = time_difference(self.start, self.end)
-        self.rate = rate
-        self.type = type
-        self.user_id = None
-        self.payslip_id = None
-        self.id = None
+        self.rate = row.get("rate")
+        self.type = row.get("type")
+        self.user_id = row.get("user_id")
+        self.payslip_id = row.get("payslip_id")
+        self.id = row.get("id")
 
     def __str__(self):
         return f"Date: {self.date}, Start: {self.start}, End: {self.end}, Type: {self.type}"
@@ -137,26 +137,12 @@ class Shift:
 
 
 class Payslip:
-    def __init__(self, date, net, rate):
-        self.date = date
-        self.net = net
-        self.rate = rate
-        self.id = None
-        self.user_id = None
-
-    @staticmethod
-    def create_from_details(details):
-        id = details[0]
-        date = details[1]
-        rate = details[2]
-        net = details[3]
-        user_id = details[4]
-
-        payslip = Payslip(date, net, rate)
-        payslip.id = id
-        payslip.user_id = user_id
-
-        return payslip
+    def __init__(self, row):
+        self.date = row.get("date")
+        self.net = row.get("net")
+        self.rate = row.get("rate")
+        self.id = row.get("id")
+        self.user_id = row.get("user_id")
 
     def exist(self, cursor, user_id):
         query = """
@@ -223,6 +209,21 @@ def connect_sql():
         logger.debug(f"Connection closed to database {DB_NAME}")
 
 
+def load_table(cursor, query, values=None):
+    if values:
+        cursor.execute(query, values)
+    else:
+        cursor.execute(query)
+
+    rows = cursor.fetchall()
+
+    data = []
+    for row in rows:
+        data.append(dict(zip([column[0] for column in cursor.description], row)))
+
+    return data
+
+
 def get_user(user_id):
     with connect_sql() as cursor:
         qry = """
@@ -231,9 +232,9 @@ def get_user(user_id):
         """
         values = user_id
         cursor.execute(qry, values)
-        user_details = cursor.fetchone()
-        if user_details:
-            user = User(user_details)
+        row = cursor.fetchone()
+        if row:
+            user = User(row)
         else:
             user = None
     return user
@@ -241,10 +242,8 @@ def get_user(user_id):
 
 def get_users():
     with connect_sql() as cursor:
-        qry = "SELECT * FROM user"
-        cursor.execute(qry)
-        users_details = cursor.fetchall()
-        return list(map(lambda user: User(user), users_details))
+        rows = load_table(cursor, "SELECT * from user")
+        return list(map(lambda row: User(row), rows))
 
 
 async def parse_page(page) -> BeautifulSoup:
@@ -316,7 +315,14 @@ async def scrape_shifts(context: BrowserContext, button, user):
                     start = datetime.strptime(hours[0], "%H:%M").time()
                     end = datetime.strptime(hours[2], "%H:%M").time()
                     date = (week_start + timedelta(days=count)).date()
-                    shift = Shift(date, start, end, button)
+                    row = {
+                        "date": date,
+                        "start": start,
+                        "end": end,
+                        "rate": 12.05,
+                        "type": button,
+                    }
+                    shift = Shift(row)
                     logger.debug(f"Scraped shift: {shift} for user {user.id}")
                     shifts.append(shift)
 
@@ -429,7 +435,8 @@ async def scrape_payslips(browser, user):
         net_pay = net_pay.split("£")[1]
 
         # create payslip object
-        payslip = Payslip(date.date(), net_pay, rate)
+        row = {"date": date.date(), "net_pay": net_pay, "rate": rate}
+        payslip = Payslip(row)
         logger.debug(f"Scraped payslip at date {payslip.date} for user {user.id}")
         payslips.append(payslip)
 
@@ -442,17 +449,15 @@ def assign_shifts(user, cursor):
         SELECT * FROM payslip
         WHERE user_id = %s
     """
-    payslip_values = user.id
-    cursor.execute(payslip_qry, payslip_values)
-    payslips = [Payslip.create_from_details(payslip) for payslip in cursor.fetchall()]
+    rows = load_table(cursor, payslip_qry, user.id)
+    payslips = [Payslip(row) for row in rows]
 
     shift_qry = """
         SELECT * FROM shift
         WHERE user_id = %s and payslip_id IS NULL
     """
-    shift_values = user.id
-    cursor.execute(shift_qry, shift_values)
-    shifts = [Shift.create_from_details(shift) for shift in cursor.fetchall()]
+    rows = load_table(cursor, shift_qry, user.id)
+    shifts = [Shift(row) for row in rows]
 
     for payslip in payslips:
         date_end = payslip.date - timedelta(days=2)
