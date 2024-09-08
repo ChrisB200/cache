@@ -46,7 +46,7 @@ export function ShiftCard() {
   const getNextShift = () => {
     const today = new Date();
     const futureShifts = shifts?.schedule.filter(
-      (shift) => new Date(shift.date) > today,
+      (shift) => combineDateAndTime(new Date(shift.date), shift.start) >= today,
     );
 
     if (futureShifts.length > 0) {

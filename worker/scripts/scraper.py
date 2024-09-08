@@ -56,8 +56,13 @@ class User:
 class Shift:
     def __init__(self, row):
         self.date: date = row.get("date")
-        self.start: time = row.get("start")
-        self.end: date = row.get("end")
+
+        self.start = row.get("start")
+        self.end = row.get("end")
+        if isinstance(self.start, timedelta):
+            self.start = self.convert_to_time(self.start)
+            self.end = self.convert_to_time(self.end)
+
         self.hours = time_difference(self.start, self.end)
         self.rate = row.get("rate")
         self.type = row.get("type")
@@ -75,25 +80,6 @@ class Shift:
 
         time_obj = datetime(1900, 1, 1, hours, minutes, seconds)
         return time_obj.time()
-
-    @staticmethod
-    def create_from_details(details):
-        id = details[0]
-        date = details[1]
-        start = Shift.convert_to_time(details[2])
-        end = Shift.convert_to_time(details[3])
-        hours = details[4]
-        rate = details[5]
-        shift_type = details[6]
-        user_id = details[7]
-        payslip_id = details[8]
-
-        shift = Shift(date, start, end, shift_type, rate)
-        shift.hours = hours
-        shift.user_id = user_id
-        shift.payslip_id = payslip_id
-        shift.id = id
-        return shift
 
     def exist(self, cursor, user_id):
         query = """
@@ -119,8 +105,8 @@ class Shift:
             values = (self.start, self.end, self.hours, self.rate, self.date, user_id)
         else:
             query = """
-                INSERT INTO shift (date, start, end, hours, rate, type, user_id)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO shift (date, start, end, hours, rate, type, user_id, has_scraped, has_removed)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, 1, 0)
             """
 
             values = (
@@ -174,6 +160,16 @@ class Payslip:
             values = (self.date, self.rate, self.net, user_id)
 
         cursor.execute(query, values)
+
+def remove_all_range(cursor, start, end, stype):
+    qry = """
+        DELETE 
+        FROM shift 
+        WHERE %s < date AND date < %s AND has_scraped = 1 and type = %s
+    """
+    values = (start, end, stype)
+    cursor.execute(qry, values)
+
 
 
 def time_difference(time1, time2):
@@ -277,6 +273,7 @@ async def scrape_shifts(context: BrowserContext, button, user):
     # initialising the details
     week_after = start_of_week(datetime.today()) + timedelta(weeks=4)
     current_date = user.pointer
+    start_date = current_date
     date_element = page.get_by_placeholder("dd/mm/yy")
     shifts = []
 
@@ -332,7 +329,7 @@ async def scrape_shifts(context: BrowserContext, button, user):
 
     logger.info(f"Scraped {len(shifts)} shifts for user {user.id}")
 
-    return shifts
+    return shifts, start_date, week_after.date()
 
 
 async def match_years(anchors):
@@ -483,8 +480,11 @@ async def get_payslips(browser, user):
 async def get_shifts(browser, user):
     with connect_sql() as cursor:
         # shifts and schedule (fgp)
-        schedule = await scrape_shifts(browser, "Schedule", user)
-        timecard = await scrape_shifts(browser, "Timecard", user)
+        schedule, start, end = await scrape_shifts(browser, "Schedule", user)
+        remove_all_range(cursor, start, end, "Schedule")
+
+        timecard, start, end = await scrape_shifts(browser, "Timecard", user)
+        remove_all_range(cursor, start, end, "Schedule")
 
         for shift in schedule + timecard:
             shift.commit(cursor, user.id)
