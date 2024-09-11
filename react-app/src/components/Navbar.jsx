@@ -1,37 +1,37 @@
 import { Link } from "react-router-dom";
-import "./Navbar.css";
-import "../../../index.css";
+import styles from "../styles/Navbar.module.css";
+import "../index.css";
 
 export default function Navbar() {
   return (
-    <nav>
-      <div className="nav-logo">LOGO</div>
-      <div className="nav-anchors">
-        <Link className="nav-anchor" to="/home">
-          <div className="icon-container">
+    <nav className={styles.nav}>
+      <div className={styles.logo}>LOGO</div>
+      <div className={styles.anchors}>
+        <Link className={styles.anchor} to="/home">
+          <div className={styles.iconContainer}>
             <img />
           </div>
           <p className="btn-text">Home</p>
         </Link>
-        <Link className="nav-anchor" to="/work">
+        <Link className={styles.anchor} to="/work">
           <div className="icon-container">
             <img />
           </div>
           <p className="btn-text">Work</p>
         </Link>
-        <Link className="nav-anchor">
+        <Link className={styles.anchor}>
           <div className="icon-container">
             <img />
           </div>
           <p className="btn-text">Cards</p>
         </Link>
-        <Link className="nav-anchor">
+        <Link className={styles.anchor}>
           <div className="icon-container">
             <img />
           </div>
           <p className="btn-text">Budget</p>
         </Link>
-        <Link className="nav-anchor">
+        <Link className={styles.anchor}>
           <div className="icon-container">
             <img />
           </div>

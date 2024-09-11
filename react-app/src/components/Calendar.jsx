@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import { usePayslips, useShifts } from "../../hooks/contexts";
-import "../../index.css";
-import "./Work.css";
+import React, { useState, useEffect } from "react";
+import { usePayslips, useShifts } from "../hooks/contexts";
+import styles from "../styles/Calendar.module.css"
+import { isPayslipDate, isShiftDate, isToday, isSelected } from "../utils/shift";
 
 function daysInMonth(year, month) {
   return new Date(year, month + 1, 0).getDate();
@@ -12,7 +12,6 @@ function Calendar({ currentDate, setCurrentDate, onDateSelect }) {
   const [selectedDay, setSelectedDay] = useState(null);
   const { payslips } = usePayslips();
   const { shifts } = useShifts();
-  const today = new Date();
 
   const handlePrev = () => {
     const newDate = new Date(currentDate);
@@ -32,52 +31,6 @@ function Calendar({ currentDate, setCurrentDate, onDateSelect }) {
       onDateSelect(day);
     }
   }
-
-  const isPayslipDate = (day) => {
-    return payslips.some((payslip) => {
-      const payslipDate = new Date(payslip.date);
-      return (
-        payslipDate.getFullYear() === day.getFullYear() &&
-        payslipDate.getMonth() === day.getMonth() &&
-        payslipDate.getDate() === day.getDate()
-      );
-    });
-  };
-
-  const isShiftDate = (day) => {
-    const allShifts = shifts.timecard.concat(shifts.schedule);
-    return allShifts.some((shift) => {
-      const shiftDate = new Date(shift.date);
-      return (
-        shiftDate.getFullYear() === day.getFullYear() &&
-        shiftDate.getMonth() === day.getMonth() &&
-        shiftDate.getDate() === day.getDate()
-      );
-    });
-  };
-
-  const isToday = (day) => {
-    return (
-      today.getFullYear() === day.getFullYear() &&
-      today.getMonth() === day.getMonth() &&
-      today.getDate() === day.getDate()
-    );
-  };
-
-
-  const isSelected = (day) => {
-    if (selectedDay == null) {
-      return false;
-    }
-
-    return (
-      selectedDay.getFullYear() === day.getFullYear() &&
-      selectedDay.getMonth() === day.getMonth() &&
-      selectedDay.getDate() === day.getDate()
-    );
-
-  }
-  
 
   useEffect(() => {
     const generateCalendar = (year, month) => {
@@ -117,22 +70,22 @@ function Calendar({ currentDate, setCurrentDate, onDateSelect }) {
   }, [currentDate]);
 
   return (
-    <div className="calendar">
-      <div className="calendar-header">
-        <button onClick={handlePrev} className="prev">
+    <div className={styles.calendar}>
+      <div className={styles.header}>
+        <button onClick={handlePrev} className={styles.prev}>
           &#60;
         </button>
         <div>
-          <p className="year">{currentDate.getFullYear()}</p>
-          <h2 className="calendar-month">
+          <p className={styles.year}>{currentDate.getFullYear()}</p>
+          <h2 className={styles.month}>
             {currentDate.toLocaleString("default", { month: "long" })}
           </h2>
         </div>
-        <button onClick={handleNext} className="next">
+        <button onClick={handleNext} className={styles.next}>
           &#62;
         </button>
       </div>
-      <div className="calendar-dates">
+      <div className={styles.dates}>
         <p>Sun</p>
         <p>Mon</p>
         <p>Tue</p>
@@ -145,12 +98,12 @@ function Calendar({ currentDate, setCurrentDate, onDateSelect }) {
             key={index}
             onClick={() => {handleDateClick(day)}}
             className={`
-                calendar-day 
-                ${isPayslipDate(day) ? "payslip" : ""}
-                ${isShiftDate(day) ? "shift-on" : ""}
-                ${isToday(day) ? "today" : ""}
-                ${isSelected(day) ? "selected-day" : ""}
-                ${day.getMonth() !== currentDate.getMonth() ? "outside-month" : ""}
+                ${styles.day} 
+                ${isPayslipDate(payslips, day) ? styles.payslip : ""}
+                ${isShiftDate(shifts, day) ? styles.onshift : ""}
+                ${isToday(day) ? styles.today : ""}
+                ${isSelected(selectedDay, day) ? styles.selected : ""}
+                ${day.getMonth() !== currentDate.getMonth() ? styles.outside : ""}
                 `}
           >
             {day.getDate()}

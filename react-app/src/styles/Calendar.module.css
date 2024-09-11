@@ -1,26 +1,20 @@
-.sidebar {
-  height: 100vh;
-  background-color: var(--secondary);
-  padding: 0 2rem;
-  display: flex;
-  flex-direction: column;
-  overflow-y: hidden;
-  min-width: 400px;
-}
 
 /* Make the calendar width flexible and responsive */
 .calendar {
   margin-top: 2rem;
   width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* Responsive header adjustments */
-.calendar-header {
+.header {
   display: grid;
   grid-template-columns: auto 1fr auto;
   text-align: center;
   margin-bottom: 1.5rem;
-  gap: 1.5rem;
 }
 
 .year {
@@ -40,7 +34,7 @@
   cursor: pointer;
 }
 
-.calendar-dates {
+.dates {
   display: grid;
   text-align: center;
   grid-template-rows: repeat(6, auto);
@@ -49,10 +43,10 @@
   column-gap: clamp(0.5rem, 1vw, 1rem);
 }
 
-.calendar-day {
+.day {
   position: relative;
   display: inline-block;
-  max-width: 40px;
+  width: 40px;
   height: 40px;
   text-align: center;
   line-height: 40px;
@@ -61,7 +55,7 @@
 }
 
 
-.calendar-day::before {
+.day::before {
   content: "";
   position: absolute;
   border-radius: 50%;
@@ -75,11 +69,11 @@
   aspect-ratio: 1/1;
 }
 
-.outside-month,
+.outside,
 .grayed {
   color: var(--text-accent);
 }
-.selected-day::before {
+.selected::before {
   content: "";
   position: absolute;
   border-radius: 50%;
@@ -92,11 +86,11 @@
   background-color: var(--primary);
 }
 
-.calendar-day:hover::before {
+.day:hover::before {
   background-color: var(--primary);
 }
 
-.calendar-day:hover {
+.day:hover {
   cursor: pointer;
 }
 
@@ -113,7 +107,7 @@
   background-color: var(--accent-green);
 }
 
-.shift-on::after {
+.onshift::after {
   content: "";
   position: absolute;
   border-radius: 50%;
@@ -141,89 +135,4 @@
   background-color: var(--text-primary);
   aspect-ratio: 1/1;
   z-index: -1;
-}
-
-.shifts-container {
-  margin-top: 3rem;
-  overflow-y: auto;
-}
-
-.shifts {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  height: 100%;
-  margin-right: 1.2rem;
-  margin-left: 1.2rem;
-}
-
-.shift-container {
-  display: flex;
-  align-items: center;
-  background-color: var(--primary);
-  padding: 1rem 1rem;
-  border-radius: 10px;
-  transition: opacity 0.2s;
-}
-
-.shift-container:hover {
-  cursor: pointer;
-  opacity: 0.7;
-}
-
-.shift-info {
-  flex: 3;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  gap: 2rem;
-}
-
-.shift-date {
-  text-align: center;
-  padding: 1rem;
-  background-color: var(--secondary);
-  border-radius: 10px;
-}
-
-.shift-day {
-  color: var(--accent-orange);
-  font-weight: bold;
-}
-
-.shift-short {
-  color: var(--text-accent);
-  font-size: var(--font-350);
-}
-
-.shift-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 0.5rem;
-}
-
-.shift-hours {
-  flex: 1;
-  text-align: right;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.cash {
-  font-weight: bold;
-  color: var(--accent-green);
-}
-
-.shifts-error {
-  text-align: center;
-  height: 100%;
-  font-weight: bold;
-  font-size: var(--font-500);
-  color: var(--accent-red);
-}
-
-.selected-shift {
-  border: 1px solid var(--accent-orange);
 }

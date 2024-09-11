@@ -1,7 +1,7 @@
-import "../../index.css";
-import "./Card.css";
-import { useShifts } from "../../hooks/contexts";
+import { useShifts } from "../hooks/contexts";
 import { useState, useEffect } from "react";
+import "../index.css";
+import "../styles/Card.module.css";
 
 export function ShiftCard() {
   const { shifts, isLoading, error } = useShifts();
