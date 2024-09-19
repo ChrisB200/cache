@@ -5,7 +5,7 @@ import "../index.css";
 export default function Navbar() {
   return (
     <nav className={styles.nav}>
-      <div className={styles.logo}>LOGO</div>
+      <div className={styles.logo}>CACHE</div>
       <div className={styles.anchors}>
         <Link className={styles.anchor} to="/home">
           <div className={styles.iconContainer}>

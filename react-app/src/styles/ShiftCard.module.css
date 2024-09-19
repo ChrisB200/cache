@@ -1,91 +1,78 @@
-.card-container {
+.container {
   padding: 1rem 2rem;
   background-color: var(--primary);
-  height: fit-content;
-  box-shadow:
-    rgba(0, 0, 0, 0.25) 0px 54px 55px,
-    rgba(0, 0, 0, 0.12) 0px -12px 30px,
-    rgba(0, 0, 0, 0.12) 0px 4px 6px,
-    rgba(0, 0, 0, 0.17) 0px 12px 13px,
-    rgba(0, 0, 0, 0.09) 0px -3px 5px;
   border-radius: 10px;
-  margin-top: 2rem;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--primary-secondary);
+  max-width: 330px;
+  width: 100%;
 }
 
-.card-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 10px;
-  height: 100%;
-  background-color: var(--accent-orange);
-  border-radius: 10px 0 0 10px;
-}
 
-.card-header {
-  font-weight: bold;
+.header {
   margin-bottom: 1rem;
 }
 
-.card-content {
+.content {
   display: flex;
-  gap: 3rem;
+  justify-content: space-between;
 }
 
-.card-next-date {
+.nextDate {
   text-align: center;
 }
 
-.card-day-name,
-.card-month {
+.dayName,
+.month {
   font-size: var(--font-500);
 }
 
-.card-day {
+.day {
   font-size: var(--font-700);
   font-weight: bold;
   color: var(--accent-orange);
 }
 
-.card-inner {
+.inner {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.card-top {
+.top {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 2rem;
 }
 
-.card-time {
+.time {
   font-weight: bold;
   font-size: var(--font-500);
+  min-width: 140px;
 }
 
-.card-hours {
+.hours {
   color: var(--text-accent);
 }
 
-.card-timer {
+.timer {
   display: flex;
   justify-content: space-between;
   gap: 2rem;
 }
 
-.timer-section {
+.section {
   text-align: center;
 }
 
-.section-value {
+.value {
   font-size: var(--font-500);
 }
 
-.section-name {
+.name {
   color: var(--text-accent);
   font-size: var(--font-300);
 }

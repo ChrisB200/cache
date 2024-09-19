@@ -6,7 +6,7 @@ export const fetchPayslipByMonth = async (month, year) => {
     const response = await httpClient.get(
       `${BASE_API_URL}/work/get_payslip?month=${month}&year=${year}`
     );
-    return response.data; // Return data if successful
+    return response.data;
   } catch (error) {
     console.error('Error fetching payslip by month:', error);
     throw new Error('Failed to fetch payslip for the specified month and year.'); // Throw a formatted error
@@ -43,9 +43,9 @@ export const fetchPayslipShifts = async (payslip_id) => {
   }
 }
 
-export const fetchForecastedShifts = async () => {
+export const fetchForecastedPayslip = async () => {
   try {
-    const response = await httpClient.get(`${BASE_API_URL}/work/recent_payslip`);
+    const response = await httpClient.get(`${BASE_API_URL}/work/forecasted_payslip`);
     return response.data
   } catch (error) {
     console.error(error)

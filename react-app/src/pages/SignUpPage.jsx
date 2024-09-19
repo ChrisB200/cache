@@ -7,6 +7,7 @@ import CredentialsForm from "../components/CredentialsForm";
 import StepIndicator from "../components/StepIndicator";
 
 function SignUp() {
+  const [activeStep, setActiveStep] = useState(1);
   const [activeForm, setActiveForm] = useState("SignUpForm");
   const [values, setValues] = useState({
     email: "",
@@ -23,14 +24,6 @@ function SignUp() {
     sdworx: useRef(null),
   };
 
-  const stepRefs = {
-    stepOne: useRef(null),
-    stepTwo: useRef(null),
-    stepThree: useRef(null),
-    lineOne: useRef(null),
-    lineTwo: useRef(null),
-  };
-
   const navigate = useNavigate();
 
   const onSubmitSignUp = (e) => {
@@ -38,6 +31,7 @@ function SignUp() {
     AuthService.is_user(values.email)
       .then(() => {
         setActiveForm("FGPForm");
+        setActiveStep(2);
       })
       .catch(() => {
         // Handle error
@@ -47,6 +41,7 @@ function SignUp() {
   const onSubmitFGP = (e) => {
     e.preventDefault();
     setActiveForm("SDForm");
+    setActiveStep(3);
   };
 
   const onSubmitSD = (e) => {
@@ -68,16 +63,18 @@ function SignUp() {
   const onPrevFGP = (e) => {
     e.preventDefault();
     setActiveForm("SignUpForm");
+    setActiveStep(1);
   };
 
   const onPrevSD = (e) => {
     e.preventDefault();
     setActiveForm("FGPForm");
+    setActiveStep(2)
   };
 
   return (
     <div className="signup-content">
-      <StepIndicator stepRefs={stepRefs} />
+      <StepIndicator activeStep={activeStep} />
 
       {activeForm === "SignUpForm" && (
         <CredentialsForm

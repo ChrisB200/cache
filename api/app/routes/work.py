@@ -67,4 +67,24 @@ def forecasted_payslip():
 
     shifts = db.session.query(Shift).filter(Shift.date.between(start_date, end_date)).all()
 
-    return jsonify([shift.to_json() for shift in shifts])
+    payslip = {
+        "date": end_date + timedelta(days=2),
+        "hours": 0,
+        "rate": recent_payslip.rate,
+        "shifts": []
+    }
+
+    timecard = [shift for shift in shifts if shift.type == "Timecard"]
+    schedule = [shift for shift in shifts if shift.type == "Schedule"]
+    combined = timecard.copy()
+
+    for shift in schedule:
+        if shift.date not in [tshift.date for tshift in timecard]:
+            combined.append(shift)
+
+    payslip["hours"] = sum([shift.hours for shift in combined])
+    payslip["shifts"] = [shift.to_json() for shift in combined]
+
+    print([shift.to_json() for shift in combined])
+
+    return jsonify(payslip)

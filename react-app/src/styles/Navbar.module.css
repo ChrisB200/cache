@@ -10,6 +10,9 @@
 
 .logo {
     height: 25vh;
+    font-weight: bold;
+    margin-top: 3rem;
+    font-size: var(--font-700);
 }
 
 .anchors {

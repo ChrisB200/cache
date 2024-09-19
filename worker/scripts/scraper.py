@@ -161,6 +161,7 @@ class Payslip:
 
         cursor.execute(query, values)
 
+
 def remove_all_range(cursor, start, end, stype):
     qry = """
         DELETE 
@@ -169,7 +170,6 @@ def remove_all_range(cursor, start, end, stype):
     """
     values = (start, end, stype)
     cursor.execute(qry, values)
-
 
 
 def time_difference(time1, time2):
@@ -432,7 +432,7 @@ async def scrape_payslips(browser, user):
         net_pay = net_pay.split("£")[1]
 
         # create payslip object
-        row = {"date": date.date(), "net_pay": net_pay, "rate": rate}
+        row = {"date": date.date(), "net": net_pay, "rate": rate}
         payslip = Payslip(row)
         logger.debug(f"Scraped payslip at date {payslip.date} for user {user.id}")
         payslips.append(payslip)
@@ -458,15 +458,15 @@ def assign_shifts(user, cursor):
 
     for payslip in payslips:
         date_end = payslip.date - timedelta(days=2)
-        date_start = date_end - timedelta(weeks=2) + timedelta(days=1)
+        date_start = date_end - timedelta(weeks=2)
         for shift in shifts:
             if shift.date > date_start and shift.date < date_end:
                 qry = """
                     UPDATE shift
-                    SET payslip_id = %s
+                    SET payslip_id = %s and rate = %s
                     WHERE id = %s and type = %s
                 """
-                values = (payslip.id, shift.id, "Timecard")
+                values = (payslip.id, payslip.rate, shift.id, "Timecard")
                 cursor.execute(qry, values)
 
 

@@ -1,39 +1,39 @@
 import { useState, useEffect, useRef } from "react";
 import "../index.css";
-import "../styles/Work.module.css";
+import styles from "../styles/WorkPage.module.css"
 import { PayslipProvider } from "../contexts/PayslipContext";
 import { ShiftProvider } from "../contexts/ShiftContext";
 import Navbar from "../components/Navbar";
-import { ShiftCard } from "../components/Card";
-import { fetchForecastedShifts } from "../api/work";
+import { ShiftCard } from "../components/ShiftCard";
 import Sidebar from "../components/WorkSidebar";
+import PayslipCard from "../components/PayslipCard";
+import History from "../components/History";
 
 
 function Work() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [recentShifts, setRecentShifts] = useState(null);
 
-  const loadRecent = async () => {
-    try {
-      const data = await fetchForecastedShifts();
-      setRecentShifts(data)
-    } catch {
-      console.log ("hey");
-    } finally {
-    }
-  }
-
-  useEffect(() => {
-    loadRecent();
-  }, [])
 
   return (
     <PayslipProvider>
       <ShiftProvider>
         <div className="content">
           <Navbar></Navbar>
-          <ShiftCard></ShiftCard>
-
+          <div className={styles.widgets}>
+            <div className={styles.upcoming}>
+              <h2 className={styles.header}>Upcoming</h2>
+              <div>
+                <ShiftCard></ShiftCard>
+                <PayslipCard></PayslipCard>
+              </div>
+            </div>
+            <div className={styles.history}>
+              <h2 className={styles.header}>History</h2>
+              <div>
+                <History></History>
+              </div>
+            </div>
+          </div>
           <Sidebar currentDate={currentDate} setCurrentDate={setCurrentDate} />
         </div>
       </ShiftProvider>

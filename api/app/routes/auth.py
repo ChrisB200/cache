@@ -13,14 +13,14 @@ def login():
 
     user = User.query.filter_by(email=email).first()
     if not user:
-        return jsonify({"error": "Invalid credentials"}), 401
+        return jsonify({"error": "User does not exist"}), 401
 
     if not user.check_password(password):
         return jsonify({"error": "Invalid credentials"}), 401
 
     login_user(user, remember=True)
 
-    return jsonify({"message": "Successfully logged in user"}), 200
+    return jsonify({"success": True}), 201
 
 
 @auth.route("/api/auth/signup", methods=["POST"])
@@ -35,7 +35,7 @@ def signup():
 
     user_exists = User.query.filter_by(email=email).first() is not None
     if user_exists:
-        return jsonify({"error": "User already exists"}), 409
+        return jsonify({"error", "User already exists"}), 409
 
     new_user = User(
         email=email,
@@ -47,17 +47,20 @@ def signup():
     new_user.set_fg_pass(fg_pass)
     new_user.set_sd_pass(sd_pass)
 
-    db.session.add(new_user)
-    db.session.commit()
-
-    return jsonify({"message": "Successfully created user"})
+    try:
+        db.session.add(new_user)
+        db.session.commit()
+        return jsonify({"success": True, "user_id": new_user.id}), 201
+    except Exception:
+        db.session.rollback()
+        return jsonify({"error": "Internal server error"}), 500
 
 
 @auth.route("/api/auth/logout", methods=["POST"])
 @login_required
 def logout():
     logout_user()
-    return jsonify({"message": "Successfully logged out user"}), 200
+    return jsonify({"success": True}), 200
 
 
 @auth.route("/api/auth/delete", methods=["DELETE"])
@@ -65,24 +68,27 @@ def logout():
 def delete():
     id = current_user.id
     logout_user()
-    User.query.filter_by(id=id).delete()
-    db.session.commit()
-    return jsonify({"message": "Successfully deleted user"}), 200
+
+    try:
+        User.query.filter_by(id=id).delete()
+        db.session.commit()
+        return jsonify({"success": True}), 200
+    except Exception:
+        return jsonify({"error": "Internal server error"}), 500
 
 
 @auth.route("/api/auth/is_authenticated", methods=["GET"])
 @login_required
 def is_authenticated():
-    return jsonify({"message": "You are authenticated"}), 200
+    return jsonify({"success": True}), 200
 
 
 @auth.route("/api/auth/is_user", methods=["POST"])
 def is_user():
     email = request.json.get("email")
-
     existing = User.query.filter_by(email=email).first()
 
     if existing:
-        return jsonify({"message": "User already exists"}), 409
-    else:
-        return jsonify({"message": "User does not exist"}), 200
+        return jsonify({"error": "User already exists"}), 401
+
+    return jsonify({"success": True}), 200

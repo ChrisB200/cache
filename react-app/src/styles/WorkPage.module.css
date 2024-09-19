@@ -1,0 +1,16 @@
+.widgets {
+  padding: 3rem 5vw;
+  width: 100%;
+}
+
+.upcoming > h2 {
+  font-weight: normal;
+  margin-bottom: 3rem;
+}
+
+.upcoming > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 2rem;
+}
