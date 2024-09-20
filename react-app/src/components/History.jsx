@@ -8,77 +8,124 @@ function History() {
   const { payslips } = usePayslips();
   const { shifts } = useShifts();
   const [currentPayslip, setCurrentPayslip] = useState(null);
-  const currentDate = new Date();
+  const [totalHours, setTotalHours] = useState(null);
 
   const options = {
-    weekday: "short",
-    year: "numeric",
     month: "short",
-    day: "numeric"
+    day: "2-digit",
+  };
+
+  const shiftOptions = {
+    day: "2-digit",
+    month: "2-digit",
+    year: "2-digit"
   }
 
-  const totalHours = (currentPayslip) => {
-    if (!currentPayslip) return;
+  const handlePrev = () => {
+    const index = payslips.indexOf(currentPayslip);
+    if (index < payslips.length - 1) {
+      const prevSlip = payslips[index + 1];
+      prevSlip.date = new Date(prevSlip.date);
+      setCurrentPayslip(prevSlip);
+    }
+  };
 
-    let total = 0;
-    currentPayslip.shifts.map((id) => {
-      total += shifts.timecard.find((shift) => {
-        return shift.id === id;
-      }).hours;
-    });
-    console.log(total)
+  const handleNext = () => {
+    const index = payslips.indexOf(currentPayslip);
+    if (index > 0) {
+      const nextSlip = payslips[index - 1];
+      nextSlip.date = new Date(nextSlip.date);
+      setCurrentPayslip(nextSlip);
+    }
+  };
+
+  const calculateTotalHours = (currentPayslip) => {
+    if (!currentPayslip || !shifts.timecard) return 0; // Ensure no errors if shifts or currentPayslip are missing
+
+    return currentPayslip.shifts.reduce((total, id) => {
+      const shift = shifts.timecard.find((shift) => shift.id === id);
+      return shift ? total + shift.hours : total; // Add hours if shift is found, otherwise keep total unchanged
+    }, 0);
   };
 
   useEffect(() => {
-    const recentSlip = mostRecentObject(payslips, "date")
-    console.log(shifts)
-    console.log(payslips)
-    totalHours(recentSlip)
-    setCurrentPayslip(recentSlip);
-  }, [payslips])
+    const recentSlip = mostRecentObject(payslips, "date");
+    if (recentSlip) {
+      recentSlip.date = new Date(recentSlip.date);
+      setCurrentPayslip(recentSlip);
+    }
+  }, [payslips]);
 
-  return (currentPayslip ? <>
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <div className={styles.payslip}>
-          <div className={styles.date}>
-            <button>&#60;</button>
-            <h2>{currentDate.toLocaleString("default", options)}</h2>
-            <button>&#62;</button>
+  useEffect(() => {
+    setTotalHours(calculateTotalHours(currentPayslip));
+  }, [shifts, currentPayslip]);
+
+  return currentPayslip ? (
+    <>
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <div className={styles.payslip}>
+            <div className={styles.date}>
+              <button onClick={handlePrev}>&#60;</button>
+              <div>
+                <p className={styles.year}>{currentPayslip.date.getFullYear()}</p>
+                <h3>{currentPayslip.date.toLocaleString("default", options)}</h3>
+              </div>
+              <button onClick={handleNext}>&#62;</button>
+            </div>
+            <p className={styles.total}>£{currentPayslip.net}</p>
+            <div className={styles.info}>
+              <ul className={styles.labels}>
+                <li className={styles.label}>Shifts</li>
+                <li className={styles.label}>Hours</li>
+                <li className={styles.label}>Rate</li>
+                <li className={styles.label}>Base</li>
+                <li className={styles.label}>Other</li>
+              </ul>
+              <ul className={styles.values}>
+                <li>{currentPayslip.shifts.length}</li>
+                <li>{totalHours.toFixed(2)}</li>
+                <li>£{currentPayslip.rate}</li>
+                <li>£{(totalHours * currentPayslip.rate).toFixed(2)}</li>
+                <li>
+                  £
+                  {(
+                    currentPayslip.net -
+                    totalHours * currentPayslip.rate
+                  ).toFixed(2)}
+                </li>
+              </ul>
+            </div>
           </div>
-          <p className={styles.total}>£{currentPayslip.net.toFixed(2)}</p>
-          <div className={styles.info}>
-            <ul className={styles.labels}>
-              <li className={styles.label}>Shifts</li>
-              <li className={styles.label}>Hours</li>
-              <li className={styles.label}>Rate</li>
-              <li className={styles.label}>Net</li>
-              <li className={styles.label}>Other</li>
-            </ul>
-            <ul className={styles.values}>
-              <li>6</li>
-              <li>23</li>
-              <li>£{currentPayslip.rate}</li>
-              <li>£278.12</li>
-              <li>£50.13</li>
-            </ul>
-          </div>
-        </div>
-        <div className={styles.record}>
-          <select name="type" id="type">
-            <option value="Timecard">Timecard</option>
-            <option value="Schedule">Schedule</option>
-          </select>
-          <div className={styles.grid}>
-            <p className={styles.label}>Date</p>
-            <p className={styles.label}>Time</p>
-            <p className={styles.label}>Hours</p>
-            <p className={styles.label}>Pay</p>
+          <div className={styles.record}>
+            <select name="type" id="type">
+              <option value="Timecard">Timecard</option>
+              <option value="Schedule">Schedule</option>
+            </select>
+            <div className={styles.grid}>
+              <p className={styles.label}>Date</p>
+              <p className={styles.label}>Time</p>
+              <p className={styles.label}>Hours</p>
+              <p className={styles.label}>Pay</p>
+              {currentPayslip.shifts.map((id) => {
+                const shift = shifts.timecard.find((shift) => {return id === shift.id})
+                return (
+                  <>
+                    <p>{new Date(shift.date).toLocaleString("default", shiftOptions)}</p>
+                    <p>{shift.start} - {shift.end}</p>
+                    <p>{shift.hours.toFixed(1)}</p>
+                    <p>{(shift.hours * currentPayslip.rate).toFixed(2)}</p>
+                  </>
+                )
+              })}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </> : <></>);
+    </>
+  ) : (
+    <></>
+  );
 }
 
 export default History;

@@ -49,11 +49,10 @@ def shifts_by_month():
 @login_required
 def shifts_by_payslip():
     payslip_id = request.args.get("payslip_id")
-    payslip = Payslip.query.filter_by(user=current_user, id=payslip_id)
+    payslip = Payslip.query.filter_by(user_id=current_user.id, id=payslip_id).first()
 
     if payslip:
-        shifts = Shift.query.filter_by(payslip=payslip).all()
-        return jsonify([shift.to_json() for shift in shifts])
+        return jsonify([shift.to_json() if shift.type == "Timecard" else None for shift in payslip.shifts])
     else:
         return jsonify("Can't find the payslip"), 404
 

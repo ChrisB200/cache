@@ -1260,3 +1260,1188 @@ LocatorAssertions.to_have_text with timeout 10000ms
 2024-09-18 23:32:17,807 - scripts.scraper - DEBUG - Connection closed to database dbfinance
 2024-09-18 23:32:18,455 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
 2024-09-18 23:32:18,455 - scripts.scraper - INFO - Finished scraping all for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:31:04,291 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-20 00:31:04,660 - __main__ - INFO - Scraping all for all users
+2024-09-20 00:31:04,706 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 00:31:04,724 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 00:36:08,838 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-20 00:36:08,976 - __main__ - INFO - Scraping all for all users
+2024-09-20 00:36:09,015 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 00:36:09,037 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 00:36:10,799 - scripts.scraper - DEBUG - Browser opened for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:10,831 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 00:36:29,482 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:30,042 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:30,600 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:31,163 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:32,225 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:33,274 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:33,882 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:34,434 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:34,977 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-31 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:35,530 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:36,079 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:36,657 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:37,229 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:37,800 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:38,353 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:38,916 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:39,467 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:40,021 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:40,588 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:41,177 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-29 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:41,741 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-15 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:42,345 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-01 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:42,906 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:43,473 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:44,048 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:44,631 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:45,192 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:45,763 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:46,364 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-25 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:46,961 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-11 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:47,528 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:48,096 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:48,680 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:49,247 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:49,877 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:50,458 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:51,025 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:36:51,590 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-21 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:01,700 - scripts.scraper - ERROR - Locator expected to have text '06/04/2023'
+Actual value: 07/04/2023 
+Call log:
+LocatorAssertions.to_have_text with timeout 10000ms
+  - waiting for locator("#ctl00_MCPH_PayslipCtrl_udpEmployeeDetails").locator(".TDData").nth(2)
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+
+2024-09-20 00:37:01,802 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:02,886 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:03,989 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:06,062 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:06,637 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:07,206 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-27 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:07,772 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-13 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:08,362 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:08,921 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:09,493 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:09,503 - scripts.scraper - INFO - Scraped 48 payslips for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:10,168 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 00:37:10,222 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 00:37:18,306 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-08, Start: 09:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:18,306 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-09, Start: 12:30:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:18,306 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-14, Start: 09:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:19,321 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-15, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:19,321 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-21, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:20,294 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-25, Start: 11:00:00, End: 17:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:20,294 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-27, Start: 16:00:00, End: 20:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:21,248 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-29, Start: 12:00:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:21,249 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-02, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:21,249 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-04, Start: 16:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:22,234 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-05, Start: 12:00:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:22,235 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-06, Start: 09:00:00, End: 13:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:22,235 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-10, Start: 08:00:00, End: 14:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:22,235 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-11, Start: 08:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:23,253 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-12, Start: 15:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:23,253 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-15, Start: 10:00:00, End: 17:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:24,259 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-19, Start: 12:30:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:24,260 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-22, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:24,260 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-24, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:25,257 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-27, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:25,257 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-30, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:26,225 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-05, Start: 16:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:26,225 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-08, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:27,189 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-09, Start: 16:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:27,189 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-13, Start: 13:00:00, End: 19:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:28,209 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-17, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:28,210 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-20, Start: 18:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:28,210 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-22, Start: 18:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:29,230 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-24, Start: 17:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:29,230 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-28, Start: 15:00:00, End: 21:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:31,185 - scripts.scraper - INFO - Scraped 30 shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:37,803 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-08, Start: 09:05:00, End: 14:47:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:37,803 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-09, Start: 12:25:00, End: 17:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:37,803 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-14, Start: 09:02:00, End: 14:58:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:38,835 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-15, Start: 16:55:00, End: 23:21:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:38,836 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-21, Start: 17:36:00, End: 22:58:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:39,825 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-25, Start: 10:59:00, End: 17:09:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:39,825 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-27, Start: 15:47:00, End: 21:06:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:40,782 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-29, Start: 12:41:00, End: 18:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:40,782 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-02, Start: 17:00:00, End: 23:02:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:40,782 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-04, Start: 15:56:00, End: 22:23:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:41,789 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-05, Start: 11:55:00, End: 18:14:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:41,790 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-06, Start: 08:55:00, End: 13:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:41,790 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-10, Start: 07:48:00, End: 14:17:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:41,790 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-11, Start: 07:52:00, End: 15:03:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:42,775 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-12, Start: 14:59:00, End: 22:53:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:42,775 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-15, Start: 09:58:00, End: 18:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:43,754 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-19, Start: 12:17:00, End: 17:55:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:43,755 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-22, Start: 17:56:00, End: 23:38:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:43,755 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-24, Start: 16:52:00, End: 23:01:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:44,790 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-27, Start: 17:04:00, End: 23:14:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:44,790 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-30, Start: 00:00:00, End: 00:00:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:46,277 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-05, Start: 16:01:00, End: 23:56:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:46,277 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-08, Start: 15:55:00, End: 22:40:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:47,290 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-09, Start: 16:07:00, End: 22:54:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:47,290 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-13, Start: 18:01:00, End: 19:03:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:48,269 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-17, Start: 17:52:00, End: 22:36:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:51,223 - scripts.scraper - INFO - Scraped 26 shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:52,184 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 00:37:52,652 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:37:52,652 - scripts.scraper - INFO - Finished scraping all for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:38:28,699 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-20 00:38:28,838 - __main__ - INFO - Scraping all for all users
+2024-09-20 00:38:28,886 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 00:38:28,901 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 00:38:29,276 - scripts.scraper - DEBUG - Browser opened for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:38:29,309 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 00:38:50,206 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:38:50,761 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:38:51,316 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:38:51,875 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:38:52,436 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:38:52,980 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:38:53,532 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:38:54,106 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:38:54,670 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-31 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:38:55,233 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:38:55,814 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:38:56,404 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:38:56,961 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:38:57,527 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:38:58,604 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:38:59,678 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:00,759 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:01,833 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:02,902 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:03,477 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-29 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:04,042 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-15 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:04,622 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-01 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:05,182 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:05,759 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:06,315 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:07,413 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:07,981 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:08,571 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:09,639 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-25 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:10,706 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-11 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:11,268 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:11,832 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:12,904 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:14,982 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:17,069 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:19,150 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:19,714 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:20,279 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-21 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:30,377 - scripts.scraper - ERROR - Locator expected to have text '06/04/2023'
+Actual value: 07/04/2023 
+Call log:
+LocatorAssertions.to_have_text with timeout 10000ms
+  - waiting for locator("#ctl00_MCPH_PayslipCtrl_udpEmployeeDetails").locator(".TDData").nth(2)
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+
+2024-09-20 00:39:30,470 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:31,071 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:32,160 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:32,720 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:33,294 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:33,891 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-27 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:34,456 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-13 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:35,039 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:36,098 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:37,169 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:37,179 - scripts.scraper - INFO - Scraped 48 payslips for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:37,933 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 00:39:38,001 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 00:39:46,012 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-08, Start: 09:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:46,013 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-09, Start: 12:30:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:46,013 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-14, Start: 09:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:47,061 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-15, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:47,061 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-21, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:48,075 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-25, Start: 11:00:00, End: 17:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:48,075 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-27, Start: 16:00:00, End: 20:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:49,090 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-29, Start: 12:00:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:49,091 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-02, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:49,091 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-04, Start: 16:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:50,110 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-05, Start: 12:00:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:50,111 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-06, Start: 09:00:00, End: 13:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:50,111 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-10, Start: 08:00:00, End: 14:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:50,111 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-11, Start: 08:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:51,135 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-12, Start: 15:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:51,135 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-15, Start: 10:00:00, End: 17:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:52,180 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-19, Start: 12:30:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:52,180 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-22, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:52,180 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-24, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:53,223 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-27, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:53,224 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-30, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:54,230 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-05, Start: 16:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:54,230 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-08, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:55,252 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-09, Start: 16:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:55,253 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-13, Start: 13:00:00, End: 19:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:56,240 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-17, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:56,240 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-20, Start: 18:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:56,240 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-22, Start: 18:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:57,231 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-24, Start: 17:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:57,232 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-28, Start: 15:00:00, End: 21:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:39:59,147 - scripts.scraper - INFO - Scraped 30 shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:08,672 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-08, Start: 09:05:00, End: 14:47:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:08,672 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-09, Start: 12:25:00, End: 17:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:08,672 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-14, Start: 09:02:00, End: 14:58:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:09,681 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-15, Start: 16:55:00, End: 23:21:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:09,682 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-21, Start: 17:36:00, End: 22:58:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:10,700 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-25, Start: 10:59:00, End: 17:09:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:10,700 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-27, Start: 15:47:00, End: 21:06:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:11,693 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-29, Start: 12:41:00, End: 18:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:11,693 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-02, Start: 17:00:00, End: 23:02:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:11,693 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-04, Start: 15:56:00, End: 22:23:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:12,701 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-05, Start: 11:55:00, End: 18:14:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:12,701 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-06, Start: 08:55:00, End: 13:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:12,701 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-10, Start: 07:48:00, End: 14:17:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:12,702 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-11, Start: 07:52:00, End: 15:03:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:13,681 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-12, Start: 14:59:00, End: 22:53:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:13,681 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-15, Start: 09:58:00, End: 18:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:14,686 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-19, Start: 12:17:00, End: 17:55:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:14,687 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-22, Start: 17:56:00, End: 23:38:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:14,687 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-24, Start: 16:52:00, End: 23:01:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:16,192 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-27, Start: 17:04:00, End: 23:14:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:16,193 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-30, Start: 00:00:00, End: 00:00:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:17,215 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-05, Start: 16:01:00, End: 23:56:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:17,215 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-08, Start: 15:55:00, End: 22:40:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:18,192 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-09, Start: 16:07:00, End: 22:54:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:18,192 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-13, Start: 18:01:00, End: 19:03:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:19,172 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-17, Start: 17:52:00, End: 22:36:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:22,085 - scripts.scraper - INFO - Scraped 26 shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:22,917 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 00:40:23,371 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:40:23,371 - scripts.scraper - INFO - Finished scraping all for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:15,243 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-20 00:43:15,391 - __main__ - INFO - Scraping shifts for all users
+2024-09-20 00:43:15,431 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 00:43:15,446 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 00:43:15,834 - scripts.scraper - DEBUG - Browser opened for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:15,904 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 00:43:24,239 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-08, Start: 09:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:24,240 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-09, Start: 12:30:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:24,240 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-14, Start: 09:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:25,247 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-15, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:25,247 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-21, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:26,227 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-25, Start: 11:00:00, End: 17:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:26,227 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-27, Start: 16:00:00, End: 20:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:27,216 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-29, Start: 12:00:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:27,216 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-02, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:27,216 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-04, Start: 16:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:28,228 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-05, Start: 12:00:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:28,229 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-06, Start: 09:00:00, End: 13:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:28,229 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-10, Start: 08:00:00, End: 14:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:28,229 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-11, Start: 08:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:29,212 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-12, Start: 15:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:29,212 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-15, Start: 10:00:00, End: 17:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:30,186 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-19, Start: 12:30:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:30,187 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-22, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:30,187 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-24, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:31,177 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-27, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:31,177 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-30, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:32,185 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-05, Start: 16:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:32,185 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-08, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:33,156 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-09, Start: 16:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:33,157 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-13, Start: 13:00:00, End: 19:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:34,135 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-17, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:34,135 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-20, Start: 18:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:34,136 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-22, Start: 18:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:35,172 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-24, Start: 17:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:35,172 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-28, Start: 15:00:00, End: 21:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:37,099 - scripts.scraper - INFO - Scraped 30 shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:46,035 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-08, Start: 09:05:00, End: 14:47:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:46,035 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-09, Start: 12:25:00, End: 17:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:46,035 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-14, Start: 09:02:00, End: 14:58:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:47,051 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-15, Start: 16:55:00, End: 23:21:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:47,051 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-21, Start: 17:36:00, End: 22:58:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:48,076 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-25, Start: 10:59:00, End: 17:09:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:48,077 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-27, Start: 15:47:00, End: 21:06:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:49,036 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-29, Start: 12:41:00, End: 18:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:49,036 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-02, Start: 17:00:00, End: 23:02:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:49,036 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-04, Start: 15:56:00, End: 22:23:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:50,037 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-05, Start: 11:55:00, End: 18:14:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:50,037 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-06, Start: 08:55:00, End: 13:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:50,038 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-10, Start: 07:48:00, End: 14:17:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:50,038 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-11, Start: 07:52:00, End: 15:03:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:51,008 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-12, Start: 14:59:00, End: 22:53:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:51,009 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-15, Start: 09:58:00, End: 18:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:52,031 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-19, Start: 12:17:00, End: 17:55:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:52,031 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-22, Start: 17:56:00, End: 23:38:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:52,031 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-24, Start: 16:52:00, End: 23:01:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:53,087 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-27, Start: 17:04:00, End: 23:14:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:53,087 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-30, Start: 00:00:00, End: 00:00:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:54,083 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-05, Start: 16:01:00, End: 23:56:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:54,083 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-08, Start: 15:55:00, End: 22:40:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:55,094 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-09, Start: 16:07:00, End: 22:54:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:55,094 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-13, Start: 18:01:00, End: 19:03:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:56,082 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-17, Start: 17:52:00, End: 22:36:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:59,071 - scripts.scraper - INFO - Scraped 26 shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:43:59,911 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 00:44:00,369 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:44:00,369 - scripts.scraper - INFO - Finished scraping shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:55:59,913 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-20 00:56:00,288 - __main__ - INFO - Scraping payslips for all users
+2024-09-20 00:56:00,361 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 00:56:00,377 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 00:56:01,724 - scripts.scraper - DEBUG - Browser opened for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:56:01,788 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 00:56:01,928 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 00:56:01,972 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=TargetClosedError('Target page, context or browser has been closed')>
+playwright._impl._errors.TargetClosedError: Target page, context or browser has been closed
+2024-09-20 00:56:49,389 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-20 00:56:49,525 - __main__ - INFO - Scraping payslips for all users
+2024-09-20 00:56:49,595 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 00:56:49,609 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 00:56:49,987 - scripts.scraper - DEBUG - Browser opened for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:56:50,020 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 00:57:07,771 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:08,835 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:09,380 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:09,945 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:10,523 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:11,103 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:11,653 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:12,233 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:12,784 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-31 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:13,335 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:13,910 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:14,477 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:15,063 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:16,151 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:16,722 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:17,290 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:17,854 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:18,420 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:19,487 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:20,557 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-29 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:21,622 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-15 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:22,689 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-01 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:23,732 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:24,797 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:25,370 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:25,943 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:27,018 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:27,608 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:28,688 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-25 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:30,770 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-11 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:31,338 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:31,905 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:32,474 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:33,552 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:34,625 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:35,689 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:36,761 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:37,391 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-21 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:47,516 - scripts.scraper - ERROR - Locator expected to have text '06/04/2023'
+Actual value: 07/04/2023 
+Call log:
+LocatorAssertions.to_have_text with timeout 10000ms
+  - waiting for locator("#ctl00_MCPH_PayslipCtrl_udpEmployeeDetails").locator(".TDData").nth(2)
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+
+2024-09-20 00:57:47,610 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:48,678 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:49,251 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:49,829 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:50,415 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:50,996 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-27 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:51,577 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-13 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:52,160 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:52,744 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:53,319 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:53,328 - scripts.scraper - INFO - Scraped 48 payslips for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:54,069 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 00:57:54,113 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 00:57:54,470 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 00:57:54,876 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 00:57:54,876 - scripts.scraper - INFO - Finished scraping payslips for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:00:19,994 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-20 01:00:20,133 - __main__ - INFO - Scraping payslips for all users
+2024-09-20 01:00:20,171 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:00:20,186 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:00:20,554 - scripts.scraper - DEBUG - Browser opened for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:00:20,585 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:00:34,718 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:00:35,164 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:00:35,164 - scripts.scraper - INFO - Finished scraping payslips for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:01,904 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-20 01:01:02,035 - __main__ - INFO - Scraping payslips for all users
+2024-09-20 01:01:02,070 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:01:02,084 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:01:02,425 - scripts.scraper - DEBUG - Browser opened for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:02,455 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:01:12,642 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:13,207 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:13,769 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:14,845 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:15,896 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:16,458 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:17,525 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:18,580 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:19,144 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-31 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:20,232 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:21,292 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:22,348 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:23,388 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:23,963 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:24,528 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:25,102 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:25,669 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:26,234 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:26,790 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:27,373 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-29 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:27,959 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-15 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:28,537 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-01 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:29,098 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:29,672 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:30,237 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:30,791 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:31,342 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:31,910 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:32,474 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-25 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:33,043 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-11 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:33,608 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:34,194 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:34,769 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:35,344 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:35,911 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:36,479 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:37,558 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:38,109 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-21 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:48,229 - scripts.scraper - ERROR - Locator expected to have text '06/04/2023'
+Actual value: 07/04/2023 
+Call log:
+LocatorAssertions.to_have_text with timeout 10000ms
+  - waiting for locator("#ctl00_MCPH_PayslipCtrl_udpEmployeeDetails").locator(".TDData").nth(2)
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+
+2024-09-20 01:01:48,327 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:48,916 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:49,493 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:50,056 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:50,637 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:51,223 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-27 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:51,802 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-13 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:52,385 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:52,955 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:53,538 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:53,546 - scripts.scraper - INFO - Scraped 48 payslips for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:01:54,271 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:01:54,304 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:02:01,882 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:02:02,305 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:02:02,305 - scripts.scraper - INFO - Finished scraping payslips for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:15,132 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-20 01:07:15,276 - __main__ - INFO - Scraping payslips for all users
+2024-09-20 01:07:15,315 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:07:15,331 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:07:15,712 - scripts.scraper - DEBUG - Browser opened for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:15,749 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:07:29,652 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:30,196 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:30,765 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:31,815 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:32,382 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:32,950 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:33,521 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:34,077 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:34,631 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-31 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:35,182 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:35,745 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:36,318 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:36,860 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:37,415 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:38,483 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:39,032 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:39,596 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:40,152 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:40,716 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:41,782 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-29 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:42,845 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-15 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:43,924 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-01 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:44,983 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:46,047 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:46,600 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:47,166 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:47,731 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:48,302 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:49,363 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-25 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:49,923 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-11 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:50,491 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:51,074 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:51,637 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:52,205 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:52,788 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:53,351 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:53,900 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:07:54,478 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-21 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:04,581 - scripts.scraper - ERROR - Locator expected to have text '06/04/2023'
+Actual value: 07/04/2023 
+Call log:
+LocatorAssertions.to_have_text with timeout 10000ms
+  - waiting for locator("#ctl00_MCPH_PayslipCtrl_udpEmployeeDetails").locator(".TDData").nth(2)
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+
+2024-09-20 01:08:04,676 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:05,758 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:07,847 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:09,913 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:11,975 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:13,058 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-27 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:14,154 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-13 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:14,744 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:15,318 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:15,892 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:15,899 - scripts.scraper - INFO - Scraped 48 payslips for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:16,627 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:08:16,661 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:08:17,366 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:08:17,770 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:17,770 - scripts.scraper - INFO - Finished scraping payslips for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:33,237 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-20 01:08:33,378 - __main__ - INFO - Scraping payslips for all users
+2024-09-20 01:08:33,412 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:08:33,426 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:08:33,798 - scripts.scraper - DEBUG - Browser opened for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:33,830 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:08:48,163 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:48,827 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:49,376 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:49,938 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:50,507 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:51,075 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:51,657 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:52,218 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:52,789 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-31 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:53,348 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:53,897 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:54,451 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:55,010 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:55,576 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:56,140 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:56,704 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:57,278 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:57,835 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:58,399 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:58,983 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-29 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:08:59,543 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-15 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:00,136 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-01 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:00,714 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:01,293 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:01,854 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:02,450 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:03,018 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:03,626 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:04,239 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-25 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:04,819 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-11 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:05,412 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:06,000 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:06,577 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:07,165 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:07,761 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:08,326 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:08,903 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:09,496 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-21 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:19,596 - scripts.scraper - ERROR - Locator expected to have text '06/04/2023'
+Actual value: 07/04/2023 
+Call log:
+LocatorAssertions.to_have_text with timeout 10000ms
+  - waiting for locator("#ctl00_MCPH_PayslipCtrl_udpEmployeeDetails").locator(".TDData").nth(2)
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+
+2024-09-20 01:09:19,709 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:20,337 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:20,981 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:21,593 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:22,200 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:22,788 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-27 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:23,435 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-13 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:24,054 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:24,696 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:25,283 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:25,291 - scripts.scraper - INFO - Scraped 48 payslips for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:26,006 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:09:26,040 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:09:26,712 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:09:27,159 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:09:27,159 - scripts.scraper - INFO - Finished scraping payslips for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:11:35,279 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-20 01:11:35,431 - __main__ - INFO - Scraping payslips for all users
+2024-09-20 01:11:35,467 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:11:35,481 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:11:35,852 - scripts.scraper - DEBUG - Browser opened for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:11:35,887 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:11:50,990 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:01,108 - scripts.scraper - ERROR - Locator expected to have text '06/09/2024'
+Actual value: 20/09/2024 
+Call log:
+LocatorAssertions.to_have_text with timeout 10000ms
+  - waiting for locator("#ctl00_MCPH_PayslipCtrl_udpEmployeeDetails").locator(".TDData").nth(2)
+  -   locator resolved to <td valign="top" class="TDData">20/09/2024</td>
+  -   unexpected value "20/09/2024"
+  -   locator resolved to <td valign="top" class="TDData">20/09/2024</td>
+  -   unexpected value "20/09/2024"
+  -   locator resolved to <td valign="top" class="TDData">20/09/2024</td>
+  -   unexpected value "20/09/2024"
+  -   locator resolved to <td valign="top" class="TDData">20/09/2024</td>
+  -   unexpected value "20/09/2024"
+  -   locator resolved to <td valign="top" class="TDData">20/09/2024</td>
+  -   unexpected value "20/09/2024"
+  -   locator resolved to <td valign="top" class="TDData">20/09/2024</td>
+  -   unexpected value "20/09/2024"
+  -   locator resolved to <td valign="top" class="TDData">20/09/2024</td>
+  -   unexpected value "20/09/2024"
+  -   locator resolved to <td valign="top" class="TDData">20/09/2024</td>
+  -   unexpected value "20/09/2024"
+  -   locator resolved to <td valign="top" class="TDData">20/09/2024</td>
+  -   unexpected value "20/09/2024"
+  -   locator resolved to <td valign="top" class="TDData">20/09/2024</td>
+  -   unexpected value "20/09/2024"
+  -   locator resolved to <td valign="top" class="TDData">20/09/2024</td>
+  -   unexpected value "20/09/2024"
+  -   locator resolved to <td valign="top" class="TDData">20/09/2024</td>
+  -   unexpected value "20/09/2024"
+  -   locator resolved to <td valign="top" class="TDData">20/09/2024</td>
+  -   unexpected value "20/09/2024"
+  -   locator resolved to <td valign="top" class="TDData">20/09/2024</td>
+  -   unexpected value "20/09/2024"
+
+2024-09-20 01:12:01,216 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:01,786 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:02,347 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:02,921 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:03,480 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:04,080 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:04,653 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:05,197 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-31 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:05,757 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:06,328 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:06,894 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:07,450 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:08,003 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:08,577 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:09,144 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:09,721 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:10,273 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:10,837 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:11,403 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-29 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:11,970 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-15 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:12,519 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-01 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:13,090 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:13,654 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:14,206 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:14,779 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:15,360 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:15,956 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:16,526 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-25 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:17,100 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-11 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:17,660 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:18,236 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:19,324 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:19,898 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:20,966 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:21,545 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:22,133 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:22,720 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-21 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:32,834 - scripts.scraper - ERROR - Locator expected to have text '06/04/2023'
+Actual value: 07/04/2023 
+Call log:
+LocatorAssertions.to_have_text with timeout 10000ms
+  - waiting for locator("#ctl00_MCPH_PayslipCtrl_udpEmployeeDetails").locator(".TDData").nth(2)
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+
+2024-09-20 01:12:32,942 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:33,525 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:34,120 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:34,696 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:35,260 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:35,845 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-27 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:36,416 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-13 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:37,004 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:37,581 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:38,169 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:38,178 - scripts.scraper - INFO - Scraped 48 payslips for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:38,841 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:12:38,875 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:12:38,895 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:12:39,296 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:12:39,296 - scripts.scraper - INFO - Finished scraping payslips for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:10,583 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-20 01:14:10,727 - __main__ - INFO - Scraping payslips for all users
+2024-09-20 01:14:10,768 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:14:10,782 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:14:11,166 - scripts.scraper - DEBUG - Browser opened for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:11,199 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:14:25,194 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:25,759 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:26,319 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:26,867 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:27,419 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:27,987 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:28,557 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:29,120 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:29,678 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-31 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:30,236 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:30,796 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:31,351 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:31,914 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:32,469 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:33,045 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:33,609 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:34,169 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:34,196 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:14:34,198 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:34,198 - scripts.scraper - INFO - Finished scraping payslips for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:14:34,303 - asyncio - ERROR - Future exception was never retrieved
+future: <Future finished exception=TargetClosedError('Target page, context or browser has been closed\nCall log:\nwaiting for locator(".divPaymentHistory").first.locator("a").nth(19)\n')>
+playwright._impl._errors.TargetClosedError: Target page, context or browser has been closed
+Call log:
+waiting for locator(".divPaymentHistory").first.locator("a").nth(19)
+
+2024-09-20 01:15:21,038 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-20 01:15:21,179 - __main__ - INFO - Scraping payslips for all users
+2024-09-20 01:15:21,243 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:15:21,255 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:15:21,634 - scripts.scraper - DEBUG - Browser opened for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:21,669 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:15:36,586 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:37,774 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:38,881 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:40,013 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:40,697 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:41,258 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:41,835 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:42,419 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:42,999 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-31 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:43,573 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:44,164 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:44,743 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:45,339 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:45,889 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:46,455 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:47,020 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:47,597 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:48,155 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:48,710 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:49,280 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-29 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:49,839 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-15 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:50,389 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-01 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:50,935 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:51,495 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:52,070 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:53,136 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:54,206 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:55,279 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:56,322 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-25 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:56,874 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-11 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:57,436 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:58,013 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:58,579 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:59,149 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:15:59,726 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:16:00,318 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:16:00,909 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:16:02,032 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-21 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:16:12,136 - scripts.scraper - ERROR - Locator expected to have text '06/04/2023'
+Actual value: 07/04/2023 
+Call log:
+LocatorAssertions.to_have_text with timeout 10000ms
+  - waiting for locator("#ctl00_MCPH_PayslipCtrl_udpEmployeeDetails").locator(".TDData").nth(2)
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+
+2024-09-20 01:16:12,232 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:16:13,307 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:16:14,424 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:16:15,012 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:16:15,588 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:16:16,217 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-27 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:16:16,830 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-13 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:16:17,441 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:16:18,513 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:16:19,115 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:16:19,124 - scripts.scraper - INFO - Scraped 48 payslips for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:16:19,775 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:16:19,807 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:16:20,460 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:16:20,887 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:16:20,887 - scripts.scraper - INFO - Finished scraping payslips for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:42,320 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-20 01:36:42,683 - __main__ - INFO - Scraping shifts for all users
+2024-09-20 01:36:42,743 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:36:42,761 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:36:44,429 - scripts.scraper - DEBUG - Browser opened for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:44,466 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:36:52,584 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-08, Start: 09:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:52,584 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-09, Start: 12:30:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:52,584 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-14, Start: 09:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:53,651 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-15, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:53,652 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-21, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:54,674 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-25, Start: 11:00:00, End: 17:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:54,675 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-27, Start: 16:00:00, End: 20:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:55,632 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-29, Start: 12:00:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:55,633 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-02, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:55,633 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-04, Start: 16:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:56,599 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-05, Start: 12:00:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:56,599 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-06, Start: 09:00:00, End: 13:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:56,599 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-10, Start: 08:00:00, End: 14:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:56,600 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-11, Start: 08:00:00, End: 15:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:57,572 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-12, Start: 15:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:57,572 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-15, Start: 10:00:00, End: 17:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:58,575 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-19, Start: 12:30:00, End: 18:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:58,575 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-22, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:58,575 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-24, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:59,571 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-27, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:36:59,572 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-30, Start: 17:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:00,578 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-05, Start: 16:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:00,578 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-08, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:01,533 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-09, Start: 16:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:01,534 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-13, Start: 13:00:00, End: 19:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:02,536 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-17, Start: 18:00:00, End: 23:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:02,536 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-20, Start: 18:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:02,536 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-22, Start: 18:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:03,501 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-24, Start: 17:00:00, End: 22:30:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:03,501 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-28, Start: 15:00:00, End: 21:00:00, Type: Schedule for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:05,427 - scripts.scraper - INFO - Scraped 30 shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:12,005 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-08, Start: 09:05:00, End: 14:47:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:12,005 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-09, Start: 12:25:00, End: 17:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:12,006 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-14, Start: 09:02:00, End: 14:58:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:12,996 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-15, Start: 16:55:00, End: 23:21:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:12,997 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-21, Start: 17:36:00, End: 22:58:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:13,978 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-25, Start: 10:59:00, End: 17:09:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:13,978 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-27, Start: 15:47:00, End: 21:06:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:14,926 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-07-29, Start: 12:41:00, End: 18:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:14,926 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-02, Start: 17:00:00, End: 23:02:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:14,926 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-04, Start: 15:56:00, End: 22:23:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:15,903 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-05, Start: 11:55:00, End: 18:14:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:15,903 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-06, Start: 08:55:00, End: 13:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:15,903 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-10, Start: 07:48:00, End: 14:17:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:15,903 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-11, Start: 07:52:00, End: 15:03:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:16,871 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-12, Start: 14:59:00, End: 22:53:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:16,872 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-15, Start: 09:58:00, End: 18:10:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:17,922 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-19, Start: 12:17:00, End: 17:55:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:17,922 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-22, Start: 17:56:00, End: 23:38:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:17,923 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-24, Start: 16:52:00, End: 23:01:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:18,949 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-27, Start: 17:04:00, End: 23:14:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:18,950 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-08-30, Start: 00:00:00, End: 00:00:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:19,980 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-05, Start: 16:01:00, End: 23:56:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:19,981 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-08, Start: 15:55:00, End: 22:40:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:20,960 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-09, Start: 16:07:00, End: 22:54:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:20,961 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-13, Start: 18:01:00, End: 19:03:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:21,906 - scripts.scraper - DEBUG - Scraped shift: Date: 2024-09-17, Start: 17:52:00, End: 22:36:00, Type: Timecard for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:24,778 - scripts.scraper - INFO - Scraped 26 shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:25,626 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:37:26,078 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:37:26,078 - scripts.scraper - INFO - Finished scraping shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:38:29,320 - asyncio - DEBUG - Using selector: EpollSelector
+2024-09-20 01:38:29,759 - __main__ - INFO - Scraping payslips for all users
+2024-09-20 01:38:29,816 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:38:29,845 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:38:31,598 - scripts.scraper - DEBUG - Browser opened for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:38:31,649 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:38:51,454 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:38:52,047 - scripts.scraper - DEBUG - Scraped payslip at date 2024-09-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:38:53,165 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:38:54,284 - scripts.scraper - DEBUG - Scraped payslip at date 2024-08-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:38:54,917 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:38:55,711 - scripts.scraper - DEBUG - Scraped payslip at date 2024-07-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:38:56,333 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:38:56,956 - scripts.scraper - DEBUG - Scraped payslip at date 2024-06-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:38:57,604 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-31 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:38:58,216 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:38:58,849 - scripts.scraper - DEBUG - Scraped payslip at date 2024-05-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:38:59,505 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:00,126 - scripts.scraper - DEBUG - Scraped payslip at date 2024-04-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:00,731 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:01,362 - scripts.scraper - DEBUG - Scraped payslip at date 2024-03-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:02,034 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-23 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:02,706 - scripts.scraper - DEBUG - Scraped payslip at date 2024-02-09 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:03,339 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-26 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:03,986 - scripts.scraper - DEBUG - Scraped payslip at date 2024-01-12 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:04,682 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-29 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:05,321 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-15 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:05,968 - scripts.scraper - DEBUG - Scraped payslip at date 2023-12-01 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:06,605 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-17 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:07,212 - scripts.scraper - DEBUG - Scraped payslip at date 2023-11-03 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:07,835 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-20 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:08,480 - scripts.scraper - DEBUG - Scraped payslip at date 2023-10-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:09,148 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-22 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:09,793 - scripts.scraper - DEBUG - Scraped payslip at date 2023-09-08 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:10,432 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-25 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:11,111 - scripts.scraper - DEBUG - Scraped payslip at date 2023-08-11 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:11,749 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-28 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:12,423 - scripts.scraper - DEBUG - Scraped payslip at date 2023-07-14 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:13,141 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:13,821 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:14,481 - scripts.scraper - DEBUG - Scraped payslip at date 2023-06-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:15,131 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-19 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:15,764 - scripts.scraper - DEBUG - Scraped payslip at date 2023-05-05 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:16,413 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-21 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:26,577 - scripts.scraper - ERROR - Locator expected to have text '06/04/2023'
+Actual value: 07/04/2023 
+Call log:
+LocatorAssertions.to_have_text with timeout 10000ms
+  - waiting for locator("#ctl00_MCPH_PayslipCtrl_udpEmployeeDetails").locator(".TDData").nth(2)
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">21/04/2023</td>
+  -   unexpected value "21/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+  -   locator resolved to <td valign="top" class="TDData">07/04/2023</td>
+  -   unexpected value "07/04/2023"
+
+2024-09-20 01:39:26,706 - scripts.scraper - DEBUG - Scraped payslip at date 2023-04-06 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:27,827 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:28,488 - scripts.scraper - DEBUG - Scraped payslip at date 2023-03-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:29,151 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-24 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:29,800 - scripts.scraper - DEBUG - Scraped payslip at date 2023-02-10 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:30,457 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-27 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:31,202 - scripts.scraper - DEBUG - Scraped payslip at date 2023-01-13 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:31,843 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-30 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:32,961 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-16 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:33,593 - scripts.scraper - DEBUG - Scraped payslip at date 2022-12-02 for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:33,602 - scripts.scraper - INFO - Scraped 48 payslips for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:34,306 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:39:34,343 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-09-20 01:39:35,037 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-09-20 01:39:35,565 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-09-20 01:39:35,565 - scripts.scraper - INFO - Finished scraping payslips for user fd281e9f471c4d5eae319ccf0c730cb9

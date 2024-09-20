@@ -130,6 +130,17 @@ class Payslip:
         self.id = row.get("id")
         self.user_id = row.get("user_id")
 
+    def get_from_db(self, cursor):
+        query = """
+            SELECT id FROM payslip
+            WHERE date = %s and user_id = %s
+        """
+        values = (self.date, self.user_id)
+        cursor.execute(query, values)
+        self.id = cursor.fetchone()
+        print(self.id)
+        print("idddd")
+
     def exist(self, cursor, user_id):
         query = """
             SELECT * FROM payslip
@@ -149,7 +160,7 @@ class Payslip:
                 UPDATE payslip
                 SET rate = %s, net = %s
                 WHERE id = %s
-            """
+           """
             values = (self.rate, self.net, existing_payslip[0])
         else:
             query = """
@@ -432,13 +443,33 @@ async def scrape_payslips(browser, user):
         net_pay = net_pay.split("£")[1]
 
         # create payslip object
-        row = {"date": date.date(), "net": net_pay, "rate": rate}
+        row = {"date": date.date(), "net": net_pay, "rate": rate, "user_id": user.id}
         payslip = Payslip(row)
+        print(payslip.user_id)
         logger.debug(f"Scraped payslip at date {payslip.date} for user {user.id}")
         payslips.append(payslip)
 
     logger.info(f"Scraped {len(payslips)} payslips for user {user.id}")
     return payslips
+
+
+def assign_payslip(payslips):
+    qry = """
+        UPDATE shift
+        SET payslip_id = %s
+        WHERE date >= %s AND date <= %s AND user_id = %s
+    """
+    print("hey")
+
+    with connect_sql() as cursor:
+        [payslip.get_from_db(cursor) for payslip in payslips]
+        for payslip in payslips:
+            print(payslip.id)
+            end_date = payslip.date - timedelta(days=2)
+            start_date = end_date - timedelta(weeks=2)
+            values = (payslip.id, start_date, end_date, payslip.user_id)
+            cursor.execute(qry, values)
+
 
 
 def assign_shifts(user, cursor):
@@ -475,6 +506,7 @@ async def get_payslips(browser, user):
         payslips = await scrape_payslips(browser, user)
         for payslip in payslips:
             payslip.commit(cursor, user.id)
+    assign_payslip(payslips)
 
 
 async def get_shifts(browser, user):
@@ -489,7 +521,6 @@ async def get_shifts(browser, user):
         for shift in schedule + timecard:
             shift.commit(cursor, user.id)
 
-        assign_shifts(user, cursor)
 
 
 async def scrape_user(user, playwright, headless, command):
