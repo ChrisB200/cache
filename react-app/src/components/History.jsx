@@ -9,6 +9,7 @@ function History() {
   const { shifts } = useShifts();
   const [currentPayslip, setCurrentPayslip] = useState(null);
   const [totalHours, setTotalHours] = useState(null);
+  const [toggleTimecard, setToggleTimecard] = useState("timecard");
 
   const options = {
     month: "short",
@@ -18,8 +19,8 @@ function History() {
   const shiftOptions = {
     day: "2-digit",
     month: "2-digit",
-    year: "2-digit"
-  }
+    year: "2-digit",
+  };
 
   const handlePrev = () => {
     const index = payslips.indexOf(currentPayslip);
@@ -67,9 +68,13 @@ function History() {
           <div className={styles.payslip}>
             <div className={styles.date}>
               <button onClick={handlePrev}>&#60;</button>
-              <div>
-                <p className={styles.year}>{currentPayslip.date.getFullYear()}</p>
-                <h3>{currentPayslip.date.toLocaleString("default", options)}</h3>
+              <div className={styles.header}>
+                <p className={styles.year}>
+                  {currentPayslip.date.getFullYear()}
+                </p>
+                <h3>
+                  {currentPayslip.date.toLocaleString("default", options)}
+                </h3>
               </div>
               <button onClick={handleNext}>&#62;</button>
             </div>
@@ -98,26 +103,49 @@ function History() {
             </div>
           </div>
           <div className={styles.record}>
-            <select name="type" id="type">
-              <option value="Timecard">Timecard</option>
-              <option value="Schedule">Schedule</option>
+            <select
+              name="type"
+              id="type"
+              value={toggleTimecard}
+              onChange={(e) => setToggleTimecard(e.target.value)}
+            >
+              <option value="timecard">Timecard</option>
+              <option value="schedule">Schedule</option>
             </select>
-            <div className={styles.grid}>
-              <p className={styles.label}>Date</p>
-              <p className={styles.label}>Time</p>
-              <p className={styles.label}>Hours</p>
-              <p className={styles.label}>Pay</p>
-              {currentPayslip.shifts.map((id) => {
-                const shift = shifts.timecard.find((shift) => {return id === shift.id})
-                return (
-                  <>
-                    <p>{new Date(shift.date).toLocaleString("default", shiftOptions)}</p>
-                    <p>{shift.start} - {shift.end}</p>
-                    <p>{shift.hours.toFixed(1)}</p>
-                    <p>{(shift.hours * currentPayslip.rate).toFixed(2)}</p>
-                  </>
-                )
-              })}
+            <div className={styles.gridbox}>
+              <div className={styles.grid}>
+                <p className={styles.label}>Date</p>
+                <p className={styles.label}>Time</p>
+                <p className={styles.label}>Hours</p>
+                <p className={styles.label}>Pay</p>
+                {currentPayslip.shifts.length == 0 ? (
+                  <p>No history of shifts</p>
+                ) : (
+                  currentPayslip.shifts.map((id) => {
+                      console.log(currentPayslip)
+                    const shift = shifts[toggleTimecard].find((shift) => {
+                      return id === shift.id;
+                    });
+
+                    if (shift === undefined) return;
+                    return (
+                      <>
+                        <p>
+                          {new Date(shift.date).toLocaleString(
+                            "default",
+                            shiftOptions,
+                          )}
+                        </p>
+                        <p>
+                          {shift.start} - {shift.end}
+                        </p>
+                        <p>{shift.hours.toFixed(1)}</p>
+                        <p>£{(shift.hours * currentPayslip.rate).toFixed(2)}</p>
+                      </>
+                    );
+                  })
+                )}
+              </div>
             </div>
           </div>
         </div>

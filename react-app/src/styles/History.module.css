@@ -3,11 +3,12 @@
   padding: 1rem 2rem;
   border-radius: 10px;
   height: 350px;
+  margin-bottom: 10rem;
 }
 
 .content {
   display: grid;
-  grid-template-columns: auto 2fr;
+  grid-template-columns: 1fr 2fr;
   width: 100%;
   height: 100%;
 }
@@ -21,6 +22,7 @@
   height: 100%;
   position: relative;
   margin-right: 1rem;
+  padding-right: 2rem;
 }
 
 .payslip::after {
@@ -38,6 +40,7 @@
   display: flex;
   width: 100%;
   align-items: end;
+  justify-content: space-between;
 }
 
 .date > button {
@@ -93,7 +96,8 @@
 }
 
 .record {
-  overflow-y: hidden;
+  overflow-y: scroll;
+  margin-left: 1rem;
 }
 
 .record > select {
@@ -112,5 +116,4 @@
   grid-template-columns: repeat(4, auto);
   row-gap: 2rem;
   margin-top: 2rem;
-  overflow-y: scroll;
 }

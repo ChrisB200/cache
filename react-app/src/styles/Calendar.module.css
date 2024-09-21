@@ -1,9 +1,6 @@
-
-/* Make the calendar width flexible and responsive */
 .calendar {
   margin-top: 2rem;
   width: 100%;
-  max-width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,6 +20,7 @@
 
 .prev,
 .next {
+  padding: 0;
   background-color: transparent;
   border: none;
   font-size: var(--font-700);
@@ -40,7 +38,7 @@
   grid-template-rows: repeat(6, auto);
   grid-template-columns: repeat(7, 1fr); 
   row-gap: 1.5rem;
-  column-gap: clamp(0.5rem, 1vw, 1rem);
+  column-gap: clamp(0.25rem, 2%, 1rem);
 }
 
 .day {

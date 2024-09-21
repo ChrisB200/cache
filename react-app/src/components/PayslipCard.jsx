@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { fetchForecastedPayslip } from "../api/work";
 import { calculateTimeLeft } from "../utils/shift";
-import styles from "../styles/PayslipCard.module.css";
+import specific from "../styles/PayslipCard.module.css"
+import styles from "../styles/Card.module.css";
 import "../index.css"
 
 function PayslipCard() {
@@ -45,7 +46,7 @@ function PayslipCard() {
               weekday: "short",
             })}
           </p>
-          <p className={styles.day}>{new Date(nextPayslip?.date).getDate()}</p>
+          <p className={specific.day}>{new Date(nextPayslip?.date).getDate()}</p>
           <p className={styles.month}>
             {new Date(nextPayslip?.date).toLocaleString("default", {
               month: "short",
@@ -54,7 +55,7 @@ function PayslipCard() {
         </div>
         <div className={styles.inner}>
           <div className={styles.top}>
-            <p className={styles.cash}>
+            <p className={specific.cash}>
               {`£${(nextPayslip?.hours * nextPayslip?.rate).toFixed(2)}`}
             </p>
             <p className={styles.hours}>{nextPayslip?.hours.toFixed(2)}hrs</p>

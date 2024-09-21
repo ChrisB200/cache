@@ -1,13 +1,14 @@
 .widgets {
-  padding: 3rem 5vw;
+  padding: 2rem 5vw;
   width: 100%;
   overflow-y: scroll;
   height: 100vh;
+  flex: 1;
 }
 
-.upcoming > h2 {
+.header {
   font-weight: normal;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .upcoming > div {
@@ -15,4 +16,8 @@
   flex-wrap: wrap;
   justify-content: space-between;
   row-gap: 2rem;
+}
+
+.history {
+  margin-top: 3rem;
 }

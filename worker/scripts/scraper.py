@@ -73,6 +73,15 @@ class Shift:
     def __str__(self):
         return f"Date: {self.date}, Start: {self.start}, End: {self.end}, Type: {self.type}"
 
+    def get_from_db(self, cursor):
+        query = """
+            SELECT id FROM payslip
+            WHERE date = %s and user_id = %s
+        """
+        values = (self.date, self.user_id)
+        cursor.execute(query, values)
+        self.id = cursor.fetchone()
+
     @staticmethod
     def convert_to_time(delta):
         hours, remainder = divmod(delta.seconds, 3600)
@@ -459,7 +468,6 @@ def assign_payslip(payslips):
         SET payslip_id = %s
         WHERE date >= %s AND date <= %s AND user_id = %s
     """
-    print("hey")
 
     with connect_sql() as cursor:
         [payslip.get_from_db(cursor) for payslip in payslips]
@@ -471,34 +479,25 @@ def assign_payslip(payslips):
             cursor.execute(qry, values)
 
 
-
-def assign_shifts(user, cursor):
-    payslip_qry = """
-        SELECT * FROM payslip
-        WHERE user_id = %s
+def assign_shifts(shifts, user_id):
+    qry = """
+        UPDATE shift
+        SET payslip_id = %s
+        WHERE id = %s AND user_id = %s
     """
-    rows = load_table(cursor, payslip_qry, user.id)
-    payslips = [Payslip(row) for row in rows]
 
-    shift_qry = """
-        SELECT * FROM shift
-        WHERE user_id = %s and payslip_id IS NULL
-    """
-    rows = load_table(cursor, shift_qry, user.id)
-    shifts = [Shift(row) for row in rows]
+    with connect_sql() as cursor:
+        data = load_table(cursor, "SELECT * FROM payslip WHERE user_id = %s", user_id)
+        payslips = [Payslip(row) for row in data]
 
-    for payslip in payslips:
-        date_end = payslip.date - timedelta(days=2)
-        date_start = date_end - timedelta(weeks=2)
+        [shift.get_from_db(cursor) for shift in shifts]
         for shift in shifts:
-            if shift.date > date_start and shift.date < date_end:
-                qry = """
-                    UPDATE shift
-                    SET payslip_id = %s and rate = %s
-                    WHERE id = %s and type = %s
-                """
-                values = (payslip.id, payslip.rate, shift.id, "Timecard")
-                cursor.execute(qry, values)
+            for payslip in payslips:
+                end_date = payslip.date - timedelta(days=2)
+                start_date = end_date - timedelta(weeks=2)
+                if shift.date <= end_date and shift.date >= start_date:
+                    values = (payslip.id, shift.id, user_id)
+                    cursor.execute(qry, values)
 
 
 async def get_payslips(browser, user):
@@ -520,6 +519,8 @@ async def get_shifts(browser, user):
 
         for shift in schedule + timecard:
             shift.commit(cursor, user.id)
+    assign_shifts(schedule, user.id)
+    assign_shifts(timecard, user.id)
 
 
 

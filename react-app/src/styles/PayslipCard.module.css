@@ -1,50 +1,7 @@
-.container {
-  padding: 1rem 2rem;
-  background-color: var(--primary);
-  border-radius: 10px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--primary-secondary);
-  max-width: 330px;
-  width: 100%;
-}
-
-.header {
-  margin-bottom: 1rem;
-}
-
-.content {
-  display: flex;
-  justify-content: space-between;
-}
-
-.nextDate {
-  text-align: center;
-}
-
-.dayName,
-.month {
-  font-size: var(--font-500);
-}
-
 .day {
   font-size: var(--font-700);
   font-weight: bold;
   color: var(--accent-green);
-}
-
-.inner {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.top {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 2rem;
 }
 
 .cash {
@@ -52,27 +9,4 @@
   font-size: var(--font-500);
   color: var(--accent-green);
   width: 140px;
-}
-
-.hours {
-  color: var(--text-accent);
-}
-
-.timer {
-  display: flex;
-  justify-content: space-between;
-  gap: 2rem;
-}
-
-.section {
-  text-align: center;
-}
-
-.value {
-  font-size: var(--font-500);
-}
-
-.name {
-  color: var(--text-accent);
-  font-size: var(--font-300);
 }
