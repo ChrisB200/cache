@@ -4,7 +4,7 @@ import { BASE_API_URL } from '../utils/constants';
 export const fetchPayslipByMonth = async (month, year) => {
   try {
     const response = await httpClient.get(
-      `${BASE_API_URL}/work/get_payslip?month=${month}&year=${year}`
+      `${BASE_API_URL}/payslips/${month}/${year}`
     );
     return response.data;
   } catch (error) {
@@ -15,7 +15,7 @@ export const fetchPayslipByMonth = async (month, year) => {
 
 export const fetchAllPayslips = async () => {
   try {
-    const response = await httpClient.get(`${BASE_API_URL}/work/all_payslips`);
+    const response = await httpClient.get(`${BASE_API_URL}/payslips`);
     return response.data;
   } catch (error) {
     console.error('Error fetching all payslips:', error);
@@ -25,7 +25,7 @@ export const fetchAllPayslips = async () => {
 
 export const fetchAllShifts = async () => {
   try {
-    const response = await httpClient.get(`${BASE_API_URL}/work/all_shifts`);
+    const response = await httpClient.get(`${BASE_API_URL}/shifts`);
     return response.data;
   } catch (error) {
     console.error('Error fetching all shifts:', error);
@@ -35,7 +35,7 @@ export const fetchAllShifts = async () => {
 
 export const fetchPayslipShifts = async (payslip_id) => {
   try {
-    const response = await httpClient.get(`${BASE_API_URL}/work/payslip_shifts?payslip_id=${payslip_id}`);
+    const response = await httpClient.get(`${BASE_API_URL}/payslips/${payslip_id}/shifts`);
     return response.data;
   } catch (error) {
     console.error("Error fetching shifts for payslip");
@@ -45,7 +45,7 @@ export const fetchPayslipShifts = async (payslip_id) => {
 
 export const fetchForecastedPayslip = async () => {
   try {
-    const response = await httpClient.get(`${BASE_API_URL}/work/forecasted_payslip`);
+    const response = await httpClient.get(`${BASE_API_URL}/payslips/forecast`);
     return response.data
   } catch (error) {
     console.error(error)

@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, jsonify
 from flask_login import login_required, current_user
 from app.models import db, User, Shift, Payslip
 from sqlalchemy import desc
@@ -7,23 +7,23 @@ from datetime import timedelta, datetime
 work = Blueprint("work", __name__)
 
 
-@work.route("/api/work/all_shifts", methods=["GET"])
+@work.route("/api/shifts", methods=["GET"])
 @login_required
 def all_shifts():
     return jsonify([shift.to_json() for shift in current_user.shifts])
 
 
-@work.route("/api/work/all_payslips", methods=["GET"])
+@work.route("/api/payslips", methods=["GET"])
 @login_required
 def all_payslips():
     return jsonify([payslip.to_json() for payslip in current_user.payslips])
 
 
-@work.route("/api/work/payslips_by_month", methods=["GET"])
+@work.route("/api/payslips/month/<int:month>/<int:year>", methods=["GET"])
 @login_required
-def payslips_by_month():
-    month = request.args.get("month")
-    year = request.args.get("year")
+def payslips_by_month(month, year):
+    if month < 1 or month > 12:
+        return jsonify("Invalid Month"), 422
 
     start_date = datetime(year, month, 1)
     end_date = start_date + timedelta(month=1)
@@ -32,23 +32,9 @@ def payslips_by_month():
     return jsonify([payslip.to_json() for payslip in payslips])
 
 
-@work.route("/api/work/shifts_by_month", methods=["GET"])
+@work.route("/api/payslips/<int:payslip_id>/shifts", methods=["GET"])
 @login_required
-def shifts_by_month():
-    month = request.args.get("month")
-    year = request.args.get("year")
-
-    start_date = datetime(int(year), int(month), 1)
-    end_date = start_date + timedelta(weeks=4)
-    shifts = db.session.query(Shift).filter(Shift.date.between(start_date, end_date)).all()
-
-    return jsonify([shift.to_json() for shift in shifts])
-
-
-@work.route("/api/work/shifts_by_payslip", methods=["GET"])
-@login_required
-def shifts_by_payslip():
-    payslip_id = request.args.get("payslip_id")
+def shifts_by_payslip(payslip_id):
     payslip = Payslip.query.filter_by(user_id=current_user.id, id=payslip_id).first()
 
     if payslip:
@@ -57,7 +43,7 @@ def shifts_by_payslip():
         return jsonify("Can't find the payslip"), 404
 
 
-@work.route("/api/work/forecasted_payslip", methods=["GET"])
+@work.route("/api/payslips/forecast", methods=["GET"])
 @login_required
 def forecasted_payslip():
     recent_payslip = Payslip.query.order_by(desc(Payslip.date)).first()
@@ -83,7 +69,5 @@ def forecasted_payslip():
 
     payslip["hours"] = sum([shift.hours for shift in combined])
     payslip["shifts"] = [shift.to_json() for shift in combined]
-
-    print([shift.to_json() for shift in combined])
 
     return jsonify(payslip)
