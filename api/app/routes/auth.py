@@ -6,7 +6,7 @@ from app.models import db, User
 auth = Blueprint("auth", __name__)
 
 
-@auth.route("/api/auth/login", methods=["POST"])
+@auth.route("/api/login", methods=["POST"])
 def login():
     email = request.json.get("email")
     password = request.json.get("password")
@@ -23,7 +23,7 @@ def login():
     return jsonify({"success": True}), 201
 
 
-@auth.route("/api/auth/signup", methods=["POST"])
+@auth.route("/api/signup", methods=["POST"])
 def signup():
     email = request.json.get("email")
     password = request.json.get("password")
@@ -56,14 +56,14 @@ def signup():
         return jsonify({"error": "Internal server error"}), 500
 
 
-@auth.route("/api/auth/logout", methods=["POST"])
+@auth.route("/api/logout", methods=["POST"])
 @login_required
 def logout():
     logout_user()
     return jsonify({"success": True}), 200
 
 
-@auth.route("/api/auth/delete", methods=["DELETE"])
+@auth.route("/api/delete", methods=["DELETE"])
 @login_required
 def delete():
     id = current_user.id
@@ -77,13 +77,13 @@ def delete():
         return jsonify({"error": "Internal server error"}), 500
 
 
-@auth.route("/api/auth/is_authenticated", methods=["GET"])
+@auth.route("/api/is_authenticated", methods=["GET"])
 @login_required
 def is_authenticated():
     return jsonify({"success": True}), 200
 
 
-@auth.route("/api/auth/is_user", methods=["POST"])
+@auth.route("/api/is_user", methods=["POST"])
 def is_user():
     email = request.json.get("email")
     existing = User.query.filter_by(email=email).first()
