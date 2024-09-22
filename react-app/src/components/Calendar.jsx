@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { usePayslips, useShifts } from "../hooks/contexts";
-import styles from "../styles/Calendar.module.css"
-import { isPayslipDate, isShiftDate, isToday, isSelected } from "../utils/shift";
+import styles from "../styles/Calendar.module.css";
+import {
+  isPayslipDate,
+  isShiftDate,
+  isToday,
+  isSelected,
+} from "../utils/shift";
 
 function daysInMonth(year, month) {
   return new Date(year, month + 1, 0).getDate();
@@ -30,7 +35,7 @@ function Calendar({ currentDate, setCurrentDate, onDateSelect }) {
       setSelectedDay(day);
       onDateSelect(day);
     }
-  }
+  };
 
   useEffect(() => {
     const generateCalendar = (year, month) => {
@@ -86,17 +91,19 @@ function Calendar({ currentDate, setCurrentDate, onDateSelect }) {
         </button>
       </div>
       <div className={styles.dates}>
-        <p>Sun</p>
-        <p>Mon</p>
-        <p>Tue</p>
-        <p>Wed</p>
-        <p>Thu</p>
-        <p>Fri</p>
-        <p>Sat</p>
+        <p className={styles.weekday}>Sun</p>
+        <p className={styles.weekday}>Mon</p>
+        <p className={styles.weekday}>Tue</p>
+        <p className={styles.weekday}>Wed</p>
+        <p className={styles.weekday}>Thu</p>
+        <p className={styles.weekday}>Fri</p>
+        <p className={styles.weekday}>Sat</p>
         {days.map((day, index) => (
           <p
             key={index}
-            onClick={() => {handleDateClick(day)}}
+            onClick={() => {
+              handleDateClick(day);
+            }}
             className={`
                 ${styles.day} 
                 ${isPayslipDate(payslips, day) ? styles.payslip : ""}

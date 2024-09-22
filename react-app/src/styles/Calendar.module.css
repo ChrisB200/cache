@@ -34,12 +34,13 @@
 
 .dates {
   display: grid;
-  text-align: center;
   grid-template-rows: repeat(6, auto);
   grid-template-columns: repeat(7, 1fr); 
   row-gap: 1.5rem;
   column-gap: clamp(0.25rem, 2%, 1rem);
+  justify-content: center;
 }
+
 
 .day {
   position: relative;

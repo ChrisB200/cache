@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import styles from "../styles/Navbar.module.css";
 import "../index.css";
+import { useFont } from "../hooks/contexts";
 
 export default function Navbar() {
+  const { increaseFontSize, decreaseFontSize, resetFontSize } = useFont()
+
   return (
     <nav className={styles.nav}>
       <div className={styles.logo}>CACHE</div>
@@ -37,6 +40,11 @@ export default function Navbar() {
           </div>
           <p className="btn-text">Settings</p>
         </Link>
+      </div>
+      <div className={styles.controls}>
+        <button onClick={decreaseFontSize}>A-</button>
+        <button onClick={resetFontSize}>R</button>
+        <button onClick={increaseFontSize}>A+</button>
       </div>
     </nav>
   );

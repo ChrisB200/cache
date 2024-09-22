@@ -4,18 +4,21 @@ import Login from "./pages/LoginPage";
 import Home from "./pages/HomePage";
 import Work from "./pages/WorkPage";
 import ProtectedRoutes from "./utils/protectedRoutes"
+import { FontProvider } from "./contexts/FontContext";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/login" element={<Login />} />
+    <FontProvider>
+      <Routes>
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
 
-      <Route element={<ProtectedRoutes />}>
-        <Route path="/home" element={<Home />} />
-        <Route path="/work" element={<Work />}/>
-      </Route>
-    </Routes>
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/work" element={<Work />}/>
+        </Route>
+      </Routes>
+    </FontProvider>
   );
 }
 

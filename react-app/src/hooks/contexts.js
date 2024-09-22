@@ -1,6 +1,5 @@
-// src/hooks/usePayslips.js
-
 import { useContext } from "react";
+import { FontContext } from "../contexts/FontContext";
 import { PayslipContext } from "../contexts/PayslipContext"; // Adjust import path as necessary
 import { ShiftContext } from "../contexts/ShiftContext";
 
@@ -17,5 +16,13 @@ export const useShifts = () => {
   if (!context) {
     throw new Error("useShifts must be used within a ShiftProvider");
   }
+  return context;
+};
+
+export const useFont = () => {
+  const context = useContext(FontContext);
+  if (!context) {
+    throw new Error("useFont must be used within a FontProvider");
+  } 
   return context;
 };

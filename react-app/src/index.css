@@ -13,19 +13,12 @@
 }
 
 :root {
-  /* Updated Text Sizes */
-  --font-350: 0.875rem;
-  /* 14px (new smaller value) */
+  --font-350: calc(var(--font-400) - .125rem);
   --font-400: 1rem;
-  /* 16px (new font-400) */
-  --font-500: 1.125rem;
-  /* 18px (was --font-400) */
-  --font-700: 1.5rem;
-  /* 24px (was --font-500) */
-  --font-800: 2.25rem;
-  /* 36px (was --font-700) */
-  --font-900: 3rem;
-  /* 48px (was --font-800) */
+  --font-500: calc(var(--font-400) + .125rem);
+  --font-700: calc(var(--font-400) + .5rem);
+  --font-800: calc(var(--font-400) + 1.25rem);
+  --font-900: calc(var(--font-400) + 1.5rem);
 
   --primary: #181a23;
   --primary-secondary: #1e212a;
@@ -42,7 +35,9 @@
   margin: 0;
   padding: 0;
   font-family: "Josefin Sans", sans-serif;
+  transition: font-size 0.1s;
 }
+
 
 h1 {
   font-size: var(--font-800);

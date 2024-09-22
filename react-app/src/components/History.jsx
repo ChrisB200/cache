@@ -72,9 +72,9 @@ function History() {
                 <p className={styles.year}>
                   {currentPayslip.date.getFullYear()}
                 </p>
-                <h3>
+                <h2>
                   {currentPayslip.date.toLocaleString("default", options)}
-                </h3>
+                </h2>
               </div>
               <button onClick={handleNext}>&#62;</button>
             </div>
