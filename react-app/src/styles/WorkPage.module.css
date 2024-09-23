@@ -1,5 +1,12 @@
+.toggles {
+  display: flex;
+  justify-content: space-between;
+}
+
 .widgets {
-  padding: 2rem 5vw;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 2rem;
   width: 100%;
   overflow-y: scroll;
   height: 100vh;
@@ -21,3 +28,16 @@
 .history {
   margin-top: 3rem;
 }
+
+.show {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.hide {
+    display: none;
+}
+
+

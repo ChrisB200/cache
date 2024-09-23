@@ -5,8 +5,7 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-    flex: 0 1 150px;
-    flex-shrink: 5;
+    transition: width 0.3s;
 }
 
 .logo {
@@ -27,13 +26,13 @@
     all: unset;
 }
 
-.anchor > p {
+.anchor>p {
     font-weight: bold;
     text-decoration: none;
     transition: color 0.3s;
 }
 
-.anchor > p:hover {
+.anchor>p:hover {
     color: var(--accent-orange);
     text-decoration: underline;
     cursor: pointer;
@@ -44,7 +43,7 @@
     justify-content: space-between;
 }
 
-.controls > button {
+.controls>button {
     background-color: transparent;
     padding: 0;
     margin: 0;
@@ -52,3 +51,24 @@
     font-weight: bold;
     margin-bottom: 2rem;
 }
+
+.expanded {
+    width: 150px;
+    transition: width 0.3s;
+}
+
+.collapsed {
+    width: 0;
+    /* Width when collapsed */
+    height: 0;
+    padding: 0;
+}
+
+.toggleButton {
+    display: absolute;
+    top: 0;
+    left: 0;
+    width: 3rem;
+    height: 3rem;
+}
+

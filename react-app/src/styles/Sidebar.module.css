@@ -1,15 +1,22 @@
-
 .sidebar {
   height: 100vh;
   background-color: var(--secondary);
-  padding: 0 2rem;
+  padding-right: 2rem;
+  padding-left: 2rem;
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
-  min-width: 21.875rem;
-  width: 100%;
-  max-width: 21.875rem;
-  flex-shrink: 5;
+  transition: width 0.3s ease, padding 0.3s ease; /* Transition for width and padding */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.expanded {
+  width: 21.875rem; /* Sidebar expanded width */
+}
+
+.collapsed {
+  width: 0;
+  padding: 0; /* Collapse both width and padding */
 }
 
 .container {
@@ -26,4 +33,30 @@
   margin-left: 1.2rem;
 }
 
+.toggleButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 10px;
+  display: block;
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    position: absolute;
+    width: 100%; /* Full width when open */
+    top: 0;
+    right: 0;
+    transition: width 0.3s ease, padding 0.3s ease; /* Ensure transition is smooth */
+    box-sizing: border-box;
+  }
+
+  .collapsed {
+    width: 0; /* Collapse smoothly */
+    padding: 0; /* Transition padding for smoother collapse */
+  }
+}
 

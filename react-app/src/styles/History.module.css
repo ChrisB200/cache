@@ -2,15 +2,27 @@
   background-color: var(--primary-secondary);
   padding: 1rem 2rem;
   border-radius: 10px;
-  height: 21.875rem;
-  margin-bottom: 10rem;
+  height: 18.75rem;
+  position: relative;
 }
 
 .content {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
-  height: 100%;
+  height: auto;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 10rem;
+}
+
+.pcontainer {
+  flex: 1;
+}
+
+.scontainer {
+  flex: 5;
+  min-width: 360px;
 }
 
 .payslip {
@@ -19,21 +31,12 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  min-width: 100px;
+  width: 100%;
   height: 100%;
   position: relative;
-  margin-right: 1rem;
-  padding-right: 2rem;
-}
-
-.payslip::after {
-  position: absolute;
-  content: "";
-  top: 0;
-  right: 0;
-  width: 5px;
-  background-color: #292D38;
-  height: 100%;
-  border-radius: 10px;
+  text-align: center;
+  flex: 1;
 }
 
 .date {
@@ -76,15 +79,10 @@
   list-style: none;
 }
 
-.labels, .values {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.labels {
-  color: var(--text-accent);
-  text-align: right;
+.values {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 0.5rem;
 }
 
 .label {
@@ -96,8 +94,7 @@
 }
 
 .record {
-  overflow-y: scroll;
-  margin-left: 1rem;
+  height: 100%;
 }
 
 .record > select {
@@ -111,9 +108,12 @@
   cursor: pointer;
 }
 
+
 .grid {
   display: grid;
   grid-template-columns: repeat(4, auto);
   row-gap: 2rem;
   margin-top: 2rem;
+  overflow-y: auto;
+  height: 70%;
 }
