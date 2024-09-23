@@ -18,6 +18,7 @@
 
 .pcontainer {
   flex: 1;
+  width: 170px;
 }
 
 .scontainer {
