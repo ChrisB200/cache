@@ -4,8 +4,15 @@ import { useShifts } from "../hooks/contexts";
 import ShiftPanel from "../components/ShiftPanel";
 import { combineShifts } from "../utils/shift";
 import styles from "../styles/Sidebar.module.css";
+import calendar from "../assets/icons/calendar.png";
+import ClickableIcon from "../components/ClickableIcon";
 
-function Sidebar({ currentDate, setCurrentDate, isSidebarOpen, toggleSidebar }) {
+function Sidebar({
+  currentDate,
+  setCurrentDate,
+  isSidebarOpen,
+  toggleSidebar,
+}) {
   const { shifts, error } = useShifts();
   const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -14,18 +21,25 @@ function Sidebar({ currentDate, setCurrentDate, isSidebarOpen, toggleSidebar }) 
   };
 
   const isSelected = (date) => {
-    return date.getMonth() === selectedDate.getMonth() &&
-           date.getFullYear() === selectedDate.getFullYear() &&
-           date.getDate() === selectedDate.getDate();
+    return (
+      date.getMonth() === selectedDate.getMonth() &&
+      date.getFullYear() === selectedDate.getFullYear() &&
+      date.getDate() === selectedDate.getDate()
+    );
   };
 
   return (
-    <div className={`${styles.sidebar} ${isSidebarOpen ? styles.expanded : styles.collapsed}`}>
+    <div
+      className={`${styles.sidebar} ${isSidebarOpen ? styles.expanded : styles.collapsed}`}
+    >
       {isSidebarOpen ? (
         <>
-          <button onClick={toggleSidebar} className={styles.toggleButton}>
-            Hide Sidebar
-          </button>
+          <ClickableIcon
+            className={`${isSidebarOpen ? styles.cal : styles.hide}`}
+            icon={calendar}
+            onClick={toggleSidebar}
+          />
+          <div className={styles.space}/>
           <Calendar
             currentDate={currentDate}
             setCurrentDate={setCurrentDate}
@@ -38,8 +52,10 @@ function Sidebar({ currentDate, setCurrentDate, isSidebarOpen, toggleSidebar }) 
               ) : (
                 combineShifts(shifts).map((shift, index) => {
                   const shiftDate = new Date(shift.date);
-                  if (shiftDate.getMonth() === currentDate.getMonth() &&
-                      shiftDate.getFullYear() === currentDate.getFullYear()) {
+                  if (
+                    shiftDate.getMonth() === currentDate.getMonth() &&
+                    shiftDate.getFullYear() === currentDate.getFullYear()
+                  ) {
                     return (
                       <ShiftPanel
                         key={index}
@@ -57,11 +73,11 @@ function Sidebar({ currentDate, setCurrentDate, isSidebarOpen, toggleSidebar }) 
             </div>
           </div>
         </>
-      ) : (<></> 
+      ) : (
+        <></>
       )}
     </div>
   );
 }
 
 export default Sidebar;
-

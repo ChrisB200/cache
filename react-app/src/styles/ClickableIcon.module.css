@@ -1,9 +1,13 @@
 .container {
-  width: 32px;
+  width: 1.5rem;
   height: auto;
 }
 
 .container > img {
   width: 100%;
   height: auto;
+}
+
+.container:hover {
+  cursor: pointer;
 }

@@ -6,7 +6,6 @@
   justify-content: center;
 }
 
-/* Responsive header adjustments */
 .header {
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -39,6 +38,11 @@
   row-gap: 1.5rem;
   column-gap: clamp(0.25rem, 2%, 1rem);
   justify-content: center;
+}
+
+.weekday {
+  width: 40px;
+  text-align: center;
 }
 
 

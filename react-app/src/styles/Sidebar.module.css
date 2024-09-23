@@ -7,11 +7,11 @@
   flex-direction: column;
   overflow-y: hidden;
   transition: width 0.3s ease, padding 0.3s ease; /* Transition for width and padding */
-  box-sizing: border-box; /* Include padding in width calculation */
 }
 
 .expanded {
   width: 21.875rem; /* Sidebar expanded width */
+  min-width: 20rem;
 }
 
 .collapsed {
@@ -22,6 +22,10 @@
 .container {
   margin-top: 3rem;
   overflow-y: auto;
+}
+
+.space {
+  margin-bottom: 1rem;
 }
 
 .shifts {
@@ -44,6 +48,20 @@
   display: block;
 }
 
+
+.cal {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 1rem;
+  margin-top: 1rem;
+}
+
+.hide {
+    display: none;
+}
+
 @media (max-width: 480px) {
   .sidebar {
     position: absolute;
@@ -60,3 +78,10 @@
   }
 }
 
+@media (max-width: 768px) {
+  .sidebar {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
