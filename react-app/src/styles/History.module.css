@@ -22,7 +22,7 @@
 
 .scontainer {
   flex: 5;
-  min-width: 360px;
+  min-width: 300px;
 }
 
 .payslip {
@@ -110,10 +110,63 @@
 
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(4, auto);
-  row-gap: 2rem;
+  grid-template-columns: 1fr;
   margin-top: 2rem;
   overflow-y: auto;
   height: 70%;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.box {
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--primary-tertiary);
+  margin-right: 1rem;
+  border-radius: 10px;
+}
+
+.day {
+  font-size: var(--font-500);
+  font-weight: bold;
+  color: var(--accent-orange);
+}
+
+.date {
+  font-size: var(--font-350);
+}
+
+
+.details {
+  flex-grow: 2;
+}
+
+.shiftHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dropdown {
+  font-size: var(--font-800);
+  align-self: baseline;
+}
+
+.money {
+  display: flex;
+  justify-content: space-between;
+}
+
+.hours {
+  color: var(--text-accent);
+}
+
+.amount {
+  font-size: var(--font-500);
+  color: var(--accent-green);
+  font-weight: bold;
 }

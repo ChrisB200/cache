@@ -11,11 +11,13 @@ import History from "../components/History";
 import ClickableIcon from "../components/ClickableIcon";
 import menu from "../assets/icons/menu-burger.png"
 import calendar from "../assets/icons/calendar.png"
+import httpClient from "../utils/httpClient";
 
 function Work() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isNavbarOpen, setIsNavbar] = useState(false);
+
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);

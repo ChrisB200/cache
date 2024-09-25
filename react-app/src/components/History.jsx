@@ -4,15 +4,43 @@ import { usePayslips, useShifts } from "../hooks/contexts";
 import { useState, useEffect } from "react";
 import { mostRecentObject } from "../utils/shift";
 
+function ShiftRow({ shift, rate }) {
+  const shiftDate = new Date(shift.date)
+  const formattedDate = shiftDate.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "2-digit",
+  });
+
+  return (
+    <>
+      <div className={styles.row}>
+        <div className={styles.box}>
+          <p className={styles.day}>
+            {shiftDate.toLocaleDateString("default", { weekday: "short" })}
+          </p>
+          <p className={styles.date}>{formattedDate}</p>
+        </div>
+        <div className={styles.details}>
+          <div className={styles.shiftHeader}>
+            <p className={styles.time}>
+              {shift.start} - {shift.end}
+            </p>
+            <p className={styles.dropdown}>
+            </p>
+          </div>
+          <div className={styles.money}>
+            <p className={styles.hours}>{shift.hours.toFixed(2)}hrs</p>
+            <p className={styles.amount}>£{(shift.hours * rate).toFixed(2)}</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
 function ShiftHistory({ currentPayslip }) {
   const { shifts } = useShifts();
   const [toggleTimecard, setToggleTimecard] = useState("timecard");
-
-  const options = {
-    day: "2-digit",
-    month: "2-digit",
-    year: "2-digit",
-  };
 
   return currentPayslip ? (
     <>
@@ -27,41 +55,22 @@ function ShiftHistory({ currentPayslip }) {
             <option value="timecard">Timecard</option>
             <option value="schedule">Schedule</option>
           </select>
-            <div className={styles.grid}>
-              <p className={styles.label}>Date</p>
-              <p className={styles.label}>Time</p>
-              <p className={styles.label}>Hours</p>
-              <p className={styles.label}>Pay</p>
-              {currentPayslip.shifts.length == 0 ? (
-                <p>No history of shifts</p>
-              ) : (
-                currentPayslip.shifts.map((id) => {
-                  console.log(currentPayslip);
-                  const shift = shifts[toggleTimecard].find((shift) => {
-                    return id === shift.id;
-                  });
+          <div className={styles.grid}>
+            {currentPayslip.shifts.length == 0 ? (
+              <p>No history of shifts</p>
+            ) : (
+              currentPayslip.shifts.map((id) => {
+                const shift = shifts[toggleTimecard].find((shift) => {
+                  return id === shift.id;
+                });
 
-                  if (shift === undefined) return;
-                  return (
-                    <>
-                      <p>
-                        {new Date(shift.date).toLocaleString(
-                          "default",
-                          options,
-                        )}
-                      </p>
-                      <p>
-                        {shift.start} - {shift.end}
-                      </p>
-                      <p>{shift.hours.toFixed(1)}</p>
-                      <p>£{(shift.hours * currentPayslip.rate).toFixed(2)}</p>
-                    </>
-                  );
-                })
-              )}
-            </div>
+                if (shift === undefined) return;
+                return <ShiftRow shift={shift} rate={currentPayslip.rate} />;
+              })
+            )}
           </div>
         </div>
+      </div>
     </>
   ) : (
     <></>

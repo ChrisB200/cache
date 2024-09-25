@@ -37,6 +37,7 @@ function PayslipCard() {
   }, []);
 
   return (
+    nextPayslip != null ? 
     <div className={styles.container}>
       <p className={styles.header}>Payslip</p>
       <div className={styles.content}>
@@ -77,6 +78,7 @@ function PayslipCard() {
         </div>
       </div>
     </div>
+      : (<></>)
   );
 }
 
