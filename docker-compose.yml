@@ -1,7 +1,9 @@
 version: '3'
 services:
   flask-api:
-    image: chrisdev20/cache-api:latest
+    build:
+      context: ./api
+      dockerfile: Dockerfile
     container_name: flask-api
     restart: always
     ports:
@@ -12,6 +14,9 @@ services:
       - api/.env
 
   react-app:
+    build:
+      context: ./react-app
+      dockerfile: Dockerfile
     image: chrisdev20/cache-react:latest
     container_name: react-app
     restart: always
