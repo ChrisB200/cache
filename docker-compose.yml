@@ -5,7 +5,7 @@ services:
     container_name: flask-api
     restart: always
     ports:
-      - 8000:8000
+      - "${PORT1}:8000"
     networks:
       - app-network
     env_file:
@@ -16,7 +16,7 @@ services:
     container_name: react-app
     restart: always
     ports:
-      - 3000:3000
+      - "${PORT2}:3000"
     networks:
       - app-network
 networks:

@@ -31,7 +31,7 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 
-@app.route("/api/profile", methods=["GET"])
+@app.route("/profile", methods=["GET"])
 def index():
     return current_user.email
 

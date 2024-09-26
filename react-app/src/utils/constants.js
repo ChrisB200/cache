@@ -1,1 +1,1 @@
-export const BASE_API_URL = `${process.env.REACT_APP_API_URL}/api`
+export const BASE_API_URL = `92.236.134.121/api`

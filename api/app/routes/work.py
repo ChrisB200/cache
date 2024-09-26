@@ -7,19 +7,19 @@ from datetime import timedelta, datetime
 work = Blueprint("work", __name__)
 
 
-@work.route("/api/shifts", methods=["GET"])
+@work.route("/shifts", methods=["GET"])
 @login_required
 def all_shifts():
     return jsonify([shift.to_json() for shift in current_user.shifts])
 
 
-@work.route("/api/payslips", methods=["GET"])
+@work.route("/payslips", methods=["GET"])
 @login_required
 def all_payslips():
     return jsonify([payslip.to_json() for payslip in current_user.payslips])
 
 
-@work.route("/api/payslips/month/<int:month>/<int:year>", methods=["GET"])
+@work.route("/payslips/month/<int:month>/<int:year>", methods=["GET"])
 @login_required
 def payslips_by_month(month, year):
     if month < 1 or month > 12:
@@ -32,7 +32,7 @@ def payslips_by_month(month, year):
     return jsonify([payslip.to_json() for payslip in payslips])
 
 
-@work.route("/api/payslips/<int:payslip_id>/shifts", methods=["GET"])
+@work.route("/payslips/<int:payslip_id>/shifts", methods=["GET"])
 @login_required
 def shifts_by_payslip(payslip_id):
     payslip = Payslip.query.filter_by(user_id=current_user.id, id=payslip_id).first()
@@ -43,7 +43,7 @@ def shifts_by_payslip(payslip_id):
         return jsonify("Can't find the payslip"), 404
 
 
-@work.route("/api/payslips/forecast", methods=["GET"])
+@work.route("/payslips/forecast", methods=["GET"])
 @login_required
 def forecasted_payslip():
     recent_payslip = Payslip.query.order_by(desc(Payslip.date)).first()
