@@ -20,7 +20,8 @@
   --font-800: calc(var(--font-400) + 1.25rem);
   --font-900: calc(var(--font-400) + 1.5rem);
 
-  --primary: #181a23;
+  --primary-old: #181a23;
+  --primary: red;
   --primary-secondary: #1e212a;
   --primary-tertiary: #292D38;
   --secondary: #111118;
