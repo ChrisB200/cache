@@ -1,10 +1,10 @@
 .container {
   max-width: 800px;
   margin: 0 auto;
+  padding-top: 4rem;
 }
 
 .step-indicator {
-  margin-top: 50px;
   display: flex;
   align-items: center;
   padding: 0 40px;
