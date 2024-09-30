@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Calendar from "../components/Calendar";
 import { useShifts, useSidebar } from "../hooks/contexts";
 import ShiftPanel from "../components/ShiftPanel";
@@ -11,6 +11,10 @@ function Sidebar({ currentDate, setCurrentDate }) {
   const { isSidebarOpen, toggleSidebar } = useSidebar();
   const { shifts, error } = useShifts();
   const [selectedDate, setSelectedDate] = useState(new Date());
+
+  useEffect(() => {
+    console.log(isSidebarOpen);
+  })
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);

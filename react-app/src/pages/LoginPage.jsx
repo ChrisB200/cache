@@ -26,7 +26,7 @@ function Login() {
   const handleSubmit = async () => {
     AuthService.login(values.email, values.password)
       .then(() => {
-        navigate("/home")
+        navigate("/")
       })
   }
   

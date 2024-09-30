@@ -61,7 +61,7 @@ nav {
 }
 
 .expanded {
-    width: 200px;
+    width: 12.5rem;
     transition: width 0.3s;
     background-color: var(--secondary);
 }

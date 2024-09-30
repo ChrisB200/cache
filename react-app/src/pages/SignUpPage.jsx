@@ -55,7 +55,7 @@ function SignUp() {
       values.sdpass,
     ).then(() => {
       AuthService.login(values.email, values.password).then(() => {
-        navigate("/home");
+        navigate("/");
       });
     });
   };
