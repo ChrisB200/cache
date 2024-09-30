@@ -23,7 +23,7 @@ export default function Navbar() {
             <div className={styles.nav}>
               <div className={styles.logo}>CACHE</div>
               <div className={styles.anchors}>
-                <Link className={styles.anchor} to="/home">
+                <Link className={styles.anchor} to="/">
                   <div className={styles.iconContainer}></div>
                   <p className="btn-text">Home</p>
                 </Link>

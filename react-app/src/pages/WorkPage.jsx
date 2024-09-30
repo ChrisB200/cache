@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "../index.css";
 import styles from "../styles/WorkPage.module.css";
 import { PayslipProvider } from "../contexts/PayslipContext";
@@ -9,54 +9,21 @@ import Sidebar from "../components/WorkSidebar";
 import PayslipCard from "../components/PayslipCard";
 import History from "../components/History";
 import ClickableIcon from "../components/ClickableIcon";
-import menu from "../assets/icons/menu-burger.png"
-import calendar from "../assets/icons/calendar.png"
-import httpClient from "../utils/httpClient";
-import { SidebarProvider } from "../contexts/SidebarContext";
+import menu from "../assets/icons/menu-burger.png";
+import calendar from "../assets/icons/calendar.png";
+import { useSidebar, useNavbar } from "../hooks/contexts";
 
 function Work() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isNavbarOpen, setIsNavbar] = useState(false);
-
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen((prev) => !prev);
-  };
-
-  const toggleNavbar = () => {
-    setIsNavbar((prev) => !prev);
-  }
-
-    // Listen for window resize events to automatically toggle based on screen width
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 1100) {
-        setIsSidebarOpen(false); // Close sidebar on small screens
-        setIsNavbar(false); // Close navbar on small screens
-      } else {
-        setIsSidebarOpen(true); // Open sidebar on large screens
-        setIsNavbar(true); // Open navbar on large screens
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    // Trigger initial check
-    handleResize();
-
-    // Cleanup event listener on component unmount
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const { isSidebarOpen, toggleSidebar } = useSidebar();
+  const { isNavbarOpen, toggleNavbar } = useNavbar();
 
 
   return (
     <PayslipProvider>
       <ShiftProvider>
         <div className="content">
-          <Navbar
-            
-            isNavbarOpen={isNavbarOpen} toggleNavbar={toggleNavbar}/>
+          <Navbar isNavbarOpen={isNavbarOpen} toggleNavbar={toggleNavbar} />
           <div className={styles.body}>
             <div className={styles.toggles}>
               <ClickableIcon
@@ -86,14 +53,7 @@ function Work() {
               </div>
             </div>
           </div>
-          <SidebarProvider>
-            <Sidebar 
-              currentDate={currentDate} 
-              setCurrentDate={setCurrentDate} 
-              isSidebarOpen={isSidebarOpen}
-              toggleSidebar={toggleSidebar} 
-            />
-          </SidebarProvider>
+          <Sidebar currentDate={currentDate} setCurrentDate={setCurrentDate} />
         </div>
       </ShiftProvider>
     </PayslipProvider>
@@ -101,4 +61,3 @@ function Work() {
 }
 
 export default Work;
-
