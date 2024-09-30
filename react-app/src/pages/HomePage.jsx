@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import httpClient from '../utils/httpClient';
 import { BASE_API_URL } from '../utils/constants';
 import Navbar from '../components/Navbar';
+import { useNavigate } from 'react-router-dom';
 
 function useFetchData(url) {
   const [data, setData] = useState([]);
@@ -20,6 +21,7 @@ function useFetchData(url) {
     }
   };
 
+
   useEffect(() => {
     fetchData();
   }, [url]);
@@ -33,6 +35,10 @@ function useFetchData(url) {
 
 function Home() {
   const data = useFetchData(`${BASE_API_URL}/profile`);
+  const navigate = useNavigate();
+  const change = () => {
+    navigate("/work");
+  }
   return (
     <div className="content">
       <Navbar></Navbar>
@@ -40,6 +46,7 @@ function Home() {
         <h1>Profile Data</h1>
         <pre>{JSON.stringify(data, null, 2)}</pre> {/* Render the data as JSON */}
       </div>
+      <button onClick={change}>WORK</button>
     </div>
   );
 }
