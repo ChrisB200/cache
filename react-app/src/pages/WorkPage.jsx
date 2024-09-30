@@ -12,6 +12,7 @@ import ClickableIcon from "../components/ClickableIcon";
 import menu from "../assets/icons/menu-burger.png"
 import calendar from "../assets/icons/calendar.png"
 import httpClient from "../utils/httpClient";
+import { SidebarProvider } from "../contexts/SidebarContext";
 
 function Work() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -85,12 +86,14 @@ function Work() {
               </div>
             </div>
           </div>
-          <Sidebar 
-            currentDate={currentDate} 
-            setCurrentDate={setCurrentDate} 
-            isSidebarOpen={isSidebarOpen}
-            toggleSidebar={toggleSidebar} 
-          />
+          <SidebarProvider>
+            <Sidebar 
+              currentDate={currentDate} 
+              setCurrentDate={setCurrentDate} 
+              isSidebarOpen={isSidebarOpen}
+              toggleSidebar={toggleSidebar} 
+            />
+          </SidebarProvider>
         </div>
       </ShiftProvider>
     </PayslipProvider>
