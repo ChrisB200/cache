@@ -1,18 +1,14 @@
 import { useState } from "react";
 import Calendar from "../components/Calendar";
-import { useShifts } from "../hooks/contexts";
+import { useShifts, useSidebar } from "../hooks/contexts";
 import ShiftPanel from "../components/ShiftPanel";
 import { combineShifts } from "../utils/shift";
 import styles from "../styles/Sidebar.module.css";
 import calendar from "../assets/icons/calendar.png";
 import ClickableIcon from "../components/ClickableIcon";
 
-function Sidebar({
-  currentDate,
-  setCurrentDate,
-  isSidebarOpen,
-  toggleSidebar,
-}) {
+function Sidebar({ currentDate, setCurrentDate }) {
+  const { isSidebarOpen, toggleSidebar } = useSidebar();
   const { shifts, error } = useShifts();
   const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -39,7 +35,7 @@ function Sidebar({
             icon={calendar}
             onClick={toggleSidebar}
           />
-          <div className={styles.space}/>
+          <div className={styles.space} />
           <Calendar
             currentDate={currentDate}
             setCurrentDate={setCurrentDate}

@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import styles from "../styles/Navbar.module.css";
 import "../index.css";
-import { useFont } from "../hooks/contexts";
+import { useFont, useNavbar } from "../hooks/contexts";
 import ClickableIcon from "../components/ClickableIcon";
 import menu from "../assets/icons/menu-burger.png";
 
-export default function Navbar({ isNavbarOpen, toggleNavbar }) {
+export default function Navbar() {
+  const { isNavbarOpen, toggleNavbar } = useNavbar();
   const { increaseFontSize, decreaseFontSize, resetFontSize } = useFont();
 
   return (

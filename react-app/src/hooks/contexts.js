@@ -1,7 +1,9 @@
 import { useContext } from "react";
 import { FontContext } from "../contexts/FontContext";
+import { NavbarContext } from "../contexts/NavbarContext";
 import { PayslipContext } from "../contexts/PayslipContext"; // Adjust import path as necessary
 import { ShiftContext } from "../contexts/ShiftContext";
+import { SidebarContext } from "../contexts/SidebarContext";
 
 export const usePayslips = () => {
   const context = useContext(PayslipContext);
@@ -26,3 +28,19 @@ export const useFont = () => {
   } 
   return context;
 };
+
+export const useNavbar = () => {
+  const context = useContext(NavbarContext);
+  if (!context) {
+    throw new Error("useNavbar must be used within a NavbarProvider");
+  }
+  return context;
+}
+
+export const useSidebar = () => {
+  const context = useContext(SidebarContext);
+  if (!context) {
+    throw new Error("useSidebar must be used within a SidebarProvider");
+  }
+  return context;
+}
