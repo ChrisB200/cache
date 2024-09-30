@@ -3,10 +3,8 @@ import { useNavigate } from "react-router-dom"
 import AuthService from "../api/authService"
 import CredentialsForm from "../components/CredentialsForm";
 import "../index.css"
-import httpClient from "../utils/httpClient";
 
 function Login() {
-  console.log(httpClient.get("http://flask-api:8000"))
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
@@ -34,7 +32,7 @@ function Login() {
   
   return (
      <CredentialsForm
-      header="Log in to Cache"
+      header="Log in"
       values={values}
       setValues={setValues}
       submit={{onClick: handleSubmit, text: "Log In"}}
