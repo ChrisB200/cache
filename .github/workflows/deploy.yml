@@ -14,5 +14,5 @@ jobs:
 
       - name: Send POST request to Flask app
         run: |
-          curl -X POST "${{secrets.IP_ADDRESS}}/deploy/deploy?name=personal-finance" \
+          curl -X POST "${{secrets.IP_ADDRESS}}/deploy/personal-finance" \
           -H "Content-Type: application/json" \
