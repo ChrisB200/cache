@@ -6,16 +6,33 @@ import { mostRecentObject } from "../utils/shift";
 import dots from "../assets/icons/three-dot-menu.png";
 import ClickableIcon from "./ClickableIcon";
 
+function ShiftOptions({ shift, showModal, isOptionsOpen, toggleOptions }) {
+  const chooseOption = (e) => {
+    if (e.target.value === "edit") {
+      showModal();
+    }
+    toggleOptions(); // Close options after choosing
+  };
+
+  return (
+    <div className={`${isOptionsOpen ? styles.optbtn : styles.hide}`}>
+      <button value="remove" onClick={chooseOption}>Remove</button>
+      <button value="edit" onClick={chooseOption}>Edit</button>
+    </div>
+  );
+}
+
 function ShiftRow({ shift, rate }) {
-  const shiftDate = new Date(shift.date)
+  const shiftDate = new Date(shift.date);
+  const [isOptionsOpen, setOptionsOpen] = useState(false);
   const formattedDate = shiftDate.toLocaleDateString("en-GB", {
     day: "2-digit",
     month: "2-digit",
   });
 
-  const showDropdown = () => {
-    console.log("FILLER");
-  }
+  const toggleDropdown = () => {
+    setOptionsOpen((prev) => !prev); 
+  };
 
   return (
     <>
@@ -33,15 +50,22 @@ function ShiftRow({ shift, rate }) {
                 {shift.start} - {shift.end}
               </p>
               <div>
-                <ClickableIcon
-                  icon={dots}
-                  onClick={showDropdown}
-                />
+                <div className={styles.optcontainer}>
+                  <ClickableIcon icon={dots} onClick={toggleDropdown} />
+                  <ShiftOptions
+                    shift={shift}
+                    showModal={() => console.log("Modal opened")} // Replace with modal logic
+                    isOptionsOpen={isOptionsOpen}
+                    toggleOptions={toggleDropdown}
+                  />
+                </div>
               </div>
             </div>
             <div className={styles.money}>
               <p className={styles.hours}>{shift.hours.toFixed(2)}hrs</p>
-              <p className={styles.amount}>£{(shift.hours * rate).toFixed(2)}</p>
+              <p className={styles.amount}>
+                £{(shift.hours * rate).toFixed(2)}
+              </p>
             </div>
           </div>
         </div>
