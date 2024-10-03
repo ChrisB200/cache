@@ -198,6 +198,7 @@
   text-align: left;
   cursor: pointer;
   color: var(--text-primary);
+  transition: background-color 0.3s;
 }
 
 .optbtn button:hover {
