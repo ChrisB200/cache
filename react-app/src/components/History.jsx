@@ -2,17 +2,27 @@ import "../index.css";
 import styles from "../styles/History.module.css";
 import { useShifts } from "../hooks/contexts";
 import { useState } from "react";
-
 import PayslipSelector from "./PayslipSelector";
-import ShiftRow from "./ShiftRow"; 
-
+import ShiftRow from "./ShiftRow";
+import ShiftModal from "./ShiftModal";
 
 function ShiftRecord({ currentPayslip }) {
   const { shifts } = useShifts();
+  const [currentShift, setCurrentShift] = useState(null);
   const [toggleTimecard, setToggleTimecard] = useState("timecard");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModalView = () => {
+    isModalOpen ? setIsModalOpen(false) : setIsModalOpen(true);
+  }
 
   return currentPayslip ? (
     <>
+      <ShiftModal
+        shift={currentShift}
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
       <div className={`${styles.container} ${styles.scontainer}`}>
         <div className={styles.record}>
           <select
@@ -34,7 +44,14 @@ function ShiftRecord({ currentPayslip }) {
                 });
 
                 if (shift === undefined) return;
-                return <ShiftRow shift={shift} rate={currentPayslip.rate} />;
+                return (
+                  <ShiftRow
+                    shift={shift}
+                    rate={currentPayslip.rate}
+                    setCurrentShift={setCurrentShift}
+                      toggleModalView={toggleModalView}
+                  />
+                );
               })
             )}
           </div>
@@ -45,8 +62,6 @@ function ShiftRecord({ currentPayslip }) {
     <></>
   );
 }
-
-
 
 function History() {
   const [currentPayslip, setCurrentPayslip] = useState(null);
