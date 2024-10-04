@@ -1,11 +1,16 @@
-import { useEffect, useState } from "react";
-import styles from "../styles/ShiftModal.module.css"
+import { useEffect, useRef, useState } from "react";
+import styles from "../styles/ShiftModal.module.css";
+
+function formatDateToISO(dateString) {
+  const date = new Date(dateString);
+  return date.toISOString().split('T')[0]; // Extracts only the 'YYYY-MM-DD' part
+}
 
 function ShiftModal({ shift, isModalOpen, setIsModalOpen }) {
   const [values, setValues] = useState({
-    date: shift?.date,
-    start: shift?.start,
-    end: shift?.end,
+    date: shift?.date || "",
+    start: shift?.start || "",
+    end: shift?.end || "",
   });
 
   const handleChange = (e) => {
@@ -14,24 +19,57 @@ function ShiftModal({ shift, isModalOpen, setIsModalOpen }) {
 
   const handleSubmit = (e) => {
     console.log("hey");
+  };
+
+  const handleClose = (e) => {
+    setIsModalOpen(false);
   }
 
   useEffect(() => {
-    values.date = shift?.date;
-    values.start = shift?.start;
-    values.end = shift?.end;
-  }, [shift])
+    if (shift) {
+      setValues({
+        date: formatDateToISO(shift.date),
+        start: shift.start,
+        end: shift.end,
+      });
+    }
+  }, [shift]);
 
   return (
     <>
-      <div className={isModalOpen ? styles.background : styles.hide}/>
+      <div className={isModalOpen ? styles.background : styles.hide} onClick={handleClose}/>
       <div className={isModalOpen ? styles.container : styles.hide}>
-        <form className={styles.form} onChange={handleChange}>
-          <h2>Edit Shift</h2>
-          <input className={styles.date}type="date" name="date" />
+        <form className={styles.form}>
+          <h2 className={styles.header}>Edit Shift</h2>
+          <label className={styles.label}>
+            Date
+            <input
+              className={styles.date}
+              type="date"
+              name="date"
+              value={values.date}
+              onChange={handleChange}
+            />
+          </label>
           <div className={styles.time}>
-            <input type="time" name="start" />
-            <input type="time" name="end" />
+            <label className={styles.label}>
+              Start
+              <input
+                type="time"
+                name="start"
+                value={values.start}
+                onChange={handleChange}
+              />
+            </label>
+            <label className={styles.label}>
+              End
+              <input
+                type="time"
+                name="end"
+                value={values.end}
+                onChange={handleChange}
+              />
+            </label>
           </div>
           <button className={styles.button}>Submit</button>
         </form>

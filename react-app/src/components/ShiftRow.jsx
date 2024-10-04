@@ -1,4 +1,3 @@
-import { useState } from "react";
 import dots from "../assets/icons/three-dot-menu.png";
 import ClickableIcon from "./ClickableIcon";
 import styles from "../styles/ShiftRow.module.css";
