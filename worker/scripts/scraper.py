@@ -184,8 +184,8 @@ class Payslip:
 
 def remove_all_range(cursor, start, end, stype):
     qry = """
-        DELETE 
-        FROM shift 
+        DELETE
+        FROM shift
         WHERE %s < date AND date < %s AND has_scraped = 1 and type = %s
     """
     values = (start, end, stype)
@@ -521,7 +521,6 @@ async def get_shifts(browser, user):
             shift.commit(cursor, user.id)
     assign_shifts(schedule, user.id)
     assign_shifts(timecard, user.id)
-
 
 
 async def scrape_user(user, playwright, headless, command):

@@ -1,10 +1,19 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, User, Shift, Payslip
 from sqlalchemy import desc
 from datetime import timedelta, datetime
 
 work = Blueprint("work", __name__)
+
+
+def time_difference(time1, time2):
+    dummy_date = datetime(1900, 1, 1)
+    dt1 = datetime.combine(dummy_date, time1)
+    dt2 = datetime.combine(dummy_date, time2)
+    time_diff = dt2 - dt1
+    hours = time_diff.total_seconds() / 3600
+    return hours
 
 
 @work.route("/shifts", methods=["GET"])
@@ -71,3 +80,38 @@ def forecasted_payslip():
     payslip["shifts"] = [shift.to_json() for shift in combined]
 
     return jsonify(payslip)
+
+
+@work.route("/shifts/<int:shift_id>", methods=["PUT"])
+@login_required
+def edit_shift(shift_id):
+    date_str = request.form.get("date")
+    start_str = request.form.get("start")
+    end_str = request.form.get("end")
+
+    date = datetime.strptime(date_str, "%Y-%m-%d").date()
+    start = datetime.strptime(start_str, "%H:%M").time()
+    end = datetime.strptime(end_str, "%H:%M").time()
+
+    if start > end:
+        return jsonify({"error": "Start time is after end time"}), 422
+
+    is_shift = Shift.query.filter_by(date=date).all()
+    if (len(is_shift) > 1):
+        return jsonify({"error": "There is already a shift on this date"}), 422
+
+    shift = Shift.query.filter_by(id=shift_id).one()
+
+    if shift is None:
+        return jsonify({"error": "Cannot find shift with that ID"}), 410
+
+    shift.date = date
+    shift.start = start
+    shift.end = end
+    shift.hours = time_difference(start, end)
+    shift.has_scraped = 0
+
+    db.session.add(shift)
+    db.session.commit()
+
+    return jsonify({"message": "Successfully updated shift"}), 200
