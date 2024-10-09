@@ -1,6 +1,6 @@
 #!/bin/bash
 
-conda init
+eval "$(conda shell.bash hook)"
 conda activate personal-finance-worker
-python ~/code/personal-finance/worker/worker.py all -a
-conda deactivate
+python "$1" all -a
+
