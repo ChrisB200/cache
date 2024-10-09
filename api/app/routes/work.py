@@ -107,3 +107,4 @@ def edit_shift(shift_id):
     db.session.commit()
 
     return jsonify({"message": "Successfully updated shift"}), 200
+
