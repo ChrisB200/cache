@@ -1,0 +1,74 @@
+.container {
+  background-color: var(--primary-secondary);
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  height: 18.75rem;
+  position: relative;
+  flex: 1;
+  width: 170px; 
+}
+
+.payslip {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 100px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  text-align: center;
+}
+
+.date {
+  display: flex;
+  width: 100%;
+  align-items: end;
+  justify-content: space-between;
+}
+
+.date > button {
+  background-color: transparent;
+  border: none;
+font-size: var(--font-700);
+  color: var(--text-accent);
+  padding: 0 1rem;
+}
+
+.header {
+  text-align: center;
+}
+
+.year {
+  color: var(--text-accent);
+  text-align: center;
+}
+
+.total {
+  color: var(--accent-green);
+  font-size: var(--font-800);
+  font-weight: bold;
+}
+
+.info {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.info > ul {
+  list-style: none;
+}
+
+.values {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 0.5rem;
+  text-align: left;
+}
+
+.label {
+  color: var(--text-accent);
+}
+

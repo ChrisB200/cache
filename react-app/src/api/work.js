@@ -52,3 +52,13 @@ export const fetchForecastedPayslip = async () => {
     throw new Error(error);
   }
 }
+
+export const editShiftTime = async (shift_id, data) => {
+  try {
+    const response = await httpClient.put(`${BASE_API_URL}/shifts/${shift_id}`, data);
+    return response.data
+  } catch (error) {
+    console.error(error);
+    throw new Error(error);
+  }
+}
