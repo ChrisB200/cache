@@ -81,31 +81,23 @@ def forecasted_payslip():
 
     return jsonify(payslip)
 
-
 @work.route("/shifts/<int:shift_id>", methods=["PUT"])
 @login_required
 def edit_shift(shift_id):
-    date_str = request.form.get("date")
-    start_str = request.form.get("start")
-    end_str = request.form.get("end")
+    start_str = request.json.get("start")
+    end_str = request.json.get("end")
 
-    date = datetime.strptime(date_str, "%Y-%m-%d").date()
     start = datetime.strptime(start_str, "%H:%M").time()
     end = datetime.strptime(end_str, "%H:%M").time()
 
     if start > end:
         return jsonify({"error": "Start time is after end time"}), 422
 
-    is_shift = Shift.query.filter_by(date=date).all()
-    if (len(is_shift) > 1):
-        return jsonify({"error": "There is already a shift on this date"}), 422
-
     shift = Shift.query.filter_by(id=shift_id).one()
 
     if shift is None:
         return jsonify({"error": "Cannot find shift with that ID"}), 410
 
-    shift.date = date
     shift.start = start
     shift.end = end
     shift.hours = time_difference(start, end)

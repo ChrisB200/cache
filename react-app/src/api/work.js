@@ -53,7 +53,7 @@ export const fetchForecastedPayslip = async () => {
   }
 }
 
-export const editShift = async (shift_id, data) => {
+export const editShiftTime = async (shift_id, data) => {
   try {
     const response = await httpClient.put(`${BASE_API_URL}/shifts/${shift_id}`, data);
     return response.data

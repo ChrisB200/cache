@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { editShiftTime } from "../api/work";
 import styles from "../styles/ShiftModal.module.css";
 
 function formatDateToISO(dateString) {
@@ -17,8 +18,17 @@ function ShiftModal({ shift, isModalOpen, setIsModalOpen }) {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    console.log("hey");
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const result = await editShiftTime(shift.id, values);
+      console.log(result);
+    } catch (err) {
+      console.log(err)
+    } finally {
+      console.log("changed")
+    }
+
   };
 
   const handleClose = (e) => {
@@ -39,7 +49,7 @@ function ShiftModal({ shift, isModalOpen, setIsModalOpen }) {
     <>
       <div className={isModalOpen ? styles.background : styles.hide} onClick={handleClose}/>
       <div className={isModalOpen ? styles.container : styles.hide}>
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <h2 className={styles.header}>Edit Shift</h2>
           <label className={styles.label}>
             Date
@@ -61,7 +71,7 @@ function ShiftModal({ shift, isModalOpen, setIsModalOpen }) {
                 onChange={handleChange}
               />
             </label>
-            <label className={styles.label}>
+<label className={styles.label}>
               End
               <input
                 type="time"
