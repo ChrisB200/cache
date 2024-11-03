@@ -64,15 +64,16 @@ class Shift:
         self.date: date = row.get("date")
         self.start = row.get("start")
         self.end = row.get("end")
-        self.hours = time_difference(self.start, self.end)
+        self.hours = row.get("hours", time_difference(self.start, self.end))
         self.rate = row.get("rate")
         self.type = row.get("type")
         self.user_id = row.get("user_id")
         self.payslip_id = row.get("payslip_id")
         self.id = row.get("id")
+        self.category = row.get("category", "work")
 
     def __str__(self):
-        return f"Date: {self.date}, Start: {self.start}, End: {self.end}, Type: {self.type}"
+        return f"Date: {self.date}, Start: {self.start}, End: {self.end}, Type: {self.type}, Category: {self.category}"
 
     def get_from_db(self, cursor):
         query = """
@@ -107,8 +108,8 @@ class Shift:
             values = (self.start, self.end, self.hours, self.rate, self.date, user_id)
         else:
             query = """
-                INSERT INTO shift (date, start, end, hours, rate, type, user_id, has_scraped, has_removed)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, 1, 0)
+                INSERT INTO shift (date, start, end, hours, rate, type, user_id, has_scraped, has_removed, category)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, 1, 0, %s)
             """
 
             values = (
@@ -119,6 +120,7 @@ class Shift:
                 self.rate,
                 self.type,
                 user_id,
+                self.category
             )
 
         cursor.execute(query, values)
@@ -309,6 +311,22 @@ async def scrape_shifts(context: BrowserContext, button, user):
                 shift = day.find_next("p")
                 shift_line = shift.find_next("span").find_next("span").text
                 hours = shift_line.split(" ")
+
+                if "HOL" in hours:
+                    logger.debug(hours)
+                    date = (week_start + timedelta(days=count)).date()
+                    row = {
+                        "date": date,
+                        "start": 0,
+                        "end": 0,
+                        "category": "holiday",
+                        "hours": 8,
+                        "rate": 12.05,
+                        "type": button
+                    }
+                    shift = Shift(row)
+                    logger.debug(f"Scraped shift: {shift} for user {user.id}")
+                    shifts.append(shift)
 
                 if len(hours) > 7 and hours[0] != "-":
                     date = (week_start + timedelta(days=count)).date()

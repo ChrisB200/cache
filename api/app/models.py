@@ -62,6 +62,7 @@ class Shift(db.Model):
     hours = db.Column(db.Float)
     rate = db.Column(db.Float)
     type = db.Column(db.String(32))
+    category = db.Column(db.String(32), default="work")
     has_scraped = db.Column(db.Boolean, default=True)
     has_removed = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.String(32), db.ForeignKey("user.id"), nullable=False)
@@ -79,6 +80,7 @@ class Shift(db.Model):
             "hours": self.hours,
             "rate": self.rate,
             "type": self.type,
+            "category": self.category
         }
 
 
