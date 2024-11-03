@@ -17,7 +17,6 @@ services:
     build:
       context: ./react-app
       dockerfile: Dockerfile
-    image: chrisdev20/cache-react:latest
     container_name: react-app
     restart: always
     ports:
