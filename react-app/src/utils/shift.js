@@ -89,19 +89,15 @@ export function calculateTimeLeft(shiftDate) {
   return { days, hours, minutes, seconds };
 }
 
-export function combineDateAndTime(date, time) {
-  const combinedDate = new Date(date);
-  const [startHours, startMinutes] = time.split(":").map(Number);
-
-  combinedDate.setHours(startHours, startMinutes);
-
-  return combinedDate;
+export function convertTime(timestamp) {
+  const date = new Date(timestamp * 1000);
+  return date;
 }
 
 export function getNextShift(shifts) {
   const today = new Date();
   const futureShifts = shifts?.schedule.filter(
-    (shift) => combineDateAndTime(new Date(shift.date), shift.start) >= today,
+    (shift) => convertTime(shift.start) >= today,
   );
 
   if (futureShifts.length > 0) {
@@ -123,9 +119,14 @@ export function mostRecentDate(objects, property) {
 }
 
 export function mostRecentObject(objects, property) {
-  const mostRecent = mostRecentDate(objects, property); 
+  const mostRecent = mostRecentDate(objects, property);
   return objects.find((e) => {
-    return new Date(e[property]).getTime() === mostRecent.getTime(); 
+    return new Date(e[property]).getTime() === mostRecent.getTime();
   });
 }
 
+export function timeStr(timestamp) {
+  const time = convertTime(timestamp);
+  const formattedTime = time.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+  return formattedTime;
+}

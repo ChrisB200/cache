@@ -14,6 +14,8 @@ export const PayslipProvider = ({ children }) => {
     setError(null);
     try {
       const data = await fetchAllPayslips();
+      data.sort((a, b) => new Date(b.date) - new Date(a.date))
+      console.log(data)
       setPayslips(data);
     } catch (err) {
       setError(err.message);

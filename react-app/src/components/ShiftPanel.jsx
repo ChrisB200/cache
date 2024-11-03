@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import styles from "../styles/ShiftPanel.module.css"
 import "../index.css"
+import { convertTime, timeStr } from "../utils/shift";
 
 function ShiftPanel({ shift, isSelected, onClick }) {
   const shiftRef = useRef(null);
@@ -31,13 +32,13 @@ function ShiftPanel({ shift, isSelected, onClick }) {
         <div className={styles.date}>
           <p className={styles.day}>
             {shiftDate.toLocaleDateString("default", { weekday: "short" })}
-          </p>
+          </p> 
           <p className={styles.short}>{formattedDate}</p>
         </div>
         <div className={styles.details}>
           <strong>
             <p>
-              {shift.start} - {shift.end}
+              {timeStr(shift.start)} - {timeStr(shift.end)}
             </p>
           </strong>
           <p>{shift.type}</p>

@@ -6,7 +6,8 @@ import specific from "../styles/ShiftCard.module.css";
 import Skeleton from "react-loading-skeleton";
 import {
   calculateTimeLeft,
-  combineDateAndTime,
+  convertTime,
+  timeStr,
   getNextShift,
 } from "../utils/shift";
 
@@ -31,7 +32,7 @@ export function ShiftCard() {
     if (!nextShift) return;
 
     const intervalId = setInterval(() => {
-      const newDate = combineDateAndTime(nextShift.date, nextShift.start);
+      const newDate = convertTime(nextShift.start);
       const remainingTime = calculateTimeLeft(newDate);
       setTimeLeft(remainingTime);
     }, 1000);
@@ -67,7 +68,7 @@ export function ShiftCard() {
             <div className={styles.inner}>
               <div className={styles.top}>
                 <p className={specific.time}>
-                  {`${nextShift.start} - ${nextShift.end}`}
+                  {`${timeStr(nextShift.start)} - ${timeStr(nextShift.end)}`}
                 </p>
                 <p className={styles.hours}>{`${nextShift.hours}hrs`}</p>
               </div>

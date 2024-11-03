@@ -35,6 +35,7 @@ def load_user(user_id):
 def index():
     return current_user.email
 
+
 @app.route("/")
 def test():
     return "hey"

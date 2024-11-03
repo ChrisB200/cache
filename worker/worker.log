@@ -2591,3 +2591,12 @@ LocatorAssertions.to_have_text with timeout 10000ms
 2024-09-21 18:34:41,115 - scripts.scraper - DEBUG - Connection closed to database dbfinance
 2024-09-21 18:34:41,859 - scripts.scraper - DEBUG - Browser closed for user fd281e9f471c4d5eae319ccf0c730cb9
 2024-09-21 18:34:41,859 - scripts.scraper - INFO - Finished scraping shifts for user fd281e9f471c4d5eae319ccf0c730cb9
+2024-11-03 01:43:18,450 - asyncio - DEBUG - Using selector: EpollSelector
+2024-11-03 01:43:19,106 - __main__ - INFO - Scraping all for all users
+2024-11-03 01:43:19,140 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-11-03 01:43:19,155 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-11-03 01:43:21,227 - scripts.scraper - DEBUG - Browser opened for user 185baa82fa394317b057d3fbf6e41cc8
+2024-11-03 01:43:21,283 - scripts.scraper - DEBUG - Connection made to database dbfinance
+2024-11-03 01:43:52,406 - scripts.scraper - DEBUG - Connection closed to database dbfinance
+2024-11-03 01:43:52,832 - scripts.scraper - DEBUG - Browser closed for user 185baa82fa394317b057d3fbf6e41cc8
+2024-11-03 01:43:52,833 - scripts.scraper - INFO - Finished scraping all for user 185baa82fa394317b057d3fbf6e41cc8
