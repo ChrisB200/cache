@@ -33,6 +33,12 @@ FGP_BASE_URL = "https://fgp.fiveguys.co.uk/portal.php"
 SD_BASE_URL = "https://my.sdworx.co.uk/portal/login.aspx?organisation=76231"
 
 
+def time_difference(start, end):
+    diff = end - start
+    h = diff / 3600
+    return h
+
+
 class User:
     def __init__(self, row):
         self.id = row.get("id")
@@ -56,13 +62,8 @@ class User:
 class Shift:
     def __init__(self, row):
         self.date: date = row.get("date")
-
         self.start = row.get("start")
         self.end = row.get("end")
-        if isinstance(self.start, timedelta):
-            self.start = self.convert_to_time(self.start)
-            self.end = self.convert_to_time(self.end)
-
         self.hours = time_difference(self.start, self.end)
         self.rate = row.get("rate")
         self.type = row.get("type")
@@ -81,14 +82,6 @@ class Shift:
         values = (self.date, self.user_id)
         cursor.execute(query, values)
         self.id = cursor.fetchone()
-
-    @staticmethod
-    def convert_to_time(delta):
-        hours, remainder = divmod(delta.seconds, 3600)
-        minutes, seconds = divmod(remainder, 60)
-
-        time_obj = datetime(1900, 1, 1, hours, minutes, seconds)
-        return time_obj.time()
 
     def exist(self, cursor, user_id):
         query = """
@@ -147,8 +140,6 @@ class Payslip:
         values = (self.date, self.user_id)
         cursor.execute(query, values)
         self.id = cursor.fetchone()
-        print(self.id)
-        print("idddd")
 
     def exist(self, cursor, user_id):
         query = """
@@ -190,15 +181,6 @@ def remove_all_range(cursor, start, end, stype):
     """
     values = (start, end, stype)
     cursor.execute(qry, values)
-
-
-def time_difference(time1, time2):
-    dummy_date = datetime(1900, 1, 1)
-    dt1 = datetime.combine(dummy_date, time1)
-    dt2 = datetime.combine(dummy_date, time2)
-    time_diff = dt2 - dt1
-    hours = time_diff.total_seconds() / 3600
-    return hours
 
 
 @contextlib.contextmanager
@@ -290,7 +272,7 @@ async def scrape_shifts(context: BrowserContext, button, user):
         await page.get_by_role("button", name="Week View").click()
         html = await parse_page(page)
 
-    # initialising the details
+    # initializing the details
     week_after = start_of_week(datetime.today()) + timedelta(weeks=4)
     current_date = user.pointer
     start_date = current_date
@@ -329,13 +311,23 @@ async def scrape_shifts(context: BrowserContext, button, user):
                 hours = shift_line.split(" ")
 
                 if len(hours) > 7 and hours[0] != "-":
+                    date = (week_start + timedelta(days=count)).date()
+
+                    # Parse start and end times
                     start = datetime.strptime(hours[0], "%H:%M").time()
                     end = datetime.strptime(hours[2], "%H:%M").time()
-                    date = (week_start + timedelta(days=count)).date()
+
+                    # Combine with date and adjust if shift goes past midnight
+                    start_datetime = datetime.combine(date, start)
+                    if end < start:  # Shift ends the next day
+                        end_datetime = datetime.combine(date + timedelta(days=1), end)
+                    else:
+                        end_datetime = datetime.combine(date, end)
+
                     row = {
                         "date": date,
-                        "start": start,
-                        "end": end,
+                        "start": start_datetime.timestamp(),
+                        "end": end_datetime.timestamp(),
                         "rate": 12.05,
                         "type": button,
                     }
@@ -454,8 +446,10 @@ async def scrape_payslips(browser, user):
         # create payslip object
         row = {"date": date.date(), "net": net_pay, "rate": rate, "user_id": user.id}
         payslip = Payslip(row)
-        print(payslip.user_id)
-        logger.debug(f"Scraped payslip at date {payslip.date} for user {user.id}")
+        logger.debug(
+            f"Scraped payslip at date {
+                     payslip.date} for user {user.id}"
+        )
         payslips.append(payslip)
 
     logger.info(f"Scraped {len(payslips)} payslips for user {user.id}")
