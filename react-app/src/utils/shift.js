@@ -39,12 +39,32 @@ export function isShiftDate(shifts, day) {
   const allShifts = shifts.timecard.concat(shifts.schedule);
   return allShifts.some((shift) => {
     const shiftDate = new Date(shift.date);
-    return (
+    if (
       shiftDate.getFullYear() === day.getFullYear() &&
       shiftDate.getMonth() === day.getMonth() &&
       shiftDate.getDate() === day.getDate()
-    );
+    ) return shift;
   });
+}
+
+export function isShiftHoliday(shifts, day) {
+  const allShifts = shifts.timecard.concat(shifts.schedule);
+  let shift = null;
+  allShifts.forEach((temp) => {
+    const shiftDate = new Date(temp.date);
+    if (
+      shiftDate.getFullYear() === day.getFullYear() &&
+      shiftDate.getMonth() === day.getMonth() &&
+      shiftDate.getDate() === day.getDate()
+    ) {
+      shift = temp;
+    }
+  })
+
+  if (shift.category === "holiday") {
+    return true;
+  }
+  return false;
 }
 
 export function isToday(day) {

@@ -6,6 +6,7 @@ import {
   isShiftDate,
   isToday,
   isSelected,
+  isShiftHoliday,
 } from "../utils/shift";
 
 function daysInMonth(year, month) {
@@ -107,7 +108,12 @@ function Calendar({ currentDate, setCurrentDate, onDateSelect }) {
             className={`
                 ${styles.day} 
                 ${isPayslipDate(payslips, day) ? styles.payslip : ""}
-                ${isShiftDate(shifts, day) ? styles.onshift : ""}
+                ${isShiftDate(shifts, day)
+                ? isShiftHoliday(shifts, day)
+                  ? styles.holiday
+                  : styles.onshift
+                : ""
+              }
                 ${isToday(day) ? styles.today : ""}
                 ${isSelected(selectedDay, day) ? styles.selected : ""}
                 ${day.getMonth() !== currentDate.getMonth() ? styles.outside : ""}

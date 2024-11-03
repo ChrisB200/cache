@@ -80,7 +80,7 @@ class Shift(db.Model):
             "hours": self.hours,
             "rate": self.rate,
             "type": self.type,
-            "category": self.category
+            "category": self.category,
         }
 
 

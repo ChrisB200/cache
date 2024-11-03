@@ -73,3 +73,7 @@
 .grayed {
   color: var(--text-accent);
 }
+
+.holiday {
+  color: var(--accent-yellow);
+}

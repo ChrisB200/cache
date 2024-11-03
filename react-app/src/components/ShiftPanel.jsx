@@ -30,7 +30,7 @@ function ShiftPanel({ shift, isSelected, onClick }) {
     <div className={styles.container} ref={shiftRef} onClick={onClick}>
       <div className={styles.info}>
         <div className={styles.date}>
-          <p className={styles.day}>
+          <p className={`${styles.day} ${shift.category === "holiday" ? styles.holiday : ""}`}>
             {shiftDate.toLocaleDateString("default", { weekday: "short" })}
           </p> 
           <p className={styles.short}>{formattedDate}</p>
@@ -38,7 +38,7 @@ function ShiftPanel({ shift, isSelected, onClick }) {
         <div className={styles.details}>
           <strong>
             <p>
-              {timeStr(shift.start)} - {timeStr(shift.end)}
+              {shift.category != "work" ? ("Holiday") : (`${timeStr(shift.start)} - ${timeStr(shift.end)}`)} 
             </p>
           </strong>
           <p>{shift.type}</p>
