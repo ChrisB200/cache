@@ -57,8 +57,8 @@ class User(UserMixin, db.Model):
 class Shift(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
     date = db.Column(db.Date)
-    start = db.Column(db.Time)
-    end = db.Column(db.Time)
+    start = db.Column(db.Integer)
+    end = db.Column(db.Integer)
     hours = db.Column(db.Float)
     rate = db.Column(db.Float)
     type = db.Column(db.String(32))
@@ -74,8 +74,8 @@ class Shift(db.Model):
         return {
             "id": self.id,
             "date": self.date,
-            "start": self.start.strftime("%H:%M"),
-            "end": self.end.strftime("%H:%M"),
+            "start": self.start,
+            "end": self.end,
             "hours": self.hours,
             "rate": self.rate,
             "type": self.type,
