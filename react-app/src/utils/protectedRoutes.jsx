@@ -20,7 +20,6 @@ checkAuth();
   }, []);
 
 if (isAuthenticated == null) {
-  console.log("null");
   return <div>Loading...</div>;
 }
 

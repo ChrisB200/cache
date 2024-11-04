@@ -16,7 +16,6 @@ function ShiftRecord({ currentPayslip }) {
     isModalOpen ? setIsModalOpen(false) : setIsModalOpen(true);
   }
   
-  console.log(shifts)
   return currentPayslip ? (
     <>
       <ShiftModal

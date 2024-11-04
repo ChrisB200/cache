@@ -12,10 +12,6 @@ function Sidebar({ currentDate, setCurrentDate }) {
   const { shifts, error } = useShifts();
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  useEffect(() => {
-    console.log(isSidebarOpen);
-  })
-
   const handleDateSelect = (date) => {
     setSelectedDate(date);
   };

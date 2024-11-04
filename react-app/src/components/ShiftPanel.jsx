@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import styles from "../styles/ShiftPanel.module.css"
 import "../index.css"
-import { convertTime, timeStr } from "../utils/shift";
+import { timeStr } from "../utils/shift";
 
 function ShiftPanel({ shift, isSelected, onClick }) {
   const shiftRef = useRef(null);
