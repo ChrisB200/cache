@@ -1,6 +1,7 @@
 import dots from "../assets/icons/three-dot-menu.png";
 import ClickableIcon from "./ClickableIcon";
 import styles from "../styles/ShiftRow.module.css";
+import { timeStr } from "../utils/shift";
 
 function ShiftRow({ shift, rate, setCurrentShift, toggleModalView }) {
   const shiftDate = new Date(shift.date);
@@ -27,7 +28,7 @@ function ShiftRow({ shift, rate, setCurrentShift, toggleModalView }) {
           <div className={styles.details}>
             <div className={styles.header}>
               <p className={styles.time}>
-                {shift.start} - {shift.end}
+                {(`${timeStr(shift.start)} - ${timeStr(shift.end)}`)}
               </p>
               <div>
                 <div className={styles.options}>
