@@ -23,7 +23,7 @@
 
 .scontainer {
   flex: 3;
-  min-width: 200px;
+  min-width: 250px;
 }
 
 .payslip {
@@ -47,7 +47,7 @@
   justify-content: space-between;
 }
 
-.date > button {
+.date>button {
   background-color: transparent;
   border: none;
   font-size: var(--font-700);
@@ -76,7 +76,7 @@
   width: 100%;
 }
 
-.info > ul {
+.info>ul {
   list-style: none;
 }
 
@@ -98,17 +98,16 @@
   height: 100%;
 }
 
-.record > select {
+.record>select {
   background-color: var(--primary);
   padding: 0.5rem 1.5rem;
   border: none;
   border-radius: 10px;
 }
 
-.record > select:hover {
+.record>select:hover {
   cursor: pointer;
 }
-
 
 .grid {
   grid-template-columns: 1fr;
@@ -142,7 +141,6 @@
 .date {
   font-size: var(--font-350);
 }
-
 
 .details {
   flex-grow: 2;
@@ -182,10 +180,10 @@
 .optbtn {
   position: absolute;
   right: 0;
-  top: 100%; 
+  top: 100%;
   background-color: var(--primary);
   padding: 10px;
-  z-index: 100; 
+  z-index: 100;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
 }
@@ -208,4 +206,3 @@
 .hide {
   display: none;
 }
-
