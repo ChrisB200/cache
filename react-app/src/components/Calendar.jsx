@@ -38,6 +38,58 @@ function Calendar({ currentDate, setCurrentDate, onDateSelect }) {
     }
   };
 
+  const dayEvents = (day) => {
+    console.log("Shifts:", shifts);
+    console.log("Payslips:", payslips);
+    console.log("Shifts Length:", shifts.length);
+    console.log("Payslips Length:", payslips.length);
+
+    if (Object.keys(shifts).length == 0 || !payslips.length) {
+      return styles.day;
+    }
+
+    const conditions = {
+      holiday: isShiftHoliday(shifts, day),
+      shift: isShiftDate(shifts, day),
+      today: isToday(day),
+      selected: isSelected(selectedDay, day),
+      payslip: isPayslipDate(payslips, day),
+      outside: day.getMonth() !== currentDate.getMonth(),
+    };
+
+    console.log("hey")
+    console.log(day)
+    console.log(conditions)
+
+    let classes = styles.day;
+
+    if (conditions.outside) {
+      classes = `${classes} ${styles.outside}`;
+    }
+    if (conditions.today) {
+      classes = `${classes} ${styles.today}`;
+    }
+    if (conditions.selected) {
+      classes = `${classes} ${styles.selected}`;
+    }
+
+    if (conditions.payslip) {
+      if (conditions.shift) {
+        classes = `${classes}  ${styles.shiftright} ${styles.payslipleft}`;
+      } else if (conditions.holiday) {
+        classes = `${classes} ${styles.payhol}`;
+      } else {
+        classes = `${classes} ${styles.payslip}`;
+      }
+    } else if (conditions.holiday) {
+      classes = `${classes} ${styles.holiday}`;
+    } else if (conditions.shift) {
+      classes = `${classes} ${styles.onshift}`;
+    }
+
+    return classes;
+  };
+
   useEffect(() => {
     const generateCalendar = (year, month) => {
       const startDate = new Date(year, month, 1);
@@ -73,7 +125,7 @@ function Calendar({ currentDate, setCurrentDate, onDateSelect }) {
     setDays(
       generateCalendar(currentDate.getFullYear(), currentDate.getMonth()),
     );
-  }, [currentDate]);
+  }, [currentDate, shifts, payslips]);
 
   return (
     <div className={styles.calendar}>
@@ -105,19 +157,7 @@ function Calendar({ currentDate, setCurrentDate, onDateSelect }) {
             onClick={() => {
               handleDateClick(day);
             }}
-            className={`
-                ${styles.day} 
-                ${isPayslipDate(payslips, day) ? styles.payslip : ""}
-                ${isShiftDate(shifts, day)
-                ? isShiftHoliday(shifts, day)
-                  ? styles.holiday
-                  : styles.onshift
-                : ""
-              }
-                ${isToday(day) ? styles.today : ""}
-                ${isSelected(selectedDay, day) ? styles.selected : ""}
-                ${day.getMonth() !== currentDate.getMonth() ? styles.outside : ""}
-                `}
+            className={`${dayEvents(day)}`}
           >
             {day.getDate()}
           </p>

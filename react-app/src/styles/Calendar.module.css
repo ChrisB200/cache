@@ -153,3 +153,56 @@
   background-color: var(--accent-yellow);
 }
 
+.payslipleft::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  top: 100%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+  height: 20%;
+  z-index: -1;
+  background-color: var(--accent-green);
+}
+
+.shiftright::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  top: 100%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+  height: 20%;
+  z-index: -1;
+  background-color: var(--accent-orange);
+
+}
+
+.payhol::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  top: 100%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+  height: 20%;
+  z-index: -1;
+  background-color: var(--accent-green);
+}
+
+.payhol::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  top: 100%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+  height: 20%;
+  z-index: -1;
+  background-color: var(--accent-orange);
+
+}

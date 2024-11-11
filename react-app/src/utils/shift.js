@@ -60,7 +60,9 @@ export function isShiftHoliday(shifts, day) {
       shift = temp;
     }
   })
-
+  if (shift === null) {
+    return false;
+  }
   if (shift.category === "holiday") {
     return true;
   }
