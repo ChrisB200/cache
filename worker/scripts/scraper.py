@@ -76,7 +76,7 @@ def connect_sql():
         password=DB_PASSWORD,
         db=DB_NAME,
     )
-    cursor = connection.cursor()
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
     logger.debug(f"Connection made to database {DB_NAME}")
     try:
         yield cursor
@@ -100,11 +100,7 @@ def load_table(cursor, query, values=None):
 
     rows = cursor.fetchall()
 
-    data = []
-    for row in rows:
-        data.append(dict(zip([column[0] for column in cursor.description], row)))
-
-    return data
+    return rows
 
 
 def get_user(user_id):
@@ -213,7 +209,7 @@ async def scrape_shifts(context: BrowserContext, button, user):
                         "category": "holiday",
                         "hours": 8,
                         "rate": 12.05,
-                        "type": button
+                        "type": button,
                     }
 
                     logger.debug(f"Scraped shift: {str(shift)} for user {user["id"]}")
@@ -367,7 +363,7 @@ async def scrape_payslips(browser, user):
         payslip = Payslip(row)
         logger.debug(
             f"Scraped payslip at date {
-                     payslip.date} for user {user.id}"
+                payslip.date} for user {user.id}"
         )
         payslips.append(payslip)
 

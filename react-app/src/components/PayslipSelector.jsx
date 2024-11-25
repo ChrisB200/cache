@@ -8,6 +8,7 @@ function PayslipSelector({ currentPayslip, setCurrentPayslip }) {
   const { shifts } = useShifts();
   const { payslips } = usePayslips();
   const [totalHours, setTotalHours] = useState(null);
+  console.log(payslips);
 
   useEffect(() => {
     const recentSlip = mostRecentObject(payslips, "date");
