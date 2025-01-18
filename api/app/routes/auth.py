@@ -93,36 +93,18 @@ def is_user():
 
     return jsonify({"success": True}), 200
 
-
-@auth.route("/sdworx/credentials", methods=["PUT"])
+@auth.route("/sdworx", methods=["POST"])
 @login_required
-def change_sdworx():
-    username = request.json.get("username")
+def sdworx():
+    email = request.json.get("email")
     password = request.json.get("password")
+    print(current_user.get_sd_pass())
 
-    if username:
-        current_user.sd_user = username
-
+    if email:
+        pass
     if password:
         current_user.set_sd_pass(password)
 
     db.session.commit()
 
-    return jsonify({"success": True}), 200
-
-
-@auth.route("/fgp/credentials", methods=["PUT"])
-@login_required
-def change_fgp():
-    username = request.json.get("username")
-    password = request.json.get("password")
-
-    if username:
-        current_user.fg_user = username
-
-    if password:
-        current_user.set_fg_pass(password)
-
-    db.session.commit()
-
-    return jsonify({"success": True}), 200
+    return "success"
