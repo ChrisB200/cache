@@ -92,3 +92,19 @@ def is_user():
         return jsonify({"error": "User already exists"}), 401
 
     return jsonify({"success": True}), 200
+
+@auth.route("/sdworx", methods=["POST"])
+@login_required
+def sdworx():
+    email = request.json.get("email")
+    password = request.json.get("password")
+    print(current_user.get_sd_pass())
+
+    if email:
+        pass
+    if password:
+        current_user.set_sd_pass(password)
+
+    db.session.commit()
+
+    return "success"

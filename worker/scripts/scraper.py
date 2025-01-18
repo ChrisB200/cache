@@ -202,7 +202,7 @@ async def scrape_shifts(context: BrowserContext, button, user):
 
     # check what type of shifts
     if button != "Timecard":
-        await page.get_by_role("button", name="Week View").click()
+        await page.get_by_role("button", name="Week").click()
         html = await parse_page(page)
 
     # initializing the details
@@ -307,6 +307,14 @@ async def match_years(anchors):
                 year_elements.append(element)
     return year_elements
 
+def price_to_float(price):
+    if ("," in price):
+        new_price = ""
+        price = price.split(",")
+        for char in price:
+            new_price = new_price + char
+        return float(new_price)
+    return price
 
 async def scrape_payslips(browser, user):
     context = await browser.new_context()
@@ -390,7 +398,7 @@ async def scrape_payslips(browser, user):
         net_pay_lbl = current.locator("#baseNetPayBackground")
         net_pay = net_pay_lbl.locator("xpath=following-sibling::*[1]")
         net_pay = await net_pay.inner_text()
-        net_pay = net_pay.split("£")[1]
+        net_pay = price_to_float(net_pay.split("£")[1])
 
         # create payslip object
         row = {"date": date.date(), "net": net_pay, "rate": rate, "user_id": user.id}
