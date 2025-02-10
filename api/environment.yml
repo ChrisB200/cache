@@ -32,3 +32,4 @@ dependencies:
       - sqlalchemy==2.0.32
       - typing-extensions==4.12.2
       - werkzeug==3.0.3
+      - ics
