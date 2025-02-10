@@ -10,8 +10,14 @@ services:
       - "${PORT2}:8000"
     networks:
       - app-network
-    env_file:
-      - api/.env
+    environment:
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - ENCRYPT_KEY=${ENCRYPT_KEY}
+      - SECRET_KEY=${SECRET_KEY}
+
 
   react-app:
     build:

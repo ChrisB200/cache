@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models import db, User, Shift, Payslip
 from sqlalchemy import desc
 from datetime import timedelta, datetime
+from ics import Calendar, Event
 
 work = Blueprint("work", __name__)
 
@@ -108,3 +109,24 @@ def edit_shift(shift_id):
 
     return jsonify({"message": "Successfully updated shift"}), 200
 
+
+@work.route("/create_ics", methods=["POST"])
+@login_required
+def create_ics():
+    shifts = Shift.query.filter_by(user_id=current_user.id).all()
+
+    calendar = Calendar()
+    for shift in shifts:
+        event = Event()
+        event.name = "Work"
+        event.begin = shift.start
+        event.duration = {"hours": shift.hours}
+        event.location = "Five Guys Fort"
+        event.description = f"{shift.category}: {shift.hours}: {shift.hours * shift.rate}"
+
+        calendar.events.add(event)
+
+    with open(f"calendars/{current_user.id}-work.ics", "w") as f:
+        f.writelines(calendar)
+
+    return jsonify({"message": "success"})
