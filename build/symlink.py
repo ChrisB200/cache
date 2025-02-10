@@ -103,7 +103,7 @@ def symlink_nginx():
 
 def restart_nginx():
     try:
-        subprocess.run(["sudo", "systemctl", "reload", "nginx"], check=True)
+        subprocess.run(["sudo", "/usr/sbin/service", "nginx", "restart"], check=True)
         print("NGINX reloaded successfully.")
     except subprocess.CalledProcessError as e:
         print(f"Failed to reload NGINX: {e}")
