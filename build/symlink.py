@@ -19,7 +19,7 @@ parser.add_argument("--name", action="store")
 
 args = parser.parse_args()
 port_range = (1, 65535)
-app = os.path.expanduser(f"~/code/hosted/{args.name}")
+app = os.getcwd()
 conf_location = "/etc/nginx/sites-available"
 
 
