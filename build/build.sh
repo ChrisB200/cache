@@ -1,7 +1,5 @@
 #!/bin/bash
 
-eval "$(conda shell.bash hook)"
-
 # Ensure Docker is running
 if ! docker info &>/dev/null; then
     echo "Docker is not running. Please start Docker."
