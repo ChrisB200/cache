@@ -1,6 +1,5 @@
 #!/bin/bash
  
-echo "test"
 eval "$(conda shell.bash hook)"
 python build/symlink.py --name "$1"
 docker stop react-app || true
