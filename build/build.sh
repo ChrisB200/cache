@@ -6,6 +6,9 @@ if ! docker info &>/dev/null; then
     exit 1
 fi
 
+cd ..
+systemctl status docker
+
 # Build new images without stopping running containers
 docker compose build --no-cache
 
