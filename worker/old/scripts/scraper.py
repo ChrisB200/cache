@@ -5,7 +5,10 @@ import re
 import contextlib
 import logging
 import asyncio
+import time as t
 
+from datetime import date
+from datetime import time
 from datetime import datetime
 from datetime import timedelta
 from cryptography.fernet import Fernet
@@ -36,6 +39,142 @@ def time_difference(start, end):
     return h
 
 
+class User:
+    def __init__(self, row):
+        self.id = row.get("id")
+        self.email = row.get("email")
+        self.password = row.get("password")
+        self.fg_user = row.get("fg_user")
+        self.fg_pass = fernet.decrypt(row.get("fg_pass")).decode()
+        self.sd_user = row.get("sd_user")
+        self.sd_pass = fernet.decrypt(row.get("sd_pass")).decode()
+        self.pointer = row.get("pointer")
+
+    def get_payslips(self, connection, cursor):
+        query = """
+            SELECT * FROM payslip
+            WHERE user_id = %s
+        """
+        values = self.id
+        cursor.execute(query, values)
+
+
+class Shift:
+    def __init__(self, row):
+        self.date: date = row.get("date")
+        self.start = row.get("start")
+        self.end = row.get("end")
+        self.hours = row.get("hours", time_difference(self.start, self.end))
+        self.rate = row.get("rate")
+        self.type = row.get("type")
+        self.user_id = row.get("user_id")
+        self.payslip_id = row.get("payslip_id")
+        self.id = row.get("id")
+        self.category = row.get("category", "work")
+
+    def __str__(self):
+        return f"Date: {self.date}, Start: {self.start}, End: {self.end}, Type: {self.type}, Category: {self.category}"
+
+    def get_from_db(self, cursor):
+        query = """
+            SELECT id FROM payslip
+            WHERE date = %s and user_id = %s
+        """
+        values = (self.date, self.user_id)
+        cursor.execute(query, values)
+        self.id = cursor.fetchone()
+
+    def exist(self, cursor, user_id):
+        query = """
+            SELECT * FROM shift
+            WHERE date = %s AND type = %s AND user_id = %s
+        """
+
+        values = (self.date, self.type, user_id)
+        cursor.execute(query, values)
+        shift = cursor.fetchone()
+
+        return shift
+
+    def commit(self, cursor, user_id):
+        existing_shift = self.exist(cursor, user_id)
+        if existing_shift:
+            query = """
+                UPDATE shift
+                SET start = %s, end = %s, hours = %s, rate = %s
+                WHERE date = %s and user_id = %s
+            """
+
+            values = (self.start, self.end, self.hours, self.rate, self.date, user_id)
+        else:
+            query = """
+                INSERT INTO shift (date, start, end, hours, rate, type, user_id, has_scraped, has_removed, category)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, 1, 0, %s)
+            """
+
+            values = (
+                self.date,
+                self.start,
+                self.end,
+                self.hours,
+                self.rate,
+                self.type,
+                user_id,
+                self.category
+            )
+
+        cursor.execute(query, values)
+
+
+class Payslip:
+    def __init__(self, row):
+        self.date = row.get("date")
+        self.net = row.get("net")
+        self.rate = row.get("rate")
+        self.id = row.get("id")
+        self.user_id = row.get("user_id")
+
+    def get_from_db(self, cursor):
+        query = """
+            SELECT id FROM payslip
+            WHERE date = %s and user_id = %s
+        """
+        values = (self.date, self.user_id)
+        cursor.execute(query, values)
+        self.id = cursor.fetchone()
+
+    def exist(self, cursor, user_id):
+        query = """
+            SELECT * FROM payslip
+            WHERE date = %s AND user_id = %s
+        """
+
+        values = (self.date, user_id)
+        cursor.execute(query, values)
+        payslip = cursor.fetchone()
+
+        return payslip
+
+    def commit(self, cursor, user_id):
+        existing_payslip = self.exist(cursor, user_id)
+        if existing_payslip:
+            query = """
+                UPDATE payslip
+                SET rate = %s, net = %s
+                WHERE id = %s
+           """
+            values = (self.rate, self.net, existing_payslip[0])
+        else:
+            query = """
+                INSERT INTO payslip (date, rate, net, user_id)
+                VALUES (%s, %s, %s, %s)
+            """
+
+            values = (self.date, self.rate, self.net, user_id)
+
+        cursor.execute(query, values)
+
+
 def remove_all_range(cursor, start, end, stype):
     qry = """
         DELETE
@@ -45,28 +184,6 @@ def remove_all_range(cursor, start, end, stype):
     values = (start, end, stype)
     cursor.execute(qry, values)
 
-
-def commit_shifts(user, cursor, start, end, shifts, stype):
-    remove_all_range(cursor, start, end, stype)
-
-    query = """
-        INSERT INTO shift (date, start, end, hours, rate, type, user_id, has_scraped, has_removed, category)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, 1, 0, %s)
-    """
-
-    for shift in shifts:
-        shift["hours"] = time_difference(shift["start"], shift["end"])
-        values = (
-            shift["date"],
-            shift["start"],
-            shift["end"],
-            shift["hours"],
-            shift["rate"],
-            shift["type"],
-            user["id"],
-            shift["category"]
-        )
-        cursor.execute(query, values)
 
 @contextlib.contextmanager
 def connect_sql():
@@ -115,20 +232,18 @@ def get_user(user_id):
         """
         values = user_id
         cursor.execute(qry, values)
-        user = cursor.fetchone()
+        row = cursor.fetchone()
+        if row:
+            user = User(row)
+        else:
+            user = None
     return user
 
 
 def get_users():
     with connect_sql() as cursor:
-        users = load_table(cursor, "SELECT * from user")
-
-        for user in users:
-            print(str(user))
-            user["fg_pass"] = fernet.decrypt(user["fg_pass"]).decode()
-            user["sd_pass"] = fernet.decrypt(user["sd_pass"]).decode()
-
-        return users
+        rows = load_table(cursor, "SELECT * from user")
+        return list(map(lambda row: User(row), rows))
 
 
 async def parse_page(page) -> BeautifulSoup:
@@ -145,18 +260,12 @@ def start_of_week(date: datetime):
 async def scrape_shifts(context: BrowserContext, button, user):
     # log in to fgp
     page = await context.new_page()
-    url = f"{FGP_BASE_URL}?site=login&page=login"
-    await page.goto(url)
+    await page.goto(f"{FGP_BASE_URL}?site=login&page=login")
 
-    await page.get_by_label("Username").fill(user["fg_user"])
-    await page.get_by_label("Password").fill(user["fg_pass"])
+    await page.get_by_label("Username").fill(user.fg_user)
+    await page.get_by_label("Password").fill(user.fg_pass)
     await page.get_by_role("button", name="Submit").click()
 
-    # await page.wait_for_load_state("networkidle")
-    # if page.url == url:
-    #     return {"error": "invalid credentials for fgp"}
-
-    # navigate to rota
     await page.locator("a").filter(has_text="My Rota").click()
     await page.locator("a").filter(has_text=button).click()
 
@@ -167,7 +276,7 @@ async def scrape_shifts(context: BrowserContext, button, user):
 
     # initializing the details
     week_after = start_of_week(datetime.today()) + timedelta(weeks=4)
-    current_date = user["pointer"]
+    current_date = user.pointer
     start_date = current_date
     date_element = page.get_by_placeholder("dd/mm/yy")
     shifts = []
@@ -206,7 +315,7 @@ async def scrape_shifts(context: BrowserContext, button, user):
                 if "HOL" in hours:
                     logger.debug(hours)
                     date = (week_start + timedelta(days=count)).date()
-                    shift = {
+                    row = {
                         "date": date,
                         "start": 0,
                         "end": 0,
@@ -215,8 +324,8 @@ async def scrape_shifts(context: BrowserContext, button, user):
                         "rate": 12.05,
                         "type": button
                     }
-
-                    logger.debug(f"Scraped shift: {str(shift)} for user {user["id"]}")
+                    shift = Shift(row)
+                    logger.debug(f"Scraped shift: {shift} for user {user.id}")
                     shifts.append(shift)
 
                 if len(hours) > 7 and hours[0] != "-":
@@ -233,28 +342,24 @@ async def scrape_shifts(context: BrowserContext, button, user):
                     else:
                         end_datetime = datetime.combine(date, end)
 
-                    shift = {
+                    row = {
                         "date": date,
                         "start": start_datetime.timestamp(),
                         "end": end_datetime.timestamp(),
                         "rate": 12.05,
                         "type": button,
-                        "category": "work"
                     }
-                    logger.debug(f"Scraped shift: {str(shift)} for user {user["id"]}")
+                    shift = Shift(row)
+                    logger.debug(f"Scraped shift: {shift} for user {user.id}")
                     shifts.append(shift)
 
         current_date = current_date + timedelta(weeks=1)
         if current_date >= week_after.date():
             break
 
-    logger.info(f"Scraped {len(shifts)} shifts for user {user["id"]}")
+    logger.info(f"Scraped {len(shifts)} shifts for user {user.id}")
 
-    return {
-        "shifts": shifts,
-        "start": start_date,
-        "end": week_after.date()
-    }
+    return shifts, start_date, week_after.date()
 
 
 async def match_years(anchors):
@@ -375,32 +480,70 @@ async def scrape_payslips(browser, user):
     return payslips
 
 
+def assign_payslip(payslips):
+    qry = """
+        UPDATE shift
+        SET payslip_id = %s
+        WHERE date >= %s AND date <= %s AND user_id = %s
+    """
+
+    with connect_sql() as cursor:
+        [payslip.get_from_db(cursor) for payslip in payslips]
+        for payslip in payslips:
+            print(payslip.id)
+            end_date = payslip.date - timedelta(days=2)
+            start_date = end_date - timedelta(weeks=2)
+            values = (payslip.id, start_date, end_date, payslip.user_id)
+            cursor.execute(qry, values)
+
+
+def assign_shifts(shifts, user_id):
+    qry = """
+        UPDATE shift
+        SET payslip_id = %s
+        WHERE id = %s AND user_id = %s
+    """
+
+    with connect_sql() as cursor:
+        data = load_table(cursor, "SELECT * FROM payslip WHERE user_id = %s", user_id)
+        payslips = [Payslip(row) for row in data]
+
+        [shift.get_from_db(cursor) for shift in shifts]
+        for shift in shifts:
+            for payslip in payslips:
+                end_date = payslip.date - timedelta(days=2)
+                start_date = end_date - timedelta(weeks=2)
+                if shift.date <= end_date and shift.date >= start_date:
+                    values = (payslip.id, shift.id, user_id)
+                    cursor.execute(qry, values)
+
+
 async def get_payslips(browser, user):
     with connect_sql() as cursor:
         payslips = await scrape_payslips(browser, user)
-
-        # NEED TO COMMIT PAYSLIPS HERE
+        for payslip in payslips:
+            payslip.commit(cursor, user.id)
+    assign_payslip(payslips)
 
 
 async def get_shifts(browser, user):
     with connect_sql() as cursor:
         # shifts and schedule (fgp)
-        schedule = await scrape_shifts(browser, "Schedule", user)
-        if schedule.get("error"):
-            return schedule.get("error")
+        schedule, start, end = await scrape_shifts(browser, "Schedule", user)
+        remove_all_range(cursor, start, end, "Schedule")
 
-        commit_shifts(user, cursor, schedule["start"], schedule["end"], schedule["shifts"], "Schedule")
+        timecard, start, end = await scrape_shifts(browser, "Timecard", user)
+        remove_all_range(cursor, start, end, "Schedule")
 
-        timecard = await scrape_shifts(browser, "Timecard", user)
-        if timecard.get("error"):
-            return timecard.get("error")
-
-        commit_shifts(user, cursor, timecard["start"], timecard["end"], timecard["shifts"], "Timecard")
+        for shift in schedule + timecard:
+            shift.commit(cursor, user.id)
+    assign_shifts(schedule, user.id)
+    assign_shifts(timecard, user.id)
 
 
 async def scrape_user(user, playwright, headless, command):
     browser = await playwright.firefox.launch(headless=headless)
-    logger.debug(f"Browser opened for user {user["id"]}")
+    logger.debug(f"Browser opened for user {user.id}")
 
     try:
         if command == "all":
@@ -414,8 +557,8 @@ async def scrape_user(user, playwright, headless, command):
         logger.exception(e)
     finally:
         await browser.close()
-        logger.debug(f"Browser closed for user {user["id"]}")
-        logger.info(f"Finished scraping {command} for user {user["id"]}")
+        logger.debug(f"Browser closed for user {user.id}")
+        logger.info(f"Finished scraping {command} for user {user.id}")
 
 
 async def scrape_all(playwright, headless, command):
