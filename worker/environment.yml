@@ -1,4 +1,4 @@
-name: personal-finance-worker
+name: cache-worker
 channels:
   - defaults
 dependencies:

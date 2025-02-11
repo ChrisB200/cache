@@ -1,4 +1,4 @@
-name: personal-finance-api
+name: cache-api
 channels:
   - defaults
 dependencies:
