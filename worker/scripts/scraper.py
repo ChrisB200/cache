@@ -68,6 +68,25 @@ def commit_shifts(user, cursor, start, end, shifts, stype):
         )
         cursor.execute(query, values)
 
+def commit_payslips(user, cursor, start, end, payslips):
+    qry = """
+        DELETE
+        FROM payslip
+        WHERE %s < date and %s > date and user_id = %s 
+    """
+    vals = (start, end, user["id"])
+    cursor.execute(qry, vals)
+
+    query = """
+        INSERT INTO payslip (date, rate, net, user_id)
+        VALUES (%s, %s, %s, %s)
+    """
+
+    for payslip in payslips:
+        values = (payslip["date"], payslip["rate"], payslip["net"], user["id"])
+
+        cursor.execute(query, values)
+
 @contextlib.contextmanager
 def connect_sql():
     connection = pymysql.connect(
@@ -267,23 +286,14 @@ async def match_years(anchors):
                 year_elements.append(element)
     return year_elements
 
-def price_to_float(price):
-    if ("," in price):
-        new_price = ""
-        price = price.split(",")
-        for char in price:
-            new_price = new_price + char
-        return float(new_price)
-    return price
-
 async def scrape_payslips(browser, user):
     context = await browser.new_context()
     page = await context.new_page()
     await page.goto(SD_BASE_URL)
 
     # enter log in details
-    await page.get_by_placeholder("Username").fill(user.sd_user)
-    await page.get_by_placeholder("Password").fill(user.sd_pass)
+    await page.get_by_placeholder("Username").fill(user["sd_user"])
+    await page.get_by_placeholder("Password").fill(user["sd_pass"])
     await page.get_by_role("button", name="Sign In").click()
 
     # presses payslips
@@ -358,7 +368,7 @@ async def scrape_payslips(browser, user):
         net_pay_lbl = current.locator("#baseNetPayBackground")
         net_pay = net_pay_lbl.locator("xpath=following-sibling::*[1]")
         net_pay = await net_pay.inner_text()
-        net_pay = price_to_float(net_pay.split("£")[1])
+        net_pay = net_pay.split("£")[1]
 
         if "," in net_pay:
             tmp = net_pay.split(",")
@@ -367,16 +377,15 @@ async def scrape_payslips(browser, user):
             net_pay = float(net_pay)
 
         # create payslip object
-        row = {"date": date.date(), "net": net_pay, "rate": rate, "user_id": user.id}
-        payslip = Payslip(row)
+        payslip = {"date": date.date(), "net": net_pay, "rate": rate, "user_id": user["id"]}
         logger.debug(
             f"Scraped payslip at date {
-                payslip.date} for user {user.id}"
+                payslip["date"]} for user {user["id"]}"
         )
         payslips.append(payslip)
 
-    logger.info(f"Scraped {len(payslips)} payslips for user {user.id}")
-    return payslips
+    logger.info(f"Scraped {len(payslips)} payslips for user {user["id"]}")
+    return {"payslips": payslips, "start": payslips[0]["date"], "end": payslips[-1]["date"]}
 
 
 async def get_payslips(browser, user):
@@ -384,6 +393,7 @@ async def get_payslips(browser, user):
         payslips = await scrape_payslips(browser, user)
 
         # NEED TO COMMIT PAYSLIPS HERE
+        commit_payslips(user, cursor, **payslips)
 
 
 async def get_shifts(browser, user):
