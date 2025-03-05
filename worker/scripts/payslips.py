@@ -2,9 +2,11 @@ import re
 import logging
 
 from datetime import datetime
+from datetime import timedelta
 from playwright.async_api import expect
 
 from .scraper import connect_sql
+from .scraper import load_table
 
 logger = logging.getLogger(__name__)
 
@@ -17,6 +19,17 @@ async def get_payslips(browser, user):
 
         # NEED TO COMMIT PAYSLIPS HERE
         commit_payslips(user, cursor, **payslips)
+
+    with connect_sql() as cursor:
+        qry = """
+            SELECT *
+            FROM payslip
+            WHERE date >= %s and date <= %s
+        """
+        values = (payslips["start"], payslips["end"])
+        payslips = load_table(cursor, qry, values)
+        for payslip in payslips:
+            link_shifts(payslip, cursor)
 
 
 async def match_years(anchors):
@@ -74,6 +87,24 @@ async def get_net(page):
     return str_to_float(net_pay)
 
 
+async def get_work_pay(page):
+    tds = await page.locator(".PSLabel").all()
+
+    for td in tds:
+        div = td.locator("div")
+        if await div.count() == 0:
+            continue
+        text = await div.text_content()
+        if "BASICHR" in text or "ESWORKHR" in text:
+            sibling = td.locator("xpath=following-sibling::*[1]")
+            if await sibling.count() == 0:
+                continue
+            work_pay = str_to_float(await sibling.inner_text())
+            return work_pay
+
+    return None
+
+
 async def get_pay(page):
     total_lbls = await page.locator(".TotalData").all()
     lbl_1 = str_to_float(await total_lbls[0].inner_text())
@@ -87,10 +118,6 @@ async def get_pay(page):
     else:
         pay = lbl_2
         deductions = lbl_1
-
-    print([await lbl.inner_text() for lbl in total_lbls])
-    print(pay)
-    print(deductions)
 
     return pay, deductions
 
@@ -154,7 +181,6 @@ async def scrape_payslips(browser, user):
         for cell in tableCells:
             inner_text = await cell.inner_text()
             if re.match(pattern, inner_text):
-                print("hey")
                 locator = cell
                 break
 
@@ -168,6 +194,7 @@ async def scrape_payslips(browser, user):
         rate = await get_rate(current)
         net = await get_net(current)
         pay, deductions = await get_pay(current)
+        work_pay = await get_work_pay(current)
 
         # create payslip object
         payslip = {
@@ -177,6 +204,7 @@ async def scrape_payslips(browser, user):
             "pay": pay,
             "deductions": deductions,
             "user_id": user["id"],
+            "hours": round(work_pay / rate, 2)
         }
 
         logger.debug(
@@ -188,23 +216,58 @@ async def scrape_payslips(browser, user):
     logger.info(f"Scraped {len(payslips)} payslips for user {user["id"]}")
     return {
         "payslips": payslips,
-        "start": payslips[0]["date"],
-        "end": payslips[-1]["date"],
+        "end": payslips[0]["date"],
+        "start": payslips[-1]["date"],
     }
+
+
+def link_shifts(payslip, cursor):
+    qry = """
+        SELECT *
+        FROM shift
+        WHERE date >= %s and date <= %s and type = "Timecard"
+    """
+    end = payslip["date"] - timedelta(days=2)
+    start = end - timedelta(weeks=2)
+
+    shifts = load_table(cursor, qry, (start, end))
+
+    linked = []
+    total = 0
+    for shift in shifts:
+        if total == payslip["hours"]:
+            break
+
+        total += round(shift["hours"], 2)
+        total = round(total, 2)
+        print(total)
+        linked.append(shift)
+
+    print(f"total: {total}, {payslip["hours"]}")
+
+    qry = """
+        UPDATE shift
+        SET payslip_id = %s
+        WHERE id = %s
+    """
+
+    for shift in linked:
+        values = (payslip["id"], shift["id"])
+        cursor.execute(qry, values)
 
 
 def commit_payslips(user, cursor, start, end, payslips):
     qry = """
         DELETE
         FROM payslip
-        WHERE %s < date and %s > date and user_id = %s 
+        WHERE %s < date and %s > date and user_id = %s
     """
     vals = (start, end, user["id"])
     cursor.execute(qry, vals)
 
     query = """
-        INSERT INTO payslip (date, rate, net, pay, deductions, user_id)
-        VALUES (%s, %s, %s, %s, %s, %s)
+        INSERT INTO payslip (date, rate, net, pay, deductions, hours, user_id)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
     """
 
     for payslip in payslips:
@@ -214,6 +277,7 @@ def commit_payslips(user, cursor, start, end, payslips):
             payslip["net"],
             payslip["pay"],
             payslip["deductions"],
+            payslip["hours"],
             user["id"],
         )
 
