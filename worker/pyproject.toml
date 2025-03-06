@@ -1,0 +1,24 @@
+[project]
+name = "worker"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Christopher Bonner",email = "cbonner.dev@outlook.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "playwright (>=1.50.0,<2.0.0)",
+    "pymysql (>=1.1.1,<2.0.0)",
+    "python-dotenv (>=1.0.1,<2.0.0)",
+    "bs4 (>=0.0.2,<0.0.3)",
+    "cryptography (>=44.0.2,<45.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
