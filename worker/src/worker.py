@@ -76,4 +76,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     action, user, all_users = handle_args(args)
 
-    asyncio.run(main(action, user, all_users, False))
+    asyncio.run(main(action, user, all_users, True))
