@@ -90,7 +90,6 @@ def get_users():
         users = load_table(cursor, "SELECT * from user")
 
         for user in users:
-            print(str(user))
             user["fg_pass"] = fernet.decrypt(user["fg_pass"]).decode()
             user["sd_pass"] = fernet.decrypt(user["sd_pass"]).decode()
 

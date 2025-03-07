@@ -4,6 +4,9 @@ import argparse
 parser = argparse.ArgumentParser(
     description="Worker for the users within the Cache program"
 )
+parser.add_argument("-head", "--headless", help="run browser headless", action="store_true")
+parser.add_argument("-f", "--file", help="log file location")
+parser.add_argument("-d", "--debug", help="set debug state", action="store_true")
 
 subparsers = parser.add_subparsers(
     title="subcommands", description="valid subcommands", dest="action"

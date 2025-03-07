@@ -1,4 +1,5 @@
 import logging
+import logging.handlers as handlers
 import asyncio
 
 from playwright.async_api import async_playwright
@@ -9,29 +10,16 @@ from scripts.scraper import get_user, get_users
 from scripts.shifts import get_shifts
 from scripts.payslips import get_payslips
 
+
+
 logging.basicConfig(
-    level=logging.DEBUG,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler("worker.log"),
         logging.StreamHandler()
     ]
 )
 
 logger = logging.getLogger(__name__)
-
-
-def handle_args(args):
-    action = args.action
-
-    if not args.action:
-        user = None
-        all_users = None
-    else:
-        user = args.user_id
-        all_users = args.all_users
-
-    return action, user, all_users
 
 
 async def scrape_user(user, playwright, headless, command):
@@ -46,12 +34,12 @@ async def scrape_user(user, playwright, headless, command):
             await get_shifts(browser, user)
         if command == "payslips":
             await get_payslips(browser, user)
+        logger.info(f"Finished scraping {command} for user {user["id"]}")
     except TargetClosedError as e:
         logger.exception(e)
     finally:
         await browser.close()
         logger.debug(f"Browser closed for user {user["id"]}")
-        logger.info(f"Finished scraping {command} for user {user["id"]}")
 
 
 async def scrape_all(playwright, headless, command):
@@ -74,6 +62,17 @@ async def main(action, user, all_users, headless=True):
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    action, user, all_users = handle_args(args)
 
-    asyncio.run(main(action, user, all_users, True))
+    if not args.action:
+        raise TypeError("Need to pass what you want to scrape (shifts, payslips, all)")
+
+    if args.debug:
+        logger.setLevel(logging.DEBUG)
+    else:
+        logger.setLevel(logging.INFO)
+
+    if args.file:
+        logger.addHandler(handlers.RotatingFileHandler(args.file, maxBytes=20*1024*1024, backupCount=3))
+
+
+    asyncio.run(main(args.action, args.user_id, args.all_users, args.headless))
