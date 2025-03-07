@@ -15,7 +15,8 @@ SD_BASE_URL = "https://my.sdworx.co.uk/portal/login.aspx?organisation=76231"
 
 async def get_payslips(browser, user):
     with connect_sql() as cursor:
-        payslips = await scrape_payslips(browser, user)
+        last_slip = await get_last_slip(cursor, 2)
+        payslips = await scrape_payslips(browser, user, last_slip)
 
         # NEED TO COMMIT PAYSLIPS HERE
         commit_payslips(user, cursor, **payslips)
@@ -121,8 +122,24 @@ async def get_pay(page):
 
     return pay, deductions
 
+async def get_last_slip(cursor, offset=0):
+    qry = """
+        SELECT date
+        FROM payslip
+        WHERE date = (SELECT MAX(date) FROM payslip)
+        LIMIT 1
+    """
+    cursor.execute(qry)
+    row = cursor.fetchone()
 
-async def scrape_payslips(browser, user):
+    if not row:
+        return None
+
+    date = row["date"]
+    date = date - timedelta(weeks=offset)
+    return date
+
+async def scrape_payslips(browser, user, last_slip):
     context = await browser.new_context()
     page = await context.new_page()
     await page.goto(SD_BASE_URL)
@@ -171,6 +188,9 @@ async def scrape_payslips(browser, user):
         expected_date = await convert_date(element, currentYear)
         expected_str = expected_date.strftime("%d/%m/%Y")
 
+        if expected_date.date() == last_slip:
+            break
+
         # look for the date in the details section
         details = current.locator("#ctl00_MCPH_PayslipCtrl_udpEmployeeDetails")
         tableCells = await details.locator(".TDData").all()
@@ -212,9 +232,6 @@ async def scrape_payslips(browser, user):
                 payslip["date"]} for user {user["id"]}"
         )
         payslips.append(payslip)
-
-        if len(payslips) == 6:
-            break
 
     logger.info(f"Scraped {len(payslips)} payslips for user {user["id"]}")
     return {

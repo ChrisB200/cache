@@ -67,12 +67,12 @@ if __name__ == "__main__":
         raise TypeError("Need to pass what you want to scrape (shifts, payslips, all)")
 
     if args.debug:
-        logger.setLevel(logging.DEBUG)
+        logging.getLogger().setLevel(logging.DEBUG)
     else:
-        logger.setLevel(logging.INFO)
+        logging.getLogger().setLevel(logging.INFO)
 
     if args.file:
-        logger.addHandler(handlers.RotatingFileHandler(args.file, maxBytes=20*1024*1024, backupCount=3))
+        logging.getLogger().addHandler(handlers.RotatingFileHandler(args.file, maxBytes=20*1024*1024, backupCount=3))
 
 
     asyncio.run(main(args.action, args.user_id, args.all_users, args.headless))
