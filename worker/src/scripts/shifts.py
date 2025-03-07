@@ -19,20 +19,21 @@ FGP_BASE_URL = "https://fgp.fiveguys.co.uk/portal.php"
 async def get_shifts(browser, user):
     with connect_sql() as cursor:
         # shifts and schedule (fgp)
-        schedule = await scrape_shifts(browser, "Schedule", user)
+        start_date = await get_last_shift(cursor, 2)
+        schedule = await scrape_shifts(browser, "Schedule", user, start_date)
         if schedule.get("error"):
             return schedule.get("error")
 
         commit_shifts(user, cursor, schedule["start"], schedule["end"], schedule["shifts"], "Schedule")
 
-        timecard = await scrape_shifts(browser, "Timecard", user)
+        timecard = await scrape_shifts(browser, "Timecard", user, start_date)
         if timecard.get("error"):
             return timecard.get("error")
 
         commit_shifts(user, cursor, timecard["start"], timecard["end"], timecard["shifts"], "Timecard")
 
 
-async def scrape_shifts(context: BrowserContext, button, user):
+async def scrape_shifts(context: BrowserContext, button, user, start_date):
     # log in to fgp
     page = await context.new_page()
     url = f"{FGP_BASE_URL}?site=login&page=login"
@@ -56,9 +57,8 @@ async def scrape_shifts(context: BrowserContext, button, user):
         html = await parse_page(page)
 
     # initializing the details
+    current_date = start_date
     week_after = start_of_week(datetime.today()) + timedelta(weeks=4)
-    current_date = user["pointer"]
-    start_date = current_date
     date_element = page.get_by_placeholder("dd/mm/yy")
     shifts = []
 
@@ -129,7 +129,8 @@ async def scrape_shifts(context: BrowserContext, button, user):
                         "end": end_datetime.timestamp(),
                         "rate": 12.05,
                         "type": button,
-                        "category": "work"
+                        "category": "work",
+                        "hours": time_difference(start_datetime.timestamp(), end_datetime.timestamp())
                     }
                     logger.debug(f"Scraped shift: {str(shift)} for user {user["id"]}")
                     shifts.append(shift)
@@ -146,9 +147,59 @@ async def scrape_shifts(context: BrowserContext, button, user):
         "end": week_after.date()
     }
 
+async def get_last_shift(cursor, offset=0):
+    qry = """
+        SELECT date
+        FROM shift
+        WHERE date = (SELECT MAX(date) FROM shift)
+        LIMIT 1
+    """
+    cursor.execute(qry)
+    row = cursor.fetchone()
+
+    if not row:
+        return datetime(2024, 7, 8)
+
+    date = row["date"]
+    date = date - timedelta(weeks=offset)
+    return start_of_week(date)
 
 def commit_shifts(user, cursor, start, end, shifts, stype):
-    remove_all_range(cursor, start, end, stype)
+    qry = """
+        SELECT date, id
+        FROM shift
+        WHERE date >= %s and date <= %s and user_id = %s
+    """
+    vals = (start, end, user["id"])
+    cursor.execute(qry, vals)
+    rows = cursor.fetchall()
+
+    qry = """
+        UPDATE shift
+        SET start = %s, end = %s, hours = %s, rate = %s, type = %s, category = %s
+        WHERE id = %s
+    """
+
+    tmp = shifts.copy()
+    removed = []
+    for row in rows:
+        for i, shift in enumerate(tmp):
+            if not row["date"] == shift["date"]:
+                continue
+
+            vals = (
+                shift["start"],
+                shift["end"],
+                shift["hours"],
+                shift["rate"],
+                shift["type"],
+                shift["category"],
+                row["id"]
+            )
+            cursor.execute(qry, vals)
+            removed.append(i)
+
+    shifts = [shift for j, shift in enumerate(shifts) if j not in removed]
 
     query = """
         INSERT INTO shift (date, start, end, hours, rate, type, user_id, has_scraped, has_removed, category)
@@ -156,7 +207,6 @@ def commit_shifts(user, cursor, start, end, shifts, stype):
     """
 
     for shift in shifts:
-        shift["hours"] = time_difference(shift["start"], shift["end"])
         values = (
             shift["date"],
             shift["start"],
