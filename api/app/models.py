@@ -22,9 +22,6 @@ class User(UserMixin, db.Model):
     fg_pass = db.Column(db.String(200))
     sd_user = db.Column(db.String(200))
     sd_pass = db.Column(db.String(200))
-    pointer = db.Column(db.Date)
-    last_pay = db.Column(db.Float)
-    cutoff_index = db.Column(db.Integer)
 
     shifts = db.relationship("Shift", back_populates="user", cascade="all, delete")
     payslips = db.relationship("Payslip", back_populates="user", cascade="all, delete")
