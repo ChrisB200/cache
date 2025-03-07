@@ -24,9 +24,9 @@ async def get_payslips(browser, user):
         qry = """
             SELECT *
             FROM payslip
-            WHERE date >= %s and date <= %s
+            WHERE date >= %s and date <= %s and user_id = %s
         """
-        values = (payslips["start"], payslips["end"])
+        values = (payslips["start"], payslips["end"], user["id"])
         payslips = load_table(cursor, qry, values)
         for payslip in payslips:
             link_shifts(payslip, cursor)
@@ -213,6 +213,9 @@ async def scrape_payslips(browser, user):
         )
         payslips.append(payslip)
 
+        if len(payslips) == 6:
+            break
+
     logger.info(f"Scraped {len(payslips)} payslips for user {user["id"]}")
     return {
         "payslips": payslips,
@@ -240,10 +243,7 @@ def link_shifts(payslip, cursor):
 
         total += round(shift["hours"], 2)
         total = round(total, 2)
-        print(total)
         linked.append(shift)
-
-    print(f"total: {total}, {payslip["hours"]}")
 
     qry = """
         UPDATE shift
@@ -257,14 +257,41 @@ def link_shifts(payslip, cursor):
 
 
 def commit_payslips(user, cursor, start, end, payslips):
+    # get ids existing payslips
     qry = """
-        DELETE
+        SELECT date, id
         FROM payslip
-        WHERE %s < date and %s > date and user_id = %s
+        WHERE date >= %s and date <= %s and user_id = %s
     """
     vals = (start, end, user["id"])
     cursor.execute(qry, vals)
+    rows = cursor.fetchall()
 
+    # update old payslips with new payslip data
+    qry = """
+        UPDATE payslip
+        SET rate = %s, net = %s, pay = %s, deductions = %s, hours = %s
+        WHERE id = %s
+    """
+
+    tmp = payslips.copy()
+    for row in rows:
+        for payslip in tmp:
+            if not row["date"] == payslip["date"]:
+                continue
+
+            vals = (
+                payslip["rate"],
+                payslip["net"],
+                payslip["pay"],
+                payslip["deductions"],
+                payslip["hours"],
+                row["id"]
+            )
+            cursor.execute(qry, vals)
+            payslips.remove(payslip)
+
+    # create new payslips if they do not already exist
     query = """
         INSERT INTO payslip (date, rate, net, pay, deductions, hours, user_id)
         VALUES (%s, %s, %s, %s, %s, %s, %s)
