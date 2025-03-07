@@ -15,8 +15,12 @@ export function combineShifts(shifts) {
 }
 
 export function sortShifts(data) {
+  console.log(data)
   const timecardShifts = data.filter((shift) => shift.type === "Timecard");
   const scheduleShifts = data.filter((shift) => shift.type === "Schedule");
+
+  console.log(timecardShifts)
+  console.log(scheduleShifts)
 
   return {
     timecard: timecardShifts,

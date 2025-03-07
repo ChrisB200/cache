@@ -39,11 +39,6 @@ function Calendar({ currentDate, setCurrentDate, onDateSelect }) {
   };
 
   const dayEvents = (day) => {
-    console.log("Shifts:", shifts);
-    console.log("Payslips:", payslips);
-    console.log("Shifts Length:", shifts.length);
-    console.log("Payslips Length:", payslips.length);
-
     if (Object.keys(shifts).length == 0 || !payslips.length) {
       return styles.day;
     }
@@ -56,10 +51,6 @@ function Calendar({ currentDate, setCurrentDate, onDateSelect }) {
       payslip: isPayslipDate(payslips, day),
       outside: day.getMonth() !== currentDate.getMonth(),
     };
-
-    console.log("hey")
-    console.log(day)
-    console.log(conditions)
 
     let classes = styles.day;
 
