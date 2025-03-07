@@ -147,6 +147,7 @@ async def scrape_shifts(context: BrowserContext, button, user, start_date):
         "end": week_after.date()
     }
 
+
 async def get_last_shift(cursor, offset=0):
     qry = """
         SELECT date
