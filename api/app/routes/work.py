@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models import db, User, Shift, Payslip
 from sqlalchemy import desc
 from datetime import timedelta, datetime
+from itertools import combinations
 from ics import Calendar, Event
 
 work = Blueprint("work", __name__)
@@ -81,6 +82,7 @@ def forecasted_payslip():
     payslip["shifts"] = [shift.to_json() for shift in combined]
 
     return jsonify(payslip)
+
 
 @work.route("/shifts/<int:shift_id>", methods=["PUT"])
 @login_required

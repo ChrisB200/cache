@@ -103,3 +103,4 @@ class Payslip(db.Model):
             "user_id": self.user_id,
             "shifts": [shift.id for shift in self.shifts]
         }
+

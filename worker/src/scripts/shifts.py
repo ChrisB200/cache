@@ -57,7 +57,7 @@ async def scrape_shifts(context: BrowserContext, button, user, start_date):
         html = await parse_page(page)
 
     # initializing the details
-    current_date = start_date
+    current_date = start_date.date()
     week_after = start_of_week(datetime.today()) + timedelta(weeks=4)
     date_element = page.get_by_placeholder("dd/mm/yy")
     shifts = []
@@ -130,7 +130,7 @@ async def scrape_shifts(context: BrowserContext, button, user, start_date):
                         "rate": 12.05,
                         "type": button,
                         "category": "work",
-                        "hours": time_difference(start_datetime.timestamp(), end_datetime.timestamp())
+                        "hours": round(time_difference(start_datetime.timestamp(), end_datetime.timestamp()), 2)
                     }
                     logger.debug(f"Scraped shift: {str(shift)} for user {user["id"]}")
                     shifts.append(shift)

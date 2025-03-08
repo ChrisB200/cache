@@ -4,6 +4,7 @@ import logging
 from datetime import datetime
 from datetime import timedelta
 from playwright.async_api import expect
+from itertools import combinations
 
 from .scraper import connect_sql
 from .scraper import load_table
@@ -252,15 +253,21 @@ def link_shifts(payslip, cursor):
 
     shifts = load_table(cursor, qry, (start, end))
 
-    linked = []
-    total = 0
-    for shift in shifts:
-        if total == payslip["hours"]:
-            break
+    target = payslip["hours"]
+    all = []
 
-        total += round(shift["hours"], 2)
-        total = round(total, 2)
-        linked.append(shift)
+    for i in range(1, len(shifts) + 1):
+        combos = list(combinations(shifts, i))
+        all.extend(combos)
+
+    closest = 0
+    best = []
+    for combo in all:
+        hours = [shift["hours"] for shift in combo]
+        total = sum(hours)
+        if abs(closest - target) > abs(total - target):
+            closest = total
+            best = combo
 
     qry = """
         UPDATE shift
@@ -268,7 +275,7 @@ def link_shifts(payslip, cursor):
         WHERE id = %s
     """
 
-    for shift in linked:
+    for shift in best:
         values = (payslip["id"], shift["id"])
         cursor.execute(qry, values)
 
