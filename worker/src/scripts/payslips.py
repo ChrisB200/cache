@@ -248,7 +248,7 @@ def link_shifts(payslip, cursor):
         FROM shift
         WHERE date >= %s and date <= %s and type = "Timecard"
     """
-    end = payslip["date"] - timedelta(days=2)
+    end = payslip["date"] - timedelta(days=1)
     start = end - timedelta(weeks=2)
 
     shifts = load_table(cursor, qry, (start, end))
