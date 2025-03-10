@@ -57,7 +57,7 @@ async def scrape_shifts(context: BrowserContext, button, user, start_date):
         html = await parse_page(page)
 
     # initializing the details
-    current_date = start_date.date()
+    current_date = start_date
     week_after = start_of_week(datetime.today()) + timedelta(weeks=4)
     date_element = page.get_by_placeholder("dd/mm/yy")
     shifts = []
