@@ -31,7 +31,6 @@ def signup():
     fg_pass = request.json.get("fgpass")
     sd_user = request.json.get("sduser")
     sd_pass = request.json.get("sdpass")
-    pointer = datetime(2024, 7, 8).date()
 
     user_exists = User.query.filter_by(email=email).first() is not None
     if user_exists:
@@ -41,7 +40,6 @@ def signup():
         email=email,
         fg_user=fg_user,
         sd_user=sd_user,
-        pointer=pointer,
     )
     new_user.set_password(password)
     new_user.set_fg_pass(fg_pass)
