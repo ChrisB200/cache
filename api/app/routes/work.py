@@ -47,6 +47,7 @@ def payslips_by_month(month, year):
 @login_required
 def shifts_by_payslip(payslip_id):
     payslip = Payslip.query.filter_by(user_id=current_user.id, id=payslip_id).first()
+    payslip = current_user.payslips[payslip_id]
 
     if payslip:
         return jsonify([shift.to_json() if shift.type == "Timecard" else None for shift in payslip.shifts])
@@ -57,7 +58,11 @@ def shifts_by_payslip(payslip_id):
 @work.route("/payslips/forecast", methods=["GET"])
 @login_required
 def forecasted_payslip():
-    recent_payslip = Payslip.query.order_by(desc(Payslip.date)).first()
+    payslips = sorted(current_user.payslips, key=lambda x: x.date, reverse=True)
+    if len(payslips) == 0:
+        return jsonify(False)
+
+    recent_payslip = payslips[0]
     start_date = recent_payslip.date - timedelta(days=2)
     end_date = start_date + timedelta(weeks=2)
 
