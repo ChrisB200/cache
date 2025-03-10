@@ -36,7 +36,9 @@ async def scrape_user(user, playwright, headless, command):
             await get_payslips(browser, user)
         logger.info(f"Finished scraping {command} for user {user["id"]}")
     except TargetClosedError as e:
-        logger.exception(e)
+        logger.error(e)
+    except:
+        logger.error("error")
     finally:
         await browser.close()
         logger.debug(f"Browser closed for user {user["id"]}")
