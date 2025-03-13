@@ -11,7 +11,6 @@ from scripts.shifts import get_shifts
 from scripts.payslips import get_payslips
 
 
-
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
