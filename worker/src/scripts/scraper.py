@@ -82,6 +82,8 @@ def get_user(user_id):
         values = user_id
         cursor.execute(qry, values)
         user = cursor.fetchone()
+        user["fg_pass"] = fernet.decrypt(user["fg_pass"]).decode()
+        user["sd_pass"] = fernet.decrypt(user["sd_pass"]).decode()
     return user
 
 

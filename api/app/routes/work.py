@@ -60,7 +60,12 @@ def shifts_by_payslip(payslip_id):
 def forecasted_payslip():
     payslips = sorted(current_user.payslips, key=lambda x: x.date, reverse=True)
     if len(payslips) == 0:
-        return jsonify(False)
+        return jsonify({
+            "date": None,
+            "hours": 0,
+            "rate": 11.65,
+            "shifts": []
+        })
 
     recent_payslip = payslips[0]
     start_date = recent_payslip.date - timedelta(days=2)
