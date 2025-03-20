@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models import db, User, Shift, Payslip
 from sqlalchemy import desc
 from datetime import timedelta, datetime
+from dateutil.relativedelta import relativedelta
 from itertools import combinations
 from ics import Calendar, Event
 
@@ -18,30 +19,62 @@ def time_difference(time1, time2):
     hours = time_diff.total_seconds() / 3600
     return hours
 
+@work.route("/payslips", methods=["GET"])
+@login_required
+def payslips():
+    month = request.args.get("month")
+    year = request.args.get("year")
+
+    if month:
+        year = datetime.now().year if year is None else int(year)
+        month = int(month) + 1
+        start_date = datetime(year, month, 1)
+        end_date = start_date + relativedelta(months=1)
+
+        payslips = Payslip.query.filter(
+            Payslip.date.between(start_date, end_date),
+            Payslip.user == current_user
+        )
+    else:
+        payslips = Payslip.query.filter_by(user=current_user).all()
+
+    return jsonify([payslip.to_json() for payslip in payslips])
+
 
 @work.route("/shifts", methods=["GET"])
 @login_required
-def all_shifts():
-    return jsonify([shift.to_json() for shift in current_user.shifts])
+def shifts():
+    month = request.args.get("month")
+    year = request.args.get("year")
+
+    if month:
+        year = datetime.now().year if year is None else int(year)
+        month = int(month) + 1
+        start_date = datetime(year, month, 1)
+        end_date = start_date + relativedelta(months=1)
+
+        shifts = Shift.query.filter(
+            Shift.date.between(start_date, end_date),
+            Shift.user == current_user,
+        )
+    else:
+        shifts = Shift.query.filter_by(user=current_user).all()
+
+    return jsonify([shift.to_json() for shift in shifts])
 
 
-@work.route("/payslips", methods=["GET"])
-@login_required
-def all_payslips():
-    return jsonify([payslip.to_json() for payslip in current_user.payslips])
+@work.route("/shifts/next")
+def next_shift():
+    today = datetime.now()
+    shift = Shift.query.order_by(Shift.date).filter(
+        Shift.date >= today.date(),
+        Shift.start >= today.time(),
+        Shift.type == "Schedule",
+        Shift.user == current_user
+    ).first()
 
+    return jsonify(shift.to_json()), 200
 
-@work.route("/payslips/month/<int:month>/<int:year>", methods=["GET"])
-@login_required
-def payslips_by_month(month, year):
-    if month < 1 or month > 12:
-        return jsonify("Invalid Month"), 422
-
-    start_date = datetime(year, month, 1)
-    end_date = start_date + timedelta(month=1)
-    payslips = db.session.query(Payslip).filter(Payslip.date.between(start_date, end_date)).all()
-
-    return jsonify([payslip.to_json() for payslip in payslips])
 
 
 @work.route("/payslips/<int:payslip_id>/shifts", methods=["GET"])

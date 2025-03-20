@@ -46,7 +46,6 @@ export const fetchPayslipShifts = async (payslip_id) => {
 export const fetchForecastedPayslip = async () => {
   try {
     const response = await httpClient.get(`${BASE_API_URL}/payslips/forecast`);
-    console.log(response.data)
     return response.data
   } catch (error) {
     console.error(error)

@@ -1,32 +1,32 @@
-import { useShifts } from "../hooks/contexts";
+import React from "react"
 import { useState, useEffect } from "react";
 import "../index.css";
 import styles from "../styles/Card.module.css";
 import specific from "../styles/ShiftCard.module.css";
-import Skeleton from "react-loading-skeleton";
-import {
-  calculateTimeLeft,
-  convertTime,
-  timeStr,
-  getNextShift,
-} from "../utils/shift";
+import { calculateTimeLeft, convertTime, timeStr } from "../utils/shift";
+import useFetch from "../hooks/useFetch";
+import { BASE_API_URL } from "../utils/constants";
+import { useUser } from "../hooks/contexts";
 
 export function ShiftCard() {
-  const { shifts, isLoading, error } = useShifts();
-  const [nextShift, setNextShift] = useState(null);
+  const { currentUser } = useUser();
+  const { data: nextShift, error } = useFetch({
+    url: `${BASE_API_URL}/shifts/next`,
+    method: "get",
+    withCredentials: true,
+    key: ["get", "next", "shifts", "user", currentUser?.id],
+    cache: {
+      enabled: true,
+      ttl: 60
+    }
+  });
+
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
   });
-
-  useEffect(() => {
-    if (shifts && shifts.schedule) {
-      const shift = getNextShift(shifts);
-      setNextShift(shift);
-    }
-  }, [shifts]);
 
   useEffect(() => {
     if (!nextShift) return;

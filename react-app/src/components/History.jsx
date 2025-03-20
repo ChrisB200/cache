@@ -46,6 +46,7 @@ function ShiftRecord({ currentPayslip }) {
                 if (shift === undefined) return;
                 return (
                   <ShiftRow
+                      key={shift.id}
                     shift={shift}
                     rate={currentPayslip.rate}
                     setCurrentShift={setCurrentShift}

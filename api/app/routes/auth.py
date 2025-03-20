@@ -123,3 +123,4 @@ def change_fgp():
     db.session.commit()
 
     return jsonify({"success": True}), 200
+

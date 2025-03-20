@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { usePayslips, useShifts } from "../hooks/contexts";
+import React, { useState, useEffect, useReducer } from "react";
+import shiftReducer from "../reducers/shiftReducer"
+import useFetch from "../hooks/useFetch"
 import styles from "../styles/Calendar.module.css";
 import {
   isPayslipDate,
@@ -8,16 +9,29 @@ import {
   isSelected,
   isShiftHoliday,
 } from "../utils/shift";
+import { BASE_API_URL } from "../utils/constants";
+import { dateToStr } from "../utils/helpers"
+import { useUser } from "../hooks/contexts";
 
 function daysInMonth(year, month) {
   return new Date(year, month + 1, 0).getDate();
 }
 
-function Calendar({ currentDate, setCurrentDate, onDateSelect }) {
+function Calendar({ shifts, currentDate, setCurrentDate, onDateSelect }) {
   const [days, setDays] = useState([]);
   const [selectedDay, setSelectedDay] = useState(null);
-  const { payslips } = usePayslips();
-  const { shifts } = useShifts();
+  const { currentUser } = useUser();
+
+  const { data: payslips, refetch: refetchPayslips } = useFetch({
+    url: `${BASE_API_URL}/payslips?month=${currentDate.getMonth()}&year=${currentDate.getFullYear()}`,
+    method: "get",
+    withCredentials: true,
+    key: ["get", "payslips", "user", dateToStr(currentDate), currentUser?.id],
+    cache: {
+      enabled: true,
+      ttl: 60
+    }
+  });
 
   const handlePrev = () => {
     const newDate = new Date(currentDate);
@@ -118,6 +132,10 @@ function Calendar({ currentDate, setCurrentDate, onDateSelect }) {
     );
   }, [currentDate, shifts, payslips]);
 
+  useEffect(() => {
+    refetchPayslips();
+  }, [currentDate])
+
   return (
     <div className={styles.calendar}>
       <div className={styles.header}>
@@ -148,7 +166,7 @@ function Calendar({ currentDate, setCurrentDate, onDateSelect }) {
             onClick={() => {
               handleDateClick(day);
             }}
-            className={`${dayEvents(day)}`}
+            className={`${payslips !== undefined && shifts !== undefined ? dayEvents(day) : ""}`}
           >
             {day.getDate()}
           </p>
