@@ -1,0 +1,28 @@
+[project]
+name = "api"
+version = "0.1.0"
+authors = [
+    {name = "Christopher Bonner",email = "cbonner.dev@outlook.com"}
+]
+requires-python = ">=3.10,<4.0"
+dependencies = [
+    "gunicorn (>=23.0.0,<24.0.0)",
+    "python-dotenv (>=1.0.1,<2.0.0)",
+    "flask-sqlalchemy (>=3.1.1,<4.0.0)",
+    "flask (>=3.1.0,<4.0.0)",
+    "flask-cors (>=5.0.1,<6.0.0)",
+    "flask-bcrypt (>=1.0.1,<2.0.0)",
+    "bcrypt (>=4.3.0,<5.0.0)",
+    "flask-login (>=0.6.3,<0.7.0)",
+    "flask-migrate (>=4.1.0,<5.0.0)",
+    "ics (>=0.7.2,<0.8.0)",
+    "cryptography (>=44.0.2,<45.0.0)",
+    "pymysql (>=1.1.1,<2.0.0)"
+]
+
+[tool.poetry]
+package-mode = false
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

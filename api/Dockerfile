@@ -1,14 +1,17 @@
-FROM continuumio/miniconda3:latest
+FROM python:3.12-slim
 
 WORKDIR /app
 
-COPY . .
+RUN pip install poetry
 
-COPY environment.yml /app/
+COPY pyproject.toml poetry.lock /app/
 
-RUN conda env create -f environment.yml
-RUN echo "conda activate $(head -1 environment.yml | cut -d' ' -f2)" >> ~/.bashrc
+RUN poetry install --no-root
+
+COPY . /app/
 
 EXPOSE 8000
 
-CMD ["bash", "-c", "source ~/.bashrc && gunicorn -w 4 -b 0.0.0.0:8000 app:app"]
+CMD ["bash", "-c", "source ~/.bashrc && poetry run gunicorn -w 4 -b 0.0.0.0:8000 app:app"]
+
+
