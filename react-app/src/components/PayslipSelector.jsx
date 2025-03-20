@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-import { usePayslips, useShifts } from "../hooks/contexts";
+import { usePayslips } from "../hooks/contexts";
 import { mostRecentObject } from "../utils/shift";
 import styles from "../styles/PayslipSelector.module.css"
 
 
 function PayslipSelector({ currentPayslip, setCurrentPayslip }) {
-  const { shifts } = useShifts();
   const { payslips } = usePayslips();
-  const [totalHours, setTotalHours] = useState(null);
 
   useEffect(() => {
     const recentSlip = mostRecentObject(payslips, "date");
@@ -17,9 +15,6 @@ function PayslipSelector({ currentPayslip, setCurrentPayslip }) {
     }
   }, [payslips]);
 
-  useEffect(() => {
-    setTotalHours(calculateTotalHours(currentPayslip));
-  }, [shifts, currentPayslip]);
   const options = {
     month: "short",
     day: "2-digit",
@@ -43,15 +38,6 @@ function PayslipSelector({ currentPayslip, setCurrentPayslip }) {
     }
   };
 
-  const calculateTotalHours = (currentPayslip) => {
-    if (!currentPayslip || !shifts.timecard) return 0; 
-
-    return currentPayslip.shifts.reduce((total, id) => {
-      const shift = shifts.timecard.find((shift) => shift.id === id);
-      return shift ? total + shift.hours : total; 
-    }, 0);
-  };
-
   return currentPayslip ? (
     <div className={styles.container}>
       <div className={styles.payslip}>
@@ -69,18 +55,22 @@ function PayslipSelector({ currentPayslip, setCurrentPayslip }) {
             <li className={styles.label}>Shifts</li>
             <li>{currentPayslip.shifts.length}</li>
             <li className={styles.label}>Hours</li>
-            <li>{totalHours.toFixed(2)}</li>
+            <li>{currentPayslip.hours.toFixed(2)}</li>
             <li className={styles.label}>Rate</li>
             <li>£{currentPayslip.rate}</li>
-            <li className={styles.label}>Base</li>
-            <li>£{(totalHours * currentPayslip.rate).toFixed(2)}</li>
+            <li className={styles.label}>Pay</li>
+            <li>£{currentPayslip.pay.toFixed(2)}</li>
+            <li className={styles.label}>Deductions</li>
+            <li>£{currentPayslip.deductions.toFixed(2)}</li>
             <li className={styles.label}>Other</li>
             <li>
               £
-              {(currentPayslip.net - totalHours * currentPayslip.rate).toFixed(
+              {(currentPayslip.pay - (currentPayslip.hours * currentPayslip.rate)).toFixed(
                 2,
               )}
             </li>
+            <li className={styles.label}>Net</li>
+            <li>£{currentPayslip.net.toFixed(2)}</li>
           </ul>
         </div>
       </div>
