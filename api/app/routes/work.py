@@ -7,6 +7,7 @@ from itertools import combinations
 from ics import Calendar, Event
 
 work = Blueprint("work", __name__)
+current_user: User
 
 
 def time_difference(time1, time2):
@@ -71,7 +72,10 @@ def forecasted_payslip():
     start_date = recent_payslip.date - timedelta(days=2)
     end_date = start_date + timedelta(weeks=2)
 
-    shifts = db.session.query(Shift).filter(Shift.date.between(start_date, end_date)).all()
+    shifts = Shift.query.filter(
+        Shift.date.between(start_date, end_date),
+        Shift.user == current_user
+    )
 
     payslip = {
         "date": end_date + timedelta(days=2),
