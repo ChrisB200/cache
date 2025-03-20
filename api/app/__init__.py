@@ -33,7 +33,10 @@ def load_user(user_id):
 
 @app.route("/profile", methods=["GET"])
 def index():
-    return current_user.email
+    return jsonify({
+        "email": current_user.email,
+        "id": current_user.id
+    }), 200
 
 
 @app.route("/")
