@@ -101,6 +101,9 @@ class Payslip(db.Model):
             "rate": self.rate,
             "net": self.net,
             "user_id": self.user_id,
-            "shifts": [shift.id for shift in self.shifts]
+            "shifts": [shift.id for shift in self.shifts],
+            "hours": self.hours,
+            "deductions": self.deductions,
+            "pay": self.pay
         }
 

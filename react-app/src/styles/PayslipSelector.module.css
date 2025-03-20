@@ -63,7 +63,7 @@ font-size: var(--font-700);
 
 .values {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
   row-gap: 0.5rem;
   text-align: left;
 }
