@@ -12,6 +12,7 @@
   align-items: center;
   gap: 6rem;
   margin-top: 1rem;
+  padding-bottom: 5rem;
 }
 
 .widgets > div {
