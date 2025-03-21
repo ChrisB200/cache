@@ -12,6 +12,7 @@ import ClickableIcon from "../components/ClickableIcon";
 import menu from "../assets/icons/menu-burger.png";
 import calendar from "../assets/icons/calendar.png";
 import { useSidebar, useNavbar } from "../hooks/contexts";
+import WorkStatistics from "../components/WorkStatistics";
 
 function Work() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -50,6 +51,10 @@ function Work() {
                 <div>
                   <History />
                 </div>
+              </div>
+              <div className={styles.statistics}>
+                <h2 className={styles.header}>Statistics</h2>
+                <WorkStatistics/>
               </div>
             </div>
           </div>
