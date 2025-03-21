@@ -10,6 +10,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 6rem;
+  margin-top: 1rem;
 }
 
 .widgets > div {
@@ -28,10 +30,6 @@
   justify-content: space-between;
   row-gap: 2rem;
   column-gap: 2rem;
-}
-
-.history {
-  margin-top: 3rem;
 }
 
 .show {

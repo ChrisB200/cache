@@ -19,6 +19,16 @@ def time_difference(time1, time2):
     hours = time_diff.total_seconds() / 3600
     return hours
 
+def combine_shifts(shifts):
+    combined = [shift for shift in shifts if shift.type == "Timecard"]
+    schedule = [shift for shift in shifts if shift.type == "Schedule"]
+
+    for scheduled_shift in schedule:
+        if not any(timecard_shift.date == scheduled_shift.date for timecard_shift in combined):
+            combined.append(scheduled_shift)
+
+    return combined
+
 @work.route("/payslips", methods=["GET"])
 @login_required
 def payslips():
@@ -74,6 +84,120 @@ def next_shift():
     ).first()
 
     return jsonify(shift.to_json()), 200
+
+
+@work.route("/shifts/week", methods=["GET"])
+@login_required
+def week_shifts():
+    date = request.args.get("date")
+
+    if not date:
+        return jsonify({"error": "no date has been provided"}), 401
+
+    date = datetime.strptime(date, "%Y-%m-%d")
+
+    start = date - timedelta(days=date.weekday())
+    end = start + timedelta(days=6)
+    this_week = Shift.query.filter(
+        Shift.user == current_user,
+        Shift.date.between(start, end)
+    )
+    this_week = combine_shifts(this_week)
+    this_week_total = sum([shift.hours for shift in this_week])
+    this_week_pay = sum([shift.hours * shift.rate for shift in this_week])
+
+    last_start = start - timedelta(weeks=1)
+    last_end = last_start + timedelta(days=6)
+    last_week = Shift.query.filter(
+        Shift.user == current_user,
+        Shift.date.between(last_start, last_end)
+    )
+    last_week = combine_shifts(last_week)
+    last_week_pay = sum([shift.hours * shift.rate for shift in last_week])
+
+    percent = ((this_week_pay - last_week_pay) / this_week_pay) * 100
+
+    return jsonify({
+        "pay": this_week_pay,
+        "hours": this_week_total,
+        "percent": percent,
+    }), 200
+
+
+@work.route("/shifts/month", methods=["GET"])
+@login_required
+def month_shifts():
+    date = request.args.get("date")
+
+    if not date:
+        return jsonify({"error": "no date has been provided"}), 401
+
+    date = datetime.strptime(date, "%Y-%m-%d")
+
+    start = datetime(date.year, date.month, 1).date()
+    end = start + relativedelta(months=1) - timedelta(days=1)
+    this_month = Shift.query.filter(
+        Shift.user == current_user,
+        Shift.date.between(start, end)
+    )
+    this_month = combine_shifts(this_month)
+    this_month_total = sum([shift.hours for shift in this_month])
+    this_month_pay = sum([shift.hours * shift.rate for shift in this_month])
+
+    last_start = start - relativedelta(months=1)
+    last_end = end - relativedelta(months=1)
+    last_month = Shift.query.filter(
+        Shift.user == current_user,
+        Shift.date.between(last_start, last_end)
+    )
+    last_month = combine_shifts(last_month)
+    last_month_pay = sum([shift.hours * shift.rate for shift in last_month])
+
+    percent = ((this_month_pay - last_month_pay) / this_month_pay) * 100
+
+    return jsonify({
+        "pay": this_month_pay,
+        "hours": this_month_total,
+        "percent": percent,
+    }), 200
+
+
+@work.route("/shifts/average/week", methods=["GET"])
+@login_required
+def average_weekly():
+    end = datetime.today().date()
+    new_shifts = Shift.query.order_by(Shift.date).filter(
+        Shift.user == current_user,
+        Shift.date < end
+    ).all()
+    old_shifts = Shift.query.order_by(Shift.date).filter(
+        Shift.user == current_user,
+        Shift.date < end - timedelta(days=end.weekday()) - timedelta(weeks=1)
+    ).all()
+
+    new_shifts = combine_shifts(new_shifts)
+    old_shifts = combine_shifts(old_shifts)
+
+    if not len(new_shifts) > 0:
+        return
+
+    start = new_shifts[0].date
+    start = start - timedelta(days=start.weekday())
+    end = end - timedelta(days=end.weekday())
+    weeks = (end - start).days / 7
+
+    new_pay = sum([shift.rate * shift.hours for shift in new_shifts]) / weeks
+    new_hours = sum([shift.hours for shift in new_shifts]) / weeks
+    old_pay = sum([shift.rate * shift.hours for shift in old_shifts]) / (weeks - 1)
+
+    percent = ((new_pay - old_pay) / new_pay) * 100
+
+    return jsonify({
+        "pay": new_pay,
+        "hours": new_hours,
+        "percent": percent
+    }), 200
+
 
 
 
