@@ -19,7 +19,7 @@ FGP_BASE_URL = "https://fgp.fiveguys.co.uk/portal.php"
 async def get_shifts(browser, user):
     with connect_sql() as cursor:
         # shifts and schedule (fgp)
-        start_date = await get_last_shift(cursor, 2)
+        start_date = await get_last_shift(user, cursor, 2)
         schedule = await scrape_shifts(browser, "Schedule", user, start_date)
         if schedule.get("error"):
             return schedule.get("error")
@@ -136,7 +136,7 @@ async def scrape_shifts(context: BrowserContext, button, user, start_date):
                     shifts.append(shift)
 
         current_date = current_date + timedelta(weeks=1)
-        if current_date >= week_after.date():
+        if current_date.date() >= week_after.date():
             break
 
     logger.info(f"Scraped {len(shifts)} shifts for user {user["id"]}")
@@ -148,14 +148,14 @@ async def scrape_shifts(context: BrowserContext, button, user, start_date):
     }
 
 
-async def get_last_shift(cursor, offset=0):
+async def get_last_shift(user, cursor, offset=0):
     qry = """
         SELECT date
         FROM shift
-        WHERE date = (SELECT MAX(date) FROM shift)
+        WHERE date = (SELECT MAX(date) FROM shift) and user_id = %s
         LIMIT 1
     """
-    cursor.execute(qry)
+    cursor.execute(qry, (user["id"]))
     row = cursor.fetchone()
 
     if not row:

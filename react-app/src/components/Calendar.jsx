@@ -53,10 +53,6 @@ function Calendar({ shifts, currentDate, setCurrentDate, onDateSelect }) {
   };
 
   const dayEvents = (day) => {
-    if (Object.keys(shifts).length == 0 || !payslips.length) {
-      return styles.day;
-    }
-
     const conditions = {
       holiday: isShiftHoliday(shifts, day),
       shift: isShiftDate(shifts, day),
@@ -135,6 +131,10 @@ function Calendar({ shifts, currentDate, setCurrentDate, onDateSelect }) {
   useEffect(() => {
     refetchPayslips();
   }, [currentDate])
+
+  useEffect(() => {
+    console.log(payslips);
+  }, [payslips])
 
   return (
     <div className={styles.calendar}>

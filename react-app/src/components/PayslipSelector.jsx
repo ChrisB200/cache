@@ -61,7 +61,7 @@ function PayslipSelector({ currentPayslip, setCurrentPayslip }) {
             <li className={styles.label}>Pay</li>
             <li>£{currentPayslip.pay.toFixed(2)}</li>
             <li className={styles.label}>Deductions</li>
-            <li>£{currentPayslip.deductions.toFixed(2)}</li>
+            <li className={styles.deductions}>£{currentPayslip.deductions.toFixed(2)}</li>
             <li className={styles.label}>Other</li>
             <li>
               £
@@ -69,8 +69,6 @@ function PayslipSelector({ currentPayslip, setCurrentPayslip }) {
                 2,
               )}
             </li>
-            <li className={styles.label}>Net</li>
-            <li>£{currentPayslip.net.toFixed(2)}</li>
           </ul>
         </div>
       </div>
