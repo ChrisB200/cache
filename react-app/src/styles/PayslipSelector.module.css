@@ -72,3 +72,6 @@ font-size: var(--font-700);
   color: var(--text-accent);
 }
 
+.deductions {
+  color: var(--accent-orange);
+}

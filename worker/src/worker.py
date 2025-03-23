@@ -36,8 +36,8 @@ async def scrape_user(user, playwright, headless, command):
         logger.info(f"Finished scraping {command} for user {user["id"]}")
     except TargetClosedError as e:
         logger.error(e)
-    except:
-        logger.error("error")
+    except Exception as e:
+        logger.exception(e)
     finally:
         await browser.close()
         logger.debug(f"Browser closed for user {user["id"]}")

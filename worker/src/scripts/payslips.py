@@ -16,7 +16,7 @@ SD_BASE_URL = "https://my.sdworx.co.uk/portal/login.aspx?organisation=76231"
 
 async def get_payslips(browser, user):
     with connect_sql() as cursor:
-        last_slip = await get_last_slip(cursor, 2)
+        last_slip = await get_last_slip(user, cursor, 2)
         payslips = await scrape_payslips(browser, user, last_slip)
 
         # NEED TO COMMIT PAYSLIPS HERE
@@ -31,7 +31,7 @@ async def get_payslips(browser, user):
         values = (payslips["start"], payslips["end"], user["id"])
         payslips = load_table(cursor, qry, values)
         for payslip in payslips:
-            link_shifts(payslip, cursor)
+            link_shifts(user, payslip, cursor)
 
 
 async def match_years(anchors):
@@ -123,14 +123,14 @@ async def get_pay(page):
 
     return pay, deductions
 
-async def get_last_slip(cursor, offset=0):
+async def get_last_slip(user, cursor, offset=0):
     qry = """
         SELECT date
         FROM payslip
-        WHERE date = (SELECT MAX(date) FROM payslip)
+        WHERE date = (SELECT MAX(date) FROM payslip) and user_id = %s
         LIMIT 1
     """
-    cursor.execute(qry)
+    cursor.execute(qry, user["id"])
     row = cursor.fetchone()
 
     if not row:
@@ -242,16 +242,21 @@ async def scrape_payslips(browser, user, last_slip):
     }
 
 
-def link_shifts(payslip, cursor):
+def link_shifts(user, payslip, cursor):
     qry = """
         SELECT *
         FROM shift
-        WHERE date >= %s and date <= %s and type = "Timecard"
+        WHERE date >= %s and date <= %s and type = 'Timecard' and category != 'holiday' and user_id = %s
     """
-    end = payslip["date"] - timedelta(days=1)
+    end = payslip["date"] - timedelta(days=2)
     start = end - timedelta(weeks=2)
 
-    shifts = load_table(cursor, qry, (start, end))
+    print(end)
+    print(start)
+
+    values = (start, end, user["id"])
+    cursor.execute(qry, values)
+    shifts = cursor.fetchall()
 
     target = payslip["hours"]
     all = []
@@ -269,6 +274,8 @@ def link_shifts(payslip, cursor):
             closest = total
             best = combo
 
+    print(shifts)
+    print(f"closest: {closest}, payslip: {payslip["hours"]}")
     qry = """
         UPDATE shift
         SET payslip_id = %s
