@@ -19,7 +19,6 @@
 .pay {
   font-size: var(--font-900);
   font-weight: bold;
-  color: var(--accent-green);
 }
 
 .hours {
@@ -31,4 +30,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.positive {
+  color: var(--accent-green);
+}
+
+.negative {
+  color: var(--accent-orange);
+}
+
+.baseline {
+  color: var(--accent-yellow);
 }

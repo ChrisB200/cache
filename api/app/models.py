@@ -25,6 +25,7 @@ class User(UserMixin, db.Model):
 
     shifts = db.relationship("Shift", back_populates="user", cascade="all, delete")
     payslips = db.relationship("Payslip", back_populates="user", cascade="all, delete")
+    notifications = db.relationship("Notification", back_populates="user", cascade="all, delete")
 
     def get_id(self):
         return str(self.id)
@@ -107,3 +108,12 @@ class Payslip(db.Model):
             "pay": self.pay
         }
 
+
+class Notification(db.Model):
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+    datetime = db.Column(db.DateTime, nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    level = db.Column(db.Integer)
+    user_id = db.Column(db.String(32), db.ForeignKey("user.id"), nullable=False)
+
+    user = db.relationship("User", back_populates="notifications", cascade="all, delete")

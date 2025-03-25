@@ -199,7 +199,33 @@ def average_weekly():
     }), 200
 
 
+@work.route("/payslips/average", methods=["GET"])
+@login_required
+def average_payslip():
+    average = sum([payslip.net for payslip in current_user.payslips]) / len(current_user.payslips)
+    average_hours = sum([payslip.hours for payslip in current_user.payslips]) / len(current_user.payslips)
 
+    old_payslips = Payslip.query.order_by(desc(Payslip.date)).all()
+
+    if len(old_payslips) > 1:
+        old_payslips = old_payslips[:-1]
+        old_average = sum([payslip.net for payslip in old_payslips]) / len(old_payslips)
+    else:
+        return jsonify({
+            "pay": average,
+            "hours": average_hours,
+            "percent": 100
+        })
+
+    percent = ((average - old_average) / average) * 100
+    print(percent)
+    print(old_average)
+    print(average)
+    return jsonify({
+        "pay": average,
+        "hours": average_hours,
+        "percent": percent
+    })
 
 @work.route("/payslips/<int:payslip_id>/shifts", methods=["GET"])
 @login_required
