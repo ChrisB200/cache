@@ -43,6 +43,17 @@ function WorkStatistics() {
     }
   }
 
+  const averagePayslip = {
+    url: `${BASE_API_URL}/payslips/average`,
+    method: "get",
+    withCredentials: true,
+    key: ["get", "average", "payslips",  "user", dateToStr(currentDate), currentUser?.id],
+    cache: {
+      enabled: true,
+      ttl: 60
+    }
+  }
+
 
   return (
     <>
@@ -50,6 +61,7 @@ function WorkStatistics() {
         <StatisticCard title={"This week"} apiRequest={thisWeek}/>
         <StatisticCard title={"This month"} apiRequest={thisMonth}/>
         <StatisticCard title={"Average weekly"} apiRequest={averageWeekly}/>
+        <StatisticCard title={"Average payslip"} apiRequest={averagePayslip}/>
       </div>
     </>
   );

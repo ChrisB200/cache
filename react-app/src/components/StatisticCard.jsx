@@ -26,13 +26,27 @@ function StatisticCard({ title, apiRequest }) {
     }
   };
 
+  const selectColor = () => {
+    if (data == null || undefined) {
+      return;
+    }
+
+    if (data.percent > 0) {
+      return styles.positive;
+    } else if (data.percent < 0) {
+      return styles.negative;
+    } else if (data.percent === 0) {
+      return styles.baseline;
+    }
+  }
+
   return (
     <>
       <div className={styles.container}>
         <h3>{title}</h3>
         <div className={styles.details}>
           <p className={styles.hours}>{data?.hours.toFixed(0)}hrs</p>
-          <p className={styles.pay}>£{data?.pay.toFixed(2)}</p>
+          <p className={`${styles.pay} ${selectColor()}`}>£{data?.pay.toFixed(2)}</p>
         </div>
         <div className={styles.percentage}>
           <div className={styles.arrow}>
