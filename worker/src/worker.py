@@ -1,4 +1,5 @@
 import logging
+import threading
 import logging.handlers as handlers
 import asyncio
 
@@ -45,8 +46,15 @@ async def scrape_user(user, playwright, headless, command):
 
 async def scrape_all(playwright, headless, command):
     users = get_users()
-    tasks = [scrape_user(user, playwright, headless, command) for user in users]
-    await asyncio.gather(*tasks)
+    semaphore = asyncio.Semaphore(2)  # Limit to 2 concurrent tasks
+
+    async def limited_scrape_user(user):
+        async with semaphore:  # Acquire semaphore before running
+            await scrape_user(user, playwright, headless, command)
+
+    tasks = [limited_scrape_user(user) for user in users]
+    await asyncio.gather(*tasks)  # Run all tasks with concurrency limit
+
 
 
 async def main(action, user, all_users, headless=True):
