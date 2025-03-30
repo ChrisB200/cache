@@ -136,7 +136,9 @@ async def scrape_shifts(context: BrowserContext, button, user, start_date):
                     shifts.append(shift)
 
         current_date = current_date + timedelta(weeks=1)
-        if current_date.date() >= week_after.date():
+        if isinstance(current_date, datetime):
+            current_date = current_date.date()
+        if current_date >= week_after.date():
             break
 
     logger.info(f"Scraped {len(shifts)} shifts for user {user["id"]}")
