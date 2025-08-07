@@ -1,31 +1,28 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-react-app/node_modules
-react-app/.pnp
-react-app/.pnp.js
-
-# testing
-react-app/coverage
-
-# production
-react-app/build
-
-# misc
-react-app/.DS_Store
-react-app/.env.local
-react-app/.env.development.local
-react-app/.env.test.local
-react-app/.env.production.local
-
+# Logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-*.Zone.Identifier
+node_modules
+dist
+dist-ssr
+*.local
 
-# python
-__pycache__*
-.env
-worker/worker.log
-filled_nginx.conf
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+*.env
+*.temp
+
