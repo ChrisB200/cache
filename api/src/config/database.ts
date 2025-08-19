@@ -1,6 +1,6 @@
 import { DB } from "../types/db";
 import { Pool } from "pg";
-import { Kysely, PostgresDialect } from "kysely";
+import { Kysely, PostgresDialect, CamelCasePlugin } from "kysely";
 import env from "./constants";
 
 const dialect = new PostgresDialect({
@@ -20,4 +20,5 @@ const dialect = new PostgresDialect({
 // to communicate with your database.
 export const db = new Kysely<DB>({
   dialect,
+  plugins: [new CamelCasePlugin()],
 });

@@ -12,14 +12,14 @@ function FGPForm({ handleSubmit, handleBack }: FGPProps) {
   const fields: FieldGroup[] = [
     {
       element: "input",
-      name: "fgp_username",
+      name: "fgpUsername",
       placeholder: "Your FGP username",
       label: "Username",
       type: "text",
     },
     {
       element: "input",
-      name: "fgp_password",
+      name: "fgpPassword",
       placeholder: "Your FGP password",
       label: "Password",
       type: "password",

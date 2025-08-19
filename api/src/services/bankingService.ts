@@ -13,15 +13,15 @@ import type { Selectable } from "kysely";
 import { isUser } from "./userService";
 import AppError from "../utils/appError";
 
-const autoPosition = async (user_id: string) => {
-  const exists = isUser(user_id);
+const autoPosition = async (userId: string) => {
+  const exists = isUser(userId);
   if (!exists) throw new AppError("user not found");
 
   const max = await db
-    .selectFrom("bank_accounts")
-    .innerJoin("bank_items", "bank_item_id", "bank_items.id")
-    .where("bank_items.user_id", "=", user_id)
-    .select((eb) => eb.fn.max<number>("bank_accounts.position").as("max_value"))
+    .selectFrom("bankAccounts")
+    .innerJoin("bankItems", "bankItemId", "bankItems.id")
+    .where("bankItems.userId", "=", userId)
+    .select((eb) => eb.fn.max<number>("bankAccounts.position").as("max_value"))
     .executeTakeFirst();
 
   return max?.max_value ? max.max_value : 0;
@@ -63,17 +63,17 @@ async function uploadInstitutionLogo(
   }
 }
 
-const createInstitution = async (institution_id: string) => {
+const createInstitution = async (institutionId: string) => {
   const exists = await db
-    .selectFrom("bank_institutions")
+    .selectFrom("bankInstitutions")
     .selectAll()
-    .where("plaid_institution_id", "=", institution_id)
+    .where("plaidInstitutionId", "=", institutionId)
     .executeTakeFirst();
 
   if (exists) return exists;
 
   const res = await plaidClient.institutionsGetById({
-    institution_id,
+    institution_id: institutionId,
     country_codes: [CountryCode.Gb],
     options: {
       include_optional_metadata: true,
@@ -83,11 +83,11 @@ const createInstitution = async (institution_id: string) => {
   const { name, logo } = res.data.institution;
   console.log(res.data.institution);
 
-  const path = await uploadInstitutionLogo(logo, institution_id);
+  const path = await uploadInstitutionLogo(logo, institutionId);
 
   const institution: Selectable<BankInstitutions> = await db
-    .insertInto("bank_institutions")
-    .values({ plaid_institution_id: institution_id, logo_url: path, name })
+    .insertInto("bankInstitutions")
+    .values({ plaidInstitutionId: institutionId, logoUrl: path, name })
     .returningAll()
     .executeTakeFirstOrThrow();
 
@@ -100,26 +100,26 @@ const createAccounts = async (
 ) => {
   const bankAccounts: Selectable<BankAccounts>[] = [];
 
-  let position = await autoPosition(item.user_id);
+  let position = await autoPosition(item.userId);
   if (position != 0) position += 1;
   for (let a of accounts) {
     const exists = await db
-      .selectFrom("bank_accounts")
+      .selectFrom("bankAccounts")
       .selectAll()
-      .where("plaid_account_id", "=", a.account_id)
+      .where("plaidAccountId", "=", a.account_id)
       .executeTakeFirst();
 
     if (exists) continue;
 
     const bankAccount = (await db
-      .insertInto("bank_accounts")
+      .insertInto("bankAccounts")
       .values({
-        plaid_account_id: a.account_id,
+        plaidAccountId: a.account_id,
         name: a.name,
         type: a.type as PlaidAccountType,
         subtype: a.subtype! as PlaidAccountSubtype,
         balance: a.balances.current,
-        bank_item_id: item.id,
+        bankItemId: item.id,
         position,
       })
       .returningAll()
@@ -133,18 +133,18 @@ const createAccounts = async (
 };
 
 const createItem = async (
-  item_id: string,
-  access_token: string,
-  institution_id: string,
-  user_id: string,
+  itemId: string,
+  accessToken: string,
+  institutionId: string,
+  userId: string,
 ) => {
   const item = await db
-    .insertInto("bank_items")
+    .insertInto("bankItems")
     .values({
-      plaid_item_id: item_id,
-      plaid_access_token: access_token,
-      bank_institution_id: institution_id,
-      user_id,
+      plaidItemId: itemId,
+      plaidAccessToken: accessToken,
+      bankInstitutionId: institutionId,
+      userId,
     })
     .returningAll()
     .executeTakeFirstOrThrow();

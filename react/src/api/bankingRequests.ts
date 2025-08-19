@@ -5,9 +5,9 @@ const createLinkTokenRequest = async () => {
   return request<string>("get", "banking/create_link_token");
 };
 
-const exchangePublicTokenRequest = async (public_token: string) => {
+const exchangePublicTokenRequest = async (publicToken: string) => {
   return request<"success">("post", "banking/exchange_public_token", {
-    public_token,
+    publicToken,
   });
 };
 
@@ -16,22 +16,22 @@ const getBankCardsRequest = async () => {
 };
 
 const updateBankNicknameRequest = async (
-  bank_account_id: string,
+  bankAccountId: string,
   nickname: string,
 ) => {
-  return request<"success">("post", `banking/${bank_account_id}/nickname`, {
+  return request<"success">("post", `banking/${bankAccountId}/nickname`, {
     nickname,
   });
 };
 
 const changeBankPositionRequest = async (
-  bank_account_id: string,
-  new_position: number,
+  bankAccountId: string,
+  newPosititon: number,
 ) => {
   return request<"success">(
     "post",
-    `banking/accounts/${bank_account_id}/position/move`,
-    { new_position },
+    `banking/accounts/${bankAccountId}/position/move`,
+    { newPosititon },
   );
 };
 

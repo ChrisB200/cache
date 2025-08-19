@@ -11,10 +11,10 @@ const validateSetupCredentials = (
     workplace,
     open,
     close,
-    fgp_username,
-    fgp_password,
-    sd_username,
-    sd_password,
+    fgpUsername,
+    fgpPassword,
+    sdUsername,
+    sdPassword,
   } = values;
 
   if (!workplace)
@@ -26,22 +26,22 @@ const validateSetupCredentials = (
   if (!close)
     throw new AppError("No closing time was provided", 400, "INVALID_FIELDS");
 
-  if (!fgp_username)
+  if (!fgpUsername)
     throw new AppError("No fgp username was provided", 400, "INVALID_FIELDS");
 
-  if (!fgp_password)
+  if (!fgpPassword)
     throw new AppError("No fgp password was provided", 400, "INVALID_FIELDS");
 
-  if (!sd_username)
+  if (!sdUsername)
     throw new AppError("No sd username was provided", 400, "INVALID_FIELDS");
 
-  if (!sd_password)
+  if (!sdPassword)
     throw new AppError("No sd password was provided", 400, "INVALID_FIELDS");
 
-  const open_time = convertTimeToDate(open);
-  const close_time = convertTimeToDate(close);
+  const openTime = convertTimeToDate(open);
+  const closeTime = convertTimeToDate(close);
 
-  if (open_time > close_time)
+  if (openTime > closeTime)
     throw new AppError(
       "Opening time should be before closing time",
       400,
@@ -52,18 +52,18 @@ const validateSetupCredentials = (
     workplace,
     open,
     close,
-    fgp_username: encrypt(fgp_username),
-    fgp_password: encrypt(fgp_password),
-    sd_username: encrypt(sd_username),
-    sd_password: encrypt(sd_password),
+    fgpUsername: encrypt(fgpUsername),
+    fgpPassword: encrypt(fgpPassword),
+    sdUsername: encrypt(sdUsername),
+    sdPassword: encrypt(sdPassword),
   };
 };
 
-const isUser = async (user_id: string) => {
+const isUser = async (userId: string) => {
   const user = await db
     .selectFrom("users")
     .selectAll()
-    .where("id", "=", user_id)
+    .where("id", "=", userId)
     .executeTakeFirst();
 
   return user ? true : false;

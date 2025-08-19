@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "codegen": "npx kysely-codegen --out-file ./src/types/db.d.ts"
+    "codegen": "npx kysely-codegen --out-file ./src/types/db.d.ts --camel-case"
   },
   "keywords": [],
   "author": "",

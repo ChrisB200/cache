@@ -8,45 +8,45 @@ const setupFiveGuys: RequestHandler = async (req, res) => {
     workplace,
     open,
     close,
-    fgp_username,
-    fgp_password,
-    sd_username,
-    sd_password,
+    fgpUsername,
+    fgpPassword,
+    sdUsername,
+    sdPassword,
   } = validateSetupCredentials(req.body);
 
   const user = req.session.user!;
 
   const store = await db
     .insertInto("stores")
-    .values({ open, close, workplace, user_id: user.id })
+    .values({ open, close, workplace, userId: user.id })
     .returningAll()
     .executeTakeFirst();
 
-  const fgp_credentials = await db
+  const fgpCredentials = await db
     .insertInto("credentials")
     .values({
-      username: fgp_username,
-      password: fgp_password,
-      user_id: user.id,
+      username: fgpUsername,
+      password: fgpPassword,
+      userId: user.id,
       workplace,
       service: "FGP",
     })
     .returningAll()
     .executeTakeFirst();
 
-  const sd_credentials = await db
+  const sdCredentials = await db
     .insertInto("credentials")
     .values({
-      username: sd_username,
-      password: sd_password,
-      user_id: user.id,
+      username: sdUsername,
+      password: sdPassword,
+      userId: user.id,
       workplace,
       service: "SDWORX",
     })
     .returningAll()
     .executeTakeFirst();
 
-  if (!store || !fgp_credentials || !sd_credentials)
+  if (!store || !fgpCredentials || !sdCredentials)
     throw new AppError("Error occured creating records", 500);
 
   res.status(200).json("success");

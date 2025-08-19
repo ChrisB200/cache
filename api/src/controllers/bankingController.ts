@@ -3,7 +3,6 @@ import { CountryCode, Products } from "plaid";
 import env from "../config/constants";
 import { db } from "../config/database";
 import plaidClient from "../config/plaid";
-import { PlaidAccountSubtype, PlaidAccountType } from "../types/db";
 import AppError from "../utils/appError";
 import { jsonObjectFrom } from "kysely/helpers/postgres";
 import {
@@ -57,35 +56,31 @@ const getBankCards: RequestHandler = async (req, res) => {
   const user = req.session.user!;
 
   const bankCards = await db
-    .selectFrom("bank_accounts")
-    .innerJoin("bank_items", "bank_item_id", "bank_items.id")
-    .where("bank_items.user_id", "=", user.id)
+    .selectFrom("bankAccounts")
+    .innerJoin("bankItems", "bankItemId", "bankItems.id")
+    .where("bankItems.userId", "=", user.id)
     .select((eb) => [
-      "bank_accounts.id",
-      "bank_accounts.name",
-      "bank_accounts.nickname",
-      "bank_accounts.type",
-      "bank_accounts.balance",
-      "bank_accounts.subtype",
-      "bank_accounts.position",
-      "bank_items.expired",
-      "bank_items.plaid_access_token as access_token",
+      "bankAccounts.id",
+      "bankAccounts.name",
+      "bankAccounts.nickname",
+      "bankAccounts.type",
+      "bankAccounts.balance",
+      "bankAccounts.subtype",
+      "bankAccounts.position",
+      "bankItems.expired",
+      "bankItems.plaidAccessToken as accessToken",
       jsonObjectFrom(
         eb
-          .selectFrom("bank_institutions")
+          .selectFrom("bankInstitutions")
           .select([
-            "bank_institutions.id",
-            "bank_institutions.name",
-            "bank_institutions.logo_url",
+            "bankInstitutions.id",
+            "bankInstitutions.name",
+            "bankInstitutions.logoUrl",
           ])
-          .whereRef(
-            "bank_institutions.id",
-            "=",
-            "bank_items.bank_institution_id",
-          ),
+          .whereRef("bankInstitutions.id", "=", "bankItems.bankInstitutionId"),
       ).as("institution"),
     ])
-    .orderBy("bank_accounts.position", "asc")
+    .orderBy("bankAccounts.position", "asc")
     .execute();
 
   res.status(200).json(bankCards);
@@ -93,7 +88,7 @@ const getBankCards: RequestHandler = async (req, res) => {
 
 const updateNickname: RequestHandler = async (req, res) => {
   const { nickname } = req.body;
-  const { bank_account_id } = req.params;
+  const { bankAccountId } = req.params;
 
   if (!nickname)
     throw new AppError("No nickname was provided", 400, "INVALID_FIELDS");
@@ -105,72 +100,72 @@ const updateNickname: RequestHandler = async (req, res) => {
     throw new AppError("Nickname too long", 400, "INVALID_FIELDS");
 
   await db
-    .updateTable("bank_accounts")
+    .updateTable("bankAccounts")
     .set({ nickname })
-    .where("id", "=", bank_account_id)
+    .where("id", "=", bankAccountId)
     .executeTakeFirstOrThrow();
 
   res.status(200).json("success");
 };
 
 const changeBankPosition: RequestHandler = async (req, res) => {
-  const { bank_account_id } = req.params;
-  let { new_position } = req.body;
+  const { bankAccountId } = req.params;
+  let { newPosition } = req.body;
   const user = req.session.user!;
 
-  if (!bank_account_id)
+  if (!bankAccountId)
     throw new AppError("No bank id was provided", 400, "INVALID_FIELDS");
 
-  if (!new_position && new_position !== 0)
+  if (!newPosition && newPosition !== 0)
     throw new AppError("No new position was provided", 400, "INVALID_FIELDS");
 
   const bankAccount = await db
-    .selectFrom("bank_accounts")
+    .selectFrom("bankAccounts")
     .selectAll()
-    .where("id", "=", bank_account_id)
+    .where("id", "=", bankAccountId)
     .executeTakeFirstOrThrow();
 
   const bankAccounts = await db
-    .selectFrom("bank_accounts")
-    .innerJoin("bank_items", "bank_item_id", "bank_items.id")
-    .select(["bank_accounts.id as id", "position"])
-    .where("user_id", "=", user.id)
-    .orderBy("bank_accounts.position", "asc")
+    .selectFrom("bankAccounts")
+    .innerJoin("bankItems", "bankItemId", "bankItems.id")
+    .select(["bankAccounts.id as id", "position"])
+    .where("userId", "=", user.id)
+    .orderBy("bankAccounts.position", "asc")
     .execute();
 
   if (bankAccounts.length === 0)
     throw new AppError("No bank accounts", 400, "NO_BANK_ACCOUNTS");
 
   // caps the new position
-  new_position = parseInt(new_position);
-  new_position = Math.max(0, Math.min(new_position, bankAccounts.length - 1));
+  newPosition = parseInt(newPosition);
+  newPosition = Math.max(0, Math.min(newPosition, bankAccounts.length - 1));
 
   // get subset of accounts that are going to be moved
   let incrementsBy = 0;
   let currentPosition = bankAccount.position;
   let subset: typeof bankAccounts = [];
 
-  if (new_position > currentPosition) {
-    subset = bankAccounts.slice(currentPosition + 1, new_position + 1);
+  if (newPosition > currentPosition) {
+    subset = bankAccounts.slice(currentPosition + 1, newPosition + 1);
     incrementsBy = -1;
   } else {
-    subset = bankAccounts.slice(new_position, currentPosition);
+    subset = bankAccounts.slice(newPosition, currentPosition);
     incrementsBy = 1;
   }
 
   // update bank account to the new position
   await db
-    .updateTable("bank_accounts")
-    .set({ position: new_position })
-    .where("bank_accounts.id", "=", bankAccount.id)
+    .updateTable("bankAccounts")
+    .set({ position: newPosition })
+    .where("bankAccounts.id", "=", bankAccount.id)
     .executeTakeFirstOrThrow();
 
   for (let a of subset) {
     const position = a.position + incrementsBy;
     await db
-      .updateTable("bank_accounts")
-      .set({ position: position })
-      .where("bank_accounts.id", "=", a.id)
+      .updateTable("bankAccounts")
+      .set({ position })
+      .where("bankAccounts.id", "=", a.id)
       .executeTakeFirstOrThrow();
   }
 

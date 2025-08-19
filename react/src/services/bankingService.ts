@@ -12,8 +12,8 @@ const createLinkToken = async () => {
   return data;
 };
 
-const exchangePublicToken = async (public_token: string) => {
-  const { data } = await exchangePublicTokenRequest(public_token);
+const exchangePublicToken = async (publicToken: string) => {
+  const { data } = await exchangePublicTokenRequest(publicToken);
   return data;
 };
 
@@ -24,26 +24,20 @@ const getBankCards = async () => {
   return data;
 };
 
-const updateBankNickname = async (
-  bank_account_id: string,
-  nickname: string,
-) => {
-  const { data, ok } = await updateBankNicknameRequest(
-    bank_account_id,
-    nickname,
-  );
+const updateBankNickname = async (bankAccountId: string, nickname: string) => {
+  const { data, ok } = await updateBankNicknameRequest(bankAccountId, nickname);
   if (ok) return data;
 
   return AppError({ description: data.error, code: data.code });
 };
 
 const changeBankPosition = async (
-  bank_account_id: string,
-  new_position: number,
+  bankAccountId: string,
+  newPosition: number,
 ) => {
   const { data, ok } = await changeBankPositionRequest(
-    bank_account_id,
-    new_position,
+    bankAccountId,
+    newPosition,
   );
   if (ok) return data;
 

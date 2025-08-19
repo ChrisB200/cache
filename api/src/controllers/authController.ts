@@ -9,12 +9,12 @@ const completeSignup: RequestHandler = async (req, res) => {
   if (!username || !nickname)
     throw new AppError("Missing fields", 400, "MISSING_FIELDS");
 
-  const username_exists = await db
+  const usernameExists = await db
     .selectFrom("users")
     .where("username", "=", username)
     .executeTakeFirst();
 
-  if (username_exists)
+  if (usernameExists)
     throw new AppError("Username is already in use", 409, "USERNAME_EXISTS");
 
   await db

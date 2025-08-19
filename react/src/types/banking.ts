@@ -1,6 +1,6 @@
 export interface BankInstitution {
   id: string;
-  logo_url?: string;
+  logoUrl?: string;
   name: string;
 }
 
@@ -14,5 +14,5 @@ export interface BankAccount {
   balance: number;
   position: number;
   expired: boolean;
-  access_token: string;
+  accessToken: string;
 }

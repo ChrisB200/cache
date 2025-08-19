@@ -49,161 +49,161 @@ export type Workplace = "FIVEGUYS";
 
 export interface _RealtimeExtensions {
   id: string;
-  inserted_at: Timestamp;
+  insertedAt: Timestamp;
   settings: Json | null;
-  tenant_external_id: string | null;
+  tenantExternalId: string | null;
   type: string | null;
-  updated_at: Timestamp;
+  updatedAt: Timestamp;
 }
 
 export interface _RealtimeSchemaMigrations {
-  inserted_at: Timestamp | null;
+  insertedAt: Timestamp | null;
   version: Int8;
 }
 
 export interface _RealtimeTenants {
-  broadcast_adapter: Generated<string | null>;
-  external_id: string | null;
+  broadcastAdapter: Generated<string | null>;
+  externalId: string | null;
   id: string;
-  inserted_at: Timestamp;
-  jwt_jwks: Json | null;
-  jwt_secret: string | null;
-  max_bytes_per_second: Generated<number>;
-  max_channels_per_client: Generated<number>;
-  max_concurrent_users: Generated<number>;
-  max_events_per_second: Generated<number>;
-  max_joins_per_second: Generated<number>;
-  migrations_ran: Generated<number | null>;
+  insertedAt: Timestamp;
+  jwtJwks: Json | null;
+  jwtSecret: string | null;
+  maxBytesPerSecond: Generated<number>;
+  maxChannelsPerClient: Generated<number>;
+  maxConcurrentUsers: Generated<number>;
+  maxEventsPerSecond: Generated<number>;
+  maxJoinsPerSecond: Generated<number>;
+  migrationsRan: Generated<number | null>;
   name: string | null;
-  notify_private_alpha: Generated<boolean | null>;
-  postgres_cdc_default: Generated<string | null>;
-  private_only: Generated<boolean>;
+  notifyPrivateAlpha: Generated<boolean | null>;
+  postgresCdcDefault: Generated<string | null>;
+  privateOnly: Generated<boolean>;
   suspend: Generated<boolean | null>;
-  updated_at: Timestamp;
+  updatedAt: Timestamp;
 }
 
 export interface AuthAuditLogEntries {
-  created_at: Timestamp | null;
+  createdAt: Timestamp | null;
   id: string;
-  instance_id: string | null;
-  ip_address: Generated<string>;
+  instanceId: string | null;
+  ipAddress: Generated<string>;
   payload: Json | null;
 }
 
 export interface AuthFlowState {
-  auth_code: string;
-  auth_code_issued_at: Timestamp | null;
-  authentication_method: string;
-  code_challenge: string;
-  code_challenge_method: AuthCodeChallengeMethod;
-  created_at: Timestamp | null;
+  authCode: string;
+  authCodeIssuedAt: Timestamp | null;
+  authenticationMethod: string;
+  codeChallenge: string;
+  codeChallengeMethod: AuthCodeChallengeMethod;
+  createdAt: Timestamp | null;
   id: string;
-  provider_access_token: string | null;
-  provider_refresh_token: string | null;
-  provider_type: string;
-  updated_at: Timestamp | null;
-  user_id: string | null;
+  providerAccessToken: string | null;
+  providerRefreshToken: string | null;
+  providerType: string;
+  updatedAt: Timestamp | null;
+  userId: string | null;
 }
 
 export interface AuthIdentities {
-  created_at: Timestamp | null;
+  createdAt: Timestamp | null;
   /**
    * Auth: Email is a generated column that references the optional email property in the identity_data
    */
   email: Generated<string | null>;
   id: Generated<string>;
-  identity_data: Json;
-  last_sign_in_at: Timestamp | null;
+  identityData: Json;
+  lastSignInAt: Timestamp | null;
   provider: string;
-  provider_id: string;
-  updated_at: Timestamp | null;
-  user_id: string;
+  providerId: string;
+  updatedAt: Timestamp | null;
+  userId: string;
 }
 
 export interface AuthInstances {
-  created_at: Timestamp | null;
+  createdAt: Timestamp | null;
   id: string;
-  raw_base_config: string | null;
-  updated_at: Timestamp | null;
+  rawBaseConfig: string | null;
+  updatedAt: Timestamp | null;
   uuid: string | null;
 }
 
 export interface AuthMfaAmrClaims {
-  authentication_method: string;
-  created_at: Timestamp;
+  authenticationMethod: string;
+  createdAt: Timestamp;
   id: string;
-  session_id: string;
-  updated_at: Timestamp;
+  sessionId: string;
+  updatedAt: Timestamp;
 }
 
 export interface AuthMfaChallenges {
-  created_at: Timestamp;
-  factor_id: string;
+  createdAt: Timestamp;
+  factorId: string;
   id: string;
-  ip_address: string;
-  otp_code: string | null;
-  verified_at: Timestamp | null;
-  web_authn_session_data: Json | null;
+  ipAddress: string;
+  otpCode: string | null;
+  verifiedAt: Timestamp | null;
+  webAuthnSessionData: Json | null;
 }
 
 export interface AuthMfaFactors {
-  created_at: Timestamp;
-  factor_type: AuthFactorType;
-  friendly_name: string | null;
+  createdAt: Timestamp;
+  factorType: AuthFactorType;
+  friendlyName: string | null;
   id: string;
-  last_challenged_at: Timestamp | null;
+  lastChallengedAt: Timestamp | null;
   phone: string | null;
   secret: string | null;
   status: AuthFactorStatus;
-  updated_at: Timestamp;
-  user_id: string;
-  web_authn_aaguid: string | null;
-  web_authn_credential: Json | null;
+  updatedAt: Timestamp;
+  userId: string;
+  webAuthnAaguid: string | null;
+  webAuthnCredential: Json | null;
 }
 
 export interface AuthOneTimeTokens {
-  created_at: Generated<Timestamp>;
+  createdAt: Generated<Timestamp>;
   id: string;
-  relates_to: string;
-  token_hash: string;
-  token_type: AuthOneTimeTokenType;
-  updated_at: Generated<Timestamp>;
-  user_id: string;
+  relatesTo: string;
+  tokenHash: string;
+  tokenType: AuthOneTimeTokenType;
+  updatedAt: Generated<Timestamp>;
+  userId: string;
 }
 
 export interface AuthRefreshTokens {
-  created_at: Timestamp | null;
+  createdAt: Timestamp | null;
   id: Generated<Int8>;
-  instance_id: string | null;
+  instanceId: string | null;
   parent: string | null;
   revoked: boolean | null;
-  session_id: string | null;
+  sessionId: string | null;
   token: string | null;
-  updated_at: Timestamp | null;
-  user_id: string | null;
+  updatedAt: Timestamp | null;
+  userId: string | null;
 }
 
 export interface AuthSamlProviders {
-  attribute_mapping: Json | null;
-  created_at: Timestamp | null;
-  entity_id: string;
+  attributeMapping: Json | null;
+  createdAt: Timestamp | null;
+  entityId: string;
   id: string;
-  metadata_url: string | null;
-  metadata_xml: string;
-  name_id_format: string | null;
-  sso_provider_id: string;
-  updated_at: Timestamp | null;
+  metadataUrl: string | null;
+  metadataXml: string;
+  nameIdFormat: string | null;
+  ssoProviderId: string;
+  updatedAt: Timestamp | null;
 }
 
 export interface AuthSamlRelayStates {
-  created_at: Timestamp | null;
-  flow_state_id: string | null;
-  for_email: string | null;
+  createdAt: Timestamp | null;
+  flowStateId: string | null;
+  forEmail: string | null;
   id: string;
-  redirect_to: string | null;
-  request_id: string;
-  sso_provider_id: string;
-  updated_at: Timestamp | null;
+  redirectTo: string | null;
+  requestId: string;
+  ssoProviderId: string;
+  updatedAt: Timestamp | null;
 }
 
 export interface AuthSchemaMigrations {
@@ -212,87 +212,87 @@ export interface AuthSchemaMigrations {
 
 export interface AuthSessions {
   aal: AuthAalLevel | null;
-  created_at: Timestamp | null;
-  factor_id: string | null;
+  createdAt: Timestamp | null;
+  factorId: string | null;
   id: string;
   ip: string | null;
   /**
    * Auth: Not after is a nullable column that contains a timestamp after which the session should be regarded as expired.
    */
-  not_after: Timestamp | null;
-  refreshed_at: Timestamp | null;
+  notAfter: Timestamp | null;
+  refreshedAt: Timestamp | null;
   tag: string | null;
-  updated_at: Timestamp | null;
-  user_agent: string | null;
-  user_id: string;
+  updatedAt: Timestamp | null;
+  userAgent: string | null;
+  userId: string;
 }
 
 export interface AuthSsoDomains {
-  created_at: Timestamp | null;
+  createdAt: Timestamp | null;
   domain: string;
   id: string;
-  sso_provider_id: string;
-  updated_at: Timestamp | null;
+  ssoProviderId: string;
+  updatedAt: Timestamp | null;
 }
 
 export interface AuthSsoProviders {
-  created_at: Timestamp | null;
+  createdAt: Timestamp | null;
   id: string;
   /**
    * Auth: Uniquely identifies a SSO provider according to a user-chosen resource ID (case insensitive), useful in infrastructure as code.
    */
-  resource_id: string | null;
-  updated_at: Timestamp | null;
+  resourceId: string | null;
+  updatedAt: Timestamp | null;
 }
 
 export interface AuthUsers {
   aud: string | null;
-  banned_until: Timestamp | null;
-  confirmation_sent_at: Timestamp | null;
-  confirmation_token: string | null;
-  confirmed_at: Generated<Timestamp | null>;
-  created_at: Timestamp | null;
-  deleted_at: Timestamp | null;
+  bannedUntil: Timestamp | null;
+  confirmationSentAt: Timestamp | null;
+  confirmationToken: string | null;
+  confirmedAt: Generated<Timestamp | null>;
+  createdAt: Timestamp | null;
+  deletedAt: Timestamp | null;
   email: string | null;
-  email_change: string | null;
-  email_change_confirm_status: Generated<number | null>;
-  email_change_sent_at: Timestamp | null;
-  email_change_token_current: Generated<string | null>;
-  email_change_token_new: string | null;
-  email_confirmed_at: Timestamp | null;
-  encrypted_password: string | null;
+  emailChange: string | null;
+  emailChangeConfirmStatus: Generated<number | null>;
+  emailChangeSentAt: Timestamp | null;
+  emailChangeTokenCurrent: Generated<string | null>;
+  emailChangeTokenNew: string | null;
+  emailConfirmedAt: Timestamp | null;
+  encryptedPassword: string | null;
   id: string;
-  instance_id: string | null;
-  invited_at: Timestamp | null;
-  is_anonymous: Generated<boolean>;
+  instanceId: string | null;
+  invitedAt: Timestamp | null;
+  isAnonymous: Generated<boolean>;
   /**
    * Auth: Set this column to true when the account comes from SSO. These accounts can have duplicate emails.
    */
-  is_sso_user: Generated<boolean>;
-  is_super_admin: boolean | null;
-  last_sign_in_at: Timestamp | null;
+  isSsoUser: Generated<boolean>;
+  isSuperAdmin: boolean | null;
+  lastSignInAt: Timestamp | null;
   phone: Generated<string | null>;
-  phone_change: Generated<string | null>;
-  phone_change_sent_at: Timestamp | null;
-  phone_change_token: Generated<string | null>;
-  phone_confirmed_at: Timestamp | null;
-  raw_app_meta_data: Json | null;
-  raw_user_meta_data: Json | null;
-  reauthentication_sent_at: Timestamp | null;
-  reauthentication_token: Generated<string | null>;
-  recovery_sent_at: Timestamp | null;
-  recovery_token: string | null;
+  phoneChange: Generated<string | null>;
+  phoneChangeSentAt: Timestamp | null;
+  phoneChangeToken: Generated<string | null>;
+  phoneConfirmedAt: Timestamp | null;
+  rawAppMetaData: Json | null;
+  rawUserMetaData: Json | null;
+  reauthenticationSentAt: Timestamp | null;
+  reauthenticationToken: Generated<string | null>;
+  recoverySentAt: Timestamp | null;
+  recoveryToken: string | null;
   role: string | null;
-  updated_at: Timestamp | null;
+  updatedAt: Timestamp | null;
 }
 
 export interface BankAccounts {
   balance: Generated<Numeric | null>;
-  bank_item_id: string;
+  bankItemId: string;
   id: Generated<string>;
   name: string;
   nickname: string | null;
-  plaid_account_id: string;
+  plaidAccountId: string;
   position: number;
   subtype: PlaidAccountSubtype;
   type: PlaidAccountType;
@@ -300,26 +300,26 @@ export interface BankAccounts {
 
 export interface BankInstitutions {
   id: Generated<string>;
-  logo_url: string | null;
+  logoUrl: string | null;
   name: string;
-  plaid_institution_id: string;
+  plaidInstitutionId: string;
 }
 
 export interface BankItems {
-  bank_institution_id: string;
+  bankInstitutionId: string;
   expired: Generated<boolean | null>;
   id: Generated<string>;
-  plaid_access_token: string;
-  plaid_item_id: string;
-  updated_at: Generated<Timestamp | null>;
-  user_id: string;
+  plaidAccessToken: string;
+  plaidItemId: string;
+  updatedAt: Generated<Timestamp | null>;
+  userId: string;
 }
 
 export interface Credentials {
   id: Generated<string>;
   password: string;
   service: Service;
-  user_id: string;
+  userId: string;
   username: string;
   workplace: Workplace;
 }
@@ -327,58 +327,58 @@ export interface Credentials {
 export interface ExtensionsPgStatStatements {
   calls: Int8 | null;
   dbid: number | null;
-  jit_deform_count: Int8 | null;
-  jit_deform_time: number | null;
-  jit_emission_count: Int8 | null;
-  jit_emission_time: number | null;
-  jit_functions: Int8 | null;
-  jit_generation_time: number | null;
-  jit_inlining_count: Int8 | null;
-  jit_inlining_time: number | null;
-  jit_optimization_count: Int8 | null;
-  jit_optimization_time: number | null;
-  local_blk_read_time: number | null;
-  local_blk_write_time: number | null;
-  local_blks_dirtied: Int8 | null;
-  local_blks_hit: Int8 | null;
-  local_blks_read: Int8 | null;
-  local_blks_written: Int8 | null;
-  max_exec_time: number | null;
-  max_plan_time: number | null;
-  mean_exec_time: number | null;
-  mean_plan_time: number | null;
-  min_exec_time: number | null;
-  min_plan_time: number | null;
-  minmax_stats_since: Timestamp | null;
+  jitDeformCount: Int8 | null;
+  jitDeformTime: number | null;
+  jitEmissionCount: Int8 | null;
+  jitEmissionTime: number | null;
+  jitFunctions: Int8 | null;
+  jitGenerationTime: number | null;
+  jitInliningCount: Int8 | null;
+  jitInliningTime: number | null;
+  jitOptimizationCount: Int8 | null;
+  jitOptimizationTime: number | null;
+  localBlkReadTime: number | null;
+  localBlksDirtied: Int8 | null;
+  localBlksHit: Int8 | null;
+  localBlksRead: Int8 | null;
+  localBlksWritten: Int8 | null;
+  localBlkWriteTime: number | null;
+  maxExecTime: number | null;
+  maxPlanTime: number | null;
+  meanExecTime: number | null;
+  meanPlanTime: number | null;
+  minExecTime: number | null;
+  minmaxStatsSince: Timestamp | null;
+  minPlanTime: number | null;
   plans: Int8 | null;
   query: string | null;
   queryid: Int8 | null;
   rows: Int8 | null;
-  shared_blk_read_time: number | null;
-  shared_blk_write_time: number | null;
-  shared_blks_dirtied: Int8 | null;
-  shared_blks_hit: Int8 | null;
-  shared_blks_read: Int8 | null;
-  shared_blks_written: Int8 | null;
-  stats_since: Timestamp | null;
-  stddev_exec_time: number | null;
-  stddev_plan_time: number | null;
-  temp_blk_read_time: number | null;
-  temp_blk_write_time: number | null;
-  temp_blks_read: Int8 | null;
-  temp_blks_written: Int8 | null;
+  sharedBlkReadTime: number | null;
+  sharedBlksDirtied: Int8 | null;
+  sharedBlksHit: Int8 | null;
+  sharedBlksRead: Int8 | null;
+  sharedBlksWritten: Int8 | null;
+  sharedBlkWriteTime: number | null;
+  statsSince: Timestamp | null;
+  stddevExecTime: number | null;
+  stddevPlanTime: number | null;
+  tempBlkReadTime: number | null;
+  tempBlksRead: Int8 | null;
+  tempBlksWritten: Int8 | null;
+  tempBlkWriteTime: number | null;
   toplevel: boolean | null;
-  total_exec_time: number | null;
-  total_plan_time: number | null;
+  totalExecTime: number | null;
+  totalPlanTime: number | null;
   userid: number | null;
-  wal_bytes: Numeric | null;
-  wal_fpi: Int8 | null;
-  wal_records: Int8 | null;
+  walBytes: Numeric | null;
+  walFpi: Int8 | null;
+  walRecords: Int8 | null;
 }
 
 export interface ExtensionsPgStatStatementsInfo {
   dealloc: Int8 | null;
-  stats_reset: Timestamp | null;
+  statsReset: Timestamp | null;
 }
 
 export interface NetHttpRequestQueue {
@@ -386,102 +386,102 @@ export interface NetHttpRequestQueue {
   headers: Json;
   id: Generated<Int8>;
   method: string;
-  timeout_milliseconds: number;
+  timeoutMilliseconds: number;
   url: string;
 }
 
 export interface NetHttpResponse {
   content: string | null;
-  content_type: string | null;
+  contentType: string | null;
   created: Generated<Timestamp>;
-  error_msg: string | null;
+  errorMsg: string | null;
   headers: Json | null;
   id: Int8 | null;
-  status_code: number | null;
-  timed_out: boolean | null;
+  statusCode: number | null;
+  timedOut: boolean | null;
 }
 
 export interface RealtimeMessages {
   event: string | null;
   extension: string;
   id: Generated<string>;
-  inserted_at: Generated<Timestamp>;
+  insertedAt: Generated<Timestamp>;
   payload: Json | null;
   private: Generated<boolean | null>;
   topic: string;
-  updated_at: Generated<Timestamp>;
+  updatedAt: Generated<Timestamp>;
 }
 
 export interface RealtimeSchemaMigrations {
-  inserted_at: Timestamp | null;
+  insertedAt: Timestamp | null;
   version: Int8;
 }
 
 export interface RealtimeSubscription {
   claims: Json;
-  claims_role: Generated<string>;
-  created_at: Generated<Timestamp>;
+  claimsRole: Generated<string>;
+  createdAt: Generated<Timestamp>;
   entity: string;
   filters: Generated<string[]>;
   id: Generated<Int8>;
-  subscription_id: string;
+  subscriptionId: string;
 }
 
 export interface StorageBuckets {
-  allowed_mime_types: string[] | null;
-  avif_autodetection: Generated<boolean | null>;
-  created_at: Generated<Timestamp | null>;
-  file_size_limit: Int8 | null;
+  allowedMimeTypes: string[] | null;
+  avifAutodetection: Generated<boolean | null>;
+  createdAt: Generated<Timestamp | null>;
+  fileSizeLimit: Int8 | null;
   id: string;
   name: string;
   /**
    * Field is deprecated, use owner_id instead
    */
   owner: string | null;
-  owner_id: string | null;
+  ownerId: string | null;
   public: Generated<boolean | null>;
   type: Generated<StorageBuckettype>;
-  updated_at: Generated<Timestamp | null>;
+  updatedAt: Generated<Timestamp | null>;
 }
 
 export interface StorageBucketsAnalytics {
-  created_at: Generated<Timestamp>;
+  createdAt: Generated<Timestamp>;
   format: Generated<string>;
   id: string;
   type: Generated<StorageBuckettype>;
-  updated_at: Generated<Timestamp>;
+  updatedAt: Generated<Timestamp>;
 }
 
 export interface StorageIcebergNamespaces {
-  bucket_id: string;
-  created_at: Generated<Timestamp>;
+  bucketId: string;
+  createdAt: Generated<Timestamp>;
   id: Generated<string>;
   name: string;
-  updated_at: Generated<Timestamp>;
+  updatedAt: Generated<Timestamp>;
 }
 
 export interface StorageIcebergTables {
-  bucket_id: string;
-  created_at: Generated<Timestamp>;
+  bucketId: string;
+  createdAt: Generated<Timestamp>;
   id: Generated<string>;
   location: string;
   name: string;
-  namespace_id: string;
-  updated_at: Generated<Timestamp>;
+  namespaceId: string;
+  updatedAt: Generated<Timestamp>;
 }
 
 export interface StorageMigrations {
-  executed_at: Generated<Timestamp | null>;
+  executedAt: Generated<Timestamp | null>;
   hash: string;
   id: number;
   name: string;
 }
 
 export interface StorageObjects {
-  bucket_id: string | null;
-  created_at: Generated<Timestamp | null>;
+  bucketId: string | null;
+  createdAt: Generated<Timestamp | null>;
   id: Generated<string>;
-  last_accessed_at: Generated<Timestamp | null>;
+  lastAccessedAt: Generated<Timestamp | null>;
   level: number | null;
   metadata: Json | null;
   name: string | null;
@@ -489,43 +489,43 @@ export interface StorageObjects {
    * Field is deprecated, use owner_id instead
    */
   owner: string | null;
-  owner_id: string | null;
-  path_tokens: Generated<string[] | null>;
-  updated_at: Generated<Timestamp | null>;
-  user_metadata: Json | null;
+  ownerId: string | null;
+  pathTokens: Generated<string[] | null>;
+  updatedAt: Generated<Timestamp | null>;
+  userMetadata: Json | null;
   version: string | null;
 }
 
 export interface StoragePrefixes {
-  bucket_id: string;
-  created_at: Generated<Timestamp | null>;
+  bucketId: string;
+  createdAt: Generated<Timestamp | null>;
   level: Generated<number>;
   name: string;
-  updated_at: Generated<Timestamp | null>;
+  updatedAt: Generated<Timestamp | null>;
 }
 
 export interface StorageS3MultipartUploads {
-  bucket_id: string;
-  created_at: Generated<Timestamp>;
+  bucketId: string;
+  createdAt: Generated<Timestamp>;
   id: string;
-  in_progress_size: Generated<Int8>;
+  inProgressSize: Generated<Int8>;
   key: string;
-  owner_id: string | null;
-  upload_signature: string;
-  user_metadata: Json | null;
+  ownerId: string | null;
+  uploadSignature: string;
+  userMetadata: Json | null;
   version: string;
 }
 
 export interface StorageS3MultipartUploadsParts {
-  bucket_id: string;
-  created_at: Generated<Timestamp>;
+  bucketId: string;
+  createdAt: Generated<Timestamp>;
   etag: string;
   id: Generated<string>;
   key: string;
-  owner_id: string | null;
-  part_number: number;
+  ownerId: string | null;
+  partNumber: number;
   size: Generated<Int8>;
-  upload_id: string;
+  uploadId: string;
   version: string;
 }
 
@@ -533,20 +533,20 @@ export interface Stores {
   close: string;
   id: Generated<string>;
   open: string;
-  user_id: string;
+  userId: string;
   workplace: Workplace;
 }
 
 export interface SupabaseFunctionsHooks {
-  created_at: Generated<Timestamp>;
-  hook_name: string;
-  hook_table_id: number;
+  createdAt: Generated<Timestamp>;
+  hookName: string;
+  hookTableId: number;
   id: Generated<Int8>;
-  request_id: Int8 | null;
+  requestId: Int8 | null;
 }
 
 export interface SupabaseFunctionsMigrations {
-  inserted_at: Generated<Timestamp>;
+  insertedAt: Generated<Timestamp>;
   version: string;
 }
 
@@ -557,80 +557,80 @@ export interface SupabaseMigrationsSchemaMigrations {
 }
 
 export interface Users {
-  auth_user_id: string;
+  authUserId: string;
   id: Generated<string>;
   nickname: string | null;
   username: string | null;
 }
 
 export interface VaultDecryptedSecrets {
-  created_at: Timestamp | null;
-  decrypted_secret: string | null;
+  createdAt: Timestamp | null;
+  decryptedSecret: string | null;
   description: string | null;
   id: string | null;
-  key_id: string | null;
+  keyId: string | null;
   name: string | null;
   nonce: Buffer | null;
   secret: string | null;
-  updated_at: Timestamp | null;
+  updatedAt: Timestamp | null;
 }
 
 export interface VaultSecrets {
-  created_at: Generated<Timestamp>;
+  createdAt: Generated<Timestamp>;
   description: Generated<string>;
   id: Generated<string>;
-  key_id: string | null;
+  keyId: string | null;
   name: string | null;
   nonce: Generated<Buffer | null>;
   secret: string;
-  updated_at: Generated<Timestamp>;
+  updatedAt: Generated<Timestamp>;
 }
 
 export interface DB {
-  "_realtime.extensions": _RealtimeExtensions;
-  "_realtime.schema_migrations": _RealtimeSchemaMigrations;
-  "_realtime.tenants": _RealtimeTenants;
-  "auth.audit_log_entries": AuthAuditLogEntries;
-  "auth.flow_state": AuthFlowState;
+  "_Realtime.extensions": _RealtimeExtensions;
+  "_Realtime.schemaMigrations": _RealtimeSchemaMigrations;
+  "_Realtime.tenants": _RealtimeTenants;
+  "auth.auditLogEntries": AuthAuditLogEntries;
+  "auth.flowState": AuthFlowState;
   "auth.identities": AuthIdentities;
   "auth.instances": AuthInstances;
-  "auth.mfa_amr_claims": AuthMfaAmrClaims;
-  "auth.mfa_challenges": AuthMfaChallenges;
-  "auth.mfa_factors": AuthMfaFactors;
-  "auth.one_time_tokens": AuthOneTimeTokens;
-  "auth.refresh_tokens": AuthRefreshTokens;
-  "auth.saml_providers": AuthSamlProviders;
-  "auth.saml_relay_states": AuthSamlRelayStates;
-  "auth.schema_migrations": AuthSchemaMigrations;
+  "auth.mfaAmrClaims": AuthMfaAmrClaims;
+  "auth.mfaChallenges": AuthMfaChallenges;
+  "auth.mfaFactors": AuthMfaFactors;
+  "auth.oneTimeTokens": AuthOneTimeTokens;
+  "auth.refreshTokens": AuthRefreshTokens;
+  "auth.samlProviders": AuthSamlProviders;
+  "auth.samlRelayStates": AuthSamlRelayStates;
+  "auth.schemaMigrations": AuthSchemaMigrations;
   "auth.sessions": AuthSessions;
-  "auth.sso_domains": AuthSsoDomains;
-  "auth.sso_providers": AuthSsoProviders;
+  "auth.ssoDomains": AuthSsoDomains;
+  "auth.ssoProviders": AuthSsoProviders;
   "auth.users": AuthUsers;
-  bank_accounts: BankAccounts;
-  bank_institutions: BankInstitutions;
-  bank_items: BankItems;
+  bankAccounts: BankAccounts;
+  bankInstitutions: BankInstitutions;
+  bankItems: BankItems;
   credentials: Credentials;
-  "extensions.pg_stat_statements": ExtensionsPgStatStatements;
-  "extensions.pg_stat_statements_info": ExtensionsPgStatStatementsInfo;
-  "net._http_response": NetHttpResponse;
-  "net.http_request_queue": NetHttpRequestQueue;
+  "extensions.pgStatStatements": ExtensionsPgStatStatements;
+  "extensions.pgStatStatementsInfo": ExtensionsPgStatStatementsInfo;
+  "net.httpRequestQueue": NetHttpRequestQueue;
+  "net.HttpResponse": NetHttpResponse;
   "realtime.messages": RealtimeMessages;
-  "realtime.schema_migrations": RealtimeSchemaMigrations;
+  "realtime.schemaMigrations": RealtimeSchemaMigrations;
   "realtime.subscription": RealtimeSubscription;
   "storage.buckets": StorageBuckets;
-  "storage.buckets_analytics": StorageBucketsAnalytics;
-  "storage.iceberg_namespaces": StorageIcebergNamespaces;
-  "storage.iceberg_tables": StorageIcebergTables;
+  "storage.bucketsAnalytics": StorageBucketsAnalytics;
+  "storage.icebergNamespaces": StorageIcebergNamespaces;
+  "storage.icebergTables": StorageIcebergTables;
   "storage.migrations": StorageMigrations;
   "storage.objects": StorageObjects;
   "storage.prefixes": StoragePrefixes;
-  "storage.s3_multipart_uploads": StorageS3MultipartUploads;
-  "storage.s3_multipart_uploads_parts": StorageS3MultipartUploadsParts;
+  "storage.s3MultipartUploads": StorageS3MultipartUploads;
+  "storage.s3MultipartUploadsParts": StorageS3MultipartUploadsParts;
   stores: Stores;
-  "supabase_functions.hooks": SupabaseFunctionsHooks;
-  "supabase_functions.migrations": SupabaseFunctionsMigrations;
-  "supabase_migrations.schema_migrations": SupabaseMigrationsSchemaMigrations;
+  "supabaseFunctions.hooks": SupabaseFunctionsHooks;
+  "supabaseFunctions.migrations": SupabaseFunctionsMigrations;
+  "supabaseMigrations.schemaMigrations": SupabaseMigrationsSchemaMigrations;
   users: Users;
-  "vault.decrypted_secrets": VaultDecryptedSecrets;
+  "vault.decryptedSecrets": VaultDecryptedSecrets;
   "vault.secrets": VaultSecrets;
 }

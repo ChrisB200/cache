@@ -12,7 +12,7 @@ function SDWorxForm({ handleSubmit, handleBack }: SDWorxProps) {
   const fields: FieldGroup[] = [
     {
       element: "input",
-      name: "sd_username",
+      name: "sdUsername",
       placeholder: "Your SD Worx username",
       label: "Username",
       type: "text",
@@ -20,7 +20,7 @@ function SDWorxForm({ handleSubmit, handleBack }: SDWorxProps) {
     },
     {
       element: "input",
-      name: "sd_password",
+      name: "sdPassword",
       placeholder: "Your SD Worx password",
       label: "Password",
       type: "password",
