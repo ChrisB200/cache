@@ -1,24 +1,20 @@
 import logging
+from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
-from datetime import datetime
-from datetime import timedelta
-from playwright.async_api import BrowserContext
-from psycopg2.extensions import cursor
+
 from bs4 import PageElement
 from ics import Calendar, Event
-from ..utils.security import get_credentials
-from ..utils.helpers import start_of_week
-from ..config.database import connect_to_database
-from ..utils.helpers import time_difference
-from ..utils.helpers import parse_page
-from ..utils.helpers import upper_first_letter
+from playwright.async_api import BrowserContext
+from psycopg2.extensions import cursor
 
+from ..config.database import connect_to_database
+from ..utils.helpers import (parse_page, start_of_week, time_difference,
+                             upper_first_letter)
+from ..utils.security import get_credentials
 
 logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler()
-    ]
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[logging.StreamHandler()],
 )
 
 logger = logging.getLogger(__name__)
@@ -116,13 +112,14 @@ def parse_regular_shift(hours, week_start, count):
 
     tz = ZoneInfo("Europe/London")  # pick your source timezone
     start_dt = datetime.combine(date, start).replace(tzinfo=tz)
-    end_dt = datetime.combine(
-        date + timedelta(days=end < start), end).replace(tzinfo=tz)
+    end_dt = datetime.combine(date + timedelta(days=end < start), end).replace(
+        tzinfo=tz
+    )
 
     return {
         "date": date,
-        "start": start_dt,              # no .timestamp()
-        "finish": end_dt,               # no .timestamp()
+        "start": start_dt,  # no .timestamp()
+        "finish": end_dt,  # no .timestamp()
         "rate": 12.05,
         "category": "work",
         "hours": round((end_dt - start_dt).total_seconds() / 3600, 2),
@@ -209,11 +206,14 @@ async def scrape_shifts(context: BrowserContext, shift_type: str, user_id: str, 
 
 
 def get_existing_shifts(start_date, end_date, user_id, shift_type, cur):
-    cur.execute("""
+    cur.execute(
+        """
         SELECT *
         FROM public.shifts
         WHERE date >= %s and date <= %s and user_id = %s and type = %s
-    """, (start_date, end_date, user_id, shift_type))
+    """,
+        (start_date, end_date, user_id, shift_type),
+    )
 
     rows = cur.fetchall()
     shifts = {}
@@ -225,10 +225,20 @@ def get_existing_shifts(start_date, end_date, user_id, shift_type, cur):
 
 
 def add_shift(new_shift, shift_type, cur, user_id):
-    cur.execute("""
+    cur.execute(
+        """
         INSERT INTO public.shifts (date, start, finish, category, type, user_id)
         VALUES (%s, %s, %s, %s, %s, %s)
-    """, (new_shift["date"], new_shift["start"], new_shift["finish"], new_shift["category"], shift_type, user_id))
+    """,
+        (
+            new_shift["date"],
+            new_shift["start"],
+            new_shift["finish"],
+            new_shift["category"],
+            shift_type,
+            user_id,
+        ),
+    )
 
 
 def update_shift(existing, new_shift, cur):
@@ -240,35 +250,42 @@ def update_shift(existing, new_shift, cur):
     if not date or not start or not finish or not category:
         raise TypeError("new shift doesn't have the correct values")
 
-    cur.execute("""
+    cur.execute(
+        """
         UPDATE public.shifts
         SET date = %s, start = %s, finish = %s, category = %s
         WHERE id = %s
-    """, (date, start, finish, category, existing["id"]))
+    """,
+        (date, start, finish, category, existing["id"]),
+    )
 
 
 def commit_shifts(shifts, start_date, end_date, cur, user_id, shift_type):
     existing_shifts = get_existing_shifts(
-        start_date, end_date, user_id, shift_type, cur)
+        start_date, end_date, user_id, shift_type, cur
+    )
 
     for shift in shifts:
         existing = existing_shifts.get(shift["date"])
         if existing:
             update_shift(existing, shift, cur)
         else:
-            add_shift(shift, shift_type,  cur, user_id)
+            add_shift(shift, shift_type, cur, user_id)
 
     cur.connection.commit()
 
 
 def get_last_shift(cur, user_id, shift_type):
-    cur.execute("""
+    cur.execute(
+        """
         SELECT date
         FROM public.shifts
         WHERE user_id = %s and type = %s
         ORDER BY date DESC
         LIMIT 1
-    """, (user_id, shift_type))
+    """,
+        (user_id, shift_type),
+    )
 
     row = cur.fetchone()
 
@@ -277,10 +294,10 @@ def get_last_shift(cur, user_id, shift_type):
 
 def get_start_date(cur, user_id, shift_type):
     last_shift = get_last_shift(cur, user_id, shift_type)
-    date = last_shift.get("date")
-    if not date:
+    if not last_shift:
         return start_date
     else:
+        date = last_shift.get("date")
         return date - timedelta(weeks=2)
 
 
@@ -297,15 +314,19 @@ async def run_shift_scraper(context: BrowserContext, cur: cursor, user_id: str):
 
 
 def get_schedule(cur, user_id):
-    cur.execute("""
+    cur.execute(
+        """
         SELECT *
         FROM public.shifts
         where user_id = %s and type = %s
-    """, (user_id, "schedule"))
+    """,
+        (user_id, "schedule"),
+    )
 
     shifts = cur.fetchall()
 
     return shifts
+
 
 # TODO: make this way more efficient
 
@@ -326,5 +347,5 @@ def generate_ics(user_id):
 
         c.events.add(e)
 
-    with open(f"{user_id}/shift.ics", "w", encoding="utf-8") as f:
+    with open(f"{user_id}.ics", "w", encoding="utf-8") as f:
         f.writelines(c.serialize())
