@@ -2,6 +2,7 @@ import type { Workplace } from "@/types/user";
 
 export interface StoreFormValues {
   workplace: Workplace;
+  rate: number;
   open: string;
   close: string;
 }

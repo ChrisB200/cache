@@ -1,10 +1,9 @@
 CREATE TABLE "users" (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  id UUID PRIMARY KEY NOT NULL,
   username TEXT,
   nickname TEXT,
-  auth_user_id UUID NOT NULL,
 
-  FOREIGN KEY ("auth_user_id") REFERENCES auth.users(id)
+  FOREIGN KEY ("id") REFERENCES auth.users(id)
     ON DELETE CASCADE
     ON UPDATE CASCADE
 )

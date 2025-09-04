@@ -41,7 +41,9 @@ export type PlaidAccountType = "credit" | "depository" | "investment" | "loan" |
 
 export type Service = "FGP" | "SDWORX";
 
-export type StorageBuckettype = "ANALYTICS" | "STANDARD";
+export type ShiftCategory = "holiday" | "work";
+
+export type ShiftType = "schedule" | "timecard";
 
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
@@ -73,6 +75,8 @@ export interface _RealtimeTenants {
   maxConcurrentUsers: Generated<number>;
   maxEventsPerSecond: Generated<number>;
   maxJoinsPerSecond: Generated<number>;
+  maxPayloadSizeInKb: Generated<number | null>;
+  maxPresenceEventsPerSecond: Generated<number | null>;
   migrationsRan: Generated<number | null>;
   name: string | null;
   notifyPrivateAlpha: Generated<boolean | null>;
@@ -237,6 +241,7 @@ export interface AuthSsoDomains {
 
 export interface AuthSsoProviders {
   createdAt: Timestamp | null;
+  disabled: boolean | null;
   id: string;
   /**
    * Auth: Uniquely identifies a SSO provider according to a user-chosen resource ID (case insensitive), useful in infrastructure as code.
@@ -383,7 +388,7 @@ export interface ExtensionsPgStatStatementsInfo {
 
 export interface NetHttpRequestQueue {
   body: Buffer | null;
-  headers: Json;
+  headers: Json | null;
   id: Generated<Int8>;
   method: string;
   timeoutMilliseconds: number;
@@ -427,6 +432,16 @@ export interface RealtimeSubscription {
   subscriptionId: string;
 }
 
+export interface Shifts {
+  category: ShiftCategory;
+  date: Timestamp;
+  finish: Timestamp;
+  id: Generated<string>;
+  start: Timestamp;
+  type: ShiftType;
+  userId: string;
+}
+
 export interface StorageBuckets {
   allowedMimeTypes: string[] | null;
   avifAutodetection: Generated<boolean | null>;
@@ -440,34 +455,7 @@ export interface StorageBuckets {
   owner: string | null;
   ownerId: string | null;
   public: Generated<boolean | null>;
-  type: Generated<StorageBuckettype>;
   updatedAt: Generated<Timestamp | null>;
-}
-
-export interface StorageBucketsAnalytics {
-  createdAt: Generated<Timestamp>;
-  format: Generated<string>;
-  id: string;
-  type: Generated<StorageBuckettype>;
-  updatedAt: Generated<Timestamp>;
-}
-
-export interface StorageIcebergNamespaces {
-  bucketId: string;
-  createdAt: Generated<Timestamp>;
-  id: Generated<string>;
-  name: string;
-  updatedAt: Generated<Timestamp>;
-}
-
-export interface StorageIcebergTables {
-  bucketId: string;
-  createdAt: Generated<Timestamp>;
-  id: Generated<string>;
-  location: string;
-  name: string;
-  namespaceId: string;
-  updatedAt: Generated<Timestamp>;
 }
 
 export interface StorageMigrations {
@@ -482,7 +470,6 @@ export interface StorageObjects {
   createdAt: Generated<Timestamp | null>;
   id: Generated<string>;
   lastAccessedAt: Generated<Timestamp | null>;
-  level: number | null;
   metadata: Json | null;
   name: string | null;
   /**
@@ -494,14 +481,6 @@ export interface StorageObjects {
   updatedAt: Generated<Timestamp | null>;
   userMetadata: Json | null;
   version: string | null;
-}
-
-export interface StoragePrefixes {
-  bucketId: string;
-  createdAt: Generated<Timestamp | null>;
-  level: Generated<number>;
-  name: string;
-  updatedAt: Generated<Timestamp | null>;
 }
 
 export interface StorageS3MultipartUploads {
@@ -533,6 +512,7 @@ export interface Stores {
   close: string;
   id: Generated<string>;
   open: string;
+  rate: Numeric;
   userId: string;
   workplace: Workplace;
 }
@@ -557,8 +537,7 @@ export interface SupabaseMigrationsSchemaMigrations {
 }
 
 export interface Users {
-  authUserId: string;
-  id: Generated<string>;
+  id: string;
   nickname: string | null;
   username: string | null;
 }
@@ -617,13 +596,10 @@ export interface DB {
   "realtime.messages": RealtimeMessages;
   "realtime.schemaMigrations": RealtimeSchemaMigrations;
   "realtime.subscription": RealtimeSubscription;
+  shifts: Shifts;
   "storage.buckets": StorageBuckets;
-  "storage.bucketsAnalytics": StorageBucketsAnalytics;
-  "storage.icebergNamespaces": StorageIcebergNamespaces;
-  "storage.icebergTables": StorageIcebergTables;
   "storage.migrations": StorageMigrations;
   "storage.objects": StorageObjects;
-  "storage.prefixes": StoragePrefixes;
   "storage.s3MultipartUploads": StorageS3MultipartUploads;
   "storage.s3MultipartUploadsParts": StorageS3MultipartUploadsParts;
   stores: Stores;

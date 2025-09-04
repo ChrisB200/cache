@@ -9,6 +9,7 @@ const validateSetupCredentials = (
 ): SetupCredentials => {
   const {
     workplace,
+    rate,
     open,
     close,
     fgpUsername,
@@ -19,6 +20,8 @@ const validateSetupCredentials = (
 
   if (!workplace)
     throw new AppError("No workplace was provided", 400, "INVALID_FIELDS");
+
+  if (!rate) throw new AppError("No rate was provided", 400, "INVALID_FIELDS");
 
   if (!open)
     throw new AppError("No opening time was provided", 400, "INVALID_FIELDS");
@@ -50,6 +53,7 @@ const validateSetupCredentials = (
 
   return {
     workplace,
+    rate,
     open,
     close,
     fgpUsername: encrypt(fgpUsername),

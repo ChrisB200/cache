@@ -17,16 +17,8 @@ async function handleToken(token: string, session: Partial<SessionData>) {
   let user = await db
     .selectFrom("users")
     .selectAll()
-    .where("authUserId", "=", data.sub)
+    .where("id", "=", data.sub)
     .executeTakeFirst();
-
-  if (!user && data.sub) {
-    user = await db
-      .insertInto("users")
-      .values({ authUserId: data.sub })
-      .returningAll()
-      .executeTakeFirst();
-  }
 
   if (user) {
     session.user = user;

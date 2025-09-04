@@ -1,5 +1,8 @@
 CREATE TYPE workplace as ENUM('FIVEGUYS');
 CREATE TYPE service as ENUM('SDWORX', 'FGP');
+CREATE TYPE shift_type as ENUM('timecard', 'schedule');
+CREATE TYPE shift_category as ENUM('work', 'holiday');
+
 CREATE TYPE plaid_account_type as ENUM('depository', 'credit', 'loan', 'investment', 'other');
 CREATE TYPE plaid_account_subtype AS ENUM (
     -- depository

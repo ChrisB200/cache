@@ -6,6 +6,7 @@ import AppError from "../utils/appError";
 const setupFiveGuys: RequestHandler = async (req, res) => {
   const {
     workplace,
+    rate,
     open,
     close,
     fgpUsername,
@@ -18,7 +19,7 @@ const setupFiveGuys: RequestHandler = async (req, res) => {
 
   const store = await db
     .insertInto("stores")
-    .values({ open, close, workplace, userId: user.id })
+    .values({ open, close, workplace, rate, userId: user.id })
     .returningAll()
     .executeTakeFirst();
 

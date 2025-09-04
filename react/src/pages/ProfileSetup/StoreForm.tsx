@@ -17,6 +17,13 @@ export function StoreForm({ handleSubmit }: StoreProps) {
       label: "Select your workplace",
       options: [{ label: "Five Guys", value: "FIVEGUYS" }],
     },
+    {
+      element: "input",
+      name: "rate",
+      placeholder: "Your hourly rate",
+      label: "Hourly Rate",
+      type: "number",
+    },
     [
       {
         element: "input",

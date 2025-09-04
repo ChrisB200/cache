@@ -19,6 +19,7 @@ function ProfileSetup() {
   const navigate = useNavigate();
   const { values: storeForm } = useForm<StoreFormValues>("store", {
     workplace: "FIVEGUYS",
+    rate: 12.05,
     open: setTime({ hours: 10 }),
     close: setTime({ hours: 23 }),
   });

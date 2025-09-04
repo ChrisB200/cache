@@ -3,6 +3,7 @@ import { TimeString } from "./dates";
 
 export interface ValidateSetupCredentials {
   workplace?: Workplace;
+  rate?: number;
   open?: TimeString;
   close?: TimeString;
   fgpUsername?: string;
@@ -13,6 +14,7 @@ export interface ValidateSetupCredentials {
 
 export interface SetupCredentials {
   workplace: Workplace;
+  rate: number;
   open: TimeString;
   close: TimeString;
   fgpUsername: string;

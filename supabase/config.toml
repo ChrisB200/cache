@@ -56,6 +56,7 @@ schema_paths = [
     "./schemas/bank_institutions.sql",
     "./schemas/bank_items.sql",
     "./schemas/bank_accounts.sql",
+    "./schemas/shifts.sql",
     "./schemas/*.sql",
 ]
 
@@ -132,7 +133,7 @@ enabled = true
 # in emails.
 site_url = "env(FRONTEND_URL)"
 # A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
-additional_redirect_urls = ["env(FRONTEND_URL)/*"]
+additional_redirect_urls = ["/*"]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).
 jwt_expiry = 3600
 # If disabled, the refresh token will never expire.

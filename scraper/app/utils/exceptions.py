@@ -1,0 +1,2 @@
+class RowNotFoundError(LookupError):
+    pass

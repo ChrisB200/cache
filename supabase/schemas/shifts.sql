@@ -1,10 +1,11 @@
-CREATE TABLE stores (
+CREATE TABLE shifts (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  open TIME NOT NULL,
-  close TIME NOT NULL,
-  workplace workplace NOT NULL,
+  date DATE NOT NULL,
+  start TIMESTAMPTZ NOT NULL,
+  finish TIMESTAMPTZ NOT NUll,
+  category shift_category NOT NULL,
+  type shift_type NOT NULL,
   user_id UUID NOT NULL,
-  rate NUMERIC(10, 2) NOT NULL,
 
   FOREIGN KEY ("user_id") REFERENCES public.users(id)
     ON DELETE CASCADE

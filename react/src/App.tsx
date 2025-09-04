@@ -15,6 +15,7 @@ import AuthCallback from "./pages/AuthCallback/AuthCallback";
 import ProfileSetup from "./pages/ProfileSetup/ProfileSetup";
 import Banking from "./pages/Banking/Banking";
 import { LinkProvider } from "./contexts/LinkContext";
+import Work from "./pages/Work/Work";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/onboarding" element={<CompleteSignup />} />
                 <Route path="/profile/setup" element={<ProfileSetup />} />
                 <Route path="/banking" element={<Banking />} />
+                <Route path="/work" element={<Work />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
