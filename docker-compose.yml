@@ -1,0 +1,27 @@
+version: "3"
+services:
+  cache-api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: cache-api
+    restart: always
+    ports:
+      - "7000:8000"
+    networks:
+      - app-network
+
+  cache-react:
+    build:
+      context: ./react
+      dockerfile: Dockerfile
+    container_name: cache-react
+    restart: always
+    ports:
+      - "7001:8000"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
