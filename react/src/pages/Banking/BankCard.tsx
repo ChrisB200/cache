@@ -64,7 +64,7 @@ function BankCard({ bankAccount }: { bankAccount: BankAccount }) {
             <div className="size-12">
               <img
                 className="size-full"
-                src={getImage(bankAccount.institution.logo_url)}
+                src={getImage(bankAccount.institution.logoUrl)}
               />
             </div>
             <p>{formatInstitutionName(bankAccount.institution.name)}</p>
@@ -93,7 +93,7 @@ function BankCard({ bankAccount }: { bankAccount: BankAccount }) {
         {bankAccount.expired ? (
           <Button
             variant="destructive"
-            onClick={() => generateToken(bankAccount.access_token)}
+            onClick={() => generateToken(bankAccount.accessToken)}
           >
             Fix
           </Button>

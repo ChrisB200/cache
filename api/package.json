@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "codegen": "npx kysely-codegen --out-file ./src/types/db.d.ts --camel-case"
+    "codegen": "npx kysely-codegen --out-file ./src/types/db.d.ts --camel-case",
+    "build": "tsc",
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +21,7 @@
     "kysely-codegen": "^0.18.5",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
+    "tsup": "^8.5.0",
     "typescript": "^5.8.3"
   },
   "dependencies": {

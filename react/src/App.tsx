@@ -16,6 +16,8 @@ import ProfileSetup from "./pages/ProfileSetup/ProfileSetup";
 import Banking from "./pages/Banking/Banking";
 import { LinkProvider } from "./contexts/LinkContext";
 import Work from "./pages/Work/Work";
+import { ShiftProvider } from "./contexts/ShiftContext";
+import { DateProvider } from "./pages/Work/DateContext";
 
 function App() {
   return (
@@ -23,22 +25,26 @@ function App() {
       <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
         <FormStoreProvider>
           <LinkProvider>
-            <Routes>
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/verify" element={<Verify />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/auth/callback" element={<AuthCallback />} />
-              <Route element={<ProtectedRoute />}>
-                <Route path="/" element={<Home />} />
-                <Route path="/onboarding" element={<CompleteSignup />} />
-                <Route path="/profile/setup" element={<ProfileSetup />} />
-                <Route path="/banking" element={<Banking />} />
-                <Route path="/work" element={<Work />} />
-              </Route>
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <DateProvider>
+              <ShiftProvider>
+                <Routes>
+                  <Route path="/signup" element={<Signup />} />
+                  <Route path="/verify" element={<Verify />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+                  <Route path="/reset-password" element={<ResetPassword />} />
+                  <Route path="/auth/callback" element={<AuthCallback />} />
+                  <Route element={<ProtectedRoute />}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/onboarding" element={<CompleteSignup />} />
+                    <Route path="/profile/setup" element={<ProfileSetup />} />
+                    <Route path="/banking" element={<Banking />} />
+                    <Route path="/work" element={<Work />} />
+                  </Route>
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </ShiftProvider>
+            </DateProvider>
           </LinkProvider>
         </FormStoreProvider>
       </ThemeProvider>

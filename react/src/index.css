@@ -157,7 +157,81 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.day {
+  position: relative;
+  display: inline-block;
+  aspect-ratio: 1;
+  text-align: center;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.day:hover {
+  cursor: pointer;
+}
+
+.day::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -59%);
+  width: 120%;
+  transition: background-color 0.1s;
+  z-index: -1;
+  aspect-ratio: 1/1;
+}
+
+.day:hover::before {
+  background-color: var(--primary);
+}
+
+.shift::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25%;
+  height: 25%;
+  z-index: -1;
+  background-color: var(--accent-red);
+}
+
+.today {
+  color: var(--secondary);
+}
+
+.today::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -59%);
+  background-color: var(--foreground);
+  width: 120%;
+  aspect-ratio: 1/1;
+  z-index: -1;
+}
+
+.selected::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -59%);
+  width: 120%;
+  aspect-ratio: 1;
+  z-index: -1;
+  background-color: var(--background);
 }

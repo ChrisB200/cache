@@ -120,9 +120,8 @@ def parse_regular_shift(hours, week_start, count):
         "date": date,
         "start": start_dt,  # no .timestamp()
         "finish": end_dt,  # no .timestamp()
-        "rate": 12.05,
+        "rate": 12.80,
         "category": "work",
-        "hours": round((end_dt - start_dt).total_seconds() / 3600, 2),
     }
 
 
@@ -134,8 +133,7 @@ def parse_holiday_shift(week_start, count):
         "start": 0,
         "finish": 0,
         "category": "holiday",
-        "hours": 8,
-        "rate": 12.05,
+        "rate": 12.80,
     }
 
     logger.debug(f"Scraped shift: {str(shift)} for user")
@@ -227,14 +225,15 @@ def get_existing_shifts(start_date, end_date, user_id, shift_type, cur):
 def add_shift(new_shift, shift_type, cur, user_id):
     cur.execute(
         """
-        INSERT INTO public.shifts (date, start, finish, category, type, user_id)
-        VALUES (%s, %s, %s, %s, %s, %s)
+        INSERT INTO public.shifts (date, start, finish, category, rate, type, user_id)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
     """,
         (
             new_shift["date"],
             new_shift["start"],
             new_shift["finish"],
             new_shift["category"],
+            new_shift["rate"],
             shift_type,
             user_id,
         ),
@@ -246,6 +245,7 @@ def update_shift(existing, new_shift, cur):
     start = new_shift.get("start")
     finish = new_shift.get("finish")
     category = new_shift.get("category")
+    rate = new_shift.get("rate")
 
     if not date or not start or not finish or not category:
         raise TypeError("new shift doesn't have the correct values")
@@ -253,10 +253,10 @@ def update_shift(existing, new_shift, cur):
     cur.execute(
         """
         UPDATE public.shifts
-        SET date = %s, start = %s, finish = %s, category = %s
+        SET date = %s, start = %s, finish = %s, category = %s, rate = %s
         WHERE id = %s
     """,
-        (date, start, finish, category, existing["id"]),
+        (date, start, finish, category, rate, existing["id"]),
     )
 
 

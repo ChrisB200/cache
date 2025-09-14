@@ -24,7 +24,7 @@ function BankCardDropdown({ card }: { card: BankAccount }) {
           <DropdownMenuItem onClick={() => setNicknameOpen(true)}>
             Change Nickname
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => generateToken(card.access_token)}>
+          <DropdownMenuItem onClick={() => generateToken(card.accessToken)}>
             Manage
           </DropdownMenuItem>
         </DropdownMenuContent>

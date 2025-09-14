@@ -1,24 +1,30 @@
-version: "3"
 services:
-  cache-api:
+  redis:
+    image: redis:7
+    container_name: cache-redis
+    command: [ "redis-server", "--requirepass", "${REDIS_PASSWORD}" ]
+    networks:
+      - app-network
+
+  api:
     build:
       context: ./api
       dockerfile: Dockerfile
     container_name: cache-api
     restart: always
     ports:
-      - "7000:8000"
+      - "7001:8000"
     networks:
       - app-network
 
-  cache-react:
+  react:
     build:
       context: ./react
       dockerfile: Dockerfile
     container_name: cache-react
     restart: always
     ports:
-      - "7001:8000"
+      - "7002:3000"
     networks:
       - app-network
 

@@ -9,6 +9,10 @@ function getEnvVar(key: string): string {
   }
   return value;
 }
+const REDIS_HOST = getEnvVar("REDIS_HOST");
+const REDIS_PASSWORD = getEnvVar("REDIS_PASSWORD");
+const REDIS_PORT = getEnvVar("REDIS_PORT");
+const REDIS_DATABASE = getEnvVar("REDIS_DATABASE");
 
 const env = {
   PORT: Number(process.env.PORT) || 3000,
@@ -28,6 +32,7 @@ const env = {
   ENCRYPTION_KEY: getEnvVar("ENCRYPTION_KEY"),
   PLAID_CLIENT_ID: getEnvVar("PLAID_CLIENT_ID"),
   PLAID_SECRET: getEnvVar("PLAID_SECRET"),
+  REDIS_URL: `redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}/${REDIS_DATABASE}`,
 };
 
 export default env;

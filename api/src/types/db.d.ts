@@ -45,6 +45,8 @@ export type ShiftCategory = "holiday" | "work";
 
 export type ShiftType = "schedule" | "timecard";
 
+export type StorageBuckettype = "ANALYTICS" | "STANDARD";
+
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
 export type Workplace = "FIVEGUYS";
@@ -388,7 +390,7 @@ export interface ExtensionsPgStatStatementsInfo {
 
 export interface NetHttpRequestQueue {
   body: Buffer | null;
-  headers: Json | null;
+  headers: Json;
   id: Generated<Int8>;
   method: string;
   timeoutMilliseconds: number;
@@ -436,7 +438,9 @@ export interface Shifts {
   category: ShiftCategory;
   date: Timestamp;
   finish: Timestamp;
+  hours: Generated<Numeric | null>;
   id: Generated<string>;
+  rate: Numeric;
   start: Timestamp;
   type: ShiftType;
   userId: string;
@@ -455,7 +459,34 @@ export interface StorageBuckets {
   owner: string | null;
   ownerId: string | null;
   public: Generated<boolean | null>;
+  type: Generated<StorageBuckettype>;
   updatedAt: Generated<Timestamp | null>;
+}
+
+export interface StorageBucketsAnalytics {
+  createdAt: Generated<Timestamp>;
+  format: Generated<string>;
+  id: string;
+  type: Generated<StorageBuckettype>;
+  updatedAt: Generated<Timestamp>;
+}
+
+export interface StorageIcebergNamespaces {
+  bucketId: string;
+  createdAt: Generated<Timestamp>;
+  id: Generated<string>;
+  name: string;
+  updatedAt: Generated<Timestamp>;
+}
+
+export interface StorageIcebergTables {
+  bucketId: string;
+  createdAt: Generated<Timestamp>;
+  id: Generated<string>;
+  location: string;
+  name: string;
+  namespaceId: string;
+  updatedAt: Generated<Timestamp>;
 }
 
 export interface StorageMigrations {
@@ -470,6 +501,7 @@ export interface StorageObjects {
   createdAt: Generated<Timestamp | null>;
   id: Generated<string>;
   lastAccessedAt: Generated<Timestamp | null>;
+  level: number | null;
   metadata: Json | null;
   name: string | null;
   /**
@@ -481,6 +513,14 @@ export interface StorageObjects {
   updatedAt: Generated<Timestamp | null>;
   userMetadata: Json | null;
   version: string | null;
+}
+
+export interface StoragePrefixes {
+  bucketId: string;
+  createdAt: Generated<Timestamp | null>;
+  level: Generated<number>;
+  name: string;
+  updatedAt: Generated<Timestamp | null>;
 }
 
 export interface StorageS3MultipartUploads {
@@ -598,8 +638,12 @@ export interface DB {
   "realtime.subscription": RealtimeSubscription;
   shifts: Shifts;
   "storage.buckets": StorageBuckets;
+  "storage.bucketsAnalytics": StorageBucketsAnalytics;
+  "storage.icebergNamespaces": StorageIcebergNamespaces;
+  "storage.icebergTables": StorageIcebergTables;
   "storage.migrations": StorageMigrations;
   "storage.objects": StorageObjects;
+  "storage.prefixes": StoragePrefixes;
   "storage.s3MultipartUploads": StorageS3MultipartUploads;
   "storage.s3MultipartUploadsParts": StorageS3MultipartUploadsParts;
   stores: Stores;

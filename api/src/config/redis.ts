@@ -1,16 +1,10 @@
 import { createClient } from "redis";
+import env from "./constants";
 
-export const redisClient = createClient();
+console.log(env.REDIS_URL);
+export const redisClient = createClient({ url: env.REDIS_URL });
 redisClient.on("error", (err) => console.error("Redis Client Error", err));
-
-export const pubClient = redisClient.duplicate();
-pubClient.on("error", (err) => console.error("Redis PubClient Error", err));
-
-export const subClient = redisClient.duplicate();
-subClient.on("error", (err) => console.error("Redis SubClient Error", err));
 
 export async function connectRedisClients() {
   await redisClient.connect();
-  await pubClient.connect();
-  await subClient.connect();
 }
